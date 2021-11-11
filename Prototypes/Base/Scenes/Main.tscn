@@ -1,0 +1,46 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Assets/art/Untitled.png" type="Texture" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 400, 7.99994 )
+
+[node name="Main" type="Node"]
+
+[node name="Ground" type="StaticBody2D" parent="." groups=[
+"ground",
+]]
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Ground"]
+position = Vector2( 528, 552 )
+scale = Vector2( 0.694444, 0.0246915 )
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
+position = Vector2( 528, 552 )
+shape = SubResource( 1 )
+
+[node name="Ground2" type="StaticBody2D" parent="." groups=[
+"ground",
+]]
+position = Vector2( 200, -40 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Ground2"]
+position = Vector2( 528, 552 )
+scale = Vector2( 0.694444, 0.0246915 )
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground2"]
+position = Vector2( 528, 552 )
+shape = SubResource( 1 )
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+position = Vector2( 296, 528 )
+scale = Vector2( 0.401357, 0.44 )
