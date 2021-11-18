@@ -5,13 +5,16 @@ const MAX_FALL_SPEED = 120.5
 const MAX_SPEED = 7
 const JUMP_FORCE = 30
 const ACCEL = 1
-const MAX_BULLET_STRENGTH = 2
+const MAX_BULLET_STRENGTH = 1
+
 var facing = Vector2(1,0)
 var bullet_direction = Vector2()
 var bullet_strength = 0
+var hp := 10
 var jawbreaker = preload("res://Scenes/Jawbreaker.tscn")
 var equiped_ammo = jawbreaker
 var can_shoot := true
+var invulnerable := false
 
 var motion = Vector2()
 
@@ -29,8 +32,8 @@ func _physics_process(delta):
 	if(Input.is_action_pressed("shoot")):
 		if $ShootBar.visible && can_shoot:
 			if bullet_strength <= MAX_BULLET_STRENGTH:
-				bullet_strength += delta
-				$ShootBar.scale.x = bullet_strength/40
+				bullet_strength += delta/2
+				$ShootBar.scale.x = bullet_strength/20
 	
 	if(Input.is_action_just_released("shoot")):
 		if bullet_strength != 0:
@@ -70,7 +73,6 @@ func _physics_process(delta):
 	
 	if bullet_direction.y == 0:
 		bullet_direction.x = facing.x
-		#bullet_direction.y = -0.25
 	else:
 		bullet_direction.x = 0
 	
@@ -88,6 +90,18 @@ func shoot(ammo, strength):
 		can_shoot = false
 		$AmmoTimer.start(bullet.COOLDOWN)
 
+func take_damage(damage, direction):
+	hp -= damage
+	motion.x += direction.x * 4
+	if hp <= 0:
+		get_tree().reload_current_scene()
+	invulnerable = true
+	$AnimatedSprite.playing = true
+	yield($AnimatedSprite, "animation_finished")
+	$AnimatedSprite.playing = false
+	$AnimatedSprite.frame = 0
+	$InvulnerabilityTimer.start()
+
 func _on_AmmoTimer_timeout():
 	can_shoot = true
 
@@ -96,7 +110,8 @@ func _on_Area2D_body_entered(body):
 	if body.is_in_group("destructable"):
 		body.can_reappear = false
 	if body.is_in_group("enemy"):
-		print("ouch")
+		if !invulnerable:
+			take_damage(2, body.motion)
 
 
 func _on_Area2D_body_exited(body):
@@ -104,3 +119,7 @@ func _on_Area2D_body_exited(body):
 		body.can_reappear = true
 		if body.should_reappear:
 			body.reappear()
+
+
+func _on_InvulnerabilityTimer_timeout():
+	invulnerable = false
