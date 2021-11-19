@@ -11,9 +11,11 @@ var facing = Vector2(1,0)
 var bullet_direction = Vector2()
 var bullet_strength = 0
 var hp := 10
-var equiped_ammo
+var popping_candy = preload("res://Scenes/PoppingCandy.tscn")
+var equiped_ammo = popping_candy
 var can_shoot := true
 var invulnerable := false
+var bullet
 
 var motion = Vector2()
 
@@ -24,7 +26,7 @@ func _physics_process(delta):
 	
 	if(Input.is_action_just_pressed("shoot")):
 		if can_shoot && equiped_ammo != null:
-			shoot(equiped_ammo, equiped_ammo.strength)
+			shoot(equiped_ammo)
 	
 	motion.y += get_parent().GRAVITY/2 * pow(delta * 45,2)
 	
@@ -64,12 +66,14 @@ func _physics_process(delta):
 	if global_position.y > get_parent().screen_size.y:
 		get_tree().reload_current_scene()
 
-func shoot(ammo, strength):
+func shoot(ammo):
+	if ammo == popping_candy:
+		if bullet:
+			bullet.queue_free()
 	if can_shoot:
-		var bullet = ammo.instance()
-		get_tree().current_scene.add_child(bullet)
+		bullet = ammo.instance()
+		add_child(bullet)
 		bullet.global_transform = global_transform
-		bullet_direction = bullet_direction.normalized() * bullet_strength
 		bullet.launch(bullet_direction)
 		can_shoot = false
 		$AmmoTimer.start(bullet.COOLDOWN)
@@ -89,7 +93,6 @@ func take_damage(damage, direction):
 func _on_AmmoTimer_timeout():
 	can_shoot = true
 
-
 func _on_Area2D_body_entered(body):
 	if body.is_in_group("destructable"):
 		body.can_reappear = false
@@ -97,13 +100,11 @@ func _on_Area2D_body_entered(body):
 		if !invulnerable:
 			take_damage(2, body.motion)
 
-
 func _on_Area2D_body_exited(body):
 	if body.is_in_group("destructable"):
 		body.can_reappear = true
 		if body.should_reappear:
 			body.reappear()
-
 
 func _on_InvulnerabilityTimer_timeout():
 	invulnerable = false
