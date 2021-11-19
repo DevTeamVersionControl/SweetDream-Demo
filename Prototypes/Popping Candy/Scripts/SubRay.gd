@@ -12,6 +12,6 @@ func activate():
 		body = get_collider()
 		if body:
 			if body.is_in_group("enemy"):
-				body.take_damage(1)
-			line.scale.y = (collision-get_parent().global_position).length()/50
+				body.take_damage(0.5)
+			line.scale.y = (collision-get_parent().global_position).length()/(50)
 			explosion.global_position = collision

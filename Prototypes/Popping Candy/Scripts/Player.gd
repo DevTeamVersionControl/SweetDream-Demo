@@ -2,11 +2,11 @@
 extends KinematicBody2D
 
 const MAX_FALL_SPEED = 120.5
-const MAX_SPEED = 7
 const JUMP_FORCE = 30
 const ACCEL = 1
 const MAX_BULLET_STRENGTH = 1
 
+var max_speed = 7
 var facing = Vector2(1,0)
 var bullet_direction = Vector2()
 var bullet_strength = 0
@@ -41,15 +41,30 @@ func _physics_process(delta):
 		motion.y = MAX_FALL_SPEED
 	
 	if (Input.is_action_pressed("right")):
-		motion.x += ACCEL
-		facing.x = 1
+		if bullet:
+			if bullet.locked == true:
+				motion.x += ACCEL
+				max_speed = 7/2
+			else:
+				motion.x += ACCEL
+				facing.x = 1
+		else:
+			motion.x += ACCEL
+			facing.x = 1
 	elif (Input.is_action_pressed("left")):
-		motion.x -= ACCEL
-		facing.x = -1
+		if bullet:
+			if bullet.locked == true:
+				motion.x -= ACCEL
+				max_speed = 7/2
+			else:
+				motion.x -= ACCEL
+				facing.x = -1
+		else:
+			motion.x -= ACCEL
+			facing.x = -1
 	else:
 		motion.x = lerp(motion.x, 0, 0.2)
-	
-	motion.x = clamp(motion.x, -MAX_SPEED, MAX_SPEED)
+	motion.x = clamp(motion.x, -max_speed, max_speed)
 	
 	if is_on_floor():
 		if (Input.is_action_just_pressed("jump")):
