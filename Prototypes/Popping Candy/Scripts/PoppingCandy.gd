@@ -22,7 +22,7 @@ func _process(_delta):
 				can_shoot = false
 				ray.explosion.visible = true
 				ray.line.visible = true
-			get_parent().motion.x-= 1 * get_parent().facing.x
+			get_parent().motion.x-= rays.size() * get_parent().facing.x * 0.5
 		else:
 			locked = false
 			if !charging:
@@ -47,6 +47,9 @@ func launch(direction):
 		center_pos = PI
 	rotate(center_pos)
 
+func get_player_max_speed(initial_max_speed):
+	return initial_max_speed / (rays.size() * 0.4 + 1)
+
 func create_sub_ray(relative_rotation):
 	var temp_ray = sub_ray.instance()
 	add_child(temp_ray)
@@ -70,7 +73,6 @@ func subray_deleter():
 
 func _on_Timer_timeout():
 	can_shoot = true
-
 
 func _on_ChargeTime_timeout():
 	charging = false
