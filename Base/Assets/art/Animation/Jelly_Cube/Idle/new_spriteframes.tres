@@ -91,5 +91,5 @@ animations = [ {
 "frames": [ ExtResource( 34 ), ExtResource( 36 ), ExtResource( 28 ), ExtResource( 47 ), ExtResource( 51 ), ExtResource( 58 ), ExtResource( 56 ), ExtResource( 45 ), ExtResource( 50 ), ExtResource( 52 ), ExtResource( 54 ), ExtResource( 44 ), ExtResource( 59 ), ExtResource( 60 ), ExtResource( 46 ), ExtResource( 49 ), ExtResource( 55 ), ExtResource( 57 ), ExtResource( 48 ), ExtResource( 53 ) ],
 "loop": true,
 "name": "Jump",
-"speed": 5.0
+"speed": 8.0
 } ]

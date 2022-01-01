@@ -19,7 +19,7 @@ scale = Vector2( 8, 0.5 )
 position = Vector2( 32, 328 )
 
 [node name="MobTimer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 10.0
 autostart = true
 
 [node name="Position2D" type="Position2D" parent="."]
