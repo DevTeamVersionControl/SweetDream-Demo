@@ -4,9 +4,10 @@ const PIXELS_PER_METER = 16
 
 var motion = Vector2()
 var target
+var facing_right := true
 var is_on_floor:bool
 export var jump_lenght = 5
-export var jump_height = 8
+export var jump_height = 7.1
 export var hp = 10
 
 func _physics_process(delta):
@@ -22,10 +23,14 @@ func pulse():
 	motion = target.global_position - global_position
 	motion.x = motion.normalized().x * jump_lenght
 	motion.y = -jump_height
-	if motion.x > 0:
-		scale.x = -1
+	if facing_right:
+		if motion.x < 0:
+			scale.x = -1
+			facing_right = false
 	else:
-		scale.x = 1
+		if motion.x > 0:
+			scale.x = -1
+			facing_right = true
 	if (global_position.y > get_parent().screen_size.y || global_position.x > get_parent().screen_size.x || global_position.x < 0):
 		queue_free()
 	yield($Sprite, "animation_finished")
