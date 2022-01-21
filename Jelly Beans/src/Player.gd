@@ -3,14 +3,14 @@ extends KinematicBody2D
 
 const PIXELS_PER_METER = 16
 const UP = Vector2(0,-1)
-const GRAVITY = 9.8
-const MAX_FALL_SPEED = 12.5
-const MAX_SPEED = 7
-const JUMP_FORCE = 50
-const ACCEL = 1.25
+export var GRAVITY = 9.8
+export var MAX_FALL_SPEED = 12.5
+export var MAX_SPEED = 7
+export var JUMP_FORCE = 50
+export var ACCEL = 1.25
 var facing = Vector2()
 var bullet_direction = Vector2()
-var jawbreaker = preload("res://Scenes/Jawbreaker.tscn")
+var jelly_bean = preload("res://Scenes/JellyBean.tscn")
 var can_shoot = true
 var screen_size
 
@@ -22,8 +22,10 @@ func _ready():
 func _physics_process(_delta):
 	
 	if(Input.is_action_just_pressed("shoot")):
-		shoot(jawbreaker)
+		shoot(jelly_bean)
 
+	if Input.is_action_just_pressed("quit_game"):
+		get_tree().quit()
 	
 	motion.y += GRAVITY
 	

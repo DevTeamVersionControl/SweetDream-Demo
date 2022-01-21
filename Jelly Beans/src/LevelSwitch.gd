@@ -1,6 +1,6 @@
 extends Area2D
 
-var next_level = preload("res://Scenes/Levels/Level2.tscn")
+export var next_level:PackedScene
 
 
 func _on_LevelSwitch_body_entered(body):
