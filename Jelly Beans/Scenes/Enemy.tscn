@@ -23,7 +23,7 @@ position = Vector2( 0, -3 )
 scale = Vector2( 0.22, 0.22 )
 frames = ExtResource( 1 )
 animation = "Idle"
-frame = 12
+frame = 6
 playing = true
 
 [node name="PulseTimer" type="Timer" parent="."]

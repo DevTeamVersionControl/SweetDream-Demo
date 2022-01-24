@@ -98,7 +98,8 @@ func _on_Area2D_body_entered(body):
 	if body.is_in_group("destructable"):
 		body.can_reappear = false
 	if body.is_in_group("enemy"):
-		take_damage(1, body.motion)
+		if !invulnerable:
+			take_damage(1, body.motion)
 
 
 func _on_Area2D_body_exited(body):
@@ -106,3 +107,15 @@ func _on_Area2D_body_exited(body):
 		body.can_reappear = true
 		if body.should_reappear:
 			body.reappear()
+
+func _on_BounceBox_area_entered(area):
+	if motion.y > 0 && !invulnerable:
+		motion.y *= -1.4
+		motion.x *= 2
+		if area.get_parent().is_in_group("enemy"):
+			invulnerable = true
+			$InvulnerabilityTimer.start(0.5)
+
+
+func _on_InvulnerabilityTimer_timeout():
+	invulnerable = false
