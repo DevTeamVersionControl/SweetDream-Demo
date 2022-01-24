@@ -47,6 +47,6 @@ func _on_Area2D_body_entered(body):
 		body.disappear()
 	if body.is_in_group("enemy"):
 		body.take_damage(5)
-		body.motion = (body.global_position - global_position) * 2
+		body.motion = (body.global_position - global_position)
 	if body.is_in_group("player"):
 		body.motion = (body.global_position - global_position) * 2

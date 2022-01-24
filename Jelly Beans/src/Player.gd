@@ -8,11 +8,13 @@ export var MAX_FALL_SPEED = 12.5
 export var MAX_SPEED = 7
 export var JUMP_FORCE = 50
 export var ACCEL = 1.25
+export var hp := 10
 var facing = Vector2()
 var bullet_direction = Vector2()
 var jelly_bean = preload("res://Scenes/JellyBean.tscn")
 var can_shoot = true
 var screen_size
+var invulnerable := false
 
 var motion = Vector2()
 
@@ -80,12 +82,23 @@ func shoot(ammo):
 func _on_AmmoTimer_timeout():
 	can_shoot = true
 
+func take_damage(damage, direction):
+	hp -= damage
+	motion.x += direction.x * 4
+	if hp <= 0:
+		get_tree().reload_current_scene()
+	invulnerable = true
+	$AnimatedSprite.playing = true
+	yield($AnimatedSprite, "animation_finished")
+	$AnimatedSprite.playing = false
+	$AnimatedSprite.frame = 0
+	invulnerable = false
 
 func _on_Area2D_body_entered(body):
 	if body.is_in_group("destructable"):
 		body.can_reappear = false
 	if body.is_in_group("enemy"):
-		print("ouch")
+		take_damage(1, body.motion)
 
 
 func _on_Area2D_body_exited(body):
