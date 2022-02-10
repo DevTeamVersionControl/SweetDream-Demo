@@ -1,0 +1,43 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://Scripts/SubRay.gd" type="Script" id=1]
+[ext_resource path="res://Assets/art/jawbreaker.png" type="Texture" id=2]
+[ext_resource path="res://Assets/art/Animation/1080p_Ammo/1080p_Pop_Rocks_Ammo/Pop_Rocks_Ammo0001.png" type="Texture" id=3]
+[ext_resource path="res://Assets/art/Animation/1080p_Ammo/1080p_Pop_Rocks_Ammo/Pop_Rocks_Ammo0031.png" type="Texture" id=4]
+[ext_resource path="res://Assets/art/Animation/1080p_Ammo/1080p_Pop_Rocks_Ammo/Pop_Rocks_Ammo0025.png" type="Texture" id=5]
+[ext_resource path="res://Assets/art/Animation/1080p_Ammo/1080p_Pop_Rocks_Ammo/Pop_Rocks_Ammo0021.png" type="Texture" id=6]
+[ext_resource path="res://Assets/art/Animation/1080p_Ammo/1080p_Pop_Rocks_Ammo/Pop_Rocks_Ammo0007.png" type="Texture" id=7]
+[ext_resource path="res://Assets/art/Animation/1080p_Ammo/1080p_Pop_Rocks_Ammo/Pop_Rocks_Ammo0028.png" type="Texture" id=8]
+[ext_resource path="res://Assets/art/Animation/1080p_Ammo/1080p_Pop_Rocks_Ammo/Pop_Rocks_Ammo0004.png" type="Texture" id=9]
+[ext_resource path="res://Assets/art/Animation/1080p_Ammo/1080p_Pop_Rocks_Ammo/Pop_Rocks_Ammo0018.png" type="Texture" id=10]
+[ext_resource path="res://Assets/art/Animation/1080p_Ammo/1080p_Pop_Rocks_Ammo/Pop_Rocks_Ammo0013.png" type="Texture" id=11]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 3 ), ExtResource( 9 ), ExtResource( 7 ), ExtResource( 11 ), ExtResource( 10 ), ExtResource( 6 ), ExtResource( 5 ), ExtResource( 8 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "default",
+"speed": 16.0
+} ]
+
+[node name="SubRay" type="RayCast2D"]
+rotation = -1.5708
+enabled = true
+cast_to = Vector2( 0, 300 )
+collision_mask = 6
+script = ExtResource( 1 )
+
+[node name="Line" type="AnimatedSprite" parent="."]
+position = Vector2( 271.001, -366.961 )
+rotation = 1.5708
+scale = Vector2( 0.55518, 0.5 )
+frames = SubResource( 1 )
+frame = 8
+playing = true
+centered = false
+
+[node name="Impact" type="Sprite" parent="."]
+visible = false
+modulate = Color( 1, 0.772549, 0, 1 )
+scale = Vector2( 0.08, 0.08 )
+texture = ExtResource( 2 )

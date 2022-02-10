@@ -8,10 +8,11 @@ var screen_size
 
 var mob = preload("res://Scenes/Enemy.tscn")
 
-
+func _physics_process(delta):
+	$CanvasLayer/Label.set_text("FPS " + String(int(1/delta)))
 func _ready():
 	screen_size = get_viewport_rect().size
-
+	
 func _on_MobTimer_timeout():
 	var new_mob = mob.instance()
 	add_child(new_mob)
