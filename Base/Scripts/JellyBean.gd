@@ -1,9 +1,13 @@
 extends KinematicBody2D
 
-const THROW_VELOCITY = Vector2(15,80)
+export var THROW_VELOCITY = 80
+export var THROW_ANGLE = 30
 const PIXELS_PER_METER = 16
-const GRAVITY = 9.8 * 8
+export var GRAVITY = 9.8
 const COOLDOWN = 1
+export var enemy_knockback = 10
+export var player_knockback = 5
+export var player_explosion_knockback = 10
 
 export var strech_speed = 60
 
@@ -13,21 +17,33 @@ var can_move := true
 func _physics_process(delta):
 	if can_move:
 		velocity.y += GRAVITY * delta
-		if velocity.x > 0:
-			rotation = velocity.angle()
-		else: 
-			rotation = PI + velocity.angle()
-		if velocity.length() < strech_speed:
+		#if velocity.length() > 5 || velocity.length() < -5:
+		#	if velocity.x > 0:
+		#		rotation = velocity.angle()
+		#	else: 
+		#		rotation = PI + velocity.angle()
+		if velocity.length() < strech_speed && velocity.length() > -strech_speed:
 			$AnimatedSprite.frame = 0
 		else:
 			$AnimatedSprite.frame = 1
 		var collision = move_and_collide(velocity*delta*PIXELS_PER_METER)
 		if collision != null:
-			explode()
+			_on_inpact(collision.normal)
 			
-func launch(direction):
-	velocity = THROW_VELOCITY * direction
-	$Timer.start()
+func launch(direction, strength):
+	if direction.x == 1:
+		velocity = Vector2(cos(deg2rad(THROW_ANGLE)),sin(deg2rad(THROW_ANGLE))) * THROW_VELOCITY
+	elif direction.x == -1:
+		velocity = Vector2(cos(deg2rad(180 - THROW_ANGLE)),sin(deg2rad(180 - THROW_ANGLE))) * THROW_VELOCITY
+	velocity.y *= -1
+	get_parent().motion += -velocity.normalized() * player_knockback
+	$ExplosionTimer.start()
+	var scene = get_tree().current_scene
+	var pos = global_position
+	get_parent().remove_child(self)
+	scene.add_child(self)
+	global_position = pos
+
 func _on_inpact(normal):
 	velocity = velocity.bounce(normal)
 	velocity *= 0.5
@@ -46,7 +62,10 @@ func _on_Area2D_body_entered(body):
 	if body.is_in_group("destructable"):
 		body.disappear()
 	if body.is_in_group("enemy"):
-		body.take_damage(5)
-		body.motion = (body.global_position - global_position)
+		body.take_damage(5, (body.global_position - global_position).normalized() * enemy_knockback)
 	if body.is_in_group("player"):
-		body.motion = (body.global_position - global_position) * 2
+		body.motion = (body.global_position - global_position).normalized() * player_explosion_knockback
+
+
+func _on_Timer_timeout():
+	explode()

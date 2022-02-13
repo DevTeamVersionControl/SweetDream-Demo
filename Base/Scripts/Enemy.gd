@@ -48,8 +48,9 @@ func pulse():
 	yield($Sprite, "animation_finished")
 	$Sprite.animation = "Idle"
 	
-func take_damage(damage):
+func take_damage(damage, knockback):
 	hp -= damage
+	motion += knockback
 	if hp <= 0:
 		$Sprite.animation = "Death"
 		yield($Sprite, "animation_finished")

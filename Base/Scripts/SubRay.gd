@@ -1,4 +1,3 @@
-#https://www.youtube.com/watch?v=lNADi7kTDJ4
 extends RayCast2D
 
 var body
@@ -12,6 +11,7 @@ func activate():
 		body = get_collider()
 		if body:
 			if body.is_in_group("enemy"):
-				body.take_damage(0.5)
+				body.take_damage(0.5, Vector2.RIGHT.rotated(rotation) * get_parent().enemy_knockback)
+				print(Vector2.RIGHT.rotated(rotation + PI/2) * get_parent().enemy_knockback)
 			#line.scale.x = (collision-get_parent().global_position).length()/(150)
 			#explosion.global_position = collision

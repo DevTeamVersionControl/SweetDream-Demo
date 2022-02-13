@@ -20,11 +20,12 @@ var icing_gun = preload("res://Scenes/IcingGun.tscn")
 var jawbreaker = preload("res://Scenes/Jawbreaker.tscn")
 var popping_candy = preload("res://Scenes/PoppingCandy.tscn")
 var jelly_bean = preload("res://Scenes/JellyBean.tscn")
-var ammo = [candy_corn,icing_gun,jawbreaker,popping_candy,jelly_bean]
+var ammo = [candy_corn, jelly_bean, popping_candy, jawbreaker, jello]
 var equiped_ammo = 0
 var can_shoot := true
 var invulnerable := false
 var screen_size
+var bullet
 
 var motion = Vector2()
 
@@ -37,42 +38,53 @@ func _physics_process(delta):
 		get_tree().quit()
 	
 	if Input.is_action_just_pressed("ammo_next") && can_shoot:
+		if is_a_parent_of(bullet):
+			bullet.queue_free()
+		bullet = null
 		if equiped_ammo < ammo.size() - 1:
 			equiped_ammo += 1
 		else:
 			equiped_ammo = 0
-		print(equiped_ammo)
 	if Input.is_action_just_pressed("ammo_last") && can_shoot:
+		if is_a_parent_of(bullet):
+			bullet.queue_free()
+		bullet = null
 		if equiped_ammo > 0:
 			equiped_ammo -= 1
 		else:
 			equiped_ammo = ammo.size() - 1
-		print(equiped_ammo)
 	
 	if(Input.is_action_just_pressed("shoot")):
-		$ShootBar.visible = true
+		if (ammo[equiped_ammo] == jawbreaker || ammo[equiped_ammo] == jello) && can_shoot:
+			$ShootBar.visible = true
+			bullet_strength = 0.2
+		elif (ammo[equiped_ammo] == icing_gun || ammo[equiped_ammo] == popping_candy) && can_shoot:
+			if bullet == null:
+				shoot(ammo[equiped_ammo], bullet_strength)
+			else:
+				if bullet.rotation_degrees == -90 && facing.x != 1:
+					bullet.queue_free()
+					shoot(ammo[equiped_ammo], bullet_strength)
+				elif bullet.rotation_degrees == 90 && facing.x != -1:
+					bullet.queue_free()
+					shoot(ammo[equiped_ammo], bullet_strength)
+		elif can_shoot:
+			shoot(ammo[equiped_ammo], bullet_strength)
 	
 	if(Input.is_action_pressed("shoot")):
-		if $ShootBar.visible && can_shoot:
+		if $ShootBar.visible:
 			if bullet_strength <= MAX_BULLET_STRENGTH:
 				bullet_strength += delta/2
 				$ShootBar.scale.x = bullet_strength/20
 	
 	if(Input.is_action_just_released("shoot")):
-		if bullet_strength != 0:
+		if bullet_strength != 0 && $ShootBar.visible:
 			shoot(ammo[equiped_ammo], bullet_strength)
 			bullet_strength = 0
 			$ShootBar.visible = false
 			$ShootBar.scale.x = 0
 	
 	motion.y += gravity/2 * pow(delta * 45,2)
-	
-	if (Input.is_action_pressed("up")):
-		bullet_direction.y = -1
-	elif (Input.is_action_pressed("down")):
-		bullet_direction.y = 1
-	else:
-		bullet_direction.y = 0
 	
 	if motion.y > MAX_FALL_SPEED:
 		motion.y = MAX_FALL_SPEED
@@ -104,14 +116,13 @@ func _physics_process(delta):
 		get_tree().reload_current_scene()
 
 func shoot(ammo, strength):
-	if can_shoot:
-		var bullet = ammo.instance()
-		get_tree().current_scene.add_child(bullet)
-		bullet_direction = bullet_direction.normalized()
-		bullet.global_transform = global_transform
-		bullet.launch(bullet_direction, bullet_strength)
-		can_shoot = false
-		$AmmoTimer.start(bullet.COOLDOWN)
+	bullet = ammo.instance()
+	add_child(bullet)
+	bullet_direction = bullet_direction.normalized()
+	bullet.global_transform = global_transform
+	bullet.launch(bullet_direction, bullet_strength)
+	can_shoot = false
+	$AmmoTimer.start(bullet.COOLDOWN)
 
 func take_damage(damage, direction):
 	hp -= damage

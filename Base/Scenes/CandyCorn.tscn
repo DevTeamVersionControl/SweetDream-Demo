@@ -15,7 +15,7 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[node name="CandyCorn" type="Area2D"]
+[node name="CandyCorn" type="Area2D" groups=["normal"]]
 collision_layer = 2
 collision_mask = 2
 script = ExtResource( 2 )

@@ -21,6 +21,11 @@ func launch(direction, strenght):
 	velocity = launch_direction * strenght
 	velocity.x *= direction.x
 	grow(strenght)
+	var scene = get_tree().current_scene
+	var pos = global_position
+	get_parent().remove_child(self)
+	scene.add_child(self)
+	global_position = pos
 
 func grow(add_volume):
 	volume += add_volume/2
@@ -31,7 +36,7 @@ func _on_Area2D_body_entered(body):
 		if body.is_in_group("jello"):
 			body.grow(volume)
 		else:
-			body.take_damage(volume * velocity.length())
+			body.take_damage(volume * velocity.length(), Vector2.ZERO)
 		queue_free()
 	elif body.is_in_group("floor"):
 		if velocity.y > 0:

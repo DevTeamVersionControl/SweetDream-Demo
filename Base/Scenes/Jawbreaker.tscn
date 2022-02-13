@@ -18,23 +18,26 @@ radius = 12.6935
 [sub_resource type="CircleShape2D" id=2]
 radius = 20.0
 
-[node name="Jawbreaker" type="KinematicBody2D" groups=["heavy"]]
+[node name="Jawbreaker" type="KinematicBody2D" groups=["charging", "heavy"]]
 collision_layer = 0
 collision_mask = 2
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_group_": true
 }
+THROW_VELOCITY = 30
+THROW_ANGLE = 10
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
-scale = Vector2( 0.12, 0.12 )
+scale = Vector2( 0.06, 0.06 )
 frames = SubResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-scale = Vector2( 1.4, 1.4 )
+scale = Vector2( 0.7, 0.7 )
 shape = SubResource( 1 )
 
 [node name="Area2D" type="Area2D" parent="."]
+scale = Vector2( 0.5, 0.5 )
 collision_layer = 0
 collision_mask = 70
 

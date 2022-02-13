@@ -1,6 +1,6 @@
 extends Node2D
 
-const COOLDOWN = 1
+export var COOLDOWN = 0.2
 const SLOWDOWN = 0.5
 const ICING = preload("res://Scenes/Icing.tscn")
 
@@ -14,7 +14,7 @@ func _process(_delta):
 	else:
 		locked = false
 
-func launch(direction):
+func launch(direction, strength):
 	if direction.x > 0:
 		rotation = direction.angle() - PI/16
 	else:

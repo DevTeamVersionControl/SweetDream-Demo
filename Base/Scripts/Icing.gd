@@ -2,6 +2,9 @@ extends Area2D
 
 const THROW_VELOCITY = 20
 const SPLATTER = preload("res://Scenes/IcingSplatter.tscn")
+const PIXELS_PER_METER = 16
+
+export var GRAVITY = 9.8
 
 var velocity := Vector2.ZERO
 
@@ -10,7 +13,7 @@ func launch(angle):
 	velocity = velocity.rotated(angle)
 
 func _process(delta):
-	velocity.y += get_tree().current_scene.GRAVITY * pow(delta, 2) * 15 * get_tree().current_scene.PIXELS_PER_METER
+	velocity.y += GRAVITY * pow(delta, 2) * 15 * PIXELS_PER_METER
 	global_position += velocity
 
 func _on_Area2D_body_entered(body):
