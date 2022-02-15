@@ -1,6 +1,6 @@
 extends Node
 
-var mob = preload("res://Scenes/Enemy.tscn")
+var mob = preload("res://Scenes/NPCs/Enemies/JelloEnemy.tscn")
 
 func _on_MobTimer_timeout():
 	var new_mob = mob.instance()

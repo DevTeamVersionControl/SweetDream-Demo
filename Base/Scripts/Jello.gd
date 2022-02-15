@@ -3,7 +3,7 @@ extends KinematicBody2D
 export var COOLDOWN = 2
 export var CUBE_SPAWN_MIN_VOLUME = 0.4
 const PIXELS_PER_METER = 16
-const JELLO_CUBE = preload("res://Scenes/JelloCube.tscn")
+const JELLO_CUBE = preload("res://Scenes/Environment/JelloCube.tscn")
 
 export var launch_direction = Vector2(20,-10)
 export var gravity := 9.8

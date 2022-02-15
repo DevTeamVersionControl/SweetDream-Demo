@@ -1,7 +1,7 @@
 extends Area2D
 
 const THROW_VELOCITY = 20
-const SPLATTER = preload("res://Scenes/IcingSplatter.tscn")
+const SPLATTER = preload("res://Scenes/Environment/IcingSplatter.tscn")
 const PIXELS_PER_METER = 16
 
 export var GRAVITY = 9.8

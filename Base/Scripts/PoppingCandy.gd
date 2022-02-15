@@ -3,7 +3,7 @@ extends Node2D
 const COOLDOWN = 1
 
 var rays = []
-var sub_ray = load("res://Scenes/SubRay.tscn")
+var sub_ray = load("res://Scenes/Ammo/SubRay.tscn")
 var center_pos
 var can_shoot:= true
 var locked:= false

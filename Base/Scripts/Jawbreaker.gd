@@ -9,6 +9,7 @@ var touched_something:= false
 
 export var enemy_knockback = 10
 export var player_knockback = 10
+export var damage = 5
 
 var velocity = Vector2.ZERO
 
@@ -48,7 +49,7 @@ func _on_Area2D_body_entered(body):
 		body.disappear()
 		queue_free()
 	if body.is_in_group("enemy"):
-		body.take_damage(2.5, velocity.normalized() * enemy_knockback)
+		body.take_damage(damage, velocity.normalized() * enemy_knockback)
 
 func _on_Timer_timeout():
 	queue_free()

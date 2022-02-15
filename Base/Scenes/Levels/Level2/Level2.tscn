@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Scenes/Terrain.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/Environment/Terrain.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/Levels/Level2/Level2.gd" type="Script" id=3]
-[ext_resource path="res://Scenes/FPSCounter.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/Environment/FPSCounter.tscn" type="PackedScene" id=4]
 
 [node name="Level2" type="Node"]
 script = ExtResource( 3 )

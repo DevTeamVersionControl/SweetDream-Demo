@@ -2,7 +2,7 @@ extends Node2D
 
 export var COOLDOWN = 0.2
 const SLOWDOWN = 0.5
-const ICING = preload("res://Scenes/Icing.tscn")
+const ICING = preload("res://Scenes/Ammo/Icing.tscn")
 
 var locked:= false
 

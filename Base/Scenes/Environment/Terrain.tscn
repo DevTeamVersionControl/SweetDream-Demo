@@ -5,9 +5,7 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 64, 64 )
 
-[node name="Terrain" type="StaticBody2D" groups=[
-"floor",
-]]
+[node name="Terrain" type="StaticBody2D" groups=["floor"]]
 position = Vector2( 512, 320 )
 collision_layer = 3
 

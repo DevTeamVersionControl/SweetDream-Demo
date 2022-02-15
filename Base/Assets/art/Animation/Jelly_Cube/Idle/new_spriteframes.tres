@@ -68,9 +68,14 @@ animations = [ {
 "name": "default",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 22 ), ExtResource( 12 ), ExtResource( 20 ), ExtResource( 21 ), ExtResource( 14 ), ExtResource( 10 ) ],
+"frames": [ ExtResource( 34 ), ExtResource( 36 ), ExtResource( 28 ), ExtResource( 47 ), ExtResource( 51 ), ExtResource( 58 ), ExtResource( 56 ), ExtResource( 45 ), ExtResource( 50 ), ExtResource( 52 ), ExtResource( 54 ), ExtResource( 44 ), ExtResource( 59 ), ExtResource( 60 ), ExtResource( 46 ), ExtResource( 49 ), ExtResource( 55 ), ExtResource( 57 ), ExtResource( 48 ), ExtResource( 53 ) ],
 "loop": true,
-"name": "HitOnGround",
+"name": "Jump",
+"speed": 8.0
+}, {
+"frames": [ ExtResource( 17 ), ExtResource( 24 ), ExtResource( 11 ), ExtResource( 40 ), ExtResource( 39 ), ExtResource( 32 ), ExtResource( 41 ), ExtResource( 38 ), ExtResource( 37 ), ExtResource( 30 ), ExtResource( 31 ), ExtResource( 42 ), ExtResource( 33 ), ExtResource( 43 ), ExtResource( 35 ), ExtResource( 27 ), ExtResource( 29 ) ],
+"loop": true,
+"name": "Idle",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 15 ), ExtResource( 18 ), ExtResource( 23 ), ExtResource( 13 ), ExtResource( 16 ) ],
@@ -83,13 +88,8 @@ animations = [ {
 "name": "Death",
 "speed": 8.0
 }, {
-"frames": [ ExtResource( 34 ), ExtResource( 36 ), ExtResource( 28 ), ExtResource( 47 ), ExtResource( 51 ), ExtResource( 58 ), ExtResource( 56 ), ExtResource( 45 ), ExtResource( 50 ), ExtResource( 52 ), ExtResource( 54 ), ExtResource( 44 ), ExtResource( 59 ), ExtResource( 60 ), ExtResource( 46 ), ExtResource( 49 ), ExtResource( 55 ), ExtResource( 57 ), ExtResource( 48 ), ExtResource( 53 ) ],
+"frames": [ ExtResource( 22 ), ExtResource( 12 ), ExtResource( 20 ), ExtResource( 21 ), ExtResource( 14 ), ExtResource( 10 ) ],
 "loop": true,
-"name": "Jump",
-"speed": 8.0
-}, {
-"frames": [ ExtResource( 17 ), ExtResource( 24 ), ExtResource( 11 ), ExtResource( 40 ), ExtResource( 39 ), ExtResource( 32 ), ExtResource( 41 ), ExtResource( 38 ), ExtResource( 37 ), ExtResource( 30 ), ExtResource( 31 ), ExtResource( 42 ), ExtResource( 33 ), ExtResource( 43 ), ExtResource( 35 ), ExtResource( 27 ), ExtResource( 29 ) ],
-"loop": true,
-"name": "Idle",
+"name": "HitOnGround",
 "speed": 5.0
 } ]
