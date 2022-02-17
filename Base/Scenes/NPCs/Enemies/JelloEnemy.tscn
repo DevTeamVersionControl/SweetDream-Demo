@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scripts/Enemy.gd" type="Script" id=1]
 [ext_resource path="res://Assets/art/Animation/Jelly_Cube/Idle/new_spriteframes.tres" type="SpriteFrames" id=2]
@@ -7,6 +7,9 @@
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 8, 4 )
+
+[sub_resource type="CircleShape2D" id=3]
+radius = 124.926
 
 [node name="JelloEnemy" type="KinematicBody2D" groups=["enemy", "jello"]]
 position = Vector2( 120, 56 )
@@ -23,7 +26,7 @@ position = Vector2( 0, -3 )
 scale = Vector2( 0.22, 0.22 )
 frames = ExtResource( 2 )
 animation = "Idle"
-frame = 4
+frame = 1
 playing = true
 
 [node name="PulseTimer" type="Timer" parent="."]
@@ -39,4 +42,10 @@ position = Vector2( 0, -8 )
 scale = Vector2( 1, 0.5 )
 shape = SubResource( 2 )
 
+[node name="PlayerDetector" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector"]
+shape = SubResource( 3 )
+
 [connection signal="timeout" from="PulseTimer" to="." method="pulse"]
+[connection signal="body_entered" from="PlayerDetector" to="." method="_on_PlayerDetector_body_entered"]

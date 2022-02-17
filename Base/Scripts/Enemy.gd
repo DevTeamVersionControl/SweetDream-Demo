@@ -32,7 +32,7 @@ func _physics_process(delta):
 		motion /= PIXELS_PER_METER
 
 func pulse():
-	if !locked:
+	if !locked && target:
 		$Sprite.animation = "Jump"
 		yield(get_tree().create_timer(jump_delay), "timeout")
 		motion = target.global_position - global_position
@@ -83,3 +83,8 @@ func bounce():
 	yield($Sprite, "animation_finished")
 	$Sprite.set_speed_scale(1)
 	$Sprite.animation = "Idle"
+
+
+func _on_PlayerDetector_body_entered(body):
+	if body.is_in_group("player"):
+		target = body

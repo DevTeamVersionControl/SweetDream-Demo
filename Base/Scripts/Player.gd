@@ -38,7 +38,7 @@ func _physics_process(delta):
 		get_tree().quit()
 	
 	if Input.is_action_just_pressed("ammo_next") && can_shoot:
-		if is_a_parent_of(bullet):
+		if bullet && is_a_parent_of(bullet):
 			bullet.queue_free()
 		bullet = null
 		if equiped_ammo < ammo.size() - 1:
