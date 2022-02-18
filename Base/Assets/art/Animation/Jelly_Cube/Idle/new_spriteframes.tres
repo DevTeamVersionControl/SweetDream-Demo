@@ -68,11 +68,6 @@ animations = [ {
 "name": "default",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 17 ), ExtResource( 24 ), ExtResource( 11 ), ExtResource( 40 ), ExtResource( 39 ), ExtResource( 32 ), ExtResource( 41 ), ExtResource( 38 ), ExtResource( 37 ), ExtResource( 30 ), ExtResource( 31 ), ExtResource( 42 ), ExtResource( 33 ), ExtResource( 43 ), ExtResource( 35 ), ExtResource( 27 ), ExtResource( 29 ) ],
-"loop": true,
-"name": "Idle",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 15 ), ExtResource( 18 ), ExtResource( 23 ), ExtResource( 13 ), ExtResource( 16 ) ],
 "loop": true,
 "name": "HitParticle",
@@ -92,4 +87,9 @@ animations = [ {
 "loop": true,
 "name": "Jump",
 "speed": 8.0
+}, {
+"frames": [ ExtResource( 17 ), ExtResource( 24 ), ExtResource( 11 ), ExtResource( 40 ), ExtResource( 39 ), ExtResource( 32 ), ExtResource( 41 ), ExtResource( 38 ), ExtResource( 37 ), ExtResource( 30 ), ExtResource( 31 ), ExtResource( 42 ), ExtResource( 33 ), ExtResource( 43 ), ExtResource( 35 ), ExtResource( 27 ), ExtResource( 29 ) ],
+"loop": true,
+"name": "Idle",
+"speed": 5.0
 } ]
