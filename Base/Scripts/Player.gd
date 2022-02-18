@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+signal changed_ammo(ammo_index)
+
 export var MAX_FALL_SPEED = 120.5
 export var MAX_SPEED = 7
 export var JUMP_FORCE = 30
@@ -13,7 +15,8 @@ const UP = Vector2.UP
 
 var facing = Vector2(1,0)
 var bullet_direction = Vector2()
-var bullet_strength = 0
+var bullet_strength := 0.0
+var bullet_cooldown := 0.0
 var jello = preload("res://Scenes/Ammo/Jello.tscn")
 var candy_corn = preload("res://Scenes/Ammo/CandyCorn.tscn")
 var icing_gun = preload("res://Scenes/Ammo/IcingGun.tscn")
@@ -34,25 +37,30 @@ func _ready():
 
 func _physics_process(delta):
 	
+	if $AmmoTimer.time_left > 0 && !can_shoot:
+		$CooldownBar.scale.x = $AmmoTimer.time_left / (bullet_cooldown * 20)
+	
 	if Input.is_action_just_pressed("quit_game"):
 		get_tree().quit()
 	
 	if Input.is_action_just_pressed("ammo_next") && can_shoot:
-		if bullet && is_a_parent_of(bullet):
+		if bullet != null && is_a_parent_of(bullet):
 			bullet.queue_free()
 		bullet = null
 		if equiped_ammo < ammo.size() - 1:
 			equiped_ammo += 1
 		else:
 			equiped_ammo = 0
+		emit_signal("changed_ammo", equiped_ammo)
 	if Input.is_action_just_pressed("ammo_last") && can_shoot:
-		if is_a_parent_of(bullet):
+		if bullet != null && is_a_parent_of(bullet):
 			bullet.queue_free()
 		bullet = null
 		if equiped_ammo > 0:
 			equiped_ammo -= 1
 		else:
 			equiped_ammo = ammo.size() - 1
+		emit_signal("changed_ammo", equiped_ammo)
 	
 	if(Input.is_action_just_pressed("shoot")):
 		if (ammo[equiped_ammo] == jawbreaker || ammo[equiped_ammo] == jello) && can_shoot:
@@ -122,7 +130,9 @@ func shoot(ammo, strength):
 	bullet.global_transform = global_transform
 	bullet.launch(bullet_direction, bullet_strength)
 	can_shoot = false
-	$AmmoTimer.start(bullet.COOLDOWN)
+	bullet_cooldown = bullet.COOLDOWN
+	$AmmoTimer.start(bullet_cooldown)
+	$CooldownBar.visible = true
 
 func take_damage(damage, direction):
 	hp -= damage
@@ -138,6 +148,7 @@ func take_damage(damage, direction):
 
 func _on_AmmoTimer_timeout():
 	can_shoot = true
+	$CooldownBar.visible = false
 
 
 func _on_Area2D_body_entered(body):

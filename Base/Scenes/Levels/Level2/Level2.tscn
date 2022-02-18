@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Scenes/Environment/Terrain.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Scenes/Environment/EnemySpawner.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Scenes/Environment/FPSCounter.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/Environment/Blocks/Terrain.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/Environment/Triggerable/EnemySpawner.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/UserInterface/FPSCounter.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/UserInterface/AmmoDisplay.tscn" type="PackedScene" id=5]
 
 [node name="Level2" type="Node"]
 
@@ -15,6 +16,9 @@ scale = Vector2( 8, 0.5 )
 position = Vector2( 32, 328 )
 
 [node name="FPSCounter" parent="." instance=ExtResource( 4 )]
+
+[node name="AmmoDisplay" parent="." instance=ExtResource( 5 )]
+player_path = NodePath("../Player")
 
 [node name="EnemySpawner" parent="." instance=ExtResource( 3 )]
 position = Vector2( 941, 295 )

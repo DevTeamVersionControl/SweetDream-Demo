@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Assets/art/Animation/1080p_Ammo/1080p_Candy_Corn_Ammo/Candy_Corn_Ammo0001.png" type="Texture" id=1]
+[ext_resource path="res://Scripts/AmmoDisplay.gd" type="Script" id=2]
+
+[node name="AmmoDisplay" type="CanvasLayer"]
+script = ExtResource( 2 )
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchor_left = 0.932
+anchor_top = 0.08
+anchor_right = 0.932
+anchor_bottom = 0.08
+margin_left = -75.1241
+margin_top = -45.5717
+margin_right = 1844.88
+margin_bottom = 1034.43
+rect_scale = Vector2( 0.0778754, 0.0842884 )
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

@@ -1,18 +1,18 @@
 [gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Scripts/JelloCube.gd" type="Script" id=1]
-[ext_resource path="res://Assets/art/Animation/Jelly_Cube_1080p/Hit_On_Ground/Hit_On_Ground0000.png" type="Texture" id=2]
-[ext_resource path="res://Assets/art/Animation/Jelly_Cube_1080p/Hit_On_Ground/Hit_On_Ground0001.png" type="Texture" id=3]
-[ext_resource path="res://Assets/art/Animation/Jelly_Cube_1080p/Hit_On_Ground/Hit_On_Ground0004.png" type="Texture" id=4]
-[ext_resource path="res://Assets/art/Animation/Jelly_Cube_1080p/Hit_On_Ground/Hit_On_Ground0005.png" type="Texture" id=5]
+[ext_resource path="res://Assets/art/Animation/Jelly_Cube_1080p/Hit_On_Ground/Hit_On_Ground0001.png" type="Texture" id=2]
+[ext_resource path="res://Assets/art/Animation/Jelly_Cube_1080p/Hit_On_Ground/Hit_On_Ground0004.png" type="Texture" id=3]
+[ext_resource path="res://Assets/art/Animation/Jelly_Cube_1080p/Hit_On_Ground/Hit_On_Ground0000.png" type="Texture" id=4]
+[ext_resource path="res://Assets/art/Animation/Jelly_Cube_1080p/Hit_On_Ground/Hit_On_Ground0003.png" type="Texture" id=5]
 [ext_resource path="res://Assets/art/Animation/Jelly_Cube_1080p/Hit_On_Ground/Hit_On_Ground0002.png" type="Texture" id=6]
-[ext_resource path="res://Assets/art/Animation/Jelly_Cube_1080p/Hit_On_Ground/Hit_On_Ground0003.png" type="Texture" id=7]
+[ext_resource path="res://Assets/art/Animation/Jelly_Cube_1080p/Hit_On_Ground/Hit_On_Ground0005.png" type="Texture" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
-"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 4 ), ExtResource( 5 ) ],
+"frames": [ ExtResource( 4 ), ExtResource( 2 ), ExtResource( 6 ), ExtResource( 5 ), ExtResource( 3 ), ExtResource( 7 ) ],
 "loop": true,
 "name": "default",
 "speed": 16.0
