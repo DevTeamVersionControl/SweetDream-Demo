@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=2]
 
-[ext_resource path="res://Scripts/SubRay.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/Ammo/SubRay.gd" type="Script" id=1]
 [ext_resource path="res://Assets/art/jawbreaker.png" type="Texture" id=2]
 [ext_resource path="res://Assets/art/Animation/1080p_Ammo/1080p_Pop_Rocks_Ammo/Pop_Rocks_Ammo0001.png" type="Texture" id=3]
 [ext_resource path="res://Assets/art/Animation/1080p_Ammo/1080p_Pop_Rocks_Ammo/Pop_Rocks_Ammo0031.png" type="Texture" id=4]

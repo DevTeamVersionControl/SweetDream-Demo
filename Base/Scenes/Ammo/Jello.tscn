@@ -1,6 +1,6 @@
 [gd_scene load_steps=16 format=2]
 
-[ext_resource path="res://Scripts/Jello.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/Ammo/Jello.gd" type="Script" id=1]
 [ext_resource path="res://Assets/art/Animation/1080p_Ammo/1080p_Jello_Ammo/Jello_Ammo0007.png" type="Texture" id=2]
 [ext_resource path="res://Assets/art/Animation/1080p_Ammo/1080p_Jello_Ammo/Jello_Ammo0010.png" type="Texture" id=3]
 [ext_resource path="res://Assets/art/Animation/1080p_Ammo/1080p_Jello_Ammo/Jello_Ammo0016.png" type="Texture" id=4]

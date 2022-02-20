@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Assets/art/Animation/1080p_Ammo/1080p_Candy_Corn_Ammo/Candy_Corn_Ammo0001.png" type="Texture" id=1]
-[ext_resource path="res://Scripts/AmmoDisplay.gd" type="Script" id=2]
+[ext_resource path="res://Scripts/UserInterface/AmmoDisplay.gd" type="Script" id=2]
 
 [node name="AmmoDisplay" type="CanvasLayer"]
 script = ExtResource( 2 )

@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://Scripts/JellyBean.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/Ammo/JellyBean.gd" type="Script" id=1]
 [ext_resource path="res://Assets/art/Animation/1080p_Ammo/1080p_Jelly_Bean_Ammo/Jelly_Bean_Ammo0017.png" type="Texture" id=2]
 [ext_resource path="res://Assets/art/Animation/1080p_Ammo/1080p_Jelly_Bean_Ammo/Jelly_Bean_Ammo0001.png" type="Texture" id=3]
 [ext_resource path="res://Assets/art/explosion.png" type="Texture" id=4]

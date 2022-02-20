@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://Scripts/Jawbreaker.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/Ammo/Jawbreaker.gd" type="Script" id=1]
 [ext_resource path="res://Assets/art/Animation/1080p_Ammo/1080p_Jaw_Breaker_Ammo/Ammo0020.png" type="Texture" id=2]
 [ext_resource path="res://Assets/art/Animation/1080p_Ammo/1080p_Jaw_Breaker_Ammo/Ammo0001.png" type="Texture" id=3]
 

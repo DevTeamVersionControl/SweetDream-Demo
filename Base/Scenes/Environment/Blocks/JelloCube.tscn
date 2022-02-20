@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://Scripts/JelloCube.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/Environment/Blocks/JelloCube.gd" type="Script" id=1]
 [ext_resource path="res://Assets/art/Animation/Jelly_Cube_1080p/Hit_On_Ground/Hit_On_Ground0001.png" type="Texture" id=2]
 [ext_resource path="res://Assets/art/Animation/Jelly_Cube_1080p/Hit_On_Ground/Hit_On_Ground0004.png" type="Texture" id=3]
 [ext_resource path="res://Assets/art/Animation/Jelly_Cube_1080p/Hit_On_Ground/Hit_On_Ground0000.png" type="Texture" id=4]

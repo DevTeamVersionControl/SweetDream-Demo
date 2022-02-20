@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://Scripts/CandyCorn.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/Ammo/CandyCorn.gd" type="Script" id=1]
 [ext_resource path="res://Assets/art/Animation/1080p_Ammo/1080p_Candy_Corn_Ammo/Candy_Corn_Ammo0001.png" type="Texture" id=2]
 [ext_resource path="res://Assets/art/Animation/1080p_Ammo/1080p_Candy_Corn_Ammo/Candy_Corn_Ammo0019.png" type="Texture" id=3]
 
