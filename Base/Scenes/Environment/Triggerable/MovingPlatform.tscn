@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Assets/art/icing_splatter.png" type="Texture" id=1]
+[ext_resource path="res://Scripts/Environment/Triggerable/MovingPlatform.gd" type="Script" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 57.5927, 10 )
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[node name="MovingPlatform" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Platform" type="KinematicBody2D" parent="."]
+motion/sync_to_physics = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform"]
+position = Vector2( 0.205887, 0 )
+shape = SubResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Platform"]
+position = Vector2( -0.0902176, 7.35071 )
+scale = Vector2( 0.914374, 1.57452 )
+frames = SubResource( 2 )
+
+[node name="Tween" type="Tween" parent="."]
+repeat = true
+playback_process_mode = 0
+playback/repeat = true

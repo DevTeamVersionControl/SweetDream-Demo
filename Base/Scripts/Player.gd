@@ -25,6 +25,7 @@ var popping_candy = preload("res://Scenes/Ammo/PoppingCandy.tscn")
 var jelly_bean = preload("res://Scenes/Ammo/JellyBean.tscn")
 var ammo = [candy_corn, jelly_bean, popping_candy, jawbreaker, jello]
 var equiped_ammo = 0
+var jumping := false
 var can_shoot := true
 var invulnerable := false
 var screen_size
@@ -111,8 +112,11 @@ func _physics_process(delta):
 	if is_on_floor():
 		if (Input.is_action_just_pressed("jump")):
 			motion.y = -JUMP_FORCE
-	
-	motion = move_and_slide(motion * PIXELS_PER_METER, UP)
+			jumping = true
+		elif (jumping):
+			jumping = false
+	var snap = Vector2.ZERO if jumping else Vector2.DOWN * 32
+	motion = move_and_slide_with_snap(motion * PIXELS_PER_METER, snap, UP)
 	motion /= PIXELS_PER_METER
 	
 	if bullet_direction.y == 0:
