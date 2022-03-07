@@ -20,7 +20,7 @@ animations = [ {
 
 [sub_resource type="RectangleShape2D" id=3]
 
-[node name="JelloCube" type="KinematicBody2D" groups=["movable"]]
+[node name="JelloCube" type="KinematicBody2D"]
 collision_layer = 9
 script = ExtResource( 1 )
 

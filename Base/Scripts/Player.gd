@@ -1,12 +1,13 @@
 extends KinematicBody2D
 
 signal changed_ammo(ammo_index)
+signal update(vari)
 
 export var MAX_BOUNCE = 60
 export var MAX_FALL_SPEED = 120.5
 export var MAX_SPEED = 7
 export var JUMP_FORCE = 30
-export var ACCEL = 1
+export var ACCEL = 2
 export var hp := 10
 export var gravity := 9.8
 
@@ -121,9 +122,12 @@ func _physics_process(delta):
 	motion /= PIXELS_PER_METER
 	for index in get_slide_count():
 		var collision = get_slide_collision(index)
-		if collision.collider.is_in_group("movable"):
-			collision.collider.apply_central_impulse(-collision.normal * 100)
-	
+		if collision.collider.is_in_group("movable") && collision.normal.y > -0.2:
+			collision.collider.set_linear_velocity(Vector2(lerp(collision.collider.linear_velocity.x, MAX_SPEED * PIXELS_PER_METER * collision.normal.x, ACCEL), collision.collider.linear_velocity.y))
+			collision.collider.set_linear_velocity(Vector2(clamp(collision.collider.linear_velocity.x, MAX_SPEED * 16, -MAX_SPEED * 16),collision.collider.linear_velocity.y))
+			motion.x = collision.collider.linear_velocity.x / PIXELS_PER_METER
+		emit_signal("update", "Pousse : " + String(collision.normal.y < 0.2))
+		
 	if bullet_direction.y == 0:
 		bullet_direction.x = facing.x
 	else:
