@@ -2,6 +2,7 @@ extends KinematicBody2D
 
 signal changed_ammo(ammo_index)
 
+export var MAX_BOUNCE = 60
 export var MAX_FALL_SPEED = 120.5
 export var MAX_SPEED = 7
 export var JUMP_FORCE = 30
@@ -115,9 +116,13 @@ func _physics_process(delta):
 			jumping = true
 		elif (jumping):
 			jumping = false
-	var snap = Vector2.ZERO if jumping else Vector2.DOWN * 32
-	motion = move_and_slide_with_snap(motion * PIXELS_PER_METER, snap, UP)
+	var snap = Vector2.ZERO if jumping else Vector2.DOWN * 16
+	motion = move_and_slide_with_snap(motion * PIXELS_PER_METER, snap, UP, false,  4, PI/4, false)
 	motion /= PIXELS_PER_METER
+	for index in get_slide_count():
+		var collision = get_slide_collision(index)
+		if collision.collider.is_in_group("movable"):
+			collision.collider.apply_central_impulse(-collision.normal * 100)
 	
 	if bullet_direction.y == 0:
 		bullet_direction.x = facing.x
@@ -175,9 +180,15 @@ func _on_InvulnerabilityTimer_timeout():
 
 func _on_BounceBox_area_entered(area):
 	if motion.y > 0 && !invulnerable:
-		motion.y *= -1.4
-		motion.x *= 2
+		if motion.length() < MAX_BOUNCE:
+			motion.y *= -1.4
+			motion.x *= 2
 		if area.get_parent().is_in_group("enemy"):
 			invulnerable = true
 			$InvulnerabilityTimer.start(0.5)
 		area.get_parent().bounce()
+
+
+func _on_CrushBox_body_entered(body):
+	if body.is_in_group("floor"):
+		get_tree().reload_current_scene()

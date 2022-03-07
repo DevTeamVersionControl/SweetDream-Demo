@@ -14,10 +14,11 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[node name="MovingPlatform" type="Node2D"]
+[node name="MovingPlatform" type="Node2D" groups=["floor"]]
 script = ExtResource( 2 )
 
 [node name="Platform" type="KinematicBody2D" parent="."]
+collision_layer = 3
 motion/sync_to_physics = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Platform"]

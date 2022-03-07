@@ -18,7 +18,8 @@ func _ready():
 	if trigger_obj:
 		trigger_obj.connect("on", self, "on_trigger_on")
 		trigger_obj.connect("off", self, "on_trigger_off")
-		$Tween.stop_all()
+		if !trigger_obj.on:
+			$Tween.stop_all()
 
 func _physics_process(delta):
 	$Platform.position = $Platform.position.linear_interpolate(follow, 0.075)
