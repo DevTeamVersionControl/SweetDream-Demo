@@ -26,7 +26,7 @@ func _physics_process(delta):
 			$AnimatedSprite.frame = 0
 		else:
 			$AnimatedSprite.frame = 1
-		var collision = move_and_collide(velocity*delta*PIXELS_PER_METER)
+		var collision = move_and_collide(velocity*delta*PIXELS_PER_METER, false)
 		if collision != null:
 			_on_inpact(collision.normal)
 			
@@ -65,6 +65,8 @@ func _on_Area2D_body_entered(body):
 		body.take_damage(5, (body.global_position - global_position).normalized() * enemy_knockback)
 	if body.is_in_group("player"):
 		body.motion = (body.global_position - global_position).normalized() * player_explosion_knockback
+	if body.is_in_group("movable"):
+		body.apply_central_impulse((body.global_position - global_position).normalized() * player_explosion_knockback * 100)
 
 
 func _on_Timer_timeout():

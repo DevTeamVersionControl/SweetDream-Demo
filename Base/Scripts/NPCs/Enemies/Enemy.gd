@@ -28,7 +28,7 @@ func _physics_process(delta):
 		motion.y += gravity * delta
 		if is_on_floor():
 			motion.x = lerp(motion.x, 0, 0.1)
-		motion = move_and_slide(motion*PIXELS_PER_METER, Vector2(0,-1))
+		motion = move_and_slide(motion*PIXELS_PER_METER, Vector2.UP, false,  4, PI/4, false)
 		motion /= PIXELS_PER_METER
 
 func pulse():
