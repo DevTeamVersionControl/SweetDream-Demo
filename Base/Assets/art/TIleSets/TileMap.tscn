@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=2]
+
+[sub_resource type="TileSet" id=1]
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [  ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[node name="TileMap" type="TileMap"]
+scale = Vector2( 0.25, 0.25 )
+tile_set = SubResource( 1 )
+cell_size = Vector2( 256, 352 )
+format = 1
+tile_data = PoolIntArray( 393283, 1, 0 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 2 )
+animation = "New Anim"
