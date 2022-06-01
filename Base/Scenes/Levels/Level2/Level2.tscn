@@ -1,0 +1,37 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Scenes/UserInterface/AmmoDisplay.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Assets/art/TileSets/Forest Bottom Tile Pack/ForestTileSet.tres" type="TileSet" id=2]
+[ext_resource path="res://Scenes/Environment/Triggerable/EnemySpawner.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/Environment/Triggers/Button.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/Environment/Triggers/Logic/NOT.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scenes/Environment/Blocks/Box.tscn" type="PackedScene" id=7]
+
+[node name="Level2" type="Node"]
+
+[node name="Player" parent="." instance=ExtResource( 4 )]
+
+[node name="AmmoDisplay" parent="." instance=ExtResource( 1 )]
+player_path = NodePath("../Player")
+
+[node name="TileMap" type="TileMap" parent="." groups=["floor"]]
+scale = Vector2( 0.1, 0.1 )
+tile_set = ExtResource( 2 )
+cell_size = Vector2( 265, 265 )
+collision_layer = 3
+format = 1
+tile_data = PoolIntArray( 393241, 1, 8, 393242, 1, 11, 458776, 1, 8, 458777, 1, 65541, 458778, 1, 131083, 524312, 1, 65544, 524313, 1, 131078, 524314, 1, 196619, 589847, 1, 8, 589848, 1, 65541, 589849, 1, 131083, 655370, 1, 8, 655371, 1, 262154, 655372, 1, 11, 655383, 1, 65544, 655384, 1, 131078, 655385, 1, 196619, 720905, 1, 8, 720906, 1, 65541, 720907, 1, 131078, 720908, 1, 196619, 720918, 1, 8, 720919, 1, 65541, 720920, 1, 131083, 786440, 1, 8, 786441, 1, 65541, 786442, 1, 131078, 786443, 1, 196619, 786454, 1, 65544, 786455, 1, 131078, 786456, 1, 196619, 851976, 1, 65544, 851977, 1, 131078, 851978, 1, 196619, 851983, 1, 8, 851984, 1, 262155, 851985, 1, 10, 851986, 1, 10, 851987, 1, 262154, 851988, 1, 10, 851989, 1, 262154, 851990, 1, 65541, 851991, 1, 131083, 917512, 1, 65544, 917513, 1, 131083, 917517, 1, 8, 917518, 1, 262153, 917519, 1, 65541, 917520, 1, 131081, 917521, 1, 131081, 917522, 1, 131081, 917523, 1, 131081, 917524, 1, 131081, 917525, 1, 131081, 917526, 1, 131078, 917527, 1, 196619, 983048, 2, 65544, 983049, 2, 131083, 983053, 1, 65544, 983054, 1, 131081, 983055, 1, 131078, 983056, 1, 196617, 983057, 1, 196617, 983058, 1, 196617, 983059, 1, 131077, 983060, 1, 131081, 983061, 1, 131081, 983062, 1, 131083, 1048584, 2, 65544, 1048585, 2, 65542, 1048586, 2, 11, 1048589, 1, 196616, 1048590, 1, 196618, 1048591, 1, 196619, 1048595, 2, 65544, 1048596, 2, 131081, 1048597, 2, 131078, 1048598, 1, 196619, 1114120, 2, 196616, 1114121, 2, 131077, 1114122, 2, 131083, 1114126, 1, 131072, 1114129, 2, 8, 1114130, 2, 262155, 1114131, 2, 65541, 1114132, 2, 131081, 1114133, 2, 131083, 1179657, 2, 65544, 1179658, 2, 131083, 1179664, 2, 8, 1179665, 2, 65541, 1179666, 2, 131078, 1179667, 2, 196617, 1179668, 2, 196617, 1179669, 2, 196619, 1245193, 2, 65544, 1245194, 2, 131083, 1245199, 2, 8, 1245200, 2, 65541, 1245201, 2, 131081, 1245202, 2, 131083, 1310729, 2, 65544, 1310730, 2, 65542, 1310731, 2, 10, 1310732, 2, 262155, 1310733, 2, 10, 1310734, 2, 10, 1310735, 2, 65541, 1310736, 2, 131078, 1310737, 2, 196617, 1310738, 2, 196619, 1376265, 2, 196616, 1376266, 2, 196617, 1376267, 2, 196617, 1376268, 2, 196617, 1376269, 2, 196617, 1376270, 2, 196617, 1376271, 2, 196617, 1376272, 2, 196619 )
+
+[node name="EnemySpawner" parent="." instance=ExtResource( 3 )]
+position = Vector2( 688, 136 )
+target_on_spawn = NodePath("../Player")
+trigger = NodePath("../Button/NOT")
+
+[node name="Button" parent="." instance=ExtResource( 5 )]
+position = Vector2( 488, 440 )
+
+[node name="NOT" parent="Button" instance=ExtResource( 6 )]
+
+[node name="Box" parent="." instance=ExtResource( 7 )]
+position = Vector2( 464, 440 )

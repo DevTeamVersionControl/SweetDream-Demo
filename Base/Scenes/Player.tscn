@@ -15,7 +15,7 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 32, 32 )
+extents = Vector2( 30.4153, 29.7489 )
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 25, 28 )
@@ -40,12 +40,13 @@ position = Vector2( 2.5, -10 )
 frames = SubResource( 1 )
 
 [node name="Physics" type="CollisionShape2D" parent="."]
-position = Vector2( 2.5, -10 )
+position = Vector2( 2.3866, -9.823 )
+scale = Vector2( 1, 1 )
 shape = SubResource( 2 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
-zoom = Vector2( 0.5, 0.5 )
+zoom = Vector2( 0.3, 0.3 )
 smoothing_enabled = true
 
 [node name="ShootBar" type="Sprite" parent="."]

@@ -111,7 +111,7 @@ func _physics_process(delta):
 	
 	motion.x = clamp(motion.x, -MAX_SPEED, MAX_SPEED)
 	
-	if is_on_floor():
+	if 	is_on_floor():
 		if (Input.is_action_just_pressed("jump")):
 			motion.y = -JUMP_FORCE
 			jumping = true
@@ -150,8 +150,8 @@ func shoot(ammo, strength):
 func take_damage(damage, direction):
 	hp -= damage
 	motion.x += direction.x * 4
-	if hp <= 0:
-		get_tree().reload_current_scene()
+	#if hp <= 0:
+		#get_tree().reload_current_scene()
 	invulnerable = true
 	$AnimatedSprite.playing = true
 	yield($AnimatedSprite, "animation_finished")
