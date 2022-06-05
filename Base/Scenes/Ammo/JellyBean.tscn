@@ -20,14 +20,14 @@ animations = [ {
 radius = 18.0119
 
 [node name="JellyBean" type="KinematicBody2D" groups=["heavy"]]
+scale = Vector2( 0.75, 0.75 )
 collision_layer = 0
 collision_mask = 2
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
 }
-THROW_VELOCITY = 40
-THROW_ANGLE = 45
+THROW_VELOCITY = 30
 GRAVITY = 100.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

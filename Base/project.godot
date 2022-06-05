@@ -14,6 +14,10 @@ config/name="Base"
 run/main_scene="res://Scenes/Levels/Level1/Level1.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+GlobalVars="*res://Scenes/Globals/Global_Vars.tscn"
+
 [input]
 
 right={

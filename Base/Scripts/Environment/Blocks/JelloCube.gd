@@ -2,7 +2,7 @@ extends KinematicBody2D
 
 const PIXELS_PER_METER = 16
 
-export var gravity := 9.8
+export var gravity := 9.8 * 8
 export var volume = 0.5
 var motion = Vector2.ZERO
 

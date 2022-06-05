@@ -23,9 +23,11 @@ func launch(direction, strenght):
 	grow(strenght)
 	var scene = get_tree().current_scene
 	var pos = global_position
+	get_parent().crush_detection = false
+	get_parent().get_node("CrushTimer").start(0.5)
 	get_parent().remove_child(self)
 	scene.add_child(self)
-	global_position = pos
+	global_position = pos + Vector2(0,-15)
 
 func grow(add_volume):
 	volume += add_volume/2
@@ -39,7 +41,7 @@ func _on_Area2D_body_entered(body):
 			body.take_damage(volume * velocity.length(), Vector2.ZERO)
 		queue_free()
 	elif body.is_in_group("floor"):
-		if velocity.y > 0:
+		#if velocity.y > 0:
 			if volume > CUBE_SPAWN_MIN_VOLUME:
 				var new_cube = JELLO_CUBE.instance()
 				get_tree().current_scene.call_deferred("add_child", new_cube)

@@ -6,7 +6,7 @@ signal update(vari)
 export var MAX_BOUNCE = 60
 export var MAX_FALL_SPEED = 120.5
 export var MAX_SPEED = 7
-export var JUMP_FORCE = 30
+export var JUMP_FORCE = 20
 export var ACCEL = 2
 export var hp := 10
 export var gravity := 9.8
@@ -30,6 +30,7 @@ var equiped_ammo = 0
 var jumping := false
 var can_shoot := true
 var invulnerable := false
+var crush_detection := true
 var screen_size
 var bullet
 
@@ -37,6 +38,11 @@ var motion = Vector2()
 
 func _ready():
 	screen_size = get_viewport_rect().size
+	#$Camera2D.set_limit(MARGIN_BOTTOM, screen_size.y)
+	#$Camera2D.set_limit(MARGIN_TOP, 0)
+	#$Camera2D.set_limit(MARGIN_LEFT, 0)
+	#$Camera2D.set_limit(MARGIN_RIGHT, screen_size.x)
+				
 
 func _physics_process(delta):
 	
@@ -117,6 +123,8 @@ func _physics_process(delta):
 			jumping = true
 		elif (jumping):
 			jumping = false
+	if (Input.is_action_pressed("jump")) && jumping && motion.y < 0:
+		motion.y -= 1.7
 	var snap = Vector2.ZERO if jumping else Vector2.DOWN * 16
 	motion = move_and_slide_with_snap(motion * PIXELS_PER_METER, snap, UP, false,  4, PI/4, false)
 	motion /= PIXELS_PER_METER
@@ -126,7 +134,6 @@ func _physics_process(delta):
 			collision.collider.set_linear_velocity(Vector2(lerp(collision.collider.linear_velocity.x, MAX_SPEED * PIXELS_PER_METER * collision.normal.x, ACCEL), collision.collider.linear_velocity.y))
 			collision.collider.set_linear_velocity(Vector2(clamp(collision.collider.linear_velocity.x, MAX_SPEED * 16, -MAX_SPEED * 16),collision.collider.linear_velocity.y))
 			motion.x = collision.collider.linear_velocity.x / PIXELS_PER_METER
-		emit_signal("update", "Pousse : " + String(collision.normal.y < 0.2))
 		
 	if bullet_direction.y == 0:
 		bullet_direction.x = facing.x
@@ -140,7 +147,7 @@ func shoot(ammo, strength):
 	bullet = ammo.instance()
 	add_child(bullet)
 	bullet_direction = bullet_direction.normalized()
-	bullet.global_transform = global_transform
+	bullet.global_position = global_position + Vector2.UP * 15
 	bullet.launch(bullet_direction, bullet_strength)
 	can_shoot = false
 	bullet_cooldown = bullet.COOLDOWN
@@ -150,8 +157,8 @@ func shoot(ammo, strength):
 func take_damage(damage, direction):
 	hp -= damage
 	motion.x += direction.x * 4
-	#if hp <= 0:
-		#get_tree().reload_current_scene()
+	if hp <= 0:
+		get_tree().reload_current_scene()
 	invulnerable = true
 	$AnimatedSprite.playing = true
 	yield($AnimatedSprite, "animation_finished")
@@ -163,7 +170,6 @@ func _on_AmmoTimer_timeout():
 	can_shoot = true
 	$CooldownBar.visible = false
 
-
 func _on_Area2D_body_entered(body):
 	if body.is_in_group("destructable"):
 		body.can_reappear = false
@@ -171,13 +177,11 @@ func _on_Area2D_body_entered(body):
 		if !invulnerable:
 			take_damage(2, body.motion)
 
-
 func _on_Area2D_body_exited(body):
 	if body.is_in_group("destructable"):
 		body.can_reappear = true
 		if body.should_reappear:
 			body.reappear()
-
 
 func _on_InvulnerabilityTimer_timeout():
 	invulnerable = false
@@ -192,7 +196,9 @@ func _on_BounceBox_area_entered(area):
 			$InvulnerabilityTimer.start(0.5)
 		area.get_parent().bounce()
 
-
 func _on_CrushBox_body_entered(body):
-	if body.is_in_group("floor"):
+	if body.is_in_group("floor") && crush_detection:
 		get_tree().reload_current_scene()
+
+func _on_CrushTimer_timeout():
+	crush_detection = true

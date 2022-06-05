@@ -35,23 +35,29 @@ script = ExtResource( 2 )
 [node name="InvulnerabilityTimer" type="Timer" parent="."]
 wait_time = 0.5
 
+[node name="CrushTimer" type="Timer" parent="."]
+
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-position = Vector2( 2.5, -10 )
+position = Vector2( 0.0808105, -30.7761 )
 frames = SubResource( 1 )
 
 [node name="Physics" type="CollisionShape2D" parent="."]
-position = Vector2( 2.3866, -9.823 )
-scale = Vector2( 1, 1 )
+position = Vector2( -0.241208, -30.5826 )
 shape = SubResource( 2 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
 zoom = Vector2( 0.3, 0.3 )
+limit_left = 0
+limit_top = 0
+limit_right = 1024
+limit_bottom = 600
 smoothing_enabled = true
+editor_draw_limits = true
 
 [node name="ShootBar" type="Sprite" parent="."]
 visible = false
-position = Vector2( 2.5, -50 )
+position = Vector2( -0.652344, -71.5479 )
 scale = Vector2( 0.05, 0.05 )
 texture = ExtResource( 3 )
 
@@ -59,7 +65,7 @@ texture = ExtResource( 3 )
 visible = false
 modulate = Color( 1, 0.984314, 0, 1 )
 self_modulate = Color( 0.992157, 1, 0, 1 )
-position = Vector2( 2.5, -50 )
+position = Vector2( -0.390625, -71.5479 )
 scale = Vector2( 0.05, 0.05 )
 texture = ExtResource( 5 )
 
@@ -71,7 +77,7 @@ collision_mask = 4
 input_pickable = false
 
 [node name="HurtBox" type="CollisionShape2D" parent="Area2D"]
-position = Vector2( 2.5, -10 )
+position = Vector2( -0.390625, -28.3947 )
 shape = SubResource( 3 )
 
 [node name="BounceBox" type="Area2D" parent="."]
@@ -81,7 +87,7 @@ collision_layer = 8
 collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BounceBox"]
-position = Vector2( 2.5, 20 )
+position = Vector2( -0.127808, -9.69421 )
 scale = Vector2( 0.999999, 0.999999 )
 shape = SubResource( 4 )
 
@@ -90,12 +96,13 @@ shape = SubResource( 4 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CrushBox"]
 modulate = Color( 1, 0, 0, 1 )
 self_modulate = Color( 1, 0, 0, 1 )
-position = Vector2( 2.80933, -8.89618 )
+position = Vector2( -0.606934, -26.7652 )
 scale = Vector2( 2, 2 )
 shape = SubResource( 5 )
 
 [connection signal="timeout" from="AmmoTimer" to="." method="_on_AmmoTimer_timeout"]
 [connection signal="timeout" from="InvulnerabilityTimer" to="." method="_on_InvulnerabilityTimer_timeout"]
+[connection signal="timeout" from="CrushTimer" to="." method="_on_CrushTimer_timeout"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]
 [connection signal="area_entered" from="BounceBox" to="." method="_on_BounceBox_area_entered"]
