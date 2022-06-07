@@ -26,7 +26,6 @@ var jawbreaker = preload("res://Scenes/Ammo/Jawbreaker.tscn")
 var popping_candy = preload("res://Scenes/Ammo/PoppingCandy.tscn")
 var jelly_bean = preload("res://Scenes/Ammo/JellyBean.tscn")
 var ammo = [candy_corn, jelly_bean, popping_candy, jawbreaker, jello]
-var equiped_ammo = 0
 var jumping := false
 var can_shoot := true
 var invulnerable := false
@@ -38,11 +37,15 @@ var motion = Vector2()
 
 func _ready():
 	screen_size = get_viewport_rect().size
+	if GlobalVars.hp == 0:
+		GlobalVars.hp = hp
 	#$Camera2D.set_limit(MARGIN_BOTTOM, screen_size.y)
 	#$Camera2D.set_limit(MARGIN_TOP, 0)
 	#$Camera2D.set_limit(MARGIN_LEFT, 0)
 	#$Camera2D.set_limit(MARGIN_RIGHT, screen_size.x)
 				
+func update():
+	emit_signal("changed_ammo", GlobalVars.equiped_ammo)
 
 func _physics_process(delta):
 	
@@ -56,37 +59,37 @@ func _physics_process(delta):
 		if bullet != null && is_a_parent_of(bullet):
 			bullet.queue_free()
 		bullet = null
-		if equiped_ammo < ammo.size() - 1:
-			equiped_ammo += 1
+		if GlobalVars.equiped_ammo < ammo.size() - 1:
+			GlobalVars.equiped_ammo += 1
 		else:
-			equiped_ammo = 0
-		emit_signal("changed_ammo", equiped_ammo)
+			GlobalVars.equiped_ammo = 0
+		emit_signal("changed_ammo", GlobalVars.equiped_ammo)
 	if Input.is_action_just_pressed("ammo_last") && can_shoot:
 		if bullet != null && is_a_parent_of(bullet):
 			bullet.queue_free()
 		bullet = null
-		if equiped_ammo > 0:
-			equiped_ammo -= 1
+		if GlobalVars.equiped_ammo > 0:
+			GlobalVars.equiped_ammo -= 1
 		else:
-			equiped_ammo = ammo.size() - 1
-		emit_signal("changed_ammo", equiped_ammo)
+			GlobalVars.equiped_ammo = ammo.size() - 1
+		emit_signal("changed_ammo", GlobalVars.equiped_ammo)
 	
 	if(Input.is_action_just_pressed("shoot")):
-		if (ammo[equiped_ammo] == jawbreaker || ammo[equiped_ammo] == jello) && can_shoot:
+		if (ammo[GlobalVars.equiped_ammo] == jawbreaker || ammo[GlobalVars.equiped_ammo] == jello) && can_shoot:
 			$ShootBar.visible = true
 			bullet_strength = 0.2
-		elif (ammo[equiped_ammo] == icing_gun || ammo[equiped_ammo] == popping_candy) && can_shoot:
+		elif (ammo[GlobalVars.equiped_ammo] == icing_gun || ammo[GlobalVars.equiped_ammo] == popping_candy) && can_shoot:
 			if bullet == null:
-				shoot(ammo[equiped_ammo], bullet_strength)
+				shoot(ammo[GlobalVars.equiped_ammo], bullet_strength)
 			else:
 				if bullet.rotation_degrees == -90 && facing.x != 1:
 					bullet.queue_free()
-					shoot(ammo[equiped_ammo], bullet_strength)
+					shoot(ammo[GlobalVars.equiped_ammo], bullet_strength)
 				elif bullet.rotation_degrees == 90 && facing.x != -1:
 					bullet.queue_free()
-					shoot(ammo[equiped_ammo], bullet_strength)
+					shoot(ammo[GlobalVars.equiped_ammo], bullet_strength)
 		elif can_shoot:
-			shoot(ammo[equiped_ammo], bullet_strength)
+			shoot(ammo[GlobalVars.equiped_ammo], bullet_strength)
 	
 	if(Input.is_action_pressed("shoot")):
 		if $ShootBar.visible:
@@ -96,7 +99,7 @@ func _physics_process(delta):
 	
 	if(Input.is_action_just_released("shoot")):
 		if bullet_strength != 0 && $ShootBar.visible:
-			shoot(ammo[equiped_ammo], bullet_strength)
+			shoot(ammo[GlobalVars.equiped_ammo], bullet_strength)
 			bullet_strength = 0
 			$ShootBar.visible = false
 			$ShootBar.scale.x = 0
@@ -155,9 +158,9 @@ func shoot(ammo, strength):
 	$CooldownBar.visible = true
 
 func take_damage(damage, direction):
-	hp -= damage
+	GlobalVars.hp -= damage
 	motion.x += direction.x * 4
-	if hp <= 0:
+	if GlobalVars.hp <= 0:
 		get_tree().reload_current_scene()
 	invulnerable = true
 	$AnimatedSprite.playing = true
