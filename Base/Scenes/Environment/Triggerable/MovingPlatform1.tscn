@@ -4,7 +4,7 @@
 [ext_resource path="res://Scripts/Environment/Triggerable/MovingPlatform.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 24.5348, 10 )
+extents = Vector2( 15.977, 11.581 )
 
 [node name="MovingPlatform" type="Node2D" groups=["floor"]]
 script = ExtResource( 2 )
@@ -14,12 +14,12 @@ collision_layer = 3
 motion/sync_to_physics = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Platform"]
-position = Vector2( 0.612655, 0 )
+position = Vector2( -0.229148, 1.58103 )
 shape = SubResource( 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Platform"]
-position = Vector2( -7.62939e-06, 8.98984 )
-scale = Vector2( 0.1, 0.1 )
+position = Vector2( -0.489273, 2.19731 )
+scale = Vector2( 0.065, 0.065 )
 frames = ExtResource( 1 )
 animation = "Idle"
 
