@@ -8,6 +8,16 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Resource",
+"class": "SaveData",
+"language": "GDScript",
+"path": "res://Save/Logic/SaveData.gd"
+} ]
+_global_script_class_icons={
+"SaveData": ""
+}
+
 [application]
 
 config/name="Base"
@@ -17,6 +27,7 @@ config/icon="res://icon.png"
 [autoload]
 
 GlobalVars="*res://Scenes/Globals/Global_Vars.tscn"
+GameSaver="*res://Save/Logic/GameSaver.tscn"
 
 [input]
 

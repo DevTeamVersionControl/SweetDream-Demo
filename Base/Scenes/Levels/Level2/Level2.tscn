@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Scenes/UserInterface/AmmoDisplay.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/art/TileSets/Forest Bottom Tile Pack/ForestTileSet.tres" type="TileSet" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://Scripts/Level.gd" type="Script" id=9]
 [ext_resource path="res://Scenes/Environment/Triggerable/LevelSwitch.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Scenes/Environment/Triggerable/MovingPlatform3.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Scenes/Environment/Pickups/AmmoPickup.tscn" type="PackedScene" id=12]
 
 [node name="Level2" type="Node"]
 script = ExtResource( 9 )
@@ -67,3 +68,11 @@ target_scene = "res://Scenes/Levels/Level1/Level1.tscn"
 position = Vector2( 5.00346, 240.692 )
 scale = Vector2( -1, 1 )
 target_scene = "res://Scenes/Levels/Level1/Level1.tscn"
+
+[node name="AmmoPickup" parent="." instance=ExtResource( 12 )]
+position = Vector2( 33.6739, 443.372 )
+ammo = 4
+
+[node name="AmmoPickup2" parent="." instance=ExtResource( 12 )]
+position = Vector2( 848.477, 394.377 )
+ammo = 1

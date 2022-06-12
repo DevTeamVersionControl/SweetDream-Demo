@@ -19,13 +19,7 @@ var facing = Vector2(1,0)
 var bullet_direction = Vector2()
 var bullet_strength := 0.0
 var bullet_cooldown := 0.0
-var jello = preload("res://Scenes/Ammo/Jello.tscn")
-var candy_corn = preload("res://Scenes/Ammo/CandyCorn.tscn")
-var icing_gun = preload("res://Scenes/Ammo/IcingGun.tscn")
-var jawbreaker = preload("res://Scenes/Ammo/Jawbreaker.tscn")
-var popping_candy = preload("res://Scenes/Ammo/PoppingCandy.tscn")
-var jelly_bean = preload("res://Scenes/Ammo/JellyBean.tscn")
-var ammo = [candy_corn, jelly_bean, popping_candy, jawbreaker, jello]
+
 var jumping := false
 var can_shoot := true
 var invulnerable := false
@@ -59,37 +53,31 @@ func _physics_process(delta):
 		if bullet != null && is_a_parent_of(bullet):
 			bullet.queue_free()
 		bullet = null
-		if GlobalVars.equiped_ammo < ammo.size() - 1:
-			GlobalVars.equiped_ammo += 1
-		else:
-			GlobalVars.equiped_ammo = 0
+		GlobalVars.equiped_ammo = GlobalVars.ammo_instance_array.find(GlobalVars.ammo_equipped_array[(GlobalVars.ammo_equipped_array.find(GlobalVars.ammo_instance_array[GlobalVars.equiped_ammo], 0) + 1) % GlobalVars.ammo_equipped_array.size()], 0)
 		emit_signal("changed_ammo", GlobalVars.equiped_ammo)
 	if Input.is_action_just_pressed("ammo_last") && can_shoot:
 		if bullet != null && is_a_parent_of(bullet):
 			bullet.queue_free()
 		bullet = null
-		if GlobalVars.equiped_ammo > 0:
-			GlobalVars.equiped_ammo -= 1
-		else:
-			GlobalVars.equiped_ammo = ammo.size() - 1
+		GlobalVars.equiped_ammo = GlobalVars.ammo_instance_array.find(GlobalVars.ammo_equipped_array[(GlobalVars.ammo_equipped_array.find(GlobalVars.ammo_instance_array[GlobalVars.equiped_ammo], 0) - 1) % (GlobalVars.ammo_equipped_array.size())], 0)
 		emit_signal("changed_ammo", GlobalVars.equiped_ammo)
 	
 	if(Input.is_action_just_pressed("shoot")):
-		if (ammo[GlobalVars.equiped_ammo] == jawbreaker || ammo[GlobalVars.equiped_ammo] == jello) && can_shoot:
+		if (GlobalVars.equiped_ammo == GlobalVars.ammo_type.jawbreaker || GlobalVars.equiped_ammo == GlobalVars.ammo_type.jello) && can_shoot:
 			$ShootBar.visible = true
 			bullet_strength = 0.2
-		elif (ammo[GlobalVars.equiped_ammo] == icing_gun || ammo[GlobalVars.equiped_ammo] == popping_candy) && can_shoot:
+		elif (GlobalVars.equiped_ammo == GlobalVars.ammo_type.icing_gun || GlobalVars.equiped_ammo == GlobalVars.ammo_type.popping_candy) && can_shoot:
 			if bullet == null:
-				shoot(ammo[GlobalVars.equiped_ammo], bullet_strength)
+				shoot(GlobalVars.ammo_instance_array[GlobalVars.equiped_ammo], bullet_strength)
 			else:
 				if bullet.rotation_degrees == -90 && facing.x != 1:
 					bullet.queue_free()
-					shoot(ammo[GlobalVars.equiped_ammo], bullet_strength)
+					shoot(GlobalVars.ammo_instance_array[GlobalVars.equiped_ammo], bullet_strength)
 				elif bullet.rotation_degrees == 90 && facing.x != -1:
 					bullet.queue_free()
-					shoot(ammo[GlobalVars.equiped_ammo], bullet_strength)
+					shoot(GlobalVars.ammo_instance_array[GlobalVars.equiped_ammo], bullet_strength)
 		elif can_shoot:
-			shoot(ammo[GlobalVars.equiped_ammo], bullet_strength)
+			shoot(GlobalVars.ammo_instance_array[GlobalVars.equiped_ammo], bullet_strength)
 	
 	if(Input.is_action_pressed("shoot")):
 		if $ShootBar.visible:
@@ -99,7 +87,7 @@ func _physics_process(delta):
 	
 	if(Input.is_action_just_released("shoot")):
 		if bullet_strength != 0 && $ShootBar.visible:
-			shoot(ammo[GlobalVars.equiped_ammo], bullet_strength)
+			shoot(GlobalVars.ammo_instance_array[GlobalVars.equiped_ammo], bullet_strength)
 			bullet_strength = 0
 			$ShootBar.visible = false
 			$ShootBar.scale.x = 0

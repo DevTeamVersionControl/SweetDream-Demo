@@ -5,8 +5,10 @@ var num:int
 
 func _on_LevelSwitch_body_entered(body):
 	if body.is_in_group("player"):
-		if get_tree().change_scene(target_scene):
-			print("Error loading scene")
+		if ResourceLoader.exists("res://Save/".plus_file(target_scene.get_file())):
+			get_tree().change_scene("res://Save/".plus_file(target_scene.get_file()))
+		else:
+			get_tree().change_scene(target_scene)
 		GlobalVars.door_name = name
 		
 func get_spawn_position() -> Vector2:
