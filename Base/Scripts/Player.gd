@@ -146,6 +146,8 @@ func shoot(ammo, strength):
 	$CooldownBar.visible = true
 
 func take_damage(damage, direction):
+	if invulnerable:
+		return
 	GlobalVars.hp -= damage
 	motion.x += direction.x * 4
 	if GlobalVars.hp <= 0:
