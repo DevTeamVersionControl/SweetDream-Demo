@@ -1,6 +1,8 @@
 extends Area2D
 
-export var COOLDOWN = 0.2
+const COOLDOWN = 0.2
+const DAMAGE = 1
+
 export var enemy_knockback = 0
 export var player_knockback = 0
 
@@ -24,7 +26,7 @@ func launch(direction, strength):
 
 func _on_Hit(body):
 	if body.is_in_group("enemy"):
-		body.take_damage(2, velocity.normalized() * enemy_knockback)
+		body.take_damage(DAMAGE, velocity.normalized() * enemy_knockback)
 		queue_free()
 	if body.is_in_group("floor"):
 		queue_free()

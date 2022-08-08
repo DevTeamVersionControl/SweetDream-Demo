@@ -9,7 +9,6 @@ func disappear():
 	set_collision_layer_bit(1, false)
 	$Timer.start()
 
-
 func _on_Timer_timeout():
 	if can_reappear:
 		reappear()

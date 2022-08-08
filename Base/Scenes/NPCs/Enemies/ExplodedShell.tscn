@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Assets/art/JawbreakerBoss/ExplodedShell.png" type="Texture" id=1]
+[ext_resource path="res://Scripts/NPCs/Enemies/ExplodedShell.gd" type="Script" id=2]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 4.17321
+height = 28.1308
+
+[node name="ExplodedShell" type="Area2D"]
+collision_layer = 0
+collision_mask = 5
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 0.473603
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( -1.12245, -2.52554 )
+rotation = -0.246744
+scale = Vector2( 0.03, 0.03 )
+texture = ExtResource( 1 )
+
+[connection signal="body_entered" from="." to="." method="_on_ExplodedShell_body_entered"]

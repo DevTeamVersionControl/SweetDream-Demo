@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+signal died
+
 const PIXELS_PER_METER = 16
 const MIN_VOLUME = 0.5
 const MAX_VOLUME = 2.86
@@ -61,6 +63,7 @@ func take_damage(damage, knockback):
 		$JumpBox.set_deferred("monitorable", false)
 		$Sprite.animation = "Death"
 		yield($Sprite, "animation_finished")
+		emit_signal("died")
 		queue_free()
 	else:
 		$Sprite.animation = "HitOnGround"

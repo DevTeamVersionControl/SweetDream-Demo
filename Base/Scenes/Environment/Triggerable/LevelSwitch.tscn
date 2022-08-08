@@ -22,6 +22,6 @@ scale = Vector2( 0.779722, 0.4 )
 texture = ExtResource( 1 )
 
 [node name="Position2D" type="Position2D" parent="."]
-position = Vector2( -19.4899, -6.44213 )
+position = Vector2( -30.3526, -6.44213 )
 
 [connection signal="body_entered" from="." to="." method="_on_LevelSwitch_body_entered"]

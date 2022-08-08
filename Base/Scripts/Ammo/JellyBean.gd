@@ -5,6 +5,7 @@ export var THROW_ANGLE = 30
 const PIXELS_PER_METER = 16
 export var GRAVITY = 9.8
 const COOLDOWN = 1
+const DAMAGE = 5
 export var enemy_knockback = 10
 export var player_knockback = 5
 export var player_explosion_knockback = 10
@@ -62,7 +63,7 @@ func _on_Area2D_body_entered(body):
 	if body.is_in_group("destructable"):
 		body.disappear()
 	if body.is_in_group("enemy"):
-		body.take_damage(5, (body.global_position - global_position).normalized() * enemy_knockback)
+		body.take_damage(DAMAGE, (body.global_position - global_position).normalized() * enemy_knockback)
 	if body.is_in_group("player"):
 		body.motion = (body.global_position - global_position).normalized() * player_explosion_knockback
 	if body.is_in_group("movable"):

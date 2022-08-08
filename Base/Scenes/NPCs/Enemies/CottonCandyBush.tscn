@@ -9,7 +9,7 @@
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
-"frames": [ ExtResource( 1 ), ExtResource( 2 ) ],
+"frames": [ ExtResource( 1 ), ExtResource( 2 ), ExtResource( 4 ) ],
 "loop": true,
 "name": "default",
 "speed": 5.0
@@ -37,7 +37,7 @@ animations = [ {
 } ]
 
 [node name="CottonCandyBush" type="KinematicBody2D" groups=["enemy"]]
-collision_layer = 6
+collision_layer = 0
 collision_mask = 2
 script = ExtResource( 3 )
 

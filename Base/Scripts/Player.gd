@@ -6,10 +6,12 @@ signal update(vari)
 export var MAX_BOUNCE = 60
 export var MAX_FALL_SPEED = 120.5
 export var MAX_SPEED = 7
-export var JUMP_FORCE = 20
+export var JUMP_FORCE = 34
 export var ACCEL = 2
+export var JUMP_ACCEL = 1.8
 export var hp := 10
 export var gravity := 9.8
+var knockback_strength = 20
 
 const PIXELS_PER_METER = 16
 const MAX_BULLET_STRENGTH = 1
@@ -37,7 +39,7 @@ func _ready():
 	#$Camera2D.set_limit(MARGIN_TOP, 0)
 	#$Camera2D.set_limit(MARGIN_LEFT, 0)
 	#$Camera2D.set_limit(MARGIN_RIGHT, screen_size.x)
-				
+
 func update():
 	emit_signal("changed_ammo", GlobalVars.equiped_ammo)
 
@@ -49,17 +51,11 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("quit_game"):
 		get_tree().quit()
 	
-	if Input.is_action_just_pressed("ammo_next") && can_shoot:
+	if Input.is_action_just_pressed("ammo_next"): #&& can_shoot
 		if bullet != null && is_a_parent_of(bullet):
 			bullet.queue_free()
 		bullet = null
 		GlobalVars.equiped_ammo = GlobalVars.ammo_instance_array.find(GlobalVars.ammo_equipped_array[(GlobalVars.ammo_equipped_array.find(GlobalVars.ammo_instance_array[GlobalVars.equiped_ammo], 0) + 1) % GlobalVars.ammo_equipped_array.size()], 0)
-		emit_signal("changed_ammo", GlobalVars.equiped_ammo)
-	if Input.is_action_just_pressed("ammo_last") && can_shoot:
-		if bullet != null && is_a_parent_of(bullet):
-			bullet.queue_free()
-		bullet = null
-		GlobalVars.equiped_ammo = GlobalVars.ammo_instance_array.find(GlobalVars.ammo_equipped_array[(GlobalVars.ammo_equipped_array.find(GlobalVars.ammo_instance_array[GlobalVars.equiped_ammo], 0) - 1) % (GlobalVars.ammo_equipped_array.size())], 0)
 		emit_signal("changed_ammo", GlobalVars.equiped_ammo)
 	
 	if(Input.is_action_just_pressed("shoot")):
@@ -97,14 +93,26 @@ func _physics_process(delta):
 	if motion.y > MAX_FALL_SPEED:
 		motion.y = MAX_FALL_SPEED
 	
+	if (Input.is_action_pressed("up")):
+		bullet_direction.y = -1
+	elif (Input.is_action_pressed("down")):
+		bullet_direction.y = 1
+	else:
+		bullet_direction.y = 0
+	
 	if (Input.is_action_pressed("right")):
+		bullet_direction.x = 1
 		motion.x += ACCEL
 		facing.x = 1
 	elif (Input.is_action_pressed("left")):
+		bullet_direction.x = -1
 		motion.x -= ACCEL
 		facing.x = -1
 	else:
 		motion.x = lerp(motion.x, 0, 0.2)
+		bullet_direction.x = 0
+		if bullet_direction.y == 0 && bullet_direction.x == 0:
+			bullet_direction = facing
 	
 	motion.x = clamp(motion.x, -MAX_SPEED, MAX_SPEED)
 	
@@ -115,7 +123,7 @@ func _physics_process(delta):
 		elif (jumping):
 			jumping = false
 	if (Input.is_action_pressed("jump")) && jumping && motion.y < 0:
-		motion.y -= 1.7
+		motion.y -= JUMP_ACCEL
 	var snap = Vector2.ZERO if jumping else Vector2.DOWN * 16
 	motion = move_and_slide_with_snap(motion * PIXELS_PER_METER, snap, UP, false,  4, PI/4, false)
 	motion /= PIXELS_PER_METER
@@ -125,20 +133,17 @@ func _physics_process(delta):
 			collision.collider.set_linear_velocity(Vector2(lerp(collision.collider.linear_velocity.x, MAX_SPEED * PIXELS_PER_METER * collision.normal.x, ACCEL), collision.collider.linear_velocity.y))
 			collision.collider.set_linear_velocity(Vector2(clamp(collision.collider.linear_velocity.x, MAX_SPEED * 16, -MAX_SPEED * 16),collision.collider.linear_velocity.y))
 			motion.x = collision.collider.linear_velocity.x / PIXELS_PER_METER
-		
-	if bullet_direction.y == 0:
-		bullet_direction.x = facing.x
-	else:
-		bullet_direction.x = 0
 	
 	if global_position.y > screen_size.y:
 		get_tree().reload_current_scene()
 
 func shoot(ammo, strength):
+	if invulnerable:
+		return
 	bullet = ammo.instance()
 	add_child(bullet)
 	bullet_direction = bullet_direction.normalized()
-	bullet.global_position = global_position + Vector2.UP * 15
+	bullet.global_position = global_position + Vector2.UP * 20
 	bullet.launch(bullet_direction, bullet_strength)
 	can_shoot = false
 	bullet_cooldown = bullet.COOLDOWN
@@ -158,6 +163,7 @@ func take_damage(damage, direction):
 	$AnimatedSprite.playing = false
 	$AnimatedSprite.frame = 0
 	invulnerable = false
+	emit_signal("update", "HP:" + String(GlobalVars.hp))
 
 func _on_AmmoTimer_timeout():
 	can_shoot = true
@@ -167,8 +173,7 @@ func _on_Area2D_body_entered(body):
 	if body.is_in_group("destructable"):
 		body.can_reappear = false
 	if body.is_in_group("enemy"):
-		if !invulnerable:
-			take_damage(2, body.motion)
+		take_damage(2, body.motion.normalized() * knockback_strength)
 
 func _on_Area2D_body_exited(body):
 	if body.is_in_group("destructable"):

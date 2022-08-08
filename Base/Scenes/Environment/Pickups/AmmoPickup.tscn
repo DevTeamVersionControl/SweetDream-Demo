@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Scripts/Environment/Pickups/AmmoPickup.gd" type="Script" id=1]
-[ext_resource path="res://Assets/art/Animation/1080p_Ammo/1080p_Pop_Rocks_Ammo/Pop_Rocks_Ammo0004.png" type="Texture" id=2]
+[ext_resource path="res://Assets/art/Animation/1080p_Ammo/1080p_Candy_Corn_Ammo/Candy_Corn_Ammo0001.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 

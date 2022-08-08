@@ -23,8 +23,7 @@ func _ready():
 func set_ammo(new_ammo):
 	ammo = new_ammo
 	update()
-	if Engine.is_editor_hint():
-		$Sprite.texture = ammo_png[ammo]
+	$Sprite.texture = ammo_png[ammo]
 
 func _on_AmmoPickup(body):
 	if body.is_in_group("player"):

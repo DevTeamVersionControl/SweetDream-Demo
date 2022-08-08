@@ -11,21 +11,22 @@ const SPEED = 5
 const ROOT_TRIGGER_ATTACK_TIME = 2.0
 const ROOT_ATTACK_WARNING_TIME = 1.0
 const ROOT_ATTACK_TIME = 0.2
+const BALL_ATTACK_WARNING_TIME = 1.0
+const BALL_TRIGGER_ATTACK_TIME = 2.5
+const BALL_SCENE = preload("res://Scenes/NPCs/Enemies/CottonCandyBushAttack.tscn")
 
 var state = states.idle
 var aggro_state = aggro_states.asleep
 var aggressiveness := 0.0
 var root_attack_timer := 0.0
+var ball_attack_timer := 0.0
 var root_attack := false
+var ball_attack := false
 var facing = 1
 var hp = 20
 
 var motion = Vector2.ZERO
 var target
-
-
-func _ready():
-	pass
 
 func _physics_process(delta):
 	match aggro_state:
@@ -36,13 +37,13 @@ func _physics_process(delta):
 			else:
 				fall_asleep()
 		aggro_states.waking_up: 
-			if aggressiveness >= MAX_AGRESSIVENESS:
+			if aggressiveness >= MAX_AGRESSIVENESS && state == states.idle:
 				wake_up()
 			else:
 				aggressiveness += delta
 		aggro_states.awake: pass
 	match state:
-		states.idle: motion.x = 0
+		states.idle: return
 		states.walking: 
 			walk()
 			if root_attack:
@@ -53,6 +54,14 @@ func _physics_process(delta):
 			else:
 				if root_attack_timer > 0:
 					root_attack_timer -= delta
+			if ball_attack:
+				if ball_attack_timer >= BALL_TRIGGER_ATTACK_TIME:
+					ball_attack(3)
+				else:
+					ball_attack_timer += delta
+			else:
+				if ball_attack_timer > 0:
+					ball_attack_timer -= delta
 		states.turning: motion.x = 0
 		states.attacking: 
 			if root_attack:
@@ -60,7 +69,6 @@ func _physics_process(delta):
 	motion.y += 9.8
 	motion.x = lerp(motion.x, 0, 0.2)
 	motion = move_and_slide(motion, Vector2.UP)
-	emit_signal("update", state)
 
 func wake_up():
 	$AnimatedSprite.frame = 1
@@ -69,8 +77,10 @@ func wake_up():
 	$PlayerDetector/DetectionZone.scale = Vector2(10,10)
 	$RootHitBox.monitoring = true
 	$RootHitBox.monitorable = true
+	call_deferred("set_collision_layer_bit", 2, true)
 	aggro_state = aggro_states.awake
 	state = states.walking
+	ball_attack(1)
 	
 func fall_asleep():
 	$AnimatedSprite.frame = 0
@@ -79,6 +89,7 @@ func fall_asleep():
 	$PlayerDetector/DetectionZone.scale = Vector2(5,5)
 	$RootHitBox.set_deferred("monitoring", false)
 	$RootHitBox.set_deferred("monitorable", false)
+	call_deferred("set_collision_layer_bit", 2, false)
 	aggro_state = aggro_states.asleep
 	state = states.idle
 
@@ -105,6 +116,21 @@ func attack():
 	$RootHitBox/RootHitZone/AnimatedSprite.frame = 0
 	$RootHitBox/RootHitZone/AnimatedSprite.visible = false
 	root_attack_timer = 0
+	
+func ball_attack(num:int):
+	ball_attack_timer = 0.0
+	ball_attack = false
+	$AnimatedSprite.frame = 2
+	state = states.turning
+	yield(get_tree().create_timer(BALL_ATTACK_WARNING_TIME), "timeout")
+	$AnimatedSprite.frame = 1
+	state = states.walking
+	for i in num:
+		var ball_instance = BALL_SCENE.instance()
+		get_tree().current_scene.add_child(ball_instance)
+		ball_instance.global_position = global_position
+		ball_instance.target = target
+		ball_instance.launch(Vector2(0,-10).rotated(float(i)/num))
 
 func take_damage(damage, knockback):
 	aggressiveness = MAX_AGRESSIVENESS
@@ -129,16 +155,16 @@ func _on_PlayerDetector_body_entered(body):
 	if body.is_in_group("player"):
 		aggro_state = aggro_states.waking_up
 		target = body
+		ball_attack = true
 
 func _on_PlayerDetector_body_exited(body):
 	if body.is_in_group("player"):
 		aggro_state = aggro_states.falling_asleep
-
+		ball_attack = false
 
 func _on_RootHitBox_body_entered(body):
 	if body.is_in_group("player"):
 		root_attack = true
-
 
 func _on_RootHitBox_body_exited(body):
 	if body.is_in_group("player"):
