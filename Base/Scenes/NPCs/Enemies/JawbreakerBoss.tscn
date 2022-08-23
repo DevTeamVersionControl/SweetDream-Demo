@@ -12,29 +12,9 @@
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [  ],
-"loop": true,
-"name": "Telegraph",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 6 ), ExtResource( 5 ) ],
 "loop": true,
 "name": "Hit",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 9 ) ],
-"loop": true,
-"name": "ChargeAttack",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 7 ) ],
-"loop": true,
-"name": "Exploding",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 1 ) ],
-"loop": true,
-"name": "Idle",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 4 ) ],
@@ -42,9 +22,29 @@ animations = [ {
 "name": "Death",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 7 ) ],
+"loop": true,
+"name": "Exploding",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "Telegraph",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "Idle",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 8 ) ],
 "loop": true,
 "name": "ShootingAttack",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 9 ) ],
+"loop": true,
+"name": "ChargeAttack",
 "speed": 5.0
 } ]
 
@@ -160,7 +160,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 512, 314.66 ) ]
+"values": [ Vector2( 512, 270 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:frame")
@@ -349,7 +349,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ Vector2( 512, 314.66 ), Vector2( 509, 314.66 ), Vector2( 515, 314.66 ), Vector2( 509, 314.66 ), Vector2( 515, 314.66 ), Vector2( 509, 314.66 ), Vector2( 515, 314.66 ), Vector2( 509, 314.66 ), Vector2( 515, 314.66 ), Vector2( 509, 314.66 ), Vector2( 515, 314.66 ), Vector2( 509, 314.66 ), Vector2( 515, 314.66 ) ]
+"values": [ Vector2( 512, 270 ), Vector2( 509, 270 ), Vector2( 515, 270 ), Vector2( 509, 270 ), Vector2( 515, 270 ), Vector2( 509, 270 ), Vector2( 515, 270 ), Vector2( 509, 270 ), Vector2( 515, 270 ), Vector2( 509, 270 ), Vector2( 515, 270 ), Vector2( 509, 270 ), Vector2( 515, 270 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("Sprite:modulate")
@@ -427,7 +427,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 1, 2, 2.1, 2.4, 2.7, 2.8, 3.9, 4.3 ),
 "transitions": PoolRealArray( 3.03143, 0.297302, 0.34151, 0.517632, 3.13834, 1.86607, 0.287175, 2.21914, 1 ),
 "update": 0,
-"values": [ Vector2( 907.96, 477.873 ), Vector2( 633, 477.873 ), Vector2( 512, 477.873 ), Vector2( 512, 461.552 ), Vector2( 512, 445.23 ), Vector2( 512, 461.552 ), Vector2( 512, 477.873 ), Vector2( 512, 200 ), Vector2( 512, 314.66 ) ]
+"values": [ Vector2( 907.96, 477.873 ), Vector2( 633, 477.873 ), Vector2( 512, 477.873 ), Vector2( 512, 461.552 ), Vector2( 512, 445.23 ), Vector2( 512, 461.552 ), Vector2( 512, 477.873 ), Vector2( 512, 200 ), Vector2( 512, 270 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:frame")
@@ -469,7 +469,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 1, 2, 2.1, 2.4, 2.7, 2.8, 3.9, 4.3 ),
 "transitions": PoolRealArray( 3.03143, 0.297302, 0.34151, 0.517632, 3.13834, 1.86607, 0.287175, 2.21914, 1 ),
 "update": 0,
-"values": [ Vector2( 128.195, 477.873 ), Vector2( 320, 477.873 ), Vector2( 512, 477.873 ), Vector2( 512, 461.552 ), Vector2( 512, 445.23 ), Vector2( 512, 461.552 ), Vector2( 512, 477.873 ), Vector2( 512, 200 ), Vector2( 512, 314.66 ) ]
+"values": [ Vector2( 128.195, 477.873 ), Vector2( 320, 477.873 ), Vector2( 512, 477.873 ), Vector2( 512, 461.552 ), Vector2( 512, 445.23 ), Vector2( 512, 461.552 ), Vector2( 512, 477.873 ), Vector2( 512, 200 ), Vector2( 512, 270 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:frame")
@@ -609,7 +609,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.4, 0.5, 0.6, 0.7, 1, 1.2 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 512, 314.66 ), Vector2( 512, 314.66 ), Vector2( 590, 346.444 ), Vector2( 654, 429.082 ), Vector2( 666.618, 477 ), Vector2( 907.96, 477.873 ), Vector2( 907.96, 477.873 ) ]
+"values": [ Vector2( 512, 270 ), Vector2( 512, 270 ), Vector2( 590, 346.444 ), Vector2( 654, 429.082 ), Vector2( 666.618, 477 ), Vector2( 907.96, 477.873 ), Vector2( 907.96, 477.873 ) ]
 }
 tracks/2/type = "method"
 tracks/2/path = NodePath(".")

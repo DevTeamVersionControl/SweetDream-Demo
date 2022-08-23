@@ -24,6 +24,7 @@ func _ready():
 	$CollisionShape2D.disabled = true
 
 func wake_up():
+	emit_signal("activate_pillar")
 	$CollisionShape2D.disabled = false
 
 func take_damage(damage, knockback):

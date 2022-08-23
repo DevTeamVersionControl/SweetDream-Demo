@@ -20,5 +20,6 @@ func on_pillar_activation():
 
 func pillar_shake():
 	$Pillar/CollisionShape2D.disabled = true
+	$Pillar/CollisionShape2D.one_way_collision = true
 	yield(get_tree().create_timer(0.5),"timeout")
 	$Pillar/CollisionShape2D.disabled = false

@@ -35,6 +35,7 @@ func _ready():
 	screen_size = get_viewport_rect().size
 	if GlobalVars.hp == 0:
 		GlobalVars.hp = hp
+	emit_signal("update", "HP:" + String(GlobalVars.hp))
 	#$Camera2D.set_limit(MARGIN_BOTTOM, screen_size.y)
 	#$Camera2D.set_limit(MARGIN_TOP, 0)
 	#$Camera2D.set_limit(MARGIN_LEFT, 0)
