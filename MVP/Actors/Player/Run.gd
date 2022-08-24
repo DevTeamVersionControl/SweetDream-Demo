@@ -15,8 +15,7 @@ func physics_update(delta: float) -> void:
 		Input.get_action_strength("move_right")
 		- Input.get_action_strength("move_left")
 	)
-	player.velocity.x += player.acceleration * input_direction_x
-	player.velocity.x = clamp(player.velocity.x, -player.max_speed, player.max_speed)
+	player.velocity.x = player.speed * input_direction_x
 	player.velocity.y += player.gravity * delta
 	player.velocity = player.move_and_slide(player.velocity, Vector2.UP)
 
