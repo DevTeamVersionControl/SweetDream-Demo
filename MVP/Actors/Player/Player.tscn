@@ -43,4 +43,8 @@ script = ExtResource( 5 )
 [node name="JumpBufferTimer" type="Timer" parent="StateMachine/Air"]
 wait_time = 0.1
 
+[node name="CoyoteTimeTimer" type="Timer" parent="StateMachine/Air"]
+wait_time = 0.1
+
 [connection signal="timeout" from="StateMachine/Air/JumpBufferTimer" to="StateMachine/Air" method="_on_JumpBufferTimer_timeout"]
+[connection signal="timeout" from="StateMachine/Air/CoyoteTimeTimer" to="StateMachine/Air" method="_on_CoyoteTimeTimer_timeout"]

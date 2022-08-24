@@ -5,7 +5,7 @@ func physics_update(delta: float) -> void:
 	# although in production, your states will tend to be more complex and duplicate code
 	# much more rare.
 	if not player.is_on_floor():
-		state_machine.transition_to("Air")
+		state_machine.transition_to("Air", {coyote_time = true})
 		return
 
 	# We move the run-specific input code to the state.
