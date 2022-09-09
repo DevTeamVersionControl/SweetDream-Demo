@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-export var THROW_VELOCITY = 80
+export var THROW_velocity = 80
 export var THROW_ANGLE = 30
 const PIXELS_PER_METER = 16
 export var GRAVITY = 9.8
@@ -10,7 +10,7 @@ export var enemy_knockback = 10
 export var player_knockback = 5
 export var player_explosion_knockback = 10
 
-export var strech_speed = 60
+export var strech_SPEED = 60
 
 var velocity = Vector2.ZERO
 var can_move := true
@@ -23,7 +23,7 @@ func _physics_process(delta):
 		#		rotation = velocity.angle()
 		#	else: 
 		#		rotation = PI + velocity.angle()
-		if velocity.length() < strech_speed && velocity.length() > -strech_speed:
+		if velocity.length() < strech_SPEED && velocity.length() > -strech_SPEED:
 			$AnimatedSprite.frame = 0
 		else:
 			$AnimatedSprite.frame = 1
@@ -33,9 +33,9 @@ func _physics_process(delta):
 			
 func launch(direction, strength):
 	if direction.x == 1:
-		velocity = Vector2(cos(deg2rad(THROW_ANGLE)),sin(deg2rad(THROW_ANGLE))) * THROW_VELOCITY
+		velocity = Vector2(cos(deg2rad(THROW_ANGLE)),sin(deg2rad(THROW_ANGLE))) * THROW_velocity
 	elif direction.x == -1:
-		velocity = Vector2(cos(deg2rad(180 - THROW_ANGLE)),sin(deg2rad(180 - THROW_ANGLE))) * THROW_VELOCITY
+		velocity = Vector2(cos(deg2rad(180 - THROW_ANGLE)),sin(deg2rad(180 - THROW_ANGLE))) * THROW_velocity
 	velocity.y *= -1
 	get_parent().motion += -velocity.normalized() * player_knockback
 	$ExplosionTimer.start()

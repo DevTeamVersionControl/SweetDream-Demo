@@ -1,6 +1,12 @@
 extends PlayerState
 
-func physics_update(delta: float) -> void:
+func enter(_msg := {}) -> void:
+	player.run = true
+	player.idle = false
+	player.air = false
+	player.animation_mode.travel("Run")
+
+func physics_update(_delta: float) -> void:
 	# Notice how we have some code duplication between states. That's inherent to the pattern,
 	# although in production, your states will tend to be more complex and duplicate code
 	# much more rare.
@@ -15,11 +21,22 @@ func physics_update(delta: float) -> void:
 		Input.get_action_strength("move_right")
 		- Input.get_action_strength("move_left")
 	)
-	player.velocity.x = player.speed * input_direction_x
-	player.velocity.y += player.gravity * delta
-	player.velocity = player.move_and_slide(player.velocity, Vector2.UP)
+	player.animation_tree.set('parameters/Run/blend_position', -1 if input_direction_x < 0 else 1)
+	player.velocity.x = player.SPEED * input_direction_x
+	player.velocity = player.move_and_slide_with_snap(player.velocity, Vector2.DOWN * 16, Vector2.UP, false, 4, PI/4, false)
 
 	if Input.is_action_just_pressed("move_up"):
 		state_machine.transition_to("Air", {do_jump = true})
 	elif is_equal_approx(input_direction_x, 0.0):
 		state_machine.transition_to("Idle")
+		
+	if Input.is_action_pressed("shoot") && player.can_shoot:
+		player.bullet_direction = player.calculate_bullet_direction()
+		if player.held_ammo:
+			player.held_ammo.shoot()
+		else:
+			#player.shooting = true
+			player.animation_mode.travel("ShootRun")
+			player.animation_tree.set('parameters/ShootRun/blend_position', player.bullet_direction)
+			player.animation_tree.set('parameters/Idle/blend_position', -1 if player.bullet_direction.x < 0 else 1)
+			player.animation_tree.set('parameters/Run/blend_position', -1 if player.bullet_direction.x < 0 else 1)

@@ -2,35 +2,23 @@ extends Area2D
 
 const COOLDOWN = 0.2
 const DAMAGE = 1
+export var SPEED = 400
 
 export var enemy_knockback = 0
 export var player_knockback = 0
 
-export var speed = 400
-var velocity
-
+var direction = Vector2.ZERO
 
 func _physics_process(delta):
-	position += velocity * delta * speed
-
-func launch(direction, strength):
-	velocity = direction
-	rotation = atan2(-direction.x, direction.y) + PI/2
-	get_parent().motion += -velocity.normalized() * player_knockback
-	var scene = get_tree().current_scene
-	var pos = global_position
-	get_parent().remove_child(self)
-	scene.add_child(self)
-	global_position = pos
-
+	position += delta * SPEED * direction
 
 func _on_Hit(body):
 	if body.is_in_group("enemy"):
-		body.take_damage(DAMAGE, velocity.normalized() * enemy_knockback)
+		body.take_damage(DAMAGE, direction.normalized() * enemy_knockback)
 		queue_free()
 	if body.is_in_group("floor"):
 		queue_free()
 
-
-func _on_StrechTimer_timeout():
-	$Sprite.frame = 1
+func set_direction(bullet_direction : Vector2) -> void:
+	direction = bullet_direction
+	rotation = direction.angle()

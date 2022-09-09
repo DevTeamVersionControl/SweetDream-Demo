@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-export var THROW_VELOCITY = 100
+export var THROW_velocity = 100
 export var THROW_ANGLE = 45
 export var COOLDOWN = 1
 const PIXELS_PER_METER = 16
@@ -29,9 +29,9 @@ func _physics_process(delta):
 		
 func launch(direction, strength):
 	if direction.x == 1:
-		velocity = Vector2(cos(deg2rad(THROW_ANGLE)),sin(deg2rad(THROW_ANGLE))) * THROW_VELOCITY
+		velocity = Vector2(cos(deg2rad(THROW_ANGLE)),sin(deg2rad(THROW_ANGLE))) * THROW_velocity
 	elif direction.x == -1:
-		velocity = Vector2(cos(deg2rad(180 - THROW_ANGLE)),sin(deg2rad(180 - THROW_ANGLE))) * THROW_VELOCITY
+		velocity = Vector2(cos(deg2rad(180 - THROW_ANGLE)),sin(deg2rad(180 - THROW_ANGLE))) * THROW_velocity
 	velocity *= Vector2(strength, -strength)
 	get_parent().motion += -velocity.normalized() * player_knockback
 	var scene = get_tree().current_scene
