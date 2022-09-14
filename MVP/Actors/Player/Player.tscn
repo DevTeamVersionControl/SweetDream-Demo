@@ -1,4 +1,4 @@
-[gd_scene load_steps=83 format=2]
+[gd_scene load_steps=85 format=2]
 
 [ext_resource path="res://Abstract/StateMachine.gd" type="Script" id=1]
 [ext_resource path="res://Actors/Player/Idle.gd" type="Script" id=2]
@@ -7,51 +7,22 @@
 [ext_resource path="res://Actors/Player/Air.gd" type="Script" id=5]
 [ext_resource path="res://Actors/Player/spritesheet.png" type="Texture" id=6]
 
-[sub_resource type="Animation" id=56]
+[sub_resource type="Animation" id=81]
 resource_name = "Air"
-loop = true
 tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
+tracks/0/path = NodePath("Sprite:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 0 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Sprite:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ Vector2( 0, -26 ) ]
 }
-
-[sub_resource type="Animation" id=57]
-resource_name = "AirL"
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 1 ]
-}
 tracks/1/type = "value"
-tracks/1/path = NodePath("Sprite:position")
+tracks/1/path = NodePath("Sprite:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -60,7 +31,34 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=82]
+resource_name = "AirL"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
 "values": [ Vector2( -2, -26 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1 ]
 }
 
 [sub_resource type="Animation" id=22]
@@ -1264,19 +1262,29 @@ animation = "ShootUpLeft"
 [sub_resource type="AnimationNodeAnimation" id=43]
 animation = "ShootUpRight"
 
+[sub_resource type="AnimationNodeAnimation" id=83]
+animation = "ShootUpL"
+
+[sub_resource type="AnimationNodeAnimation" id=84]
+animation = "ShootDownL"
+
 [sub_resource type="AnimationNodeBlendSpace2D" id=30]
 blend_point_0/node = SubResource( 26 )
 blend_point_0/pos = Vector2( -1, 0 )
 blend_point_1/node = SubResource( 27 )
 blend_point_1/pos = Vector2( 1, 0 )
 blend_point_2/node = SubResource( 28 )
-blend_point_2/pos = Vector2( 0, 1 )
+blend_point_2/pos = Vector2( 0.1, 1 )
 blend_point_3/node = SubResource( 29 )
-blend_point_3/pos = Vector2( 0, -1 )
+blend_point_3/pos = Vector2( 0.1, -1 )
 blend_point_4/node = SubResource( 42 )
 blend_point_4/pos = Vector2( -0.5, -0.5 )
 blend_point_5/node = SubResource( 43 )
 blend_point_5/pos = Vector2( 0.5, -0.5 )
+blend_point_6/node = SubResource( 83 )
+blend_point_6/pos = Vector2( -0.1, -1 )
+blend_point_7/node = SubResource( 84 )
+blend_point_7/pos = Vector2( -0.1, 1 )
 blend_mode = 1
 
 [sub_resource type="AnimationNodeAnimation" id=44]
@@ -1356,7 +1364,7 @@ states/ShootRun/node = SubResource( 31 )
 states/ShootRun/position = Vector2( 517, 81 )
 transitions = [ "Idle", "ShootIdle", SubResource( 50 ), "ShootIdle", "Idle", SubResource( 51 ), "Idle", "Run", SubResource( 52 ), "Run", "Idle", SubResource( 53 ), "Run", "ShootRun", SubResource( 54 ), "ShootRun", "Run", SubResource( 55 ), "Idle", "Air", SubResource( 75 ), "Air", "Idle", SubResource( 76 ), "Air", "Run", SubResource( 77 ), "Run", "Air", SubResource( 78 ), "Air", "ShootAir", SubResource( 79 ), "ShootAir", "Air", SubResource( 80 ) ]
 start_node = "Idle"
-graph_offset = Vector2( 0, 16.8219 )
+graph_offset = Vector2( 0, 28.7505 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=35]
 
@@ -1378,8 +1386,8 @@ texture = ExtResource( 6 )
 hframes = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/Air = SubResource( 56 )
-anims/AirL = SubResource( 57 )
+anims/Air = SubResource( 81 )
+anims/AirL = SubResource( 82 )
 anims/Idle = SubResource( 22 )
 anims/IdleL = SubResource( 23 )
 anims/RESET = SubResource( 2 )
@@ -1413,13 +1421,14 @@ anims/ShootUpRun = SubResource( 21 )
 tree_root = SubResource( 34 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
+process_mode = 0
 parameters/playback = SubResource( 35 )
-parameters/Air/blend_position = -0.00587291
+parameters/Air/blend_position = -0.00405514
 parameters/Idle/blend_position = 1.0
-parameters/Run/blend_position = 0
+parameters/Run/blend_position = 1.0
 parameters/ShootAir/blend_position = Vector2( 0, 0 )
-parameters/ShootIdle/blend_position = Vector2( 0.00055778, 0.0261283 )
-parameters/ShootRun/blend_position = Vector2( -0.000557721, -0.00961542 )
+parameters/ShootIdle/blend_position = Vector2( -0.00954032, 0.00985217 )
+parameters/ShootRun/blend_position = Vector2( 0, 0 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
@@ -1465,6 +1474,9 @@ wait_time = 0.1
 
 [node name="BulletSpawnUp" type="Position2D" parent="."]
 position = Vector2( 1, -55 )
+
+[node name="BulletCenter" type="Position2D" parent="."]
+position = Vector2( 1, -35 )
 
 [node name="BulletSpawnUpRight" type="Position2D" parent="."]
 position = Vector2( 12, -47 )

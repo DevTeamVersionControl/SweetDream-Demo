@@ -5,7 +5,9 @@ func enter(_msg := {}) -> void:
 	player.run = false
 	player.idle = true
 	player.air = false
+	player.animation_tree.set('parameters/Idle/blend_position', -1 if player.calculate_bullet_direction().x < 0 else 1)
 	player.animation_mode.travel("Idle")
+
 
 func physics_update(_delta: float) -> void:
 	if not player.is_on_floor():
@@ -24,6 +26,6 @@ func physics_update(_delta: float) -> void:
 		else:
 			#player.shooting = true
 			player.animation_mode.travel("ShootIdle")
-			player.animation_tree.set('parameters/ShootIdle/blend_position', player.bullet_direction)
-			player.animation_tree.set('parameters/Idle/blend_position', -1 if player.bullet_direction.x < 0 else 1)
-			player.animation_tree.set('parameters/Run/blend_position', -1 if player.bullet_direction.x < 0 else 1)
+			player.animation_tree.set('parameters/ShootIdle/blend_position', player.bullet_direction + Vector2(0.1 if player.facing_right else -0.1, 0))
+			player.animation_tree.set('parameters/Idle/blend_position', 1 if player.facing_right else -1)
+			player.animation_tree.set('parameters/Run/blend_position', 1 if player.facing_right else -1)

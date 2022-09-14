@@ -13,9 +13,6 @@ func enter(msg := {}) -> void:
 		coyote_time = true
 		coyote_time_timer.start()
 	player.animation_mode.travel("Air")
-	player.run = false
-	player.idle = false
-	player.air = true
 
 func physics_update(delta: float) -> void:
 	# Horizontal movement.
@@ -23,6 +20,9 @@ func physics_update(delta: float) -> void:
 		Input.get_action_strength("move_right")
 		- Input.get_action_strength("move_left")
 	)
+	if input_direction_x != 0:
+		player.facing_right = input_direction_x > 0
+	player.animation_tree.set('parameters/Air/blend_position', 1 if player.facing_right else -1)
 	player.velocity.x = player.SPEED * input_direction_x
 	# Vertical movement.
 	player.velocity.y += player.GRAVITY * delta

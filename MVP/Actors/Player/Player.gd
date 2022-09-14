@@ -23,6 +23,7 @@ var air := false
 onready var cooldown_timer := $CooldownTimer
 onready var animation_tree := $AnimationTree
 onready var animation_mode = animation_tree.get("parameters/playback")
+onready var bullet_center := $BulletCenter
 
 func _physics_process(_delta):
 	# Easy way to stop debugging for now, will be changed when there is a menu
@@ -32,10 +33,12 @@ func _physics_process(_delta):
 
 # Shoots individual bullets
 func shoot(position:NodePath) -> void:
+	if !can_shoot:
+		return
 	var bullet = GlobalVars.ammo_instance_array[GlobalVars.equiped_ammo].instance()
 	get_tree().current_scene.add_child(bullet)
 	
-	bullet.set_direction(calculate_bullet_direction())
+	bullet.set_direction((get_node(position).global_position - bullet_center.global_position).normalized())
 	
 	bullet.global_position = get_node(position).global_position
 	

@@ -13,10 +13,10 @@ func _physics_process(delta):
 	position += delta * SPEED * direction
 
 func _on_Hit(body):
-	if body.is_in_group("enemy"):
-		body.take_damage(DAMAGE, direction.normalized() * enemy_knockback)
+	if body.get_collision_layer_bit(0):
 		queue_free()
-	if body.is_in_group("floor"):
+	elif body.get_collision_layer_bit(1):
+		body.take_damage(DAMAGE, direction.normalized() * enemy_knockback)
 		queue_free()
 
 func set_direction(bullet_direction : Vector2) -> void:

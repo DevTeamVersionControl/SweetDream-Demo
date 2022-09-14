@@ -21,7 +21,9 @@ func physics_update(_delta: float) -> void:
 		Input.get_action_strength("move_right")
 		- Input.get_action_strength("move_left")
 	)
-	player.animation_tree.set('parameters/Run/blend_position', -1 if input_direction_x < 0 else 1)
+	if input_direction_x != 0:
+		player.facing_right = input_direction_x > 0
+	player.animation_tree.set('parameters/Run/blend_position', 1 if player.facing_right else -1)
 	player.velocity.x = player.SPEED * input_direction_x
 	player.velocity = player.move_and_slide_with_snap(player.velocity, Vector2.DOWN * 16, Vector2.UP, false, 4, PI/4, false)
 
@@ -37,6 +39,6 @@ func physics_update(_delta: float) -> void:
 		else:
 			#player.shooting = true
 			player.animation_mode.travel("ShootRun")
-			player.animation_tree.set('parameters/ShootRun/blend_position', player.bullet_direction)
-			player.animation_tree.set('parameters/Idle/blend_position', -1 if player.bullet_direction.x < 0 else 1)
-			player.animation_tree.set('parameters/Run/blend_position', -1 if player.bullet_direction.x < 0 else 1)
+			player.animation_tree.set('parameters/ShootRun/blend_position', player.bullet_direction + Vector2(0.1 if player.facing_right else -0.1, 0) if player.bullet_direction.x == 0 else player.bullet_direction)
+			player.animation_tree.set('parameters/Idle/blend_position', 1 if player.facing_right else -1)
+			player.animation_tree.set('parameters/Run/blend_position', 1 if player.facing_right else -1)
