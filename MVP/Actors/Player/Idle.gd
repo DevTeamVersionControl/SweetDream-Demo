@@ -2,12 +2,8 @@ extends PlayerState
 
 func enter(_msg := {}) -> void:
 	player.velocity = Vector2.ZERO
-	player.run = false
-	player.idle = true
-	player.air = false
 	player.animation_tree.set('parameters/Idle/blend_position', -1 if player.calculate_bullet_direction().x < 0 else 1)
 	player.animation_mode.travel("Idle")
-
 
 func physics_update(_delta: float) -> void:
 	if not player.is_on_floor():

@@ -1,9 +1,6 @@
 extends PlayerState
 
 func enter(_msg := {}) -> void:
-	player.run = true
-	player.idle = false
-	player.air = false
 	player.animation_mode.travel("Run")
 
 func physics_update(_delta: float) -> void:

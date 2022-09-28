@@ -58,12 +58,10 @@ func physics_update(delta: float) -> void:
 		if player.held_ammo:
 			player.held_ammo.shoot()
 		else:
-			#player.shooting = true
 			player.animation_mode.travel("ShootAir")
 			player.animation_tree.set('parameters/ShootAir/blend_position', player.bullet_direction)
 			player.animation_tree.set('parameters/Idle/blend_position', -1 if player.bullet_direction.x < 0 else 1)
 			player.animation_tree.set('parameters/Air/blend_position', -1 if player.bullet_direction.x < 0 else 1)
-
 
 func _on_JumpBufferTimer_timeout():
 	jump_buffer = false

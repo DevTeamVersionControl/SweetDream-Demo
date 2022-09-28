@@ -11,7 +11,7 @@ enum ammo_type {candy_corn, jelly_bean, popping_candy, jawbreaker, jello, icing_
 var door_name = null
 var hp := 0
 var equiped_ammo = ammo_type.candy_corn
-var ammo_equipped_array = [candy_corn]
+var ammo_equipped_array = [candy_corn, jelly_bean]
 
 func _ready():
 	GameSaver.load()
