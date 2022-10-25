@@ -140,6 +140,7 @@ tracks/8/keys = {
 
 [sub_resource type="Animation" id=3]
 resource_name = "Flying"
+length = 2.0
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("JellyBeanSprite:visible")
@@ -164,6 +165,18 @@ tracks/1/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("JellyBeanSprite:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0.247059, 0.247059, 0.247059, 1 ), Color( 1, 0.231373, 0.231373, 1 ) ]
 }
 
 [sub_resource type="Animation" id=4]
@@ -276,6 +289,18 @@ tracks/8/keys = {
 "update": 0,
 "values": [ 0 ]
 }
+tracks/9/type = "value"
+tracks/9/path = NodePath("JellyBeanSprite:modulate")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 0.694118, 0.694118, 1 ) ]
+}
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 210.059
@@ -295,6 +320,7 @@ anims/RESET = SubResource( 4 )
 
 [node name="JellyBeanSprite" type="Sprite" parent="."]
 visible = false
+modulate = Color( 1, 0.694118, 0.694118, 1 )
 position = Vector2( 0, 3.8147e-06 )
 scale = Vector2( 0.1, 0.1 )
 texture = ExtResource( 4 )

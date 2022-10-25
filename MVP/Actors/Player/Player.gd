@@ -21,11 +21,10 @@ onready var animation_tree := $AnimationTree
 onready var animation_mode = animation_tree.get("parameters/playback")
 onready var bullet_center := $BulletCenter
 onready var state_machine := $StateMachine
+onready var camera = $Camera2D
 
 func _physics_process(_delta):
-	# Easy way to stop debugging for now, will be changed when there is a menu
-	if Input.is_action_just_pressed("quit_game"):
-		get_tree().quit()
+	
 	if Input.is_action_just_pressed("ammo_next"):
 		if held_ammo != null:
 			held_ammo.queue_free()
