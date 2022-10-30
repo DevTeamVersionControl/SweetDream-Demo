@@ -5,13 +5,14 @@ const candy_corn = preload("res://Ammo/Candy Corn/CandyCorn.tscn")
 const jawbreaker = preload("res://Ammo/Jawbreaker/Jawbreaker.tscn")
 const popping_candy = preload("res://Ammo/Pop Rocks/PopRocks.tscn")
 const jelly_bean = preload("res://Ammo/Jelly Bean/JellyBean.tscn")
-const ammo_instance_array = [candy_corn, jelly_bean, jawbreaker, popping_candy, jelly_bean]
+const sticky_bomb = preload("res://Ammo/Sticky Bomb/StickyBomb.tscn")
+const ammo_instance_array = [candy_corn, jelly_bean, jawbreaker, popping_candy, jelly_bean, sticky_bomb]
 
-enum ammo_type {candy_corn, jelly_bean, popping_candy, jawbreaker, jello, icing_gun}
+enum ammo_type {candy_corn, jelly_bean, popping_candy, jawbreaker, jello, icing_gun, sticky_bomb}
 var door_name = null
 var hp := 0
 var equiped_ammo = ammo_type.candy_corn
-var ammo_equipped_array = [candy_corn, jelly_bean]
+var ammo_equipped_array = [candy_corn, jelly_bean, sticky_bomb]
 
 func _ready():
 	GameSaver.load()

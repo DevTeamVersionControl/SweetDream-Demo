@@ -535,10 +535,10 @@ resource_local_to_scene = true
 [node name="FirstLevel" type="Node2D"]
 
 [node name="ColorRect" type="ColorRect" parent="."]
-margin_left = -657.0
-margin_top = -782.0
-margin_right = 2706.0
-margin_bottom = -349.0
+margin_left = -603.0
+margin_top = -581.0
+margin_right = 2760.0
+margin_bottom = -148.0
 color = Color( 0.686275, 0.52549, 0.654902, 1 )
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
@@ -547,40 +547,36 @@ color = Color( 0.686275, 0.52549, 0.654902, 1 )
 motion_scale = Vector2( 0.1, 1 )
 
 [node name="BackgroundColor" type="Sprite" parent="ParallaxBackground/ParallaxLayer4"]
-position = Vector2( 1638, 116 )
+position = Vector2( 1466, 135 )
 texture = ExtResource( 8 )
 
 [node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2( 0.25, 1 )
 
 [node name="ForestBackground3" parent="ParallaxBackground/ParallaxLayer3" instance=ExtResource( 7 )]
-tile_data = PoolIntArray( -655271, 7, 0, -524261, 8, 0, -524251, 6, 0, -524235, 8, 0, -458742, 6, 0, -458732, 7, 0, -458688, 7, 0, -393213, 6, 0 )
-
-[node name="ShortTrees3" parent="ParallaxBackground/ParallaxLayer3" instance=ExtResource( 9 )]
-position = Vector2( -183, -114 )
-tile_data = PoolIntArray( 262247, 5, 0, 327776, 2, 0, 327811, 4, 0 )
+tile_data = PoolIntArray( -458688, 7, 0, -327591, 7, 0, -196605, 6, 0, -196598, 6, 0, -196555, 8, 0, -131051, 8, 0, -131035, 6, 0 )
 
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2( 0.5, 1 )
 
 [node name="ForestBackground2" parent="ParallaxBackground/ParallaxLayer2" instance=ExtResource( 7 )]
-tile_data = PoolIntArray( -589789, 3, 0, -589758, 3, 0, -589729, 5, 0, -524276, 3, 0, -458676, 4, 0 )
+tile_data = PoolIntArray( -327550, 5, 0, -327543, 3, 0, -262078, 3, 0, -262068, 4, 0, -196596, 3, 0, -196573, 3, 0, -196511, 5, 0 )
 
 [node name="ShortTrees2" parent="ParallaxBackground/ParallaxLayer2" instance=ExtResource( 9 )]
 position = Vector2( -183, -114 )
-tile_data = PoolIntArray( 196766, 0, 0, 327776, 2, 0 )
+tile_data = PoolIntArray( 1704095, 2, 0, 1966175, 2, 0 )
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
 
 [node name="ForestBackground" parent="ParallaxBackground/ParallaxLayer" instance=ExtResource( 7 )]
-tile_data = PoolIntArray( -589763, 0, 0, -589750, 2, 0, -524248, 0, 0, -524203, 1, 0, -458750, 0, 0, -458704, 2, 0, -393198, 1, 0 )
+tile_data = PoolIntArray( -524227, 0, 0, -524203, 1, 0, -458704, 2, 0, -393142, 2, 0, -327678, 0, 0, -327640, 0, 0, -327564, 0, 0, -196590, 1, 0 )
 
 [node name="ShortTrees" parent="ParallaxBackground/ParallaxLayer" instance=ExtResource( 9 )]
 position = Vector2( -183, -114 )
-tile_data = PoolIntArray( 65735, 1, 0, 196664, 1, 0, 196766, 0, 0, 262292, 1, 0, 393246, 0, 0 )
+tile_data = PoolIntArray( 1310867, 1, 0, 1310878, 0, 0, 1310918, 1, 0, 1310954, 0, 0, 1311102, 1, 0, 1311160, 0, 0, 1638455, 1, 0, 1638716, 0, 0, 1638855, 1, 0, 1966163, 1, 0, 2359328, 0, 0 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
-position = Vector2( 148, 44 )
+position = Vector2( 346, 72 )
 
 [node name="TileMap" parent="." instance=ExtResource( 3 )]
 material = SubResource( 153 )

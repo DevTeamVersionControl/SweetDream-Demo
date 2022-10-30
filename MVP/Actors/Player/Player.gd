@@ -21,7 +21,7 @@ onready var animation_tree := $AnimationTree
 onready var animation_mode = animation_tree.get("parameters/playback")
 onready var bullet_center := $BulletCenter
 onready var state_machine := $StateMachine
-onready var camera = $Camera2D
+onready var camera = $"Camera arm/Camera2D"
 
 func _physics_process(_delta):
 	

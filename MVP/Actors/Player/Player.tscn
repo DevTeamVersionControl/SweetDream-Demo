@@ -1431,7 +1431,10 @@ parameters/ShootAir/blend_position = Vector2( 0, 0 )
 parameters/ShootIdle/blend_position = Vector2( -0.00954032, 0.00985217 )
 parameters/ShootRun/blend_position = Vector2( 0, 0 )
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera arm" type="Node2D" parent="."]
+
+[node name="Camera2D" type="Camera2D" parent="Camera arm"]
+position = Vector2( 1, -36 )
 current = true
 zoom = Vector2( 0.3, 0.3 )
 drag_margin_h_enabled = true

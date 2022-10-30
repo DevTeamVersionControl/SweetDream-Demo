@@ -1,11 +1,12 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=14 format=2]
 
-[ext_resource path="res://Ammo/Jelly Bean/JellyBean.gd" type="Script" id=1]
+[ext_resource path="res://Ammo/Sticky Bomb/StickyBomb.gd" type="Script" id=1]
 [ext_resource path="res://Abstract/StateMachine.gd" type="Script" id=2]
-[ext_resource path="res://Ammo/Jelly Bean/Flying.gd" type="Script" id=3]
+[ext_resource path="res://Ammo/Sticky Bomb/Flying.gd" type="Script" id=3]
 [ext_resource path="res://Ammo/Jelly Bean/Jelly Bean Fly/Jelly Bean 2160p.png" type="Texture" id=4]
-[ext_resource path="res://Ammo/Jelly Bean/Explode.gd" type="Script" id=5]
+[ext_resource path="res://Ammo/Sticky Bomb/Explode.gd" type="Script" id=5]
 [ext_resource path="res://Ammo/Jelly Bean/Jelly Bean Explosion/Explosion 2160p.png" type="Texture" id=6]
+[ext_resource path="res://Ammo/Sticky Bomb/Stuck.gd" type="Script" id=7]
 
 [sub_resource type="Animation" id=5]
 resource_name = "Bounce"
@@ -173,22 +174,10 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 2 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 0.247059, 0.247059, 0.247059, 1 ), Color( 1, 0.231373, 0.231373, 1 ) ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("StateMachine/Flying:sticky")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 1 ),
+"times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ true ]
+"update": 0,
+"values": [ Color( 0.247059, 0.247059, 0.247059, 1 ) ]
 }
 
 [sub_resource type="Animation" id=4]
@@ -326,6 +315,47 @@ tracks/10/keys = {
 "values": [ false ]
 }
 
+[sub_resource type="Animation" id=6]
+resource_name = "Stuck"
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("JellyBeanSprite:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("ExplosionSprite:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("JellyBeanSprite:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0.247059, 0.247059, 0.247059, 1 ), Color( 1, 0.231373, 0.231373, 1 ) ]
+}
+
 [sub_resource type="CircleShape2D" id=1]
 radius = 210.059
 
@@ -341,6 +371,7 @@ anims/Bounce = SubResource( 5 )
 anims/Exploding = SubResource( 2 )
 anims/Flying = SubResource( 3 )
 anims/RESET = SubResource( 4 )
+anims/Stuck = SubResource( 6 )
 
 [node name="JellyBeanSprite" type="Sprite" parent="."]
 visible = false
@@ -369,6 +400,9 @@ initial_state = NodePath("Flying")
 [node name="Flying" type="Node" parent="StateMachine"]
 script = ExtResource( 3 )
 
+[node name="Stuck" type="Node" parent="StateMachine"]
+script = ExtResource( 7 )
+
 [node name="Exploding" type="Node" parent="StateMachine"]
 script = ExtResource( 5 )
 
@@ -387,4 +421,4 @@ shape = SubResource( 1 )
 wait_time = 2.0
 
 [connection signal="body_entered" from="ExplosionCollision" to="StateMachine/Exploding" method="_on_Explosion"]
-[connection signal="timeout" from="ExplosionTimer" to="StateMachine/Flying" method="_on_ExplosionTimer_timeout"]
+[connection signal="timeout" from="ExplosionTimer" to="StateMachine/Stuck" method="_on_ExplosionTimer_timeout"]
