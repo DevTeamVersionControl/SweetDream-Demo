@@ -535,10 +535,11 @@ resource_local_to_scene = true
 [node name="FirstLevel" type="Node2D"]
 
 [node name="ColorRect" type="ColorRect" parent="."]
+visible = false
 margin_left = -603.0
-margin_top = -581.0
+margin_top = -578.0
 margin_right = 2760.0
-margin_bottom = -148.0
+margin_bottom = -145.0
 color = Color( 0.686275, 0.52549, 0.654902, 1 )
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
@@ -547,7 +548,7 @@ color = Color( 0.686275, 0.52549, 0.654902, 1 )
 motion_scale = Vector2( 0.1, 1 )
 
 [node name="BackgroundColor" type="Sprite" parent="ParallaxBackground/ParallaxLayer4"]
-position = Vector2( 1466, 135 )
+position = Vector2( 1312, 302 )
 texture = ExtResource( 8 )
 
 [node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
@@ -575,11 +576,10 @@ tile_data = PoolIntArray( -524227, 0, 0, -524203, 1, 0, -458704, 2, 0, -393142, 
 position = Vector2( -183, -114 )
 tile_data = PoolIntArray( 1310867, 1, 0, 1310878, 0, 0, 1310918, 1, 0, 1310954, 0, 0, 1311102, 1, 0, 1311160, 0, 0, 1638455, 1, 0, 1638716, 0, 0, 1638855, 1, 0, 1966163, 1, 0, 2359328, 0, 0 )
 
-[node name="Player" parent="." instance=ExtResource( 2 )]
-position = Vector2( 346, 72 )
-
 [node name="TileMap" parent="." instance=ExtResource( 3 )]
 material = SubResource( 153 )
+position = Vector2( 1, -59 )
+scale = Vector2( 0.1, 0.1 )
 tile_set = SubResource( 157 )
 collision_layer = 7
 collision_mask = 7
@@ -596,3 +596,6 @@ energy = 0.7
 player_path = NodePath("../Player")
 
 [node name="GUI" parent="." instance=ExtResource( 10 )]
+
+[node name="Player" parent="." instance=ExtResource( 2 )]
+position = Vector2( 8, -23 )

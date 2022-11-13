@@ -20,6 +20,7 @@ func physics_update(_delta: float) -> void:
 	)
 	if input_direction_x != 0:
 		player.facing_right = input_direction_x > 0
+	player.camera_arm.position.x = 127 if player.facing_right else -127
 	player.animation_tree.set('parameters/Run/blend_position', 1 if player.facing_right else -1)
 	player.velocity.x = player.SPEED * input_direction_x
 	player.velocity = player.move_and_slide_with_snap(player.velocity, Vector2.DOWN * 16, Vector2.UP, false, 4, PI/4, false)

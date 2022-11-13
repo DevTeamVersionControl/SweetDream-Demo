@@ -21,10 +21,9 @@ onready var animation_tree := $AnimationTree
 onready var animation_mode = animation_tree.get("parameters/playback")
 onready var bullet_center := $BulletCenter
 onready var state_machine := $StateMachine
-onready var camera = $"Camera arm/Camera2D"
+onready var camera_arm = $"Camera arm/Camera2D"
 
 func _physics_process(_delta):
-	
 	if Input.is_action_just_pressed("ammo_next"):
 		if held_ammo != null:
 			held_ammo.queue_free()
