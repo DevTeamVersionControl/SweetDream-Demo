@@ -1,6 +1,7 @@
 extends PlayerState
 
 func enter(_msg := {}) -> void:
+	player.animation_tree.set('parameters/Run/blend_position', 1 if player.facing_right else -1)
 	player.animation_mode.travel("Run")
 
 func physics_update(_delta: float) -> void:
@@ -31,12 +32,4 @@ func physics_update(_delta: float) -> void:
 		state_machine.transition_to("Idle")
 		
 	if Input.is_action_pressed("shoot") && player.can_shoot:
-		player.bullet_direction = player.calculate_bullet_direction()
-		if player.held_ammo:
-			player.held_ammo.shoot()
-		else:
-			#player.shooting = true
-			player.animation_mode.travel("ShootRun")
-			player.animation_tree.set('parameters/ShootRun/blend_position', player.bullet_direction + Vector2(0.1 if player.facing_right else -0.1, 0) if player.bullet_direction.x == 0 else player.bullet_direction)
-			player.animation_tree.set('parameters/Idle/blend_position', 1 if player.facing_right else -1)
-			player.animation_tree.set('parameters/Run/blend_position', 1 if player.facing_right else -1)
+		state_machine.transition_to("Aim")

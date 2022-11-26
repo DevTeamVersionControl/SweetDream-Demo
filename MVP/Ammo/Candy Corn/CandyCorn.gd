@@ -2,6 +2,7 @@ extends Area2D
 
 const COOLDOWN = 0.2
 const DAMAGE = 1
+
 export var SPEED = 400
 
 export var enemy_knockback = 0

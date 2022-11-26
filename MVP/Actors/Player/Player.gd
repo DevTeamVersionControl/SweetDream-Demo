@@ -22,13 +22,11 @@ onready var animation_mode = animation_tree.get("parameters/playback")
 onready var bullet_center := $BulletCenter
 onready var state_machine := $StateMachine
 onready var camera_arm = $"Camera arm/Camera2D"
+onready var animation_player = $AnimationPlayer
 
 func _physics_process(_delta):
 	if Input.is_action_just_pressed("ammo_next"):
-		if held_ammo != null:
-			held_ammo.queue_free()
-			held_ammo = null
-		GlobalVars.equiped_ammo = GlobalVars.ammo_instance_array.find(GlobalVars.ammo_equipped_array[(GlobalVars.ammo_equipped_array.find(GlobalVars.ammo_instance_array[GlobalVars.equiped_ammo], 0) + 1) % GlobalVars.ammo_equipped_array.size()], 0)
+		GlobalVars.equiped_ammo = GlobalVars.ammo_equipped_array[(GlobalVars.ammo_equipped_array.find(GlobalVars.equiped_ammo) + 1) % (GlobalVars.ammo_equipped_array.size()-1)]
 		emit_signal("changed_ammo", GlobalVars.equiped_ammo)
 
 # Shoots individual bullets
@@ -36,7 +34,7 @@ func shoot(position:NodePath) -> void:
 	if !can_shoot:
 		return
 	can_shoot = false
-	var bullet = GlobalVars.ammo_instance_array[GlobalVars.equiped_ammo].instance()
+	var bullet = GlobalVars.equiped_ammo.scene.instance()
 	get_tree().current_scene.add_child(bullet)
 	
 	bullet.set_direction((get_node(position).global_position - bullet_center.global_position).normalized())

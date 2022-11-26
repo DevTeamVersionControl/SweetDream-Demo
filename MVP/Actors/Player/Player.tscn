@@ -1,4 +1,4 @@
-[gd_scene load_steps=86 format=2]
+[gd_scene load_steps=73 format=2]
 
 [ext_resource path="res://Abstract/StateMachine.gd" type="Script" id=1]
 [ext_resource path="res://Actors/Player/Idle.gd" type="Script" id=2]
@@ -7,6 +7,231 @@
 [ext_resource path="res://Actors/Player/Air.gd" type="Script" id=5]
 [ext_resource path="res://Actors/Player/spritesheet.png" type="Texture" id=6]
 [ext_resource path="res://Actors/Player/Knockback.gd" type="Script" id=7]
+[ext_resource path="res://Actors/Player/Aim.gd" type="Script" id=8]
+
+[sub_resource type="Animation" id=58]
+resource_name = "AimDown"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, -26 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=59]
+resource_name = "AimDownL"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 1 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -2, -26 ) ]
+}
+
+[sub_resource type="Animation" id=60]
+resource_name = "AimLeft"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 1 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -2, -26 ) ]
+}
+
+[sub_resource type="Animation" id=61]
+resource_name = "AimRight"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, -26 ) ]
+}
+
+[sub_resource type="Animation" id=62]
+resource_name = "AimUp"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, -26 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=63]
+resource_name = "AimUpL"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -2, -26 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 1 ]
+}
+
+[sub_resource type="Animation" id=18]
+resource_name = "AimUpLeft"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 1 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -2, -26 ) ]
+}
+
+[sub_resource type="Animation" id=20]
+resource_name = "AimUpRight"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, -26 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
 
 [sub_resource type="Animation" id=81]
 resource_name = "Air"
@@ -253,48 +478,6 @@ tracks/2/keys = {
 "values": [ 0 ]
 }
 
-[sub_resource type="Animation" id=58]
-resource_name = "ShootDownAir"
-length = 0.1
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 0, -26 ) ]
-}
-tracks/1/type = "method"
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [ NodePath("BulletSpawnDown") ],
-"method": "shoot"
-} ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Sprite:frame")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 0 ]
-}
-
 [sub_resource type="Animation" id=8]
 resource_name = "ShootDownL"
 length = 0.1
@@ -337,218 +520,8 @@ tracks/2/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=59]
-resource_name = "ShootDownLAir"
-length = 0.1
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 1 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Sprite:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( -2, -26 ) ]
-}
-tracks/2/type = "method"
-tracks/2/path = NodePath(".")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [ NodePath("BulletSpawnDown") ],
-"method": "shoot"
-} ]
-}
-
-[sub_resource type="Animation" id=9]
-resource_name = "ShootDownLRun"
-length = 0.1
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 1 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Sprite:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( -2, -26 ) ]
-}
-tracks/2/type = "method"
-tracks/2/path = NodePath(".")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [ NodePath("BulletSpawnDown") ],
-"method": "shoot"
-} ]
-}
-
-[sub_resource type="Animation" id=7]
-resource_name = "ShootDownRun"
-length = 0.1
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 0 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Sprite:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 0, -26 ) ]
-}
-tracks/2/type = "method"
-tracks/2/path = NodePath(".")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [ NodePath("BulletSpawnDown") ],
-"method": "shoot"
-} ]
-}
-
 [sub_resource type="Animation" id=10]
 resource_name = "ShootLeft"
-length = 0.1
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 1 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Sprite:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( -2, -26 ) ]
-}
-tracks/2/type = "method"
-tracks/2/path = NodePath(".")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [ NodePath("BulletSpawnLeft") ],
-"method": "shoot"
-} ]
-}
-
-[sub_resource type="Animation" id=60]
-resource_name = "ShootLeftAir"
-length = 0.1
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 1 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Sprite:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( -2, -26 ) ]
-}
-tracks/2/type = "method"
-tracks/2/path = NodePath(".")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [ NodePath("BulletSpawnLeft") ],
-"method": "shoot"
-} ]
-}
-
-[sub_resource type="Animation" id=11]
-resource_name = "ShootLeftRun"
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -631,134 +604,8 @@ tracks/2/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=61]
-resource_name = "ShootRightAir"
-length = 0.1
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 0 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Sprite:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 0, -26 ) ]
-}
-tracks/2/type = "method"
-tracks/2/path = NodePath(".")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [ NodePath("BulletSpawnRight") ],
-"method": "shoot"
-} ]
-}
-
-[sub_resource type="Animation" id=13]
-resource_name = "ShootRightRun"
-length = 0.1
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 0 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Sprite:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 0, -26 ) ]
-}
-tracks/2/type = "method"
-tracks/2/path = NodePath(".")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [ NodePath("BulletSpawnRight") ],
-"method": "shoot"
-} ]
-}
-
 [sub_resource type="Animation" id=14]
 resource_name = "ShootUp"
-length = 0.1
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 0, -26 ) ]
-}
-tracks/1/type = "method"
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [ NodePath("BulletSpawnUp") ],
-"method": "shoot"
-} ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Sprite:frame")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 0 ]
-}
-
-[sub_resource type="Animation" id=62]
-resource_name = "ShootUpAir"
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:position")
@@ -841,176 +688,8 @@ tracks/2/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=63]
-resource_name = "ShootUpLAir"
-length = 0.1
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( -2, -26 ) ]
-}
-tracks/1/type = "method"
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [ NodePath("BulletSpawnUp") ],
-"method": "shoot"
-} ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Sprite:frame")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 1 ]
-}
-
-[sub_resource type="Animation" id=16]
-resource_name = "ShootUpLRun"
-length = 0.1
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( -2, -26 ) ]
-}
-tracks/1/type = "method"
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [ NodePath("BulletSpawnUp") ],
-"method": "shoot"
-} ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Sprite:frame")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 1 ]
-}
-
 [sub_resource type="Animation" id=17]
 resource_name = "ShootUpLeft"
-length = 0.1
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 1 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Sprite:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( -2, -26 ) ]
-}
-tracks/2/type = "method"
-tracks/2/path = NodePath(".")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [ NodePath("BulletSpawnUpLeft") ],
-"method": "shoot"
-} ]
-}
-
-[sub_resource type="Animation" id=18]
-resource_name = "ShootUpLeftAir"
-length = 0.1
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 1 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Sprite:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( -2, -26 ) ]
-}
-tracks/2/type = "method"
-tracks/2/path = NodePath(".")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [ NodePath("BulletSpawnUpLeft") ],
-"method": "shoot"
-} ]
-}
-
-[sub_resource type="Animation" id=64]
-resource_name = "ShootUpLeftRun"
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -1093,89 +772,47 @@ tracks/2/keys = {
 "values": [ 0 ]
 }
 
-[sub_resource type="Animation" id=20]
-resource_name = "ShootUpRightAir"
-length = 0.1
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 0, -26 ) ]
-}
-tracks/1/type = "method"
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [ NodePath("BulletSpawnUpRight") ],
-"method": "shoot"
-} ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Sprite:frame")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 0 ]
-}
+[sub_resource type="AnimationNodeAnimation" id=85]
+animation = "AimDownL"
 
-[sub_resource type="Animation" id=21]
-resource_name = "ShootUpRun"
-length = 0.1
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 0, -26 ) ]
-}
-tracks/1/type = "method"
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [ NodePath("BulletSpawnUp") ],
-"method": "shoot"
-} ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Sprite:frame")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 0 ]
-}
+[sub_resource type="AnimationNodeAnimation" id=86]
+animation = "AimDown"
+
+[sub_resource type="AnimationNodeAnimation" id=87]
+animation = "AimLeft"
+
+[sub_resource type="AnimationNodeAnimation" id=88]
+animation = "AimUpLeft"
+
+[sub_resource type="AnimationNodeAnimation" id=89]
+animation = "AimUpRight"
+
+[sub_resource type="AnimationNodeAnimation" id=90]
+animation = "AimUpL"
+
+[sub_resource type="AnimationNodeAnimation" id=91]
+animation = "AimUp"
+
+[sub_resource type="AnimationNodeAnimation" id=92]
+animation = "AimRight"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id=93]
+blend_point_0/node = SubResource( 85 )
+blend_point_0/pos = Vector2( -0.1, 1 )
+blend_point_1/node = SubResource( 86 )
+blend_point_1/pos = Vector2( 0.1, 1 )
+blend_point_2/node = SubResource( 87 )
+blend_point_2/pos = Vector2( -1, 0 )
+blend_point_3/node = SubResource( 88 )
+blend_point_3/pos = Vector2( -0.5, -0.5 )
+blend_point_4/node = SubResource( 89 )
+blend_point_4/pos = Vector2( 0.5, -0.5 )
+blend_point_5/node = SubResource( 90 )
+blend_point_5/pos = Vector2( -0.1, -1 )
+blend_point_6/node = SubResource( 91 )
+blend_point_6/pos = Vector2( 0.1, -1 )
+blend_point_7/node = SubResource( 92 )
+blend_point_7/pos = Vector2( 1, 0 )
 
 [sub_resource type="AnimationNodeAnimation" id=65]
 animation = "AirL"
@@ -1212,38 +849,6 @@ blend_point_0/node = SubResource( 39 )
 blend_point_0/pos = -1.0
 blend_point_1/node = SubResource( 40 )
 blend_point_1/pos = 1.0
-
-[sub_resource type="AnimationNodeAnimation" id=68]
-animation = "ShootDownAir"
-
-[sub_resource type="AnimationNodeAnimation" id=69]
-animation = "ShootRightAir"
-
-[sub_resource type="AnimationNodeAnimation" id=70]
-animation = "ShootLeftAir"
-
-[sub_resource type="AnimationNodeAnimation" id=71]
-animation = "ShootUpAir"
-
-[sub_resource type="AnimationNodeAnimation" id=72]
-animation = "ShootUpLeftAir"
-
-[sub_resource type="AnimationNodeAnimation" id=73]
-animation = "ShootUpRightAir"
-
-[sub_resource type="AnimationNodeBlendSpace2D" id=74]
-blend_point_0/node = SubResource( 68 )
-blend_point_0/pos = Vector2( 0, 1 )
-blend_point_1/node = SubResource( 69 )
-blend_point_1/pos = Vector2( 1, 0 )
-blend_point_2/node = SubResource( 70 )
-blend_point_2/pos = Vector2( -1, 0 )
-blend_point_3/node = SubResource( 71 )
-blend_point_3/pos = Vector2( 0, -1 )
-blend_point_4/node = SubResource( 72 )
-blend_point_4/pos = Vector2( -0.5, -0.5 )
-blend_point_5/node = SubResource( 73 )
-blend_point_5/pos = Vector2( 0.5, -0.5 )
 
 [sub_resource type="AnimationNodeAnimation" id=26]
 animation = "ShootLeft"
@@ -1288,53 +893,9 @@ blend_point_7/node = SubResource( 84 )
 blend_point_7/pos = Vector2( -0.1, 1 )
 blend_mode = 1
 
-[sub_resource type="AnimationNodeAnimation" id=44]
-animation = "ShootUpRun"
-
-[sub_resource type="AnimationNodeAnimation" id=45]
-animation = "ShootRightRun"
-
-[sub_resource type="AnimationNodeAnimation" id=46]
-animation = "ShootDownRun"
-
-[sub_resource type="AnimationNodeAnimation" id=47]
-animation = "ShootLeftRun"
-
-[sub_resource type="AnimationNodeAnimation" id=48]
-animation = "ShootUpLeftRun"
-
-[sub_resource type="AnimationNodeAnimation" id=49]
-animation = "ShootUpRightAir"
-
-[sub_resource type="AnimationNodeBlendSpace2D" id=31]
-blend_point_0/node = SubResource( 44 )
-blend_point_0/pos = Vector2( 0, -1 )
-blend_point_1/node = SubResource( 45 )
-blend_point_1/pos = Vector2( 1, 0 )
-blend_point_2/node = SubResource( 46 )
-blend_point_2/pos = Vector2( 0, 1 )
-blend_point_3/node = SubResource( 47 )
-blend_point_3/pos = Vector2( -1, 0 )
-blend_point_4/node = SubResource( 48 )
-blend_point_4/pos = Vector2( -0.5, -0.5 )
-blend_point_5/node = SubResource( 49 )
-blend_point_5/pos = Vector2( 0.5, -0.5 )
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=50]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=51]
-switch_mode = 2
-auto_advance = true
-
 [sub_resource type="AnimationNodeStateMachineTransition" id=52]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=53]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=54]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=55]
-switch_mode = 2
-auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=75]
 
@@ -1344,28 +905,31 @@ auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=78]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=79]
+[sub_resource type="AnimationNodeStateMachineTransition" id=94]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=80]
+[sub_resource type="AnimationNodeStateMachineTransition" id=95]
+advance_condition = "not_held"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=96]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=97]
 switch_mode = 2
 auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachine" id=34]
+states/Aim/node = SubResource( 93 )
+states/Aim/position = Vector2( 245, 60.6564 )
 states/Air/node = SubResource( 67 )
 states/Air/position = Vector2( 366, 287 )
 states/Idle/node = SubResource( 38 )
 states/Idle/position = Vector2( 245, 177 )
 states/Run/node = SubResource( 41 )
 states/Run/position = Vector2( 497, 177 )
-states/ShootAir/node = SubResource( 74 )
-states/ShootAir/position = Vector2( 366, 404 )
-states/ShootIdle/node = SubResource( 30 )
-states/ShootIdle/position = Vector2( 227, 81 )
-states/ShootRun/node = SubResource( 31 )
-states/ShootRun/position = Vector2( 517, 81 )
-transitions = [ "Idle", "ShootIdle", SubResource( 50 ), "ShootIdle", "Idle", SubResource( 51 ), "Idle", "Run", SubResource( 52 ), "Run", "Idle", SubResource( 53 ), "Run", "ShootRun", SubResource( 54 ), "ShootRun", "Run", SubResource( 55 ), "Idle", "Air", SubResource( 75 ), "Air", "Idle", SubResource( 76 ), "Air", "Run", SubResource( 77 ), "Run", "Air", SubResource( 78 ), "Air", "ShootAir", SubResource( 79 ), "ShootAir", "Air", SubResource( 80 ) ]
+states/Shoot/node = SubResource( 30 )
+states/Shoot/position = Vector2( 245, -43 )
+transitions = [ "Idle", "Run", SubResource( 52 ), "Run", "Idle", SubResource( 53 ), "Idle", "Air", SubResource( 75 ), "Air", "Idle", SubResource( 76 ), "Air", "Run", SubResource( 77 ), "Run", "Air", SubResource( 78 ), "Idle", "Aim", SubResource( 94 ), "Aim", "Idle", SubResource( 95 ), "Aim", "Shoot", SubResource( 96 ), "Shoot", "Aim", SubResource( 97 ) ]
 start_node = "Idle"
-graph_offset = Vector2( 0, 28.7505 )
+graph_offset = Vector2( -556.849, -92.4115 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=35]
 
@@ -1387,6 +951,14 @@ texture = ExtResource( 6 )
 hframes = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/AimDown = SubResource( 58 )
+anims/AimDownL = SubResource( 59 )
+anims/AimLeft = SubResource( 60 )
+anims/AimRight = SubResource( 61 )
+anims/AimUp = SubResource( 62 )
+anims/AimUpL = SubResource( 63 )
+anims/AimUpLeft = SubResource( 18 )
+anims/AimUpRight = SubResource( 20 )
 anims/Air = SubResource( 81 )
 anims/AirL = SubResource( 82 )
 anims/Idle = SubResource( 22 )
@@ -1395,28 +967,13 @@ anims/RESET = SubResource( 2 )
 anims/Run = SubResource( 3 )
 anims/RunL = SubResource( 4 )
 anims/ShootDown = SubResource( 6 )
-anims/ShootDownAir = SubResource( 58 )
 anims/ShootDownL = SubResource( 8 )
-anims/ShootDownLAir = SubResource( 59 )
-anims/ShootDownLRun = SubResource( 9 )
-anims/ShootDownRun = SubResource( 7 )
 anims/ShootLeft = SubResource( 10 )
-anims/ShootLeftAir = SubResource( 60 )
-anims/ShootLeftRun = SubResource( 11 )
 anims/ShootRight = SubResource( 12 )
-anims/ShootRightAir = SubResource( 61 )
-anims/ShootRightRun = SubResource( 13 )
 anims/ShootUp = SubResource( 14 )
-anims/ShootUpAir = SubResource( 62 )
 anims/ShootUpL = SubResource( 15 )
-anims/ShootUpLAir = SubResource( 63 )
-anims/ShootUpLRun = SubResource( 16 )
 anims/ShootUpLeft = SubResource( 17 )
-anims/ShootUpLeftAir = SubResource( 18 )
-anims/ShootUpLeftRun = SubResource( 64 )
 anims/ShootUpRight = SubResource( 19 )
-anims/ShootUpRightAir = SubResource( 20 )
-anims/ShootUpRun = SubResource( 21 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource( 34 )
@@ -1424,12 +981,12 @@ anim_player = NodePath("../AnimationPlayer")
 active = true
 process_mode = 0
 parameters/playback = SubResource( 35 )
+parameters/conditions/not_held = false
+parameters/Aim/blend_position = Vector2( -0.00375736, -0.00748134 )
 parameters/Air/blend_position = -0.00405514
 parameters/Idle/blend_position = 1.0
 parameters/Run/blend_position = 1.0
-parameters/ShootAir/blend_position = Vector2( 0, 0 )
-parameters/ShootIdle/blend_position = Vector2( -0.00954032, 0.00985217 )
-parameters/ShootRun/blend_position = Vector2( 0, 0 )
+parameters/Shoot/blend_position = Vector2( -0.0123457, 0.321185 )
 
 [node name="Camera arm" type="Node2D" parent="."]
 
@@ -1478,6 +1035,9 @@ wait_time = 0.1
 
 [node name="CoyoteTimeTimer" type="Timer" parent="StateMachine/Air"]
 wait_time = 0.1
+
+[node name="Aim" type="Node" parent="StateMachine"]
+script = ExtResource( 8 )
 
 [node name="CooldownTimer" type="Timer" parent="."]
 

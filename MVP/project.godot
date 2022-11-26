@@ -74,6 +74,7 @@ config/icon="res://icon.png"
 
 [autoload]
 
+GlobalTypes="*res://Abstract/Globals/GlobalTypes.tscn"
 GameSaver="*res://Abstract/Saves/GameSaver.tscn"
 GlobalVars="*res://Abstract/Globals/GlobalVars.tscn"
 
