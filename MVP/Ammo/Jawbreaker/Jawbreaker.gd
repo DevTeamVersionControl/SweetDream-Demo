@@ -1,7 +1,7 @@
 extends KinematicBody2D
 
-export var THROW_velocity = 100
-export var THROW_ANGLE = 45
+export var THROW_velocity = 30
+export var THROW_ANGLE = 20
 export var COOLDOWN = 1
 const PIXELS_PER_METER = 16
 export var gravity = 9.8
@@ -9,7 +9,6 @@ var touched_something:= false
 
 export var enemy_knockback = 10
 export var player_knockback = 10
-export var damage = 5
 
 var velocity = Vector2.ZERO
 
@@ -27,18 +26,13 @@ func _physics_process(delta):
 			touched_something = true
 		_on_inpact(collision.normal)
 		
-func launch(direction, strength):
+func launch(direction, strength)->Vector2:
 	if direction.x == 1:
 		velocity = Vector2(cos(deg2rad(THROW_ANGLE)),sin(deg2rad(THROW_ANGLE))) * THROW_velocity
 	elif direction.x == -1:
 		velocity = Vector2(cos(deg2rad(180 - THROW_ANGLE)),sin(deg2rad(180 - THROW_ANGLE))) * THROW_velocity
 	velocity *= Vector2(strength, -strength)
-	get_parent().motion += -velocity.normalized() * player_knockback
-	var scene = get_tree().current_scene
-	var pos = global_position
-	get_parent().remove_child(self)
-	scene.add_child(self)
-	global_position = pos
+	return -velocity.normalized() * player_knockback
 
 func _on_inpact(normal):
 	velocity = velocity.bounce(normal)
@@ -49,7 +43,7 @@ func _on_Area2D_body_entered(body):
 		body.disappear()
 		queue_free()
 	if body.is_in_group("enemy"):
-		body.take_damage(damage, velocity.normalized() * enemy_knockback)
+		body.take_damage(GlobalVars.get_ammo("Jawbreaker").damage, velocity.normalized() * enemy_knockback)
 
 func _on_Timer_timeout():
 	queue_free()

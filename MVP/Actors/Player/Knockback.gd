@@ -5,8 +5,9 @@ var knockback_recovery := 0.01
 
 # If we get a message asking us to jump, we jump.
 func enter(msg := {}) -> void:
-	big_knockback = false if msg.get(0).length() < 5000 else true
-	player.velocity = msg.get(0, Vector2.ZERO) as Vector2
+	if msg.get(0) != null:
+		big_knockback = false if msg.get(0).length() < 5000 else true
+		player.velocity = msg.get(0, Vector2.ZERO) as Vector2
 
 func physics_update(delta: float) -> void:
 	player.velocity.x = lerp(player.velocity.x, 0, knockback_recovery)

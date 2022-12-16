@@ -16,11 +16,9 @@ margin_right = 3755.57
 margin_bottom = 2097.1
 rect_scale = Vector2( 0.0778754, 0.0842884 )
 expand = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
+self_modulate = Color( 0, 0, 0, 1 )
 margin_right = 40.0
 margin_bottom = 40.0
 text = "Candy corn"

@@ -1,7 +1,5 @@
 extends Area2D
 
-const COOLDOWN = 0.2
-const DAMAGE = 1
 
 export var SPEED = 400
 
@@ -17,9 +15,9 @@ func _on_Hit(body):
 	if body.get_collision_layer_bit(0):
 		queue_free()
 	elif body.get_collision_layer_bit(1):
-		body.take_damage(DAMAGE, direction.normalized() * enemy_knockback)
+		body.take_damage(GlobalVars.get_ammo("Candy Corn").damage, direction.normalized() * enemy_knockback)
 		queue_free()
 
-func set_direction(bullet_direction : Vector2) -> void:
+func launch(bullet_direction : Vector2, _strength) -> void:
 	direction = bullet_direction
 	rotation = direction.angle()

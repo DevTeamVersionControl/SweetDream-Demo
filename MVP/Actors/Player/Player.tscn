@@ -1,4 +1,4 @@
-[gd_scene load_steps=73 format=2]
+[gd_scene load_steps=74 format=2]
 
 [ext_resource path="res://Abstract/StateMachine.gd" type="Script" id=1]
 [ext_resource path="res://Actors/Player/Idle.gd" type="Script" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://Actors/Player/spritesheet.png" type="Texture" id=6]
 [ext_resource path="res://Actors/Player/Knockback.gd" type="Script" id=7]
 [ext_resource path="res://Actors/Player/Aim.gd" type="Script" id=8]
+[ext_resource path="res://Actors/Player/shootbar.png" type="Texture" id=9]
 
 [sub_resource type="Animation" id=58]
 resource_name = "AimDown"
@@ -451,8 +452,8 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Vector2( 0, -26 ) ]
 }
-tracks/1/type = "method"
-tracks/1/path = NodePath(".")
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -460,13 +461,11 @@ tracks/1/enabled = true
 tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [ NodePath("BulletSpawnDown") ],
-"method": "shoot"
-} ]
+"update": 1,
+"values": [ 0 ]
 }
-tracks/2/type = "value"
-tracks/2/path = NodePath("Sprite:frame")
+tracks/2/type = "method"
+tracks/2/path = NodePath("StateMachine/Aim")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -474,8 +473,10 @@ tracks/2/enabled = true
 tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 0 ]
+"values": [ {
+"args": [ NodePath("BulletSpawnDown") ],
+"method": "shoot"
+} ]
 }
 
 [sub_resource type="Animation" id=8]
@@ -506,7 +507,7 @@ tracks/1/keys = {
 "values": [ Vector2( -2, -26 ) ]
 }
 tracks/2/type = "method"
-tracks/2/path = NodePath(".")
+tracks/2/path = NodePath("StateMachine/Aim")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -548,7 +549,7 @@ tracks/1/keys = {
 "values": [ Vector2( -2, -26 ) ]
 }
 tracks/2/type = "method"
-tracks/2/path = NodePath(".")
+tracks/2/path = NodePath("StateMachine/Aim")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -590,7 +591,7 @@ tracks/1/keys = {
 "values": [ Vector2( 0, -26 ) ]
 }
 tracks/2/type = "method"
-tracks/2/path = NodePath(".")
+tracks/2/path = NodePath("StateMachine/Aim")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -619,8 +620,8 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Vector2( 0, -26 ) ]
 }
-tracks/1/type = "method"
-tracks/1/path = NodePath(".")
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -628,13 +629,11 @@ tracks/1/enabled = true
 tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [ NodePath("BulletSpawnUp") ],
-"method": "shoot"
-} ]
+"update": 1,
+"values": [ 0 ]
 }
-tracks/2/type = "value"
-tracks/2/path = NodePath("Sprite:frame")
+tracks/2/type = "method"
+tracks/2/path = NodePath("StateMachine/Aim")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -642,8 +641,10 @@ tracks/2/enabled = true
 tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 0 ]
+"values": [ {
+"args": [ NodePath("BulletSpawnUp") ],
+"method": "shoot"
+} ]
 }
 
 [sub_resource type="Animation" id=15]
@@ -674,7 +675,7 @@ tracks/1/keys = {
 "values": [ Vector2( -2, -26 ) ]
 }
 tracks/2/type = "method"
-tracks/2/path = NodePath(".")
+tracks/2/path = NodePath("StateMachine/Aim")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -716,7 +717,7 @@ tracks/1/keys = {
 "values": [ Vector2( -2, -26 ) ]
 }
 tracks/2/type = "method"
-tracks/2/path = NodePath(".")
+tracks/2/path = NodePath("StateMachine/Aim")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -745,8 +746,8 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Vector2( 0, -26 ) ]
 }
-tracks/1/type = "method"
-tracks/1/path = NodePath(".")
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -754,13 +755,11 @@ tracks/1/enabled = true
 tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [ NodePath("BulletSpawnUpRight") ],
-"method": "shoot"
-} ]
+"update": 1,
+"values": [ 0 ]
 }
-tracks/2/type = "value"
-tracks/2/path = NodePath("Sprite:frame")
+tracks/2/type = "method"
+tracks/2/path = NodePath("StateMachine/Aim")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -768,8 +767,10 @@ tracks/2/enabled = true
 tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 0 ]
+"values": [ {
+"args": [ NodePath("BulletSpawnUpRight") ],
+"method": "shoot"
+} ]
 }
 
 [sub_resource type="AnimationNodeAnimation" id=85]
@@ -998,6 +999,7 @@ process_mode = 0
 drag_margin_h_enabled = true
 drag_margin_v_enabled = true
 smoothing_enabled = true
+smoothing_speed = 3.5
 drag_margin_top = 0.62
 drag_margin_bottom = 0.0
 editor_draw_limits = true
@@ -1062,6 +1064,18 @@ position = Vector2( -12, -35 )
 [node name="BulletSpawnRight" type="Position2D" parent="."]
 position = Vector2( 13, -35 )
 
+[node name="CooldownBar" type="Sprite" parent="."]
+visible = false
+position = Vector2( 1.00002, -56.56 )
+scale = Vector2( 1e-10, 0.0001 )
+texture = ExtResource( 9 )
+
+[node name="ShootBar" type="Sprite" parent="."]
+visible = false
+position = Vector2( 1, -56 )
+scale = Vector2( 1e-05, 0.01 )
+texture = ExtResource( 9 )
+
 [connection signal="timeout" from="StateMachine/Air/JumpBufferTimer" to="StateMachine/Air" method="_on_JumpBufferTimer_timeout"]
 [connection signal="timeout" from="StateMachine/Air/CoyoteTimeTimer" to="StateMachine/Air" method="_on_CoyoteTimeTimer_timeout"]
-[connection signal="timeout" from="CooldownTimer" to="." method="_on_CooldownTimer_timeout"]
+[connection signal="timeout" from="CooldownTimer" to="StateMachine/Aim" method="_on_CooldownTimer_timeout"]

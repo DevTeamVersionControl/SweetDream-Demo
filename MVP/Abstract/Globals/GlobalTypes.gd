@@ -7,9 +7,11 @@ class Ammo:
 	var name : String
 	var type : int
 	var cooldown : float
+	var damage : float
 	var scene : PackedScene
-	func _init(name, type, cooldown, scene):
-		self.name = name
-		self.type = type
-		self.cooldown = cooldown
-		self.scene = scene
+	func _init(ammo_name, ammo_type, ammo_cooldown, ammo_damage, ammo_scene):
+		name = ammo_name
+		type = ammo_type
+		cooldown = ammo_cooldown
+		damage = ammo_damage
+		scene = ammo_scene
