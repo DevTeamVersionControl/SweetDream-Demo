@@ -1,4 +1,4 @@
-[gd_scene load_steps=74 format=2]
+[gd_scene load_steps=75 format=2]
 
 [ext_resource path="res://Abstract/StateMachine.gd" type="Script" id=1]
 [ext_resource path="res://Actors/Player/Idle.gd" type="Script" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://Actors/Player/Knockback.gd" type="Script" id=7]
 [ext_resource path="res://Actors/Player/Aim.gd" type="Script" id=8]
 [ext_resource path="res://Actors/Player/shootbar.png" type="Texture" id=9]
+[ext_resource path="res://Actors/Player/cooldownbar.png" type="Texture" id=10]
 
 [sub_resource type="Animation" id=58]
 resource_name = "AimDown"
@@ -1065,10 +1066,9 @@ position = Vector2( -12, -35 )
 position = Vector2( 13, -35 )
 
 [node name="CooldownBar" type="Sprite" parent="."]
-visible = false
 position = Vector2( 1.00002, -56.56 )
-scale = Vector2( 1e-10, 0.0001 )
-texture = ExtResource( 9 )
+scale = Vector2( 1e-05, 0.01 )
+texture = ExtResource( 10 )
 
 [node name="ShootBar" type="Sprite" parent="."]
 visible = false

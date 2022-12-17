@@ -1,7 +1,7 @@
 extends KinematicBody2D
 
-export var THROW_velocity = 30
-export var THROW_ANGLE = 20
+export var THROW_velocity = 50
+export var THROW_ANGLE = 10
 export var COOLDOWN = 1
 const PIXELS_PER_METER = 16
 export var gravity = 9.8

@@ -31,6 +31,6 @@ func _on_Area2D_body_entered(body):
 	if body.is_in_group("enemy"):
 		body.take_damage(GlobalVars.get_ammo("Jelly Bean").damage, (body.global_position - global_position).normalized() * enemy_knockback)
 	if body.is_in_group("player"):
-		body.motion = (body.global_position - global_position).normalized() * player_explosion_knockback
+		body.state_machine.transition_to("knockback", {0:(body.bullet_center.global_position - global_position).normalized() * player_explosion_knockback})
 	if body.is_in_group("movable"):
 		body.apply_central_impulse((body.global_position - global_position).normalized() * player_explosion_knockback * 100)

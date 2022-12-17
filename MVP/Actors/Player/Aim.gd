@@ -41,12 +41,14 @@ func physics_update(delta: float) -> void:
 		if bullet_strength > 0.5:
 			shoot_animation()
 		else:
+			player.shoot_bar.visible = false
 			state_machine.transition_to("Idle")
 
 func shoot_animation():
 	player.animation_mode.travel("Shoot")
 	player.shoot_bar.visible = false
 	yield(get_tree().create_timer(SHOOT_ANIMATION_TIME), "timeout")
+	player.cooldown_bar.visible = true
 	state_machine.transition_to("Idle")
 
 # Shoots individual bullets
@@ -65,3 +67,4 @@ func shoot(position:NodePath) -> void:
 
 func _on_CooldownTimer_timeout() -> void:
 	player.can_shoot = true
+	player.cooldown_bar.visible = false

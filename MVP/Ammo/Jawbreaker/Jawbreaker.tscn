@@ -4,7 +4,7 @@
 [ext_resource path="res://Ammo/Jawbreaker/Jaw Breaker 2160p.png" type="Texture" id=2]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 6.0
+radius = 4.0
 
 [node name="KinematicBody2D" type="KinematicBody2D"]
 collision_layer = 2
@@ -17,7 +17,7 @@ shape = SubResource( 1 )
 [node name="Timer" type="Timer" parent="."]
 
 [node name="Sprite" type="Sprite" parent="."]
-scale = Vector2( 0.02, 0.02 )
+scale = Vector2( 0.015, 0.015 )
 texture = ExtResource( 2 )
 hframes = 2
 vframes = 3
