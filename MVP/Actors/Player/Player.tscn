@@ -1007,12 +1007,12 @@ editor_draw_limits = true
 editor_draw_drag_margin = true
 
 [node name="Physics" type="CollisionShape2D" parent="."]
-position = Vector2( 1, -27 )
+position = Vector2( 1, -29 )
 scale = Vector2( 1, 1.01 )
 shape = SubResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 1, -7.79999 )
+position = Vector2( 1, -10 )
 rotation = 1.57079
 scale = Vector2( 0.605794, 0.357638 )
 shape = SubResource( 5 )
@@ -1057,7 +1057,7 @@ position = Vector2( 12, -47 )
 position = Vector2( -11, -47 )
 
 [node name="BulletSpawnDown" type="Position2D" parent="."]
-position = Vector2( 1, 4 )
+position = Vector2( 1, -21 )
 
 [node name="BulletSpawnLeft" type="Position2D" parent="."]
 position = Vector2( -12, -35 )
