@@ -8,4 +8,4 @@ func enter(_msg := {}) -> void:
 
 func hit_something(something):
 	if something is Player:
-		something.take_damage(bush.DAMAGE, Vector2(bush.PULL_STRENGTH * 1 if bush.facing_left else -1, -50))
+		something.take_damage(bush.DAMAGE, Vector2(bush.PULL_STRENGTH * (1 if bush.facing_left else -1), -100))

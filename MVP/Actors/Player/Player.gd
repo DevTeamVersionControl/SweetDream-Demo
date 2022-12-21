@@ -36,6 +36,7 @@ func _physics_process(_delta):
 
 func knockback(knockback_vector: Vector2):
 	#Adjust the explosion vector to account for the player global position being at the bottom
+	print(knockback_vector)
 	state_machine.transition_to("Knockback", {0:Vector2(knockback_vector.x, -0.2 * knockback_vector.y)})
 
 func calculate_bullet_direction() -> Vector2:

@@ -1,8 +1,18 @@
 extends BushState
 
-func enter(_msg := {}) -> void:
-	bush.animation_player.play("WakeUpLeft")
-	bush.animation_player.stop(true)
+func enter(msg := {}) -> void:
+	if (msg.has(0)):
+		if (bush.facing_left):
+			bush.animation_player.play("WakeUpLeft", -1.0, 1.0, true)
+		else:
+			bush.animation_player.play("WakeUpRight", -1.0, 1.0, true)
+	else:
+		bush.animation_player.play("WakeUpLeft")
+	bush.animation_player.stop(false)
+	if (msg.has(0)):
+		bush.animation_player.seek(bush.animation_player.current_animation_length, true)
+	else:
+		bush.animation_player.seek(0, true)
 	
 func physics_update(delta: float) -> void:
 	if bush.target != null:

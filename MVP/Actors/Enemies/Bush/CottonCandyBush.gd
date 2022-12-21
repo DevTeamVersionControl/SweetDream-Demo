@@ -2,7 +2,7 @@ class_name CandyBush
 extends KinematicBody2D
 
 const DAMAGE = 20
-const PULL_STRENGTH = 500
+const PULL_STRENGTH = 400
 
 var hp = 20
 var target

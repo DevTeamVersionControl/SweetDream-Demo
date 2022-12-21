@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=2]
+[gd_scene load_steps=67 format=2]
 
 [ext_resource path="res://Environment/Blocks/Forest/TileSets/Tile Pack/Grass Tile Pack/Grass Tile Pack 2160p.png" type="Texture" id=1]
 [ext_resource path="res://Actors/Player/Player.tscn" type="PackedScene" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://Environment/Backgrounds/Forest Backgrounds/Main Background/Trees/ShortTrees.tscn" type="PackedScene" id=9]
 [ext_resource path="res://UserInterface/GUI.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Actors/Enemies/Bush/CottonCandyBush.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Environment/Backgrounds/Forest Backgrounds/Main Background/Scatter Terrain/ScatterTerrain.tscn" type="PackedScene" id=12]
 
 [sub_resource type="CanvasItemMaterial" id=153]
 
@@ -558,6 +559,11 @@ motion_scale = Vector2( 0.25, 1 )
 [node name="ForestBackground3" parent="ParallaxBackground/ParallaxLayer3" instance=ExtResource( 7 )]
 tile_data = PoolIntArray( -458688, 7, 0, -327591, 7, 0, -196605, 6, 0, -196598, 6, 0, -196555, 8, 0, -131051, 8, 0, -131035, 6, 0 )
 
+[node name="ScatterTerrain" parent="ParallaxBackground/ParallaxLayer3" instance=ExtResource( 12 )]
+scale = Vector2( 0.03, 0.03 )
+cell_size = Vector2( 64, 64 )
+tile_data = PoolIntArray( 917902, 24, 0, 1048994, 26, 0, 1310966, 27, 0, 2097315, 24, 0, 2162827, 26, 0, 3342327, 26, 0 )
+
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2( 0.5, 1 )
 
@@ -568,6 +574,12 @@ tile_data = PoolIntArray( -327550, 5, 0, -327543, 3, 0, -262078, 3, 0, -262068, 
 position = Vector2( -183, -114 )
 tile_data = PoolIntArray( 1704095, 2, 0, 1966175, 2, 0 )
 
+[node name="ScatterTerrain" parent="ParallaxBackground/ParallaxLayer2" instance=ExtResource( 12 )]
+visible = false
+scale = Vector2( 0.04, 0.04 )
+cell_size = Vector2( 64, 64 )
+tile_data = PoolIntArray( 655720, 10, 0, 655815, 10, 0, 1048771, 16, 0, 1638465, 16, 0 )
+
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
 
 [node name="ForestBackground" parent="ParallaxBackground/ParallaxLayer" instance=ExtResource( 7 )]
@@ -576,6 +588,11 @@ tile_data = PoolIntArray( -524227, 0, 0, -524203, 1, 0, -458704, 2, 0, -393142, 
 [node name="ShortTrees" parent="ParallaxBackground/ParallaxLayer" instance=ExtResource( 9 )]
 position = Vector2( -183, -114 )
 tile_data = PoolIntArray( 1310867, 1, 0, 1310878, 0, 0, 1310918, 1, 0, 1310954, 0, 0, 1311102, 1, 0, 1311160, 0, 0, 1638455, 1, 0, 1638716, 0, 0, 1638855, 1, 0, 1966163, 1, 0, 2359328, 0, 0 )
+
+[node name="ScatterTerrain" parent="ParallaxBackground/ParallaxLayer" instance=ExtResource( 12 )]
+scale = Vector2( 0.05, 0.05 )
+cell_size = Vector2( 64, 64 )
+tile_data = PoolIntArray( 328032, 2, 0, 458771, 0, 0, 458948, 0, 0, 459001, 0, 0, 459092, 1, 0, 1114227, 1, 0 )
 
 [node name="TileMap" parent="." instance=ExtResource( 3 )]
 material = SubResource( 153 )

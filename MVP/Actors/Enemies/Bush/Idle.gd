@@ -10,3 +10,5 @@ func attack():
 	if bush.target != null:
 		bush.facing_left = true if bush.target.global_position.x - bush.global_position.x < 0 else false
 		state_machine.transition_to("Attacking")
+	else:
+		state_machine.transition_to("Asleep", {0:"From attack"})
