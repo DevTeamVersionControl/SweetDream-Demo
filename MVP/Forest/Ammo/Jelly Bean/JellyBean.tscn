@@ -1,0 +1,390 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://Ammo/Jelly Bean/JellyBean.gd" type="Script" id=1]
+[ext_resource path="res://Abstract/StateMachine.gd" type="Script" id=2]
+[ext_resource path="res://Ammo/Jelly Bean/Flying.gd" type="Script" id=3]
+[ext_resource path="res://Ammo/Jelly Bean/Jelly Bean Fly/Jelly Bean 2160p.png" type="Texture" id=4]
+[ext_resource path="res://Ammo/Jelly Bean/Explode.gd" type="Script" id=5]
+[ext_resource path="res://Ammo/Jelly Bean/Jelly Bean Explosion/Explosion 2160p.png" type="Texture" id=6]
+
+[sub_resource type="Animation" id=5]
+resource_name = "Bounce"
+length = 0.621
+tracks/0/type = "value"
+tracks/0/path = NodePath("JellyBeanSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 2, 4, 5, 1, 5, 3 ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "Exploding"
+length = 0.446
+step = 0.04
+tracks/0/type = "value"
+tracks/0/path = NodePath("ExplosionSprite:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.44 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("JellyBeanSprite:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("ExplosionSprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.04, 0.08, 0.12, 0.16, 0.2, 0.24, 0.28, 0.32, 0.36, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 1, 2, 3, 4, 5, 6, 7, 9, 10, 13, 13 ]
+}
+tracks/3/type = "method"
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0.44 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "queue_free"
+} ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("ExplosionCollision/ExplosionCollision:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("ExplosionCollision/ExplosionCollision:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.04, 0.12 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, -55 ), Vector2( 20, -150 ), Vector2( 5, -225 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("ExplosionCollision/ExplosionCollision:scale")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 0.04, 0.12 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.693779, 0.458497 ), Vector2( 1, 1 ), Vector2( 1.31445, 1.64842 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("ExplosionCollision:monitoring")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("ExplosionCollision:monitorable")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "Flying"
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("JellyBeanSprite:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("ExplosionSprite:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("JellyBeanSprite:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0.247059, 0.247059, 0.247059, 1 ), Color( 1, 0.231373, 0.231373, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("StateMachine/Flying:sticky")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=4]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("ExplosionSprite:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("JellyBeanSprite:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("ExplosionSprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("ExplosionCollision/ExplosionCollision:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("ExplosionCollision/ExplosionCollision:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, -55 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("ExplosionCollision/ExplosionCollision:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("ExplosionCollision:monitoring")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("ExplosionCollision:monitorable")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("JellyBeanSprite:frame")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("JellyBeanSprite:modulate")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 0.694118, 0.694118, 1 ) ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("StateMachine/Flying:sticky")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 210.059
+
+[node name="KinematicBody2D" type="KinematicBody2D"]
+scale = Vector2( 0.1, 0.1 )
+collision_layer = 2
+collision_mask = 2
+script = ExtResource( 1 )
+THROW_velocity = 300
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Bounce = SubResource( 5 )
+anims/Exploding = SubResource( 2 )
+anims/Flying = SubResource( 3 )
+anims/RESET = SubResource( 4 )
+
+[node name="JellyBeanSprite" type="Sprite" parent="."]
+visible = false
+modulate = Color( 1, 0.694118, 0.694118, 1 )
+position = Vector2( 0, 3.8147e-06 )
+scale = Vector2( 0.1, 0.1 )
+texture = ExtResource( 4 )
+hframes = 2
+vframes = 3
+
+[node name="ExplosionSprite" type="Sprite" parent="."]
+position = Vector2( 25, -390 )
+scale = Vector2( 3, 3 )
+texture = ExtResource( 6 )
+hframes = 4
+vframes = 8
+
+[node name="Collision" type="CollisionPolygon2D" parent="."]
+position = Vector2( 0, 2.27374e-13 )
+polygon = PoolVector2Array( -26, -18, 0, -13, 25, -19, 33, -15, 33, 1, 23, 14, 0, 20, -27, 13, -34, 1, -33, -12 )
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource( 2 )
+initial_state = NodePath("Flying")
+
+[node name="Flying" type="Node" parent="StateMachine"]
+script = ExtResource( 3 )
+
+[node name="Exploding" type="Node" parent="StateMachine"]
+script = ExtResource( 5 )
+
+[node name="ExplosionCollision" type="Area2D" parent="."]
+visible = false
+collision_layer = 3
+collision_mask = 3
+monitoring = false
+monitorable = false
+
+[node name="ExplosionCollision" type="CollisionShape2D" parent="ExplosionCollision"]
+position = Vector2( 0, -55 )
+shape = SubResource( 1 )
+
+[node name="ExplosionTimer" type="Timer" parent="."]
+wait_time = 2.0
+
+[connection signal="body_entered" from="ExplosionCollision" to="StateMachine/Exploding" method="_on_Explosion"]
+[connection signal="timeout" from="ExplosionTimer" to="StateMachine/Flying" method="_on_ExplosionTimer_timeout"]
