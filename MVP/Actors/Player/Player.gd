@@ -12,6 +12,8 @@ var velocity = Vector2.ZERO
 var level_limit = Vector2(1920, 1080)
 var facing_right := true
 var can_shoot := true
+var hp := 100
+var invulnerable := false
 
 # References to nodes in case they are changed
 onready var cooldown_timer := $CooldownTimer
@@ -23,6 +25,7 @@ onready var camera_arm = $"Camera arm/Camera2D"
 onready var animation_player = $AnimationPlayer
 onready var shoot_bar = $ShootBar
 onready var cooldown_bar = $CooldownBar
+onready var invulnerability_timer = $InvulnerabilityTimer
 
 func _physics_process(_delta):
 	if Input.is_action_just_pressed("ammo_next"):
@@ -42,3 +45,15 @@ func calculate_bullet_direction() -> Vector2:
 	if raw_bullet_direction.length() == 0:
 		raw_bullet_direction.x = 1 if facing_right else -1
 	return raw_bullet_direction.normalized()
+
+func take_damage(damage:float, knockback:Vector2) -> void:
+	if !invulnerable:
+		invulnerable = true
+		invulnerability_timer.start()
+		knockback(knockback)
+		hp -= damage
+		if hp <= 0:
+			get_tree().reload_current_scene()
+
+func on_invulnerability_off():
+	invulnerable = false

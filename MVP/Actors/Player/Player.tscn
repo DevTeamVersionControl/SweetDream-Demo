@@ -1011,7 +1011,7 @@ position = Vector2( 1, -29 )
 scale = Vector2( 1, 1.01 )
 shape = SubResource( 1 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="HurtBox" type="CollisionShape2D" parent="."]
 position = Vector2( 1, -10 )
 rotation = 1.57079
 scale = Vector2( 0.605794, 0.357638 )
@@ -1043,6 +1043,8 @@ wait_time = 0.1
 script = ExtResource( 8 )
 
 [node name="CooldownTimer" type="Timer" parent="."]
+
+[node name="InvulnerabilityTimer" type="Timer" parent="."]
 
 [node name="BulletSpawnUp" type="Position2D" parent="."]
 position = Vector2( 1, -55 )
@@ -1079,3 +1081,4 @@ texture = ExtResource( 9 )
 [connection signal="timeout" from="StateMachine/Air/JumpBufferTimer" to="StateMachine/Air" method="_on_JumpBufferTimer_timeout"]
 [connection signal="timeout" from="StateMachine/Air/CoyoteTimeTimer" to="StateMachine/Air" method="_on_CoyoteTimeTimer_timeout"]
 [connection signal="timeout" from="CooldownTimer" to="StateMachine/Aim" method="_on_CooldownTimer_timeout"]
+[connection signal="timeout" from="InvulnerabilityTimer" to="." method="on_invulnerability_off"]

@@ -9,6 +9,16 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "State",
+"class": "BushState",
+"language": "GDScript",
+"path": "res://Actors/Enemies/Bush/BushState.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "CandyBush",
+"language": "GDScript",
+"path": "res://Actors/Enemies/Bush/CottonCandyBush.gd"
+}, {
 "base": "KinematicBody2D",
 "class": "JellyBean",
 "language": "GDScript",
@@ -55,6 +65,8 @@ _global_script_classes=[ {
 "path": "res://Ammo/Sticky Bomb/StickyBombState.gd"
 } ]
 _global_script_class_icons={
+"BushState": "",
+"CandyBush": "",
 "JellyBean": "",
 "JellyBeanState": "",
 "Player": "",

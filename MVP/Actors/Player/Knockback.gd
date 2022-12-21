@@ -3,7 +3,7 @@ extends PlayerState
 #Handles knockback
 
 var big_knockback := false
-var knockback_recovery := 0.1
+var knockback_recovery := 0.05
 var gravity_scale := 0.5
 
 func enter(msg := {}) -> void:

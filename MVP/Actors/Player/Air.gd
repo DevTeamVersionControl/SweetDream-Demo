@@ -42,6 +42,8 @@ func physics_update(delta: float) -> void:
 	# Higher jump
 	if Input.is_action_pressed("move_up") && player.velocity.y < 0:
 		player.velocity.y -= player.JUMP_ACCEL * delta
+	if Input.is_action_just_released("move_up") && player.velocity.y < 0:
+		player.velocity.y = 0
 		
 	#Coyote time
 	if Input.is_action_just_pressed("move_up") && coyote_time:

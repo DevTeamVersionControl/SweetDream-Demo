@@ -17,7 +17,8 @@ func _ready() -> void:
 	yield(owner, "ready")
 	# The state machine assigns itself to the State objects' state_machine property.
 	for child in get_children():
-		child.state_machine = self
+		if child is State:
+			child.state_machine = self
 	state.enter()
 
 

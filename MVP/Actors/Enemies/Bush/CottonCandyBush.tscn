@@ -1,10 +1,15 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Actors/Enemies/Bush/CottonCandyBush.gd" type="Script" id=1]
 [ext_resource path="res://Actors/Enemies/Bush/Bush1440p.png" type="Texture" id=2]
+[ext_resource path="res://Abstract/StateMachine.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Actors/Enemies/Bush/Asleep.gd" type="Script" id=4]
+[ext_resource path="res://Actors/Enemies/Bush/Idle.gd" type="Script" id=5]
+[ext_resource path="res://Actors/Enemies/Bush/Attacking.gd" type="Script" id=6]
+[ext_resource path="res://Actors/Enemies/Bush/Death.gd" type="Script" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 30.4, 21.5 )
+extents = Vector2( 30.4, 10.7 )
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 53.5, 31.4816 )
@@ -36,10 +41,10 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0.875, 0.958333, 1, 1.125, 2.16667, 2.20833, 2.25, 2.41667, 2.5, 2.625, 2.66667, 2.75 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0.875001, 1, 1.125, 1.375, 1.875, 2.375, 2.5, 2.625, 2.66667, 2.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ Vector2( -67.0553, -8.8454 ), Vector2( -67.0239, -6.8454 ), Vector2( -49.8092, -55.2922 ), Vector2( 0.944759, -77.8454 ), Vector2( 0.938144, -81.9708 ), Vector2( 0.931528, -86.0962 ), Vector2( 0.944748, -79.8454 ), Vector2( 0.934341, -84.3422 ), Vector2( 1.94475, -35.8454 ), Vector2( 0.944748, -42.8454 ), Vector2( 0.944748, -42.8454 ), Vector2( 0.944748, -32.8454 ) ]
+"values": [ Vector2( -35.0552, 3.1546 ), Vector2( -27.0553, -16.8454 ), Vector2( -3.05525, -31.8454 ), Vector2( 8.94475, -33.8454 ), Vector2( -0.0552521, -34.8454 ), Vector2( -0.0552521, -29.8454 ), Vector2( -1.05525, -22.8454 ), Vector2( -1.05525, -15.8454 ), Vector2( -1.05525, -15.8454 ), Vector2( -1.05525, 2.1546 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("CaneHitZone/CaneHitZone:rotation_degrees")
@@ -48,10 +53,10 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0.875, 0.958333, 1, 1.125, 2.16667, 2.20833, 2.41667, 2.5, 2.625, 2.66667 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0.875001, 1, 1.125, 1.375, 1.875, 2.375, 2.5, 2.625, 2.66667 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 0.0, 0.0, 42.4313, 89.9081, 89.9081, 89.9081, 89.9081, 89.9081, 89.9081, 89.9081 ]
+"values": [ -0.245661, 39.7537, 89.9081, 105.549, 89.9081, 89.9081, 89.9081, 89.9081, 89.9081 ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("CaneHitZone/CaneHitZone:scale")
@@ -60,10 +65,10 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0.875, 0.958333, 1, 1.125, 2.16667, 2.20833, 2.41667, 2.5, 2.625, 2.66667, 2.75 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0.875001, 1, 1.125, 1.375, 1.875, 2.375, 2.5, 2.625, 2.66667, 2.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 1, 0.8 ), Vector2( 1, 1 ), Vector2( 0.5, 1 ), Vector2( 0.5, 1 ), Vector2( 0.4, 1 ) ]
+"values": [ Vector2( 0.5, 0.740169 ), Vector2( 0.5, 0.5 ), Vector2( 0.4, 0.5 ), Vector2( 0.4, 0.5 ), Vector2( 0.4, 0.5 ), Vector2( 0.4, 0.5 ), Vector2( 0.25, 0.5 ), Vector2( 0.15, 0.5 ), Vector2( 0.15, 0.5 ), Vector2( 0.3, 1 ) ]
 }
 tracks/4/type = "value"
 tracks/4/path = NodePath("CaneHitZone/CaneHitZone:disabled")
@@ -89,8 +94,23 @@ tracks/5/keys = {
 "update": 0,
 "values": [ Vector2( 1, 1 ) ]
 }
+tracks/6/type = "method"
+tracks/6/path = NodePath("StateMachine")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ "Idle", {
+} ],
+"method": "transition_to"
+} ]
+}
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=31]
 resource_name = "AttackRight"
 length = 2.83333
 loop = true
@@ -114,10 +134,10 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0.875, 0.958333, 1, 1.125, 2.16667, 2.20833, 2.25, 2.41667, 2.5, 2.625, 2.66667, 2.75 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0.875001, 1, 1.125, 1.375, 1.875, 2.375, 2.5, 2.625, 2.66667, 2.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ Vector2( -67.0553, -8.8454 ), Vector2( -67.0239, -6.8454 ), Vector2( -49.8092, -55.2922 ), Vector2( 0.944759, -77.8454 ), Vector2( 0.938144, -81.9708 ), Vector2( 0.931528, -86.0962 ), Vector2( 0.944748, -79.8454 ), Vector2( 0.934341, -84.3422 ), Vector2( 1.94475, -35.8454 ), Vector2( 0.944748, -42.8454 ), Vector2( 0.944748, -42.8454 ), Vector2( 0.944748, -32.8454 ) ]
+"values": [ Vector2( -35.0552, 3.1546 ), Vector2( -27.0553, -16.8454 ), Vector2( -3.05525, -31.8454 ), Vector2( 8.94475, -33.8454 ), Vector2( -0.0552521, -34.8454 ), Vector2( -0.0552521, -29.8454 ), Vector2( -1.05525, -22.8454 ), Vector2( -1.05525, -15.8454 ), Vector2( -1.05525, -15.8454 ), Vector2( -1.05525, 2.1546 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("CaneHitZone/CaneHitZone:rotation_degrees")
@@ -126,10 +146,10 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0.875, 0.958333, 1, 1.125, 2.16667, 2.20833, 2.41667, 2.5, 2.625, 2.66667 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0.875001, 1, 1.125, 1.375, 1.875, 2.375, 2.5, 2.625, 2.66667 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 0.0, 0.0, 42.4313, 89.9081, 89.9081, 89.9081, 89.9081, 89.9081, 89.9081, 89.9081 ]
+"values": [ -0.245661, 39.7537, 89.9081, 105.549, 89.9081, 89.9081, 89.9081, 89.9081, 89.9081 ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("CaneHitZone/CaneHitZone:scale")
@@ -138,10 +158,10 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0.875, 0.958333, 1, 1.125, 2.16667, 2.20833, 2.41667, 2.5, 2.625, 2.66667, 2.75 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0.875001, 1, 1.125, 1.375, 1.875, 2.375, 2.5, 2.625, 2.66667, 2.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 1, 0.8 ), Vector2( 1, 1 ), Vector2( 0.5, 1 ), Vector2( 0.5, 1 ), Vector2( 0.4, 1 ) ]
+"values": [ Vector2( 0.5, 0.740169 ), Vector2( 0.5, 0.5 ), Vector2( 0.4, 0.5 ), Vector2( 0.4, 0.5 ), Vector2( 0.4, 0.5 ), Vector2( 0.4, 0.5 ), Vector2( 0.25, 0.5 ), Vector2( 0.15, 0.5 ), Vector2( 0.15, 0.5 ), Vector2( 0.3, 1 ) ]
 }
 tracks/4/type = "value"
 tracks/4/path = NodePath("CaneHitZone/CaneHitZone:disabled")
@@ -162,16 +182,30 @@ tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/keys = {
-"times": PoolRealArray( 0 ),
+"times": PoolRealArray( 2.83333 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ Vector2( -1, 1 ) ]
+}
+tracks/6/type = "method"
+tracks/6/path = NodePath("StateMachine")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ "Idle", {
+} ],
+"method": "transition_to"
+} ]
 }
 
 [sub_resource type="Animation" id=6]
 resource_name = "DeathLeft"
 length = 1.25
-loop = true
 step = 0.0416667
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -197,11 +231,24 @@ tracks/1/keys = {
 "update": 0,
 "values": [ Vector2( 1, 1 ) ]
 }
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 1.26 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "queue_free"
+} ]
+}
 
 [sub_resource type="Animation" id=11]
 resource_name = "DeathRight"
 length = 1.25
-loop = true
 step = 0.0416667
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -227,53 +274,24 @@ tracks/1/keys = {
 "update": 0,
 "values": [ Vector2( -1, 1 ) ]
 }
-
-[sub_resource type="Animation" id=12]
-resource_name = "FallingAsleepLeft"
-length = 1.2
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 45, 46 ]
-}
-
-[sub_resource type="Animation" id=13]
-resource_name = "FallingAsleepRight"
-length = 1.2
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 45, 46 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 1.26 ),
 "transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( -1, 1 ) ]
+"values": [ {
+"args": [  ],
+"method": "queue_free"
+} ]
 }
 
 [sub_resource type="Animation" id=14]
 resource_name = "IdleLeft"
+length = 1.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -286,9 +304,36 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 48 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath("StateMachine/Idle")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 1.5 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "attack"
+} ]
+}
 
 [sub_resource type="Animation" id=15]
 resource_name = "IdleRight"
+length = 1.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -312,6 +357,20 @@ tracks/1/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ Vector2( -1, 1 ) ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath("StateMachine/Idle")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 1.5 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "attack"
+} ]
 }
 
 [sub_resource type="Animation" id=7]
@@ -338,7 +397,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( -80.0553, -7.8454 ) ]
+"values": [ Vector2( 0.944748, -4.8454 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("CaneHitZone/CaneHitZone:rotation_degrees")
@@ -362,7 +421,7 @@ tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 1, 1 ) ]
+"values": [ Vector2( 0.2, 0.2 ) ]
 }
 tracks/4/type = "value"
 tracks/4/path = NodePath("CaneHitZone/CaneHitZone:disabled")
@@ -390,7 +449,7 @@ tracks/5/keys = {
 }
 
 [sub_resource type="Animation" id=8]
-resource_name = "Sleep"
+resource_name = "SleepLeft"
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -404,9 +463,49 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 45 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=29]
+resource_name = "SleepRight"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 45 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -1, 1 ) ]
+}
 
 [sub_resource type="Animation" id=9]
-resource_name = "WakeUp"
+resource_name = "WakeUpLeft"
 step = 0.0416667
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -420,55 +519,78 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 47, 46, 45, 44, 43, 40, 39, 38, 35 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath("StateMachine/Asleep")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 1.008 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "wake_up"
+} ]
+}
 
-[sub_resource type="AnimationNodeAnimation" id=16]
-animation = "AttackLeft"
-
-[sub_resource type="AnimationNodeAnimation" id=17]
-animation = "AttackRight"
-
-[sub_resource type="AnimationNodeAnimation" id=18]
-animation = "DeathLeft"
-
-[sub_resource type="AnimationNodeAnimation" id=19]
-animation = "DeathRight"
-
-[sub_resource type="AnimationNodeAnimation" id=20]
-animation = "Sleep"
-
-[sub_resource type="AnimationNodeAnimation" id=21]
-animation = "WakeUp"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=22]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=23]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=24]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=25]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=26]
-
-[sub_resource type="AnimationNodeStateMachine" id=27]
-states/AttackLeft/node = SubResource( 16 )
-states/AttackLeft/position = Vector2( 662, 160 )
-states/AttackRight/node = SubResource( 17 )
-states/AttackRight/position = Vector2( 662, 60 )
-states/DeathLeft/node = SubResource( 18 )
-states/DeathLeft/position = Vector2( 939, 160 )
-states/DeathRight/node = SubResource( 19 )
-states/DeathRight/position = Vector2( 939, 60 )
-states/Sleep/node = SubResource( 20 )
-states/Sleep/position = Vector2( 263, 103 )
-states/WakeUp/node = SubResource( 21 )
-states/WakeUp/position = Vector2( 446, 103 )
-transitions = [ "Sleep", "WakeUp", SubResource( 22 ), "WakeUp", "AttackRight", SubResource( 23 ), "WakeUp", "AttackLeft", SubResource( 24 ), "AttackRight", "DeathRight", SubResource( 25 ), "AttackLeft", "DeathLeft", SubResource( 26 ) ]
-
-[sub_resource type="AnimationNodeStateMachinePlayback" id=28]
+[sub_resource type="Animation" id=30]
+resource_name = "WakeUpRight"
+step = 0.0416667
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 47, 46, 45, 44, 43, 40, 39, 38, 35 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -1, 1 ) ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath("StateMachine/Asleep")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 1.008 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "wake_up"
+} ]
+}
 
 [node name="CottonCandyBush" type="KinematicBody2D" groups=["enemy"]]
 scale = Vector2( -1, 1 )
-collision_layer = 0
+collision_layer = 2
 collision_mask = 2
 script = ExtResource( 1 )
 
@@ -477,27 +599,27 @@ collision_layer = 5
 collision_mask = 2
 
 [node name="DetectionZone" type="CollisionShape2D" parent="PlayerDetector"]
-position = Vector2( 2.00001, -107.5 )
+position = Vector2( 2.00001, -53.5 )
 scale = Vector2( 5, 5 )
 shape = SubResource( 1 )
 
 [node name="PhysicsBox" type="CollisionShape2D" parent="."]
-position = Vector2( 0.5, -30.5184 )
+position = Vector2( -1, -17 )
+scale = Vector2( 0.5, 0.5 )
 shape = SubResource( 3 )
 
 [node name="CaneHitZone" type="Area2D" parent="."]
 position = Vector2( -0.944748, -23.1546 )
-monitoring = false
-monitorable = false
 
 [node name="CaneHitZone" type="CollisionShape2D" parent="CaneHitZone"]
-position = Vector2( -80.0553, -7.8454 )
+position = Vector2( 0.944748, -4.8454 )
+scale = Vector2( 0.2, 0.2 )
 shape = SubResource( 4 )
 disabled = true
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 3, -27 )
-scale = Vector2( 0.2, 0.2 )
+position = Vector2( -1, -13 )
+scale = Vector2( 0.1, 0.1 )
 texture = ExtResource( 2 )
 hframes = 11
 vframes = 11
@@ -505,23 +627,32 @@ frame = 45
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/AttackLeft = SubResource( 5 )
-anims/AttackRight = SubResource( 10 )
+anims/AttackRight = SubResource( 31 )
 anims/DeathLeft = SubResource( 6 )
 anims/DeathRight = SubResource( 11 )
-anims/FallingAsleepLeft = SubResource( 12 )
-anims/FallingAsleepRight = SubResource( 13 )
 anims/IdleLeft = SubResource( 14 )
 anims/IdleRight = SubResource( 15 )
 anims/RESET = SubResource( 7 )
-anims/Sleep = SubResource( 8 )
-anims/WakeUp = SubResource( 9 )
+anims/SleepLeft = SubResource( 8 )
+anims/SleepRight = SubResource( 29 )
+anims/WakeUpLeft = SubResource( 9 )
+anims/WakeUpRight = SubResource( 30 )
 
-[node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource( 27 )
-anim_player = NodePath("../AnimationPlayer")
-parameters/playback = SubResource( 28 )
+[node name="StateMachine" parent="." instance=ExtResource( 3 )]
+initial_state = NodePath("Asleep")
 
-[connection signal="body_entered" from="PlayerDetector" to="." method="_on_PlayerDetector_body_entered"]
-[connection signal="body_exited" from="PlayerDetector" to="." method="_on_PlayerDetector_body_exited"]
-[connection signal="body_entered" from="CaneHitZone" to="." method="_on_RootHitBox_body_entered"]
-[connection signal="body_exited" from="CaneHitZone" to="." method="_on_RootHitBox_body_exited"]
+[node name="Asleep" type="Node" parent="StateMachine"]
+script = ExtResource( 4 )
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource( 5 )
+
+[node name="Attacking" type="Node" parent="StateMachine"]
+script = ExtResource( 6 )
+
+[node name="Death" type="Node" parent="StateMachine"]
+script = ExtResource( 7 )
+
+[connection signal="body_entered" from="PlayerDetector" to="StateMachine/Asleep" method="on_thing_seen"]
+[connection signal="body_exited" from="PlayerDetector" to="StateMachine/Asleep" method="on_thing_exited"]
+[connection signal="body_entered" from="CaneHitZone" to="StateMachine/Attacking" method="hit_something"]
