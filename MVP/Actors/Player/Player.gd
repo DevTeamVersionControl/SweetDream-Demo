@@ -1,5 +1,5 @@
 # Sweet Dream, a sweet metroidvannia
-#    Copyright (C) 2022 Kamran Charles Nayebi et William Duplain
+#    Copyright (C) 2022 Kamran Charles Nayebi and William Duplain
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -13,7 +13,6 @@
 #
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
 class_name Player
 extends KinematicBody2D
 
