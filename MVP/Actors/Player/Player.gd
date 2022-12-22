@@ -7,6 +7,8 @@ const SPEED = 120
 const GRAVITY = 1200
 const JUMP_IMPULSE = 400
 const JUMP_ACCEL = 600
+const DECELERATION = 0.1
+const ACCELERATION = 10
 
 var velocity = Vector2.ZERO
 var level_limit = Vector2(1920, 1080)
@@ -36,7 +38,6 @@ func _physics_process(_delta):
 
 func knockback(knockback_vector: Vector2):
 	#Adjust the explosion vector to account for the player global position being at the bottom
-	print(knockback_vector)
 	state_machine.transition_to("Knockback", {0:Vector2(knockback_vector.x, -0.2 * knockback_vector.y)})
 
 func calculate_bullet_direction() -> Vector2:

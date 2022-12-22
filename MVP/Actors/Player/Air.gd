@@ -25,6 +25,7 @@ func physics_update(delta: float) -> void:
 		player.facing_right = input_direction_x > 0
 	player.animation_tree.set('parameters/Air/blend_position', 1 if player.facing_right else -1)
 	player.velocity.x = player.SPEED * input_direction_x
+	
 	# Vertical movement.
 	player.velocity.y += player.GRAVITY * delta
 	player.velocity = player.move_and_slide(player.velocity, Vector2.UP)
@@ -42,6 +43,7 @@ func physics_update(delta: float) -> void:
 	# Higher jump
 	if Input.is_action_pressed("move_up") && player.velocity.y < 0:
 		player.velocity.y -= player.JUMP_ACCEL * delta
+	# Hollow knight jump
 	if Input.is_action_just_released("move_up") && player.velocity.y < 0:
 		player.velocity.y = 0
 		
