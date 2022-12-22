@@ -38,13 +38,18 @@ onready var animation_tree := $AnimationTree
 onready var animation_mode = animation_tree.get("parameters/playback")
 onready var bullet_center := $BulletCenter
 onready var state_machine := $StateMachine
-onready var camera_arm = $"Camera arm/Camera2D"
+onready var camera_arm = $"Camera arm"
+onready var camera = $"Camera arm/Camera2D"
 onready var animation_player = $AnimationPlayer
 onready var shoot_bar = $ShootBar
 onready var cooldown_bar = $CooldownBar
 onready var invulnerability_timer = $InvulnerabilityTimer
 
+func _ready():
+	set_later(camera, "smoothing_enabled", true)
+
 func _physics_process(_delta):
+	camera.smoothing_enabled = true
 	if Input.is_action_just_pressed("ammo_next"):
 		GlobalVars.equiped_ammo_index = (GlobalVars.equiped_ammo_index + 1) % GlobalVars.ammo_equipped_array.size()
 		emit_signal("changed_ammo", GlobalVars.ammo_equipped_array[GlobalVars.equiped_ammo_index])
@@ -71,6 +76,10 @@ func take_damage(damage:float, knockback:Vector2) -> void:
 		hp -= damage
 		if hp <= 0:
 			get_tree().reload_current_scene()
+
+func set_later(object:Node, variable:String, val):
+	yield(get_tree().create_timer(0.1), "timeout")
+	object.set_deferred(variable, val)
 
 func on_invulnerability_off():
 	invulnerable = false

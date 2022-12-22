@@ -42,7 +42,7 @@ _global_script_classes=[ {
 "base": "Resource",
 "class": "SaveData",
 "language": "GDScript",
-"path": "res://Abstract/Saves/SaveData.gd"
+"path": "res://Abstract/Saving/SaveData.gd"
 }, {
 "base": "Node",
 "class": "State",
@@ -87,7 +87,7 @@ config/icon="res://icon.png"
 [autoload]
 
 GlobalTypes="*res://Abstract/Globals/GlobalTypes.tscn"
-GameSaver="*res://Abstract/Saves/GameSaver.tscn"
+GameSaver="*res://Abstract/Saving/GameSaver.tscn"
 GlobalVars="*res://Abstract/Globals/GlobalVars.tscn"
 
 [display]
@@ -100,7 +100,7 @@ window/stretch/aspect="keep"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/smoothing/plugin.cfg" )
+enabled=PoolStringArray(  )
 
 [input]
 

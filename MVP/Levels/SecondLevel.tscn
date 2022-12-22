@@ -536,7 +536,7 @@ resource_local_to_scene = true
 } ]
 3/z_index = 0
 
-[node name="FirstLevel" type="Node2D"]
+[node name="SecondLevel" type="Node2D"]
 script = ExtResource( 14 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -613,12 +613,6 @@ scale = Vector2( 4.24609, 2.89844 )
 texture = ExtResource( 4 )
 energy = 0.7
 
-[node name="Portal" parent="." instance=ExtResource( 13 )]
-position = Vector2( 1085, 43 )
-rotation = 3.14159
-scale = Vector2( 1, -1 )
-target_scene = "res://Levels/SecondLevel.tscn"
-
 [node name="CottonCandyBush" parent="." instance=ExtResource( 11 )]
 position = Vector2( 677, 43 )
 
@@ -629,3 +623,7 @@ position = Vector2( 115, 41 )
 player_path = NodePath("../Player")
 
 [node name="GUI" parent="." instance=ExtResource( 10 )]
+
+[node name="Portal" parent="." instance=ExtResource( 13 )]
+position = Vector2( 81, 41 )
+target_scene = "res://Levels/FirstLevel.tscn"
