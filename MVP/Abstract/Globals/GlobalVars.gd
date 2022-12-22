@@ -21,10 +21,14 @@ func _ready():
 func save(game_data):
 	game_data.data["ammo_equipped_array"] = ammo_equipped_array
 	game_data.data["equipped_ammo_index"] = equiped_ammo_index
+	game_data.data["double_jump_lock"] = double_jump_lock
+	game_data.data["dash_lock"] = dash_lock
 	
 func load(game_data):
 	ammo_equipped_array = game_data.data["ammo_equipped_array"]
 	equiped_ammo_index = game_data.data["equipped_ammo_index"]
+	double_jump_lock = game_data.data["double_jump_lock"]
+	dash_lock = game_data.data["dash_lock"]
 
 func get_ammo(ammo_name : String):
 	for ammo in ammo_array:
