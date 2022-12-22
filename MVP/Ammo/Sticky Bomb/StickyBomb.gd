@@ -24,8 +24,8 @@ func set_direction(direction):
 #		velocity = Vector2(cos(deg2rad(THROW_ANGLE)),sin(deg2rad(THROW_ANGLE))) * THROW_velocity
 #	elif direction.x == -1:
 #		velocity = Vector2(cos(deg2rad(180 - THROW_ANGLE)),sin(deg2rad(180 - THROW_ANGLE))) * THROW_velocity
+#	get_parent().motion += -velocity.normalized() * player_knockback
 	velocity = direction * THROW_velocity
-	#get_parent().motion += -velocity.normalized() * player_knockback
 
 func _on_Area2D_body_entered(body):
 	if body.is_in_group("destructable"):
