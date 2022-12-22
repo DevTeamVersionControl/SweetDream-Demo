@@ -12,6 +12,8 @@ var door_name = null
 var hp := 0
 var equiped_ammo_index = 0
 var ammo_equipped_array := [get_ammo("Candy Corn"), get_ammo("Jelly Bean"), get_ammo("Jawbreaker")]
+var double_jump_lock := false
+var dash_lock := false
 
 func _ready():
 	GameSaver.load()

@@ -3,11 +3,14 @@ extends PlayerState
 var jump_buffer := false
 var coyote_time := false
 var input_locked := false
+var double_jump := false
+
 onready var jump_buffer_timer := $JumpBufferTimer
 onready var coyote_time_timer := $CoyoteTimeTimer
 
 # If we get a message asking us to jump, we jump.
 func enter(msg := {}) -> void:
+	print("Transitioned to air")
 	if msg.has("do_jump"):
 		player.velocity.y = -player.JUMP_IMPULSE
 	elif msg.has("coyote_time"):
@@ -42,6 +45,7 @@ func physics_update(delta: float) -> void:
 
 	# Landing.
 	if player.is_on_floor():
+		double_jump = false
 		if jump_buffer:
 			state_machine.transition_to("Air", {do_jump = true})
 		else:
@@ -50,6 +54,12 @@ func physics_update(delta: float) -> void:
 			else:
 				state_machine.transition_to("Run")
 	
+	# Double jump
+	if Input.is_action_just_pressed("move_up") && !GlobalVars.double_jump_lock:
+		if !double_jump:
+			double_jump = true
+			state_machine.transition_to("Air", {do_jump = true})
+	
 	# Dash
 	if Input.is_action_pressed("dash"):
 		state_machine.transition_to("Dashing")
@@ -57,6 +67,7 @@ func physics_update(delta: float) -> void:
 	# Higher jump
 	if Input.is_action_pressed("move_up") && player.velocity.y < 0:
 		player.velocity.y -= player.JUMP_ACCEL * delta
+	
 	# Hollow knight jump
 	if Input.is_action_just_released("move_up") && player.velocity.y < 0:
 		player.velocity.y = 0
@@ -64,6 +75,7 @@ func physics_update(delta: float) -> void:
 	#Coyote time
 	if Input.is_action_just_pressed("move_up") && coyote_time:
 		state_machine.transition_to("Air", {do_jump = true})
+	
 	#Jump buffering
 	if Input.is_action_just_pressed("move_up") && !jump_buffer:
 		jump_buffer = true

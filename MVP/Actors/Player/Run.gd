@@ -1,6 +1,7 @@
 extends PlayerState
 
 func enter(_msg := {}) -> void:
+	print("Transitioned to run")
 	player.animation_tree.set('parameters/Run/blend_position', 1 if player.facing_right else -1)
 	player.animation_mode.travel("Run")
 

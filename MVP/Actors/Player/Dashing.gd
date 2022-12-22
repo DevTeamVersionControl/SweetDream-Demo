@@ -10,7 +10,8 @@ onready var dash_reset_timer = $DashResetTimer
 onready var dash_length_timer = $DashLengthTimer
 
 func enter(_msg := {}) -> void:
-	if can_dash:
+	print("Transitioned to dash")
+	if can_dash && !GlobalVars.dash_lock:
 		player.velocity.y = 0
 		can_dash = false
 		player.animation_tree.set('parameters/Dash/blend_position', 1 if player.facing_right else -1)

@@ -6,6 +6,7 @@ var knockback_recovery := 0.05
 var gravity_scale := 0.5
 
 func enter(msg := {}) -> void:
+	print("Transitioned to knockback")
 	if msg.get(0) != null:
 		player.velocity = msg.get(0)
 
