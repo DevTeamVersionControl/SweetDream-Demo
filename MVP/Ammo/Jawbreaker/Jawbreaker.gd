@@ -24,7 +24,7 @@ func _physics_process(delta):
 		if !touched_something:
 			$Timer.start()
 			touched_something = true
-		_on_inpact(collision.normal)
+		_on_impact(collision.normal)
 		
 func launch(direction, strength)->Vector2:
 	if direction.x == 1:
@@ -34,7 +34,7 @@ func launch(direction, strength)->Vector2:
 	velocity *= Vector2(strength, -strength)
 	return -velocity.normalized() * player_knockback
 
-func _on_inpact(normal):
+func _on_impact(normal):
 	velocity = velocity.bounce(normal)
 	velocity *= 0.8
 

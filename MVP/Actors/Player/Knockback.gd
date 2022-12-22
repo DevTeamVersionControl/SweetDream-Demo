@@ -15,5 +15,6 @@ func physics_update(delta: float) -> void:
 	player.velocity = player.move_and_slide(player.velocity)
 	if player.velocity.x < 100 && player.velocity.x > -100:
 		if player.is_on_floor():
-			state_machine.transition_to("Run")
-		else: state_machine.transition_to("Air")
+				state_machine.transition_to("Run")
+		else:
+			state_machine.transition_to("Air")

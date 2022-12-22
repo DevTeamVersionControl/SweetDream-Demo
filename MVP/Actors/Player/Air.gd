@@ -2,6 +2,7 @@ extends PlayerState
 
 var jump_buffer := false
 var coyote_time := false
+var input_locked := false
 onready var jump_buffer_timer := $JumpBufferTimer
 onready var coyote_time_timer := $CoyoteTimeTimer
 
@@ -21,11 +22,20 @@ func physics_update(delta: float) -> void:
 		Input.get_action_strength("move_right")
 		- Input.get_action_strength("move_left")
 	)
-	if input_direction_x != 0:
-		player.facing_right = input_direction_x > 0
-	player.animation_tree.set('parameters/Air/blend_position', 1 if player.facing_right else -1)
-	player.velocity.x = player.SPEED * input_direction_x
+	# Check to see if the player needs to turn around
+	if player.facing_right != (input_direction_x > 0) && input_direction_x != 0 && !input_locked:
+		lock_input(input_direction_x > 0)
 	
+	if input_locked:
+		input_direction_x = 0
+	
+	#Horizontal movement
+	if is_equal_approx(input_direction_x, 0.0):
+		player.velocity.x = lerp(player.velocity.x, 0, player.DECELERATION)
+	else:
+		player.velocity.x += player.ACCELERATION * input_direction_x
+	player.velocity.x = clamp(player.velocity.x, -player.SPEED, player.SPEED)
+
 	# Vertical movement.
 	player.velocity.y += player.GRAVITY * delta
 	player.velocity = player.move_and_slide(player.velocity, Vector2.UP)
@@ -39,6 +49,10 @@ func physics_update(delta: float) -> void:
 				state_machine.transition_to("Idle")
 			else:
 				state_machine.transition_to("Run")
+	
+	# Dash
+	if Input.is_action_pressed("dash"):
+		state_machine.transition_to("Dashing")
 	
 	# Higher jump
 	if Input.is_action_pressed("move_up") && player.velocity.y < 0:
@@ -67,3 +81,11 @@ func _on_JumpBufferTimer_timeout():
 
 func _on_CoyoteTimeTimer_timeout():
 	coyote_time = false
+
+func lock_input(direction : bool):
+	input_locked = true
+	yield(get_tree().create_timer(0.2), "timeout")
+	input_locked = false
+	player.facing_right = direction
+	player.animation_tree.set('parameters/Air/blend_position', 1 if player.facing_right else -1)
+	player.camera_arm.position.x = 127 if player.facing_right else -127

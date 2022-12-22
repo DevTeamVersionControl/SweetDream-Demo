@@ -2,9 +2,9 @@ extends BushState
 
 func enter(_msg := {}) -> void:
 	if bush.facing_left:
-		bush.animation_player.play_backwards("AttackLeft")
+		bush.animation_player.play("AttackLeft", -1, -1, true)
 	else:
-		bush.animation_player.play_backwards("AttackRight")
+		bush.animation_player.play("AttackRight", -1, -1, true)
 
 func hit_something(something):
 	if something is Player:

@@ -20,19 +20,16 @@ func physics_update(_delta: float) -> void:
 		- Input.get_action_strength("move_left")
 	)
 	
-	# Check to see if the player jumped
+	# Check to see if we need to transition state
 	if Input.is_action_just_pressed("move_up"):
 		state_machine.transition_to("Air", {do_jump = true})
 	elif is_equal_approx(player.velocity.x, 0.0) && is_equal_approx(input_direction_x, 0.0):
 		state_machine.transition_to("Idle")
 	elif Input.is_action_just_pressed("aim_down"):
-		if player.facing_right:
-			player.animation_player.play("CrouchRight")
-		else:
-			player.animation_player.play("CrouchLeft")
-		yield(player.animation_player, "animation_finished")
-		player.animation_player.play("RESET")
-		state_machine.transition_to("Idle")
+		state_machine.transition_to("Crouched")
+	elif Input.is_action_pressed("dash"):
+		state_machine.transition_to("Dashing")
+		return
 	
 	# Check to see if the player needs to turn around
 	if player.facing_right != (input_direction_x > 0) && input_direction_x != 0:
