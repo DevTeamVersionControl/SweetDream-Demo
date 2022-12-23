@@ -24,11 +24,12 @@ export var first_level = preload("res://Levels/FirstLevel.tscn")
 
 var current_level : Node2D
 var next_level : PackedScene
-var spawn_location : String
+var checkpoint = GlobalTypes.Checkpoint.new("Checkpoint",first_level)
+var door_location : String
 var player : Player
 
 func _ready():
-	load_level(first_level)
+	load_level(first_level, "")
 
 func change_level(new_level:PackedScene, portal_name:String):
 	tween.interpolate_property(level_transition, "self_modulate",
@@ -37,15 +38,14 @@ func change_level(new_level:PackedScene, portal_name:String):
 	tween.start()
 	get_tree().paused = true
 	next_level = new_level
-	spawn_location = portal_name
+	door_location = portal_name
 
 func _on_animation_finished(_object, _key):
 	if next_level != null:
-		load_level(next_level)
-		next_level = null
+		load_level(next_level, door_location)
 		get_tree().paused = false
 
-func load_level(level:PackedScene):
+func load_level(level:PackedScene, location:String):
 	if current_level != null:
 		current_level.queue_free()
 	current_level = level.instance()
@@ -54,9 +54,8 @@ func load_level(level:PackedScene):
 	player.level_limit_min = Vector2(current_level.level_range_x.x, current_level.level_range_y.x)
 	player.level_limit_max = Vector2(current_level.level_range_x.y, current_level.level_range_y.y)
 	current_level.add_child(player)
-	player._ready()
-	if GlobalVars.door_name:
-		var door_node = current_level.find_node(GlobalVars.door_name)
+	if location != "":
+		var door_node = current_level.find_node(location)
 		if door_node:
 			player.camera.smoothing_enabled = false
 			player.global_position = door_node.get_spawn_position()
@@ -67,6 +66,12 @@ func load_level(level:PackedScene):
 		Color(0, 0, 0, 1), Color(0, 0, 0, 0), 1,
 		Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	tween.start()
+	next_level = null
 
 func die():
-	load_level(load(current_level.filename))
+	next_level = checkpoint.level
+	GlobalVars.hp = 100
+	call_deferred("load_level", next_level, checkpoint.name)
+
+func set_checkpoint(new_checkpoint):
+	checkpoint = new_checkpoint

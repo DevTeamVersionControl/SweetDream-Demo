@@ -1,6 +1,7 @@
-[gd_scene load_steps=65 format=2]
+[gd_scene load_steps=66 format=2]
 
 [ext_resource path="res://Environment/Blocks/Forest/TileSets/Tile Pack/Grass Tile Pack/Grass Tile Pack 2160p.png" type="Texture" id=1]
+[ext_resource path="res://Abstract/Checkpoint/Checkpoint.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Environment/Blocks/Forest/TileSets/ForestTileMap.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Environment/Blocks/Forest/TileSets/Tile Pack/Dirt Tile Pack/Dirt_Tile_Pack_2160p.png" type="Texture" id=6]
 [ext_resource path="res://Environment/Backgrounds/Forest Backgrounds/Main Background/Trees/TallTrees.tscn" type="PackedScene" id=7]
@@ -607,3 +608,6 @@ target_scene = "res://Levels/SecondLevel.tscn"
 [node name="CottonCandyBush" parent="." instance=ExtResource( 11 )]
 pause_mode = 1
 position = Vector2( 677, 43 )
+
+[node name="Checkpoint" parent="." instance=ExtResource( 2 )]
+position = Vector2( 272, 75 )

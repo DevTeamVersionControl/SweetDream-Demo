@@ -30,3 +30,10 @@ class Ammo:
 		cooldown = ammo_cooldown
 		damage = ammo_damage
 		scene = ammo_scene
+
+class Checkpoint:
+	var name:String
+	var level:PackedScene
+	func _init(init_name, init_level):
+		name = init_name
+		level = init_level

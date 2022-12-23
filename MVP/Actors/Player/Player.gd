@@ -26,11 +26,10 @@ const DECELERATION = 0.1
 const ACCELERATION = 10
 
 var velocity = Vector2.ZERO
-var level_limit_min# = Vector2(0, 0)
-var level_limit_max #= Vector2(1920, 1080)
+var level_limit_min
+var level_limit_max
 var facing_right := true
 var can_shoot := true
-var hp := 100
 var invulnerable := false
 
 # References to nodes in case they are changed
@@ -77,8 +76,8 @@ func take_damage(damage:float, knockback:Vector2) -> void:
 		invulnerable = true
 		invulnerability_timer.start()
 		knockback(knockback)
-		hp -= damage
-		if hp <= 0:
+		GlobalVars.hp -= damage
+		if GlobalVars.hp <= 0:
 			get_tree().current_scene.die()
 
 func set_later(object:Node, variable:String, val):
