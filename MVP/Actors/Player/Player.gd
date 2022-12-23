@@ -26,7 +26,8 @@ const DECELERATION = 0.1
 const ACCELERATION = 10
 
 var velocity = Vector2.ZERO
-var level_limit = Vector2(1920, 1080)
+var level_limit_min# = Vector2(0, 0)
+var level_limit_max #= Vector2(1920, 1080)
 var facing_right := true
 var can_shoot := true
 var hp := 100
@@ -47,6 +48,11 @@ onready var invulnerability_timer = $InvulnerabilityTimer
 
 func _ready():
 	set_later(camera, "smoothing_enabled", true)
+	yield(get_tree().current_scene, "ready")
+	set_later(camera, "limit_left", level_limit_min.x)
+	set_later(camera, "limit_top", level_limit_min.y)
+	set_later(camera, "limit_right", level_limit_max.x)
+	set_later(camera, "limit_bottom", level_limit_max.y)
 
 func _physics_process(_delta):
 	camera.smoothing_enabled = true
