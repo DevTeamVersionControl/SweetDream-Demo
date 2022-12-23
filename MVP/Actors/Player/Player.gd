@@ -48,14 +48,12 @@ onready var invulnerability_timer = $InvulnerabilityTimer
 
 func _ready():
 	set_later(camera, "smoothing_enabled", true)
-	yield(get_tree().current_scene, "ready")
-	set_later(camera, "limit_left", level_limit_min.x)
-	set_later(camera, "limit_top", level_limit_min.y)
-	set_later(camera, "limit_right", level_limit_max.x)
-	set_later(camera, "limit_bottom", level_limit_max.y)
+	camera.limit_left = level_limit_min.x
+	camera.limit_top = level_limit_min.y
+	camera.limit_right = level_limit_max.x
+	camera.limit_bottom = level_limit_max.y
 
 func _physics_process(_delta):
-	camera.smoothing_enabled = true
 	if Input.is_action_just_pressed("ammo_next"):
 		GlobalVars.equiped_ammo_index = (GlobalVars.equiped_ammo_index + 1) % GlobalVars.ammo_equipped_array.size()
 		emit_signal("changed_ammo", GlobalVars.ammo_equipped_array[GlobalVars.equiped_ammo_index])
@@ -81,10 +79,10 @@ func take_damage(damage:float, knockback:Vector2) -> void:
 		knockback(knockback)
 		hp -= damage
 		if hp <= 0:
-			get_tree().reload_current_scene()
+			get_tree().current_scene.die()
 
 func set_later(object:Node, variable:String, val):
-	yield(get_tree().create_timer(0.1), "timeout")
+	yield(get_tree().create_timer(0.01), "timeout")
 	object.set_deferred(variable, val)
 
 func on_invulnerability_off():

@@ -2392,8 +2392,11 @@ height = 36.0
 height = 19.1458
 
 [node name="Player" type="KinematicBody2D" groups=["player"]]
-position = Vector2( 205, 98 )
+position = Vector2( 15, 43 )
 script = ExtResource( 4 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 0, -26 )

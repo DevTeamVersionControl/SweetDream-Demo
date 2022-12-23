@@ -24,10 +24,7 @@ func _on_Portal_body_entered(body):
 		if ResourceLoader.exists("res://Saves/".plus_file(target_scene.get_file())):
 			get_tree().change_scene("res://Saves/".plus_file(target_scene.get_file()))
 		else:
-			get_tree().current_scene.play_level_transition()
-			get_tree().paused = true
-			yield(get_tree().current_scene.tween, "tween_completed")
-			print(get_tree().change_scene(target_scene))
+			get_tree().current_scene.change_level(load(target_scene), name)
 		GlobalVars.door_name = name
 
 func get_spawn_position() -> Vector2:
