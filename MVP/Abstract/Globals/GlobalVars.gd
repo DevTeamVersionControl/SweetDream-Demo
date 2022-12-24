@@ -23,7 +23,10 @@ const jelly_bean = preload("res://Ammo/Jelly Bean/JellyBean.tscn")
 const sticky_bomb = preload("res://Ammo/Sticky Bomb/StickyBomb.tscn")
 
 var ammo_array := [GlobalTypes.Ammo.new("Candy Corn", GlobalTypes.AMMO_TYPE.once, 0.2, 1, candy_corn), GlobalTypes.Ammo.new("Jelly Bean", GlobalTypes.AMMO_TYPE.once, 2, 10, jelly_bean), GlobalTypes.Ammo.new("Jawbreaker", GlobalTypes.AMMO_TYPE.charge, 0, 3, jawbreaker), GlobalTypes.Ammo.new("Pop Rocks", GlobalTypes.AMMO_TYPE.constant, 0, 0.1, pop_rocks), GlobalTypes.Ammo.new("Jello", GlobalTypes.AMMO_TYPE.charge, 2, 3, jello), GlobalTypes.Ammo.new("Sticky Bomb", GlobalTypes.AMMO_TYPE.once, 1, 5, sticky_bomb)]
-var hp := 100.0
+var max_health := 40.0
+var health := max_health
+var max_health_packs := 3
+var health_packs := max_health_packs
 var equiped_ammo_index = 0
 var ammo_equipped_array := [get_ammo("Candy Corn"), get_ammo("Jelly Bean"), get_ammo("Jawbreaker")]
 var double_jump_lock := false

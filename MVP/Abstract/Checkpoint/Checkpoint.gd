@@ -34,11 +34,18 @@ func _on_Checkpoint_body_exited(body):
 		player_is_in_zone = false
 
 func _unhandled_key_input(_event):
-	if player_is_in_zone && Input.is_action_pressed("ui_up") && !get_tree().current_scene.checkpoint_on(name):
-		get_tree().current_scene.set_checkpoint(GlobalTypes.Checkpoint.new(name, load(get_tree().current_scene.current_level.filename)))
-		animation_player.play("Opening")
-		yield(animation_player, "animation_finished")
-		animation_player.play("Opened")
+	if player_is_in_zone && Input.is_action_pressed("ui_up"):
+		if get_tree().current_scene.checkpoint_on(name):
+			rest(get_tree().current_scene.player)
+		else:
+			get_tree().current_scene.set_checkpoint(GlobalTypes.Checkpoint.new(name, load(get_tree().current_scene.current_level.filename)))
+			animation_player.play("Opening")
+			yield(animation_player, "animation_finished")
+			animation_player.play("Opened")
 
 func get_spawn_position() -> Vector2:
 	return global_position
+
+func rest(player:Player):
+	player.set_health_packs(GlobalVars.max_health_packs)
+	player.heal(GlobalVars.max_health - GlobalVars.health)

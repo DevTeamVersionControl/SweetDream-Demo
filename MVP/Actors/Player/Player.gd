@@ -16,7 +16,9 @@
 class_name Player
 extends KinematicBody2D
 
-signal changed_ammo(ammo_index)
+signal changed_ammo()
+signal changed_health()
+signal changed_health_pack()
 
 const SPEED = 120
 const GRAVITY = 1200
@@ -24,6 +26,7 @@ const JUMP_IMPULSE = 400
 const JUMP_ACCEL = 600
 const DECELERATION = 0.1
 const ACCELERATION = 10
+const HEAL_FROM_CANDY = 20
 
 var velocity = Vector2.ZERO
 var level_limit_min
@@ -47,6 +50,8 @@ onready var invulnerability_timer = $InvulnerabilityTimer
 
 func _ready():
 	set_later(camera, "smoothing_enabled", true)
+	call_deferred("emit_signal", "changed_health")
+	call_deferred("emit_signal", "changed_health_pack")
 	camera.limit_left = level_limit_min.x
 	camera.limit_top = level_limit_min.y
 	camera.limit_right = level_limit_max.x
@@ -55,7 +60,11 @@ func _ready():
 func _physics_process(_delta):
 	if Input.is_action_just_pressed("ammo_next"):
 		GlobalVars.equiped_ammo_index = (GlobalVars.equiped_ammo_index + 1) % GlobalVars.ammo_equipped_array.size()
-		emit_signal("changed_ammo", GlobalVars.ammo_equipped_array[GlobalVars.equiped_ammo_index])
+		emit_signal("changed_ammo")
+	if Input.is_action_just_pressed("consume_health_pack"):
+		if GlobalVars.health_packs > 0:
+			set_health_packs(GlobalVars.health_packs - 1)
+			heal(HEAL_FROM_CANDY)
 	if !can_shoot:
 		cooldown_bar.scale.x = cooldown_timer.time_left/cooldown_timer.wait_time/100
 
@@ -76,13 +85,30 @@ func take_damage(damage:float, knockback:Vector2) -> void:
 		invulnerable = true
 		invulnerability_timer.start()
 		knockback(knockback)
-		GlobalVars.hp -= damage
-		if GlobalVars.hp <= 0:
-			get_tree().current_scene.die()
+		GlobalVars.health -= damage
+		emit_signal("changed_health")
+		if GlobalVars.health <= 0:
+			GlobalVars.health = 0
+			if GlobalVars.health_packs > 0:
+				heal(1)
+				set_health_packs(0)
+			else:
+				get_tree().current_scene.die()
+			emit_signal("changed_health")
+
+func heal(damage_healed:float):
+	GlobalVars.health += damage_healed
+	if GlobalVars.health > GlobalVars.max_health:
+		GlobalVars.health = GlobalVars.max_health
+	emit_signal("changed_health")
 
 func set_later(object:Node, variable:String, val):
 	yield(get_tree().create_timer(0.01), "timeout")
 	object.set_deferred(variable, val)
+
+func set_health_packs(packs:int):
+	GlobalVars.health_packs = packs
+	emit_signal("changed_health_pack")
 
 func on_invulnerability_off():
 	invulnerable = false

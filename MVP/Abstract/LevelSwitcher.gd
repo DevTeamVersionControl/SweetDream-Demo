@@ -19,14 +19,15 @@ const PLAYER = preload("res://Actors/Player/Player.tscn")
 
 onready var tween = $LevelTransition/ColorRect/Tween
 onready var level_transition = $LevelTransition/ColorRect
+onready var hud = $HUD
 
 export var first_level = preload("res://Levels/FirstLevel.tscn")
 
 var current_level : Node2D
 var next_level : PackedScene
-var checkpoint = GlobalTypes.Checkpoint.new("Checkpoint",first_level)
 var door_location : String
 var player : Player
+var checkpoint = GlobalTypes.Checkpoint.new("Checkpoint",first_level)
 
 func _ready():
 	load_level(first_level, "")
@@ -54,6 +55,7 @@ func load_level(level:PackedScene, location:String):
 	player.level_limit_min = Vector2(current_level.level_range_x.x, current_level.level_range_y.x)
 	player.level_limit_max = Vector2(current_level.level_range_x.y, current_level.level_range_y.y)
 	current_level.add_child(player)
+	hud.connect_player()
 	if location != "":
 		var door_node = current_level.find_node(location)
 		if door_node:
@@ -70,7 +72,8 @@ func load_level(level:PackedScene, location:String):
 
 func die():
 	next_level = checkpoint.level
-	GlobalVars.hp = 100
+	GlobalVars.health_packs = GlobalVars.max_health_packs
+	GlobalVars.health = GlobalVars.max_health
 	call_deferred("load_level", next_level, checkpoint.name)
 
 func set_checkpoint(new_checkpoint):
