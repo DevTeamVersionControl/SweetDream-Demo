@@ -75,3 +75,6 @@ func die():
 
 func set_checkpoint(new_checkpoint):
 	checkpoint = new_checkpoint
+
+func checkpoint_on(checkpoint_name) -> bool:
+	return (checkpoint.name == checkpoint_name) && (load(current_level.filename) == checkpoint.level)

@@ -534,6 +534,7 @@ resource_local_to_scene = true
 3/z_index = 0
 
 [node name="SecondLevel" type="Node2D"]
+pause_mode = 1
 script = ExtResource( 14 )
 level_range_x = Vector2( 1100, 2850 )
 level_range_y = Vector2( -250, 250 )
@@ -605,7 +606,7 @@ tile_data = PoolIntArray( 131135, 2, 8, 131136, 2, 262155, 131137, 2, 262153, 13
 position = Vector2( 2031, 43 )
 
 [node name="Portal" parent="." instance=ExtResource( 13 )]
-position = Vector2( 1091, 48 )
+position = Vector2( 1062, 43 )
 target_scene = "res://Levels/FirstLevel.tscn"
 
 [node name="Checkpoint" parent="." instance=ExtResource( 2 )]
