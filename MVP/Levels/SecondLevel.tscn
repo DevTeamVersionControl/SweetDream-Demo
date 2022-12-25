@@ -545,7 +545,7 @@ level_range_y = Vector2( -250, 250 )
 motion_scale = Vector2( 0.1, 1 )
 
 [node name="BackgroundColor" type="Sprite" parent="ParallaxBackground/ParallaxLayer4"]
-position = Vector2( 1437, 24 )
+position = Vector2( 1435, 24 )
 texture = ExtResource( 8 )
 
 [node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
@@ -555,7 +555,7 @@ __meta__ = {
 }
 
 [node name="ForestBackground3" parent="ParallaxBackground/ParallaxLayer3" instance=ExtResource( 7 )]
-tile_data = PoolIntArray( -786197, 7, 0, -786172, 7, 0, -655186, 6, 0, -655179, 6, 0, -655136, 8, 0, -589632, 8, 0 )
+tile_data = PoolIntArray( -458670, 7, 0, -458645, 7, 0, -327659, 6, 0, -327652, 6, 0, -327609, 8, 0, -262105, 8, 0 )
 
 [node name="ScatterTerrain" parent="ParallaxBackground/ParallaxLayer3" instance=ExtResource( 12 )]
 scale = Vector2( 0.03, 0.03 )
@@ -568,16 +568,16 @@ __meta__ = {
 }
 
 [node name="ForestBackground2" parent="ParallaxBackground/ParallaxLayer2" instance=ExtResource( 7 )]
-tile_data = PoolIntArray( -524116, 4, 0, -327550, 5, 0, -327543, 3, 0 )
+tile_data = PoolIntArray( -458669, 4, 0, -327585, 5, 0, -262096, 3, 0 )
 
 [node name="ShortTrees2" parent="ParallaxBackground/ParallaxLayer2" instance=ExtResource( 9 )]
 position = Vector2( -183, -114 )
-tile_data = PoolIntArray( 1114541, 2, 0, 1376621, 2, 0 )
+tile_data = PoolIntArray( 1638610, 2, 0, 1769609, 2, 0 )
 
 [node name="ScatterTerrain" parent="ParallaxBackground/ParallaxLayer2" instance=ExtResource( 12 )]
 scale = Vector2( 0.04, 0.04 )
 cell_size = Vector2( 64, 64 )
-tile_data = PoolIntArray( 131941, 16, 0, 655815, 10, 0, 721635, 16, 0 )
+tile_data = PoolIntArray( 721490, 16, 0, 1311184, 16, 0, 1704137, 10, 0 )
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
 

@@ -43,7 +43,7 @@ tracks/1/keys = {
 "values": [ Vector2( -12, -25 ) ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Physics:scale")
+tracks/2/path = NodePath("Hurtbox:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -55,7 +55,7 @@ tracks/2/keys = {
 "values": [ Vector2( 1, 0.6 ) ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Physics:position")
+tracks/3/path = NodePath("Hurtbox:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -145,7 +145,7 @@ tracks/1/keys = {
 "values": [ Vector2( -12, -25 ) ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Physics:scale")
+tracks/2/path = NodePath("Hurtbox:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -157,7 +157,7 @@ tracks/2/keys = {
 "values": [ Vector2( 1, 0.6 ) ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Physics:position")
+tracks/3/path = NodePath("Hurtbox:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -524,7 +524,7 @@ tracks/1/keys = {
 "values": [ Vector2( -12, -35 ), Vector2( -12, -25 ) ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Physics:scale")
+tracks/2/path = NodePath("Hurtbox:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -536,7 +536,7 @@ tracks/2/keys = {
 "values": [ Vector2( 1, 1.01 ), Vector2( 1, 0.6 ) ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Physics:position")
+tracks/3/path = NodePath("Hurtbox:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -649,7 +649,7 @@ tracks/1/keys = {
 "values": [ Vector2( -12, -35 ), Vector2( -12, -25 ) ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Physics:scale")
+tracks/2/path = NodePath("Hurtbox:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -661,7 +661,7 @@ tracks/2/keys = {
 "values": [ Vector2( 1, 1.01 ), Vector2( 1, 0.6 ) ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Physics:position")
+tracks/3/path = NodePath("Hurtbox:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -775,7 +775,7 @@ tracks/1/keys = {
 "values": [ Vector2( -12, -25 ) ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Physics:scale")
+tracks/2/path = NodePath("Hurtbox:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -787,7 +787,7 @@ tracks/2/keys = {
 "values": [ Vector2( 1, 0.6 ) ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Physics:position")
+tracks/3/path = NodePath("Hurtbox:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -877,7 +877,7 @@ tracks/1/keys = {
 "values": [ Vector2( -12, -25 ) ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Physics:scale")
+tracks/2/path = NodePath("Hurtbox:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -889,7 +889,7 @@ tracks/2/keys = {
 "values": [ Vector2( 1, 0.6 ) ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Physics:position")
+tracks/3/path = NodePath("Hurtbox:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -1034,7 +1034,7 @@ tracks/1/keys = {
 "values": [ Vector2( -12, -25 ), Vector2( -12, -35 ) ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Physics:scale")
+tracks/2/path = NodePath("Hurtbox:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -1046,7 +1046,7 @@ tracks/2/keys = {
 "values": [ Vector2( 1, 0.6 ), Vector2( 1, 1.01 ) ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Physics:position")
+tracks/3/path = NodePath("Hurtbox:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -1159,7 +1159,7 @@ tracks/1/keys = {
 "values": [ Vector2( -12, -25 ), Vector2( -12, -35 ) ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Physics:scale")
+tracks/2/path = NodePath("Hurtbox:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -1171,7 +1171,7 @@ tracks/2/keys = {
 "values": [ Vector2( 1, 0.6 ), Vector2( 1, 1.01 ) ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Physics:position")
+tracks/3/path = NodePath("Hurtbox:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -1374,7 +1374,7 @@ tracks/4/keys = {
 "values": [ Vector2( -12, -35 ) ]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("Physics:scale")
+tracks/5/path = NodePath("Hurtbox:scale")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
@@ -1386,7 +1386,7 @@ tracks/5/keys = {
 "values": [ Vector2( 1, 1.01 ) ]
 }
 tracks/6/type = "value"
-tracks/6/path = NodePath("Physics:position")
+tracks/6/path = NodePath("Hurtbox:position")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/imported = false
@@ -1518,7 +1518,7 @@ tracks/1/keys = {
 "values": [ Vector2( -12, -25 ) ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Physics:scale")
+tracks/2/path = NodePath("Hurtbox:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -1530,7 +1530,7 @@ tracks/2/keys = {
 "values": [ Vector2( 1, 0.6 ) ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Physics:position")
+tracks/3/path = NodePath("Hurtbox:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -1633,7 +1633,7 @@ tracks/1/keys = {
 "values": [ Vector2( -12, -25 ) ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Physics:scale")
+tracks/2/path = NodePath("Hurtbox:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -1645,7 +1645,7 @@ tracks/2/keys = {
 "values": [ Vector2( 1, 0.6 ) ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Physics:position")
+tracks/3/path = NodePath("Hurtbox:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -2479,12 +2479,12 @@ drag_margin_bottom = 0.0
 editor_draw_limits = true
 editor_draw_drag_margin = true
 
-[node name="Physics" type="CollisionShape2D" parent="."]
+[node name="Hurtbox" type="CollisionShape2D" parent="."]
 position = Vector2( 1, -29 )
 scale = Vector2( 1, 1.01 )
 shape = SubResource( 1 )
 
-[node name="HurtBox" type="CollisionShape2D" parent="."]
+[node name="Physics" type="CollisionShape2D" parent="."]
 position = Vector2( 1, -10 )
 rotation = 1.57079
 scale = Vector2( 0.605794, 0.357638 )

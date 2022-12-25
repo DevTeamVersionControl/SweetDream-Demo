@@ -30,7 +30,7 @@ var player : Player
 var checkpoint = GlobalTypes.Checkpoint.new("Checkpoint",first_level)
 
 func _ready():
-	load_level(first_level, "")
+	load_level(first_level, checkpoint.name)
 
 func change_level(new_level:PackedScene, portal_name:String):
 	tween.interpolate_property(level_transition, "self_modulate",

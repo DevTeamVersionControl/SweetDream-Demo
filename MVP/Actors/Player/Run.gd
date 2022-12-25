@@ -24,7 +24,7 @@ func physics_update(_delta: float) -> void:
 	# Notice how we have some code duplication between states. That's inherent to the pattern,
 	# although in production, your states will tend to be more complex and duplicate code
 	# much more rare.
-	if not player.is_on_floor():
+	if !player.is_on_floor():
 		state_machine.transition_to("Air", {coyote_time = true})
 		return
 

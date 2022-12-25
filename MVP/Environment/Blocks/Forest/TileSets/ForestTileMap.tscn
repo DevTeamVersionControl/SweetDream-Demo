@@ -522,7 +522,7 @@ resource_local_to_scene = true
 } ]
 3/z_index = 0
 
-[node name="TileMap" type="TileMap"]
+[node name="TileMap" type="TileMap" groups=["floor"]]
 scale = Vector2( 0.07, 0.07 )
 tile_set = SubResource( 55 )
 cell_size = Vector2( 336, 336 )
