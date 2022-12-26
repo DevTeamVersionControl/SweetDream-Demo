@@ -13,34 +13,13 @@
 #
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
-class_name CandyBush
-extends KinematicBody2D
+extends PlayerState
 
-const WAVE_DAMAGE = 10
-const BODY_DAMAGE = 10
-const GRAB_DAMAGE = 20
-const PULL_STRENGTH = 400
-const WAVE_STRENGTH = 100
+func enter(msg := {}) -> void:
+	yield(get_tree().create_timer(msg.get(0)), "timeout")
+	if state_machine.state == self:
+		state_machine.transition_to("Idle")
 
-var hp = 20
-var target
-var facing_left := true
-
-onready var animation_player := $AnimationPlayer
-onready var state_machine := $StateMachine
-onready var grab_position := $GrabPosition
-onready var body_hit_collision := $BodyHitZone/CollisionShape2D
-
-# It's a bush it won't move
-func knockback(_vector:Vector2):
-	pass
-
-func take_damage(damage:int, _vector:Vector2):
-	hp -= damage
-	if hp <= 0:
-		state_machine.transition_to("Death")
-
-
-func on_ran_into_something(something):
-	if something is Player:
-		something.take_damage(BODY_DAMAGE, Vector2(WAVE_STRENGTH * (-1 if facing_left else 1), -50))
+#func physics_update(_delta: float) -> void:
+#	player.velocity.y += player.GRAVITY
+#	player.velocity = player.move_and_slide(player.velocity) 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=118 format=2]
+[gd_scene load_steps=119 format=2]
 
 [ext_resource path="res://Abstract/StateMachine.gd" type="Script" id=1]
 [ext_resource path="res://Actors/Player/Idle.gd" type="Script" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://Actors/Player/cooldownbar.png" type="Texture" id=10]
 [ext_resource path="res://Actors/Player/Crouched.gd" type="Script" id=11]
 [ext_resource path="res://Actors/Player/Dashing.gd" type="Script" id=12]
+[ext_resource path="res://Actors/Player/KnockedOut.gd" type="Script" id=13]
 
 [sub_resource type="Animation" id=102]
 resource_name = "AimCrouchedLeft"
@@ -2527,6 +2528,9 @@ one_shot = true
 
 [node name="DashLengthTimer" type="Timer" parent="StateMachine/Dashing"]
 one_shot = true
+
+[node name="KnockedOut" type="Node" parent="StateMachine"]
+script = ExtResource( 13 )
 
 [node name="CooldownTimer" type="Timer" parent="."]
 

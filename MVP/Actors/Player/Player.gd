@@ -101,6 +101,12 @@ func heal(damage_healed:float):
 	if GlobalVars.health > GlobalVars.max_health:
 		GlobalVars.health = GlobalVars.max_health
 	emit_signal("changed_health")
+	
+func knock_out(time:float):
+	state_machine.transition_to("KnockedOut", {0:time})
+
+func wake_up():
+	state_machine.transition_to("Idle")
 
 func set_later(object:Node, variable:String, val):
 	yield(get_tree().create_timer(0.01), "timeout")
