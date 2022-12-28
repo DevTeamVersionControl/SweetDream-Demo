@@ -13,34 +13,22 @@
 #
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
-class_name JelloEnemy
-extends KinematicBody2D
+extends JelloEnemyState
 
-const MIN_VOLUME = 0.5
-const MAX_VOLUME = 2.86
-const NUM_OF_BABIES = 3
-const JUMP_VELOCITY_Y = 150
-const JUMP_VELOCITY_X = 40
-const GRAVITY = 5
-const DAMAGE = 10
+#Handles turning around
 
-var motion = Vector2()
-var target
-var facing_right := true
-var is_on_floor:bool
-var volume := MIN_VOLUME
+func enter(_msg := {}) -> void:
+	jello.animation_player.play("Idle")
+	if jello.target != null:
+		activate()
 
-export var hp = 10
+func activate():
+	if jello.facing_right == (jello.target.global_position.x - jello.global_position.x < 0):
+		jello.facing_right = false if jello.target.global_position.x - jello.global_position.x < 0 else true
+		jello.scale.x = -1
+	state_machine.transition_to("Jump")
 
-onready var animation_player = $AnimationPlayer
-onready var state_machine = $StateMachine
-
-func take_damage(damage, knockback):
-	hp -= damage
-	motion += knockback
-	if hp <= 0:
-		state_machine.transition_to("Death")
-
-func on_hit_something(something):
+func on_something_detected(something):
 	if something is Player:
-		something.take_damage(DAMAGE, motion)
+		jello.target = something
+		activate()

@@ -13,34 +13,25 @@
 #
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
-class_name JelloEnemy
-extends KinematicBody2D
+extends JawbreakerState
 
-const MIN_VOLUME = 0.5
-const MAX_VOLUME = 2.86
-const NUM_OF_BABIES = 3
-const JUMP_VELOCITY_Y = 150
-const JUMP_VELOCITY_X = 40
-const GRAVITY = 5
-const DAMAGE = 10
+#Handles charging
+const DASH_SPEED = 300
+const DASH_TIME = 1
 
-var motion = Vector2()
-var target
-var facing_right := true
-var is_on_floor:bool
-var volume := MIN_VOLUME
+onready var charge_length_timer := $ChargeLengthTimer
 
-export var hp = 10
+func enter(_msg := {}) -> void:
+	print("jawbreaker transitionned to charge")
+	jawbreaker.animation_player.play("Run")
+	jawbreaker.motion.x = 0
+	jawbreaker.motion.x = DASH_SPEED if jawbreaker.facing_right else -DASH_SPEED
+	charge_length_timer.start(DASH_TIME)
 
-onready var animation_player = $AnimationPlayer
-onready var state_machine = $StateMachine
+func physics_update(_delta: float) -> void:
+	jawbreaker.motion.y += jawbreaker.gravity
+	jawbreaker.motion = jawbreaker.move_and_slide(jawbreaker.motion)
 
-func take_damage(damage, knockback):
-	hp -= damage
-	motion += knockback
-	if hp <= 0:
-		state_machine.transition_to("Death")
-
-func on_hit_something(something):
-	if something is Player:
-		something.take_damage(DAMAGE, motion)
+func on_dash_end():
+	if jawbreaker.get_node_or_null("StateMachine/Death") != null:
+		state_machine.transition_to("WindDown")

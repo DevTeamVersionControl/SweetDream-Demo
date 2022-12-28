@@ -20,6 +20,26 @@ _global_script_classes=[ {
 "path": "res://Actors/Enemies/Bush/CottonCandyBush.gd"
 }, {
 "base": "KinematicBody2D",
+"class": "Jawbreaker",
+"language": "GDScript",
+"path": "res://Actors/Enemies/Jawbreaker/Jawbreaker.gd"
+}, {
+"base": "State",
+"class": "JawbreakerState",
+"language": "GDScript",
+"path": "res://Actors/Enemies/Jawbreaker/JawbreakerState.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "JelloEnemy",
+"language": "GDScript",
+"path": "res://Actors/Enemies/Jello/Jello.gd"
+}, {
+"base": "State",
+"class": "JelloEnemyState",
+"language": "GDScript",
+"path": "res://Actors/Enemies/Jello/JelloState.gd"
+}, {
+"base": "KinematicBody2D",
 "class": "JellyBean",
 "language": "GDScript",
 "path": "res://Ammo/Jelly Bean/JellyBean.gd"
@@ -67,6 +87,10 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "BushState": "",
 "CandyBush": "",
+"Jawbreaker": "",
+"JawbreakerState": "",
+"JelloEnemy": "",
+"JelloEnemyState": "",
 "JellyBean": "",
 "JellyBeanState": "",
 "Player": "",
