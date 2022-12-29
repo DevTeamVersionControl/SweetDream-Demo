@@ -20,4 +20,5 @@ extends JelloEnemyState
 func enter(_msg := {}) -> void:
 	jello.animation_player.play("Jump")
 	yield(jello.animation_player, "animation_finished")
-	state_machine.transition_to("Air")
+	if jello.hp > 0:
+		state_machine.transition_to("Air")

@@ -13,19 +13,30 @@
 #
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
-extends JelloEnemyState
+class_name CandyCorn
+extends KinematicBody2D
 
-func enter(_msg := {}) -> void:
-	jello.motion.y = -jello.JUMP_VELOCITY_Y
-	jello.motion.x = jello.JUMP_VELOCITY_X if jello.facing_right else -jello.JUMP_VELOCITY_X
-	jello.animation_player.play("Air")
+const SPEED = 80
+const KNOCKBACK = 100
+const ATTACK_DAMAGE = 10
+const BODY_DAMAGE = 5
 
-func physics_update(delta):
-	jello.motion.y += jello.GRAVITY
-	var collision = jello.move_and_collide(jello.motion * delta)
-	if collision && jello.hp > 0:
-		if jello.animation_player.current_animation_position < 0.04:
-			jello.stuck = true
-			state_machine.transition_to("Idle")
-		else:
-			state_machine.transition_to("Land")
+var health := 10.0
+var target : Player
+var facing_right := true
+var motion := Vector2.ZERO
+
+onready var animation_player := $AnimationPlayer
+onready var sprite := $Sprite
+onready var state_machine := $StateMachine
+
+func take_damage(damage:float, knockback:Vector2):
+	health -= damage
+	motion += knockback
+	if health <= 0:
+		state_machine.transition_to("Death")
+
+
+func on_hit_something(something):
+	if something is Player:
+		something.take_damage(5, Vector2.ZERO)

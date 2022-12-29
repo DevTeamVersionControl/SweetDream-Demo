@@ -16,16 +16,14 @@
 extends JelloEnemyState
 
 func enter(_msg := {}) -> void:
-	jello.motion.y = -jello.JUMP_VELOCITY_Y
-	jello.motion.x = jello.JUMP_VELOCITY_X if jello.facing_right else -jello.JUMP_VELOCITY_X
-	jello.animation_player.play("Air")
-
-func physics_update(delta):
-	jello.motion.y += jello.GRAVITY
-	var collision = jello.move_and_collide(jello.motion * delta)
-	if collision && jello.hp > 0:
-		if jello.animation_player.current_animation_position < 0.04:
-			jello.stuck = true
-			state_machine.transition_to("Idle")
-		else:
-			state_machine.transition_to("Land")
+	jello.animation_player.play("Death")
+	yield(jello.animation_player, "animation_finished")
+	if jello.volume > jello.BREAK_VOLUME:
+		for n in jello.NUM_OF_BABIES:
+			var new_baby = load(jello.filename).instance()
+			new_baby.initial_volume = jello.volume/jello.NUM_OF_BABIES
+			new_baby.facing_right = jello.facing_right
+			get_tree().current_scene.call_deferred("add_child", new_baby)
+			new_baby.global_position = jello.global_position + Vector2(-5 + n*5,0)
+			new_baby.target = jello.target
+	jello.queue_free()

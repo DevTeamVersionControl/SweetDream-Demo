@@ -13,19 +13,20 @@
 #
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
-extends JelloEnemyState
+extends CandyCornState
+
+#Handles when the candy corn is idle
 
 func enter(_msg := {}) -> void:
-	jello.motion.y = -jello.JUMP_VELOCITY_Y
-	jello.motion.x = jello.JUMP_VELOCITY_X if jello.facing_right else -jello.JUMP_VELOCITY_X
-	jello.animation_player.play("Air")
+	candy_corn.animation_player.play("Idle")
+	if candy_corn.target != null:
+		activate()
 
-func physics_update(delta):
-	jello.motion.y += jello.GRAVITY
-	var collision = jello.move_and_collide(jello.motion * delta)
-	if collision && jello.hp > 0:
-		if jello.animation_player.current_animation_position < 0.04:
-			jello.stuck = true
-			state_machine.transition_to("Idle")
-		else:
-			state_machine.transition_to("Land")
+func on_something_detected(something):
+	if something is Player:
+		candy_corn.target = something
+		activate()
+
+func activate():
+	if candy_corn.health > 0:
+		state_machine.transition_to("TurnAround")

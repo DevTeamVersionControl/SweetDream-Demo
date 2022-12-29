@@ -13,19 +13,16 @@
 #
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
-extends JelloEnemyState
+extends CandyCornState
 
-func enter(_msg := {}) -> void:
-	jello.motion.y = -jello.JUMP_VELOCITY_Y
-	jello.motion.x = jello.JUMP_VELOCITY_X if jello.facing_right else -jello.JUMP_VELOCITY_X
-	jello.animation_player.play("Air")
+#Handles turning around
 
-func physics_update(delta):
-	jello.motion.y += jello.GRAVITY
-	var collision = jello.move_and_collide(jello.motion * delta)
-	if collision && jello.hp > 0:
-		if jello.animation_player.current_animation_position < 0.04:
-			jello.stuck = true
-			state_machine.transition_to("Idle")
-		else:
-			state_machine.transition_to("Land")
+func enter(msg := {}) -> void:
+	#Turn around
+	if candy_corn.facing_right == (candy_corn.target.global_position.x - candy_corn.global_position.x < 0):
+		candy_corn.facing_right = false if candy_corn.target.global_position.x - candy_corn.global_position.x < 0 else true
+		candy_corn.animation_player.play("Flip")
+		yield(candy_corn.animation_player, "animation_finished")
+		if candy_corn.health > 0:
+			candy_corn.scale.x = -1
+	state_machine.transition_to("Walk", msg)

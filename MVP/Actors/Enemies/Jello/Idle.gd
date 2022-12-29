@@ -22,13 +22,24 @@ func enter(_msg := {}) -> void:
 	if jello.target != null:
 		activate()
 
-func activate():
-	if jello.facing_right == (jello.target.global_position.x - jello.global_position.x < 0):
-		jello.facing_right = false if jello.target.global_position.x - jello.global_position.x < 0 else true
-		jello.scale.x = -1
-	state_machine.transition_to("Jump")
+func activate() -> void:
+	if jello.hp > 0:
+		turn_around()
+		if !jello.stuck:
+			state_machine.transition_to("Jump")
 
-func on_something_detected(something):
-	if something is Player:
+func on_something_detected(something) -> void:
+	if something is Player && jello.target == null:
 		jello.target = something
 		activate()
+
+func turn_around() -> void:
+	if jello.facing_right == (jello.target.global_position.x - jello.global_position.x < 0):
+		jello.facing_right = false if jello.target.global_position.x - jello.global_position.x < 0 else true
+		jello.sprite.flip_h = !jello.facing_right
+		jello.stuck = false
+		activate()
+		
+func physics_update(_delta:float) -> void:
+	if jello.stuck:
+		turn_around()

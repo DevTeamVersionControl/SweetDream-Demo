@@ -13,19 +13,18 @@
 #
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
-extends JelloEnemyState
+extends CandyCornState
 
 func enter(_msg := {}) -> void:
-	jello.motion.y = -jello.JUMP_VELOCITY_Y
-	jello.motion.x = jello.JUMP_VELOCITY_X if jello.facing_right else -jello.JUMP_VELOCITY_X
-	jello.animation_player.play("Air")
+	if candy_corn.health > 0:
+		candy_corn.animation_player.play("StopWalk")
+	yield(candy_corn.animation_player, "animation_finished")
+	if candy_corn.health > 0:
+		candy_corn.animation_player.play("Attack")
+	yield(candy_corn.animation_player, "animation_finished")
+	if candy_corn.health > 0:
+		state_machine.transition_to("Idle")
 
-func physics_update(delta):
-	jello.motion.y += jello.GRAVITY
-	var collision = jello.move_and_collide(jello.motion * delta)
-	if collision && jello.hp > 0:
-		if jello.animation_player.current_animation_position < 0.04:
-			jello.stuck = true
-			state_machine.transition_to("Idle")
-		else:
-			state_machine.transition_to("Land")
+func on_hit_something(something):
+	if something is Player:
+		something.take_damage(candy_corn.ATTACK_DAMAGE, Vector2(candy_corn.KNOCKBACK if candy_corn.facing_right else -candy_corn.KNOCKBACK, 0))

@@ -20,6 +20,16 @@ _global_script_classes=[ {
 "path": "res://Actors/Enemies/Bush/CottonCandyBush.gd"
 }, {
 "base": "KinematicBody2D",
+"class": "CandyCorn",
+"language": "GDScript",
+"path": "res://Actors/Enemies/Candy Corn/CandyCornEnemy.gd"
+}, {
+"base": "State",
+"class": "CandyCornState",
+"language": "GDScript",
+"path": "res://Actors/Enemies/Candy Corn/CandyCornState.gd"
+}, {
+"base": "KinematicBody2D",
 "class": "Jawbreaker",
 "language": "GDScript",
 "path": "res://Actors/Enemies/Jawbreaker/Jawbreaker.gd"
@@ -87,6 +97,8 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "BushState": "",
 "CandyBush": "",
+"CandyCorn": "",
+"CandyCornState": "",
 "Jawbreaker": "",
 "JawbreakerState": "",
 "JelloEnemy": "",
@@ -197,6 +209,7 @@ consume_health_pack={
 2d_physics/layer_1="player"
 2d_physics/layer_2="enemies"
 2d_physics/layer_3="bounce"
+2d_physics/layer_4="ammo"
 
 [physics]
 
