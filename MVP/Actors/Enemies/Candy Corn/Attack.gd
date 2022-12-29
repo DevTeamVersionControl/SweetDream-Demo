@@ -20,7 +20,7 @@ func enter(_msg := {}) -> void:
 		candy_corn.animation_player.play("StopWalk")
 	yield(candy_corn.animation_player, "animation_finished")
 	if candy_corn.health > 0:
-		candy_corn.animation_player.play("Attack")
+		candy_corn.animation_player.play("Attack", -1, 1.5, false)
 	yield(candy_corn.animation_player, "animation_finished")
 	if candy_corn.health > 0:
 		state_machine.transition_to("Idle")

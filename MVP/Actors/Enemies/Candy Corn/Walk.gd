@@ -25,10 +25,11 @@ func enter(msg := {}) -> void:
 		candy_corn.animation_player.play("Walk")
 
 func physics_update(_delta):
-	candy_corn.motion.x = candy_corn.SPEED if candy_corn.facing_right else -candy_corn.SPEED
-	candy_corn.motion.y += 10
-	candy_corn.motion = candy_corn.move_and_slide(candy_corn.motion)
-	if candy_corn.facing_right == (candy_corn.target.global_position.x - candy_corn.global_position.x < 0):
-		state_machine.transition_to("TurnAround", {from_walk = true})
-	elif (candy_corn.global_position.x - candy_corn.target.global_position.x) < 25 && (candy_corn.global_position.x - candy_corn.target.global_position.x) > -25:
-		state_machine.transition_to("Attack")
+	if candy_corn.health > 0:
+		candy_corn.motion.x = candy_corn.SPEED if candy_corn.facing_right else -candy_corn.SPEED
+		candy_corn.motion.y += 10
+		candy_corn.motion = candy_corn.move_and_slide(candy_corn.motion)
+		if candy_corn.facing_right == (candy_corn.target.global_position.x - candy_corn.global_position.x < 0):
+			state_machine.transition_to("TurnAround", {from_walk = true})
+		elif (candy_corn.global_position.x - candy_corn.target.global_position.x) < 25 && (candy_corn.global_position.x - candy_corn.target.global_position.x) > -25:
+			state_machine.transition_to("Attack")

@@ -13,13 +13,10 @@
 #
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
-extends CandyCornState
-
-#Handles turning around
+extends SpawnerState
 
 func enter(_msg := {}) -> void:
-	candy_corn.animation_player.play("Death")
-	yield(candy_corn.animation_player, "animation_finished")
-	candy_corn.animation_player.play("Death")
-	yield(candy_corn.animation_player, "animation_finished")
-	candy_corn.queue_free()
+	spawner.animation_player.play("Idle")
+
+func activate():
+	state_machine.transition_to("Spawning")

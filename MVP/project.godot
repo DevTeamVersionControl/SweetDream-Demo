@@ -24,6 +24,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Actors/Enemies/Candy Corn/CandyCornEnemy.gd"
 }, {
+"base": "KinematicBody2D",
+"class": "CandyCornSpawner",
+"language": "GDScript",
+"path": "res://Actors/Enemies/Candy Corn Spawner/CandyCornSpawner.gd"
+}, {
 "base": "State",
 "class": "CandyCornState",
 "language": "GDScript",
@@ -74,6 +79,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Abstract/Saving/SaveData.gd"
 }, {
+"base": "State",
+"class": "SpawnerState",
+"language": "GDScript",
+"path": "res://Actors/Enemies/Candy Corn Spawner/SpawnerState.gd"
+}, {
 "base": "Node",
 "class": "State",
 "language": "GDScript",
@@ -98,6 +108,7 @@ _global_script_class_icons={
 "BushState": "",
 "CandyBush": "",
 "CandyCorn": "",
+"CandyCornSpawner": "",
 "CandyCornState": "",
 "Jawbreaker": "",
 "JawbreakerState": "",
@@ -108,6 +119,7 @@ _global_script_class_icons={
 "Player": "",
 "PlayerState": "",
 "SaveData": "",
+"SpawnerState": "",
 "State": "",
 "StateMachine": "",
 "StickyBomb": "",

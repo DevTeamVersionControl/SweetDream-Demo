@@ -13,13 +13,17 @@
 #
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
-extends CandyCornState
+extends SpawnerState
 
-#Handles turning around
+const CANDY_CORN = preload("res://Actors/Enemies/Candy Corn/CandyCornEnemy.tscn")
+
+onready var spawn_timer := $SpawnTimer
 
 func enter(_msg := {}) -> void:
-	candy_corn.animation_player.play("Death")
-	yield(candy_corn.animation_player, "animation_finished")
-	candy_corn.animation_player.play("Death")
-	yield(candy_corn.animation_player, "animation_finished")
-	candy_corn.queue_free()
+	spawner.animation_player.play("Spawning")
+
+func spawn() -> void:
+	var candy_corn = CANDY_CORN.instance()
+	get_tree().current_scene.current_level.add_child(candy_corn)
+	candy_corn.global_position = spawner.candy_corn_spawn.global_position
+	spawn_timer.start()

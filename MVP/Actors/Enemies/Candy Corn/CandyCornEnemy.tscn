@@ -15,7 +15,7 @@
 [ext_resource path="res://Actors/Enemies/Candy Corn/Death.gd" type="Script" id=13]
 
 [sub_resource type="CircleShape2D" id=10]
-radius = 217.009
+radius = 254.049
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 3.50909, 9.75 )
@@ -652,7 +652,7 @@ extents = Vector2( 4.5, 10 )
 
 [node name="CandyCornEnemy" type="KinematicBody2D" groups=["enemy"]]
 collision_layer = 2
-collision_mask = 2
+collision_mask = 16
 script = ExtResource( 10 )
 
 [node name="PlayerDetector" type="Area2D" parent="."]
@@ -661,7 +661,7 @@ script = ExtResource( 10 )
 shape = SubResource( 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 1, -10.25 )
+position = Vector2( 1, -11 )
 scale = Vector2( 2.5, 1 )
 shape = SubResource( 1 )
 
