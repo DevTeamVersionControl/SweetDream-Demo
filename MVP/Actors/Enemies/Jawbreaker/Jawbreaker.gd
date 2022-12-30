@@ -14,7 +14,7 @@
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 class_name Jawbreaker
-extends KinematicBody2D
+extends CharacterBody2D
 
 const BASE_DAMAGE = 5
 const CHARGE_DAMAGE = 20
@@ -23,12 +23,12 @@ var motion = Vector2()
 var target
 var facing_right := true
 
-export var hp = 20
-export var gravity = 200
+@export var hp = 20
+@export var gravity = 200
 
-onready var animation_player := $AnimationPlayer
-onready var state_machine := $StateMachine
-onready var player_detector_collision := $PlayerDetector/CollisionShape2D
+@onready var animation_player := $AnimationPlayer
+@onready var state_machine := $StateMachine
+@onready var player_detector_collision := $PlayerDetector/CollisionShape2D
 
 func take_damage(damage, knockback):
 	hp -= damage
@@ -36,8 +36,8 @@ func take_damage(damage, knockback):
 	if hp <= 0:
 		state_machine.transition_to("Death")
 #	else:
-#		$AnimatedSprite.animation = "Hit"
-#		yield($AnimatedSprite, "animation_finished")
+#		$AnimatedSprite2D.animation = "Hit"
+#		await $AnimatedSprite2D.animation_finished
 
 func _on_PlayerDetector_body_entered(body):
 	if body.is_in_group("player"):

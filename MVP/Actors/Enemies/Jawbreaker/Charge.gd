@@ -19,7 +19,7 @@ extends JawbreakerState
 const DASH_SPEED = 300
 const DASH_TIME = 1
 
-onready var charge_length_timer := $ChargeLengthTimer
+@onready var charge_length_timer := $ChargeLengthTimer
 
 func enter(_msg := {}) -> void:
 	print("jawbreaker transitionned to charge")
@@ -30,7 +30,9 @@ func enter(_msg := {}) -> void:
 
 func physics_update(_delta: float) -> void:
 	jawbreaker.motion.y += jawbreaker.gravity
-	jawbreaker.motion = jawbreaker.move_and_slide(jawbreaker.motion)
+	jawbreaker.set_velocity(jawbreaker.motion)
+	jawbreaker.move_and_slide()
+	jawbreaker.motion = jawbreaker.velocity
 
 func on_dash_end():
 	if jawbreaker.get_node_or_null("StateMachine/Death") != null:

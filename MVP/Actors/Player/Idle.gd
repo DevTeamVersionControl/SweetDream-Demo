@@ -20,7 +20,7 @@ func enter(_msg := {}) -> void:
 	player.velocity.x = 0
 	player.animation_tree.set('parameters/Idle/blend_position', 1 if player.facing_right else -1)
 	player.animation_mode.travel("Idle")
-	player.camera_arm.position.x = 127 if player.facing_right else -127
+#	player.camera_arm.position.x = 127 if player.facing_right else -127
 
 func physics_update(_delta: float) -> void:
 	if not player.is_on_floor():

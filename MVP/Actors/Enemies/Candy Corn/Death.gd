@@ -20,6 +20,4 @@ extends CandyCornState
 func enter(_msg := {}) -> void:
 	candy_corn.animation_player.play("Death")
 	yield(candy_corn.animation_player, "animation_finished")
-	candy_corn.animation_player.play("Death")
-	yield(candy_corn.animation_player, "animation_finished")
 	candy_corn.queue_free()

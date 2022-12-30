@@ -1,12 +1,11 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://Abstract/StateMachine.gd" type="Script" id=1]
-[ext_resource path="res://Actors/Enemies/Candy Corn/Candy Corn Attack/Candy Corn Attack1080p.png" type="Texture" id=2]
-[ext_resource path="res://Actors/Enemies/Candy Corn/Candy Corn Walk/Candy Corn Walk1080p.png" type="Texture" id=3]
-[ext_resource path="res://Actors/Enemies/Candy Corn/Candy Corn Start Walking/Candy Corn Start Walking1080p.png" type="Texture" id=4]
-[ext_resource path="res://Actors/Enemies/Candy Corn/Candy Corn Stop Walking/Candy Corn Stop Walk1080p.png" type="Texture" id=5]
-[ext_resource path="res://Actors/Enemies/Candy Corn/Candy Corn Flip/Candy Corn Flip1080p.png" type="Texture" id=6]
-[ext_resource path="res://Actors/Enemies/Candy Corn/Candy Corn Death/Candy Corn Death1080p.png" type="Texture" id=7]
+[ext_resource path="res://Actors/Enemies/Candy Corn/Candy Corn Attack/Candy Corn Attack720p.png" type="Texture" id=2]
+[ext_resource path="res://Actors/Enemies/Candy Corn/Candy Corn Flip/Candy Corn Flip720p.png" type="Texture" id=3]
+[ext_resource path="res://Actors/Enemies/Candy Corn/Candy Corn Death/Candy Corn Death720p.png" type="Texture" id=4]
+[ext_resource path="res://Actors/Enemies/Candy Corn/Candy Corn Start Walking/Candy Corn Start Walking720p.png" type="Texture" id=5]
+[ext_resource path="res://Actors/Enemies/Candy Corn/Candy Corn Stop Walking/Candy Corn Stop Walk720p.png" type="Texture" id=7]
 [ext_resource path="res://Actors/Enemies/Candy Corn/Idle.gd" type="Script" id=8]
 [ext_resource path="res://Actors/Enemies/Candy Corn/Attack.gd" type="Script" id=9]
 [ext_resource path="res://Actors/Enemies/Candy Corn/CandyCornEnemy.gd" type="Script" id=10]
@@ -132,7 +131,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0.75 ),
+"times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ 5 ]
@@ -144,7 +143,7 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0.75 ),
+"times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ 4 ]
@@ -156,10 +155,10 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0.75 ),
+"times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 7 ) ]
+"values": [ ExtResource( 4 ) ]
 }
 
 [sub_resource type="Animation" id=4]
@@ -176,7 +175,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 6 ) ]
+"values": [ ExtResource( 3 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:hframes")
@@ -241,7 +240,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 4 ) ]
+"values": [ ExtResource( 5 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:hframes")
@@ -340,7 +339,7 @@ tracks/4/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ ExtResource( 4 ) ]
+"values": [ ExtResource( 7 ) ]
 }
 tracks/5/type = "value"
 tracks/5/path = NodePath("Sprite:position")
@@ -441,7 +440,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 4 ) ]
+"values": [ ExtResource( 5 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("Sprite:hframes")
@@ -518,7 +517,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 5 ) ]
+"values": [ ExtResource( 7 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:frame")
@@ -632,7 +631,7 @@ tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 3 ) ]
+"values": [ ExtResource( 7 ) ]
 }
 tracks/4/type = "value"
 tracks/4/path = NodePath("Sprite:position")
@@ -667,8 +666,8 @@ shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 4, -11 )
-scale = Vector2( 0.05, 0.05 )
-texture = ExtResource( 4 )
+scale = Vector2( 0.075, 0.075 )
+texture = ExtResource( 7 )
 hframes = 5
 vframes = 5
 

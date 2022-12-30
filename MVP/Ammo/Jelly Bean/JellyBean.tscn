@@ -3,9 +3,9 @@
 [ext_resource path="res://Ammo/Jelly Bean/JellyBean.gd" type="Script" id=1]
 [ext_resource path="res://Abstract/StateMachine.gd" type="Script" id=2]
 [ext_resource path="res://Ammo/Jelly Bean/Flying.gd" type="Script" id=3]
-[ext_resource path="res://Ammo/Jelly Bean/Jelly Bean Fly/Jelly Bean 2160p.png" type="Texture" id=4]
+[ext_resource path="res://Ammo/Jelly Bean/Jelly Bean Fly/Jelly Bean 720p.png" type="Texture" id=4]
 [ext_resource path="res://Ammo/Jelly Bean/Explode.gd" type="Script" id=5]
-[ext_resource path="res://Ammo/Jelly Bean/Jelly Bean Explosion/Explosion 2160p.png" type="Texture" id=6]
+[ext_resource path="res://Ammo/Jelly Bean/Jelly Bean Explosion/Explosion 720p.png" type="Texture" id=6]
 
 [sub_resource type="Animation" id=5]
 resource_name = "Bounce"
@@ -346,13 +346,13 @@ anims/RESET = SubResource( 4 )
 visible = false
 modulate = Color( 1, 0.694118, 0.694118, 1 )
 position = Vector2( 0, 3.8147e-06 )
-scale = Vector2( 0.1, 0.1 )
+scale = Vector2( 0.3, 0.3 )
 texture = ExtResource( 4 )
 hframes = 2
 vframes = 3
 
 [node name="ExplosionSprite" type="Sprite" parent="."]
-position = Vector2( 25, -390 )
+position = Vector2( 20, -260 )
 scale = Vector2( 3, 3 )
 texture = ExtResource( 6 )
 hframes = 4

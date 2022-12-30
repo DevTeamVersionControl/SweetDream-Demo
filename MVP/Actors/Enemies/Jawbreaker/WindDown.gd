@@ -20,5 +20,5 @@ extends JawbreakerState
 func enter(_msg := {}) -> void:
 	print("jawbreaker transitionned to wind down")
 	jawbreaker.animation_player.play("WindDown")
-	yield(jawbreaker.animation_player, "animation_finished")
+	await jawbreaker.animation_player.animation_finished
 	state_machine.transition_to("Idle")

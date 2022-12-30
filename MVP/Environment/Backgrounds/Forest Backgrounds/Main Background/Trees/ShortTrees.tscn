@@ -1,13 +1,13 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://Environment/Backgrounds/Forest Backgrounds/Main Background/Trees/Tiny Trees/Tiny Tree 2160p.png" type="Texture" id=1]
+[ext_resource path="res://Environment/Backgrounds/Forest Backgrounds/Main Background/Trees/Tiny Trees/Tiny Tree 720p.png" type="Texture" id=1]
 
 [sub_resource type="TileSet" id=1]
-0/name = "Tiny Tree 2160p.png 0"
+0/name = "Tiny Tree 720p.png 0"
 0/texture = ExtResource( 1 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
-0/region = Rect2( -10, 114, 1851, 2045 )
+0/region = Rect2( 64, 128, 480, 608 )
 0/tile_mode = 0
 0/occluder_offset = Vector2( 0, 0 )
 0/navigation_offset = Vector2( 0, 0 )
@@ -17,11 +17,11 @@
 0/shape_one_way_margin = 0.0
 0/shapes = [  ]
 0/z_index = 0
-1/name = "Tiny Tree 2160p.png 1"
+1/name = "Tiny Tree 720p.png 1"
 1/texture = ExtResource( 1 )
 1/tex_offset = Vector2( 0, 0 )
 1/modulate = Color( 1, 1, 1, 1 )
-1/region = Rect2( 1841, 119, 1761, 2042 )
+1/region = Rect2( 672, 160, 448, 544 )
 1/tile_mode = 0
 1/occluder_offset = Vector2( 0, 0 )
 1/navigation_offset = Vector2( 0, 0 )
@@ -31,11 +31,11 @@
 1/shape_one_way_margin = 0.0
 1/shapes = [  ]
 1/z_index = 0
-2/name = "Tiny Tree 2160p.png 2"
+2/name = "Tiny Tree 720p.png 2"
 2/texture = ExtResource( 1 )
 2/tex_offset = Vector2( 0, 0 )
 2/modulate = Color( 1, 1, 1, 1 )
-2/region = Rect2( 3831, 114, 2050, 2040 )
+2/region = Rect2( 1408, 128, 480, 608 )
 2/tile_mode = 0
 2/occluder_offset = Vector2( 0, 0 )
 2/navigation_offset = Vector2( 0, 0 )
@@ -45,11 +45,11 @@
 2/shape_one_way_margin = 0.0
 2/shapes = [  ]
 2/z_index = 0
-3/name = "Tiny Tree 2160p.png 3"
+3/name = "Tiny Tree 720p.png 3"
 3/texture = ExtResource( 1 )
 3/tex_offset = Vector2( 0, 0 )
 3/modulate = Color( 1, 1, 1, 1 )
-3/region = Rect2( 5876, 116, 1614, 2042 )
+3/region = Rect2( 1952, 160, 480, 576 )
 3/tile_mode = 0
 3/occluder_offset = Vector2( 0, 0 )
 3/navigation_offset = Vector2( 0, 0 )
@@ -59,11 +59,11 @@
 3/shape_one_way_margin = 0.0
 3/shapes = [  ]
 3/z_index = 0
-4/name = "Tiny Tree 2160p.png 4"
+4/name = "Tiny Tree 720p.png 4"
 4/texture = ExtResource( 1 )
 4/tex_offset = Vector2( 0, 0 )
 4/modulate = Color( 1, 1, 1, 1 )
-4/region = Rect2( 7789, 119, 1614, 2040 )
+4/region = Rect2( 2592, 128, 512, 608 )
 4/tile_mode = 0
 4/occluder_offset = Vector2( 0, 0 )
 4/navigation_offset = Vector2( 0, 0 )
@@ -73,11 +73,11 @@
 4/shape_one_way_margin = 0.0
 4/shapes = [  ]
 4/z_index = 0
-5/name = "Tiny Tree 2160p.png 5"
+5/name = "Tiny Tree 720p.png 5"
 5/texture = ExtResource( 1 )
 5/tex_offset = Vector2( 0, 0 )
 5/modulate = Color( 1, 1, 1, 1 )
-5/region = Rect2( 9408, 121, 1858, 2040 )
+5/region = Rect2( 3200, 160, 480, 576 )
 5/tile_mode = 0
 5/occluder_offset = Vector2( 0, 0 )
 5/navigation_offset = Vector2( 0, 0 )
@@ -89,7 +89,7 @@
 5/z_index = 0
 
 [node name="ShortTrees" type="TileMap"]
-scale = Vector2( 0.07, 0.07 )
+scale = Vector2( 0.2, 0.2 )
 tile_set = SubResource( 1 )
 cell_custom_transform = Transform2D( 256, 0, 0, 256, 0, 0 )
 centered_textures = true

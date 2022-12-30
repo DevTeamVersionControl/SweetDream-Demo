@@ -1,13 +1,13 @@
 [gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://Actors/Enemies/Bush/CottonCandyBush.gd" type="Script" id=1]
-[ext_resource path="res://Actors/Enemies/Bush/Bush1080p.png" type="Texture" id=2]
+[ext_resource path="res://Actors/Enemies/Bush/Bush720p.png" type="Texture" id=2]
 [ext_resource path="res://Abstract/StateMachine.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Actors/Enemies/Bush/Asleep.gd" type="Script" id=4]
 [ext_resource path="res://Actors/Enemies/Bush/Idle.gd" type="Script" id=5]
 [ext_resource path="res://Actors/Enemies/Bush/Attacking.gd" type="Script" id=6]
 [ext_resource path="res://Actors/Enemies/Bush/Death.gd" type="Script" id=7]
-[ext_resource path="res://Actors/Enemies/Bush/Bush Wave/Bush Wave1080p.png" type="Texture" id=8]
+[ext_resource path="res://Actors/Enemies/Bush/Bush Wave/Bush Wave720p.png" type="Texture" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 30.4, 10.7 )
@@ -917,7 +917,7 @@ position = Vector2( -54, 0 )
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( -1, -13 )
-scale = Vector2( 0.13, 0.13 )
+scale = Vector2( 0.195, 0.195 )
 texture = ExtResource( 2 )
 hframes = 11
 vframes = 11

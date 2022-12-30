@@ -14,7 +14,7 @@
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 class_name JelloEnemy
-extends KinematicBody2D
+extends CharacterBody2D
 
 const BREAK_VOLUME = 2.0
 const NUM_OF_BABIES = 3
@@ -30,12 +30,12 @@ var is_on_floor:bool
 var volume := 0.5
 var stuck := false
 
-export var hp = 10
-export(float, 0.5, 2.5) var initial_volume = 2.1
+@export var hp = 10
+@export var initial_volume = 2.1 # (float, 0.5, 2.5)
 
-onready var animation_player = $AnimationPlayer
-onready var state_machine = $StateMachine
-onready var sprite = $Sprite
+@onready var animation_player = $AnimationPlayer
+@onready var state_machine = $StateMachine
+@onready var sprite = $Sprite2D
 
 func _ready():
 	grow(initial_volume)
