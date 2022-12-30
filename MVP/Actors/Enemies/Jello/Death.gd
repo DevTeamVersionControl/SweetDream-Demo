@@ -17,10 +17,10 @@ extends JelloEnemyState
 
 func enter(_msg := {}) -> void:
 	jello.animation_player.play("Death")
-	await jello.animation_player.animation_finished
+	yield(jello.animation_player, "animation_finished")
 	if jello.volume > jello.BREAK_VOLUME:
 		for n in jello.NUM_OF_BABIES:
-			var new_baby = load(jello.filename).instantiate()
+			var new_baby = load(jello.filename).instance()
 			new_baby.initial_volume = jello.volume/jello.NUM_OF_BABIES
 			new_baby.facing_right = jello.facing_right
 			get_tree().current_scene.current_level.call_deferred("add_child", new_baby)

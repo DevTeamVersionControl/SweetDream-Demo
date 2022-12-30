@@ -19,6 +19,6 @@ extends JelloEnemyState
 
 func enter(_msg := {}) -> void:
 	jello.animation_player.play("Land")
-	await jello.animation_player.animation_finished
+	yield(jello.animation_player, "animation_finished")
 	if jello.hp > 0:
 		state_machine.transition_to("Idle")

@@ -1,9 +1,9 @@
 [gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://Abstract/Checkpoint/Opening/Opening1080p.png" type="Texture" id=1]
+[ext_resource path="res://Abstract/Checkpoint/Closed/Closed720p.png" type="Texture" id=1]
 [ext_resource path="res://Abstract/Checkpoint/Checkpoint.gd" type="Script" id=2]
-[ext_resource path="res://Abstract/Checkpoint/Closed/Closed1080p.png" type="Texture" id=3]
-[ext_resource path="res://Abstract/Checkpoint/Opened/Opened1080p.png" type="Texture" id=4]
+[ext_resource path="res://Abstract/Checkpoint/Opened/Opened720p.png" type="Texture" id=3]
+[ext_resource path="res://Abstract/Checkpoint/Opening/Opening720p.png" type="Texture" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 19.9342, 48 )
@@ -21,7 +21,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 3 ) ]
+"values": [ ExtResource( 1 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:hframes")
@@ -63,7 +63,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 4 ) ]
+"values": [ ExtResource( 3 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:hframes")
@@ -116,7 +116,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 1 ) ]
+"values": [ ExtResource( 4 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:hframes")
@@ -167,7 +167,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ ExtResource( 3 ) ]
+"values": [ ExtResource( 1 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:hframes")
@@ -216,8 +216,8 @@ shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 7, -44 )
-scale = Vector2( 0.1, 0.1 )
-texture = ExtResource( 3 )
+scale = Vector2( 0.15, 0.15 )
+texture = ExtResource( 1 )
 hframes = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

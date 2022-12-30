@@ -10,7 +10,7 @@ var jello : JelloEnemy
 func _ready() -> void:
 	# The states are children of the `JelloEnemy` node so their `_ready()` callback will execute first.
 	# That's why we wait for the `owner` to be ready first.
-	await owner.ready
+	yield(owner, "ready")
 	# The `as` keyword casts the `owner` variable to the `JelloEnemy` type.
 	# If the `owner` is not a `JelloEnemy`, we'll get `null`.
 	jello = owner as JelloEnemy

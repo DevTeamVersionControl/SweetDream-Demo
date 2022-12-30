@@ -19,5 +19,5 @@ extends JawbreakerState
 
 func enter(_msg := {}) -> void:
 	jawbreaker.animation_player.play("Die")
-	await jawbreaker.animation_player.animation_finished
+	yield(jawbreaker.animation_player, "animation_finished")
 	jawbreaker.queue_free()
