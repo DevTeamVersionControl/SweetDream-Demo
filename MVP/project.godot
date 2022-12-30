@@ -44,7 +44,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Actors/Enemies/Jawbreaker/JawbreakerState.gd"
 }, {
-"base": "CharacterBody2D",
+"base": "KinematicBody2D",
 "class": "JelloEnemy",
 "language": "GDScript",
 "path": "res://Actors/Enemies/Jello/Jello.gd"

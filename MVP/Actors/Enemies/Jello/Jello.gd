@@ -43,7 +43,7 @@ func _ready():
 func take_damage(damage, knockback):
 	hp -= damage
 	motion += knockback
-	if hp <= 0:
+	if hp <= 0 && animation_player.current_animation != "Death":
 		state_machine.transition_to("Death")
 
 func on_hit_something(something):

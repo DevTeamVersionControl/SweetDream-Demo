@@ -20,6 +20,7 @@ extends JelloEnemyState
 func enter(_msg := {}) -> void:
 	jello.animation_player.play("Idle")
 	if jello.target != null:
+		yield(get_tree().create_timer(rand_range(0,0.2)), "timeout")
 		activate()
 
 func activate() -> void:
