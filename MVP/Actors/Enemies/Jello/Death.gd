@@ -22,7 +22,6 @@ func enter(_msg := {}) -> void:
 		for n in jello.NUM_OF_BABIES:
 			var new_baby = load(jello.filename).instance()
 			new_baby.initial_volume = jello.volume/jello.NUM_OF_BABIES
-			new_baby.facing_right = jello.facing_right
 			get_tree().current_scene.current_level.call_deferred("add_child", new_baby)
 			new_baby.global_position = jello.global_position + Vector2(-5 + n*5,0)
 			new_baby.target = jello.target

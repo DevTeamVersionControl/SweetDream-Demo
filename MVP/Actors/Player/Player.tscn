@@ -2393,11 +2393,8 @@ height = 36.0
 height = 19.1458
 
 [node name="Player" type="KinematicBody2D" groups=["player", "pushbutton"]]
-position = Vector2( 15, 43 )
+position = Vector2( 38, 48 )
 script = ExtResource( 4 )
-__meta__ = {
-"_edit_group_": true
-}
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 0, -26 )
@@ -2463,8 +2460,19 @@ parameters/Run/blend_position = 1.0
 parameters/Shoot/blend_position = Vector2( -0.0123457, 0.321185 )
 parameters/ShootCrouched/blend_position = 0
 
+[node name="Hurtbox" type="CollisionShape2D" parent="."]
+position = Vector2( 1, -29 )
+scale = Vector2( 1, 1.01 )
+shape = SubResource( 1 )
+
+[node name="Physics" type="CollisionShape2D" parent="."]
+position = Vector2( 1, -10 )
+rotation = 1.57079
+scale = Vector2( 0.605794, 0.357638 )
+shape = SubResource( 5 )
+
 [node name="Camera arm" type="Node2D" parent="."]
-position = Vector2( 1, -4 )
+position = Vector2( 68, -20 )
 
 [node name="Camera2D" type="Camera2D" parent="Camera arm"]
 position = Vector2( 1, -36 )
@@ -2479,17 +2487,6 @@ drag_margin_top = 0.62
 drag_margin_bottom = 0.0
 editor_draw_limits = true
 editor_draw_drag_margin = true
-
-[node name="Hurtbox" type="CollisionShape2D" parent="."]
-position = Vector2( 1, -29 )
-scale = Vector2( 1, 1.01 )
-shape = SubResource( 1 )
-
-[node name="Physics" type="CollisionShape2D" parent="."]
-position = Vector2( 1, -10 )
-rotation = 1.57079
-scale = Vector2( 0.605794, 0.357638 )
-shape = SubResource( 5 )
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource( 1 )

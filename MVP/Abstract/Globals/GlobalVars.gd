@@ -20,9 +20,8 @@ const candy_corn = preload("res://Ammo/Candy Corn/CandyCorn.tscn")
 const jawbreaker = preload("res://Ammo/Jawbreaker/Jawbreaker.tscn")
 const pop_rocks = preload("res://Ammo/Pop Rocks/PopRocks.tscn")
 const jelly_bean = preload("res://Ammo/Jelly Bean/JellyBean.tscn")
-const sticky_bomb = preload("res://Ammo/Sticky Bomb/StickyBomb.tscn")
 
-var ammo_array := [GlobalTypes.Ammo.new("Candy Corn", GlobalTypes.AMMO_TYPE.once, 0.2, 1, candy_corn), GlobalTypes.Ammo.new("Jelly Bean", GlobalTypes.AMMO_TYPE.once, 2, 8, jelly_bean), GlobalTypes.Ammo.new("Jawbreaker", GlobalTypes.AMMO_TYPE.charge, 0, 3, jawbreaker), GlobalTypes.Ammo.new("Pop Rocks", GlobalTypes.AMMO_TYPE.constant, 0, 0.1, pop_rocks), GlobalTypes.Ammo.new("Jello", GlobalTypes.AMMO_TYPE.charge, 2, 3, jello), GlobalTypes.Ammo.new("Sticky Bomb", GlobalTypes.AMMO_TYPE.once, 1, 5, sticky_bomb)]
+var ammo_array := [GlobalTypes.Ammo.new("Candy Corn", GlobalTypes.AMMO_TYPE.once, 0.2, 1, candy_corn), GlobalTypes.Ammo.new("Jelly Bean", GlobalTypes.AMMO_TYPE.once, 2, 8, jelly_bean), GlobalTypes.Ammo.new("Jawbreaker", GlobalTypes.AMMO_TYPE.charge, 0, 3, jawbreaker), GlobalTypes.Ammo.new("Pop Rocks", GlobalTypes.AMMO_TYPE.constant, 0, 0.1, pop_rocks), GlobalTypes.Ammo.new("Jello", GlobalTypes.AMMO_TYPE.charge, 2, 3, jello)]
 var max_health := 40.0
 var health := max_health
 var max_health_packs := 3

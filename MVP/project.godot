@@ -93,16 +93,6 @@ _global_script_classes=[ {
 "class": "StateMachine",
 "language": "GDScript",
 "path": "res://Abstract/StateMachine.gd"
-}, {
-"base": "KinematicBody2D",
-"class": "StickyBomb",
-"language": "GDScript",
-"path": "res://Ammo/Sticky Bomb/StickyBomb.gd"
-}, {
-"base": "State",
-"class": "StickyBombState",
-"language": "GDScript",
-"path": "res://Ammo/Sticky Bomb/StickyBombState.gd"
 } ]
 _global_script_class_icons={
 "BushState": "",
@@ -121,9 +111,7 @@ _global_script_class_icons={
 "SaveData": "",
 "SpawnerState": "",
 "State": "",
-"StateMachine": "",
-"StickyBomb": "",
-"StickyBombState": ""
+"StateMachine": ""
 }
 
 [application]

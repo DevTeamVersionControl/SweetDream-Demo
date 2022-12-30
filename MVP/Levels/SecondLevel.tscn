@@ -559,7 +559,6 @@ tile_data = PoolIntArray( -458670, 7, 0, -458645, 7, 0, -327659, 6, 0, -327652, 
 
 [node name="ScatterTerrain" parent="ParallaxBackground/ParallaxLayer3" instance=ExtResource( 12 )]
 scale = Vector2( 0.03, 0.03 )
-cell_size = Vector2( 64, 64 )
 
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2( 0.5, 1 )
@@ -576,7 +575,6 @@ tile_data = PoolIntArray( 1638610, 2, 0, 1769609, 2, 0 )
 
 [node name="ScatterTerrain" parent="ParallaxBackground/ParallaxLayer2" instance=ExtResource( 12 )]
 scale = Vector2( 0.04, 0.04 )
-cell_size = Vector2( 64, 64 )
 tile_data = PoolIntArray( 721490, 16, 0, 1311184, 16, 0, 1704137, 10, 0 )
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
@@ -589,9 +587,6 @@ position = Vector2( -183, -114 )
 tile_data = PoolIntArray( 1245640, 1, 0, 1311102, 1, 0, 1311160, 0, 0, 1638716, 0, 0 )
 
 [node name="ScatterTerrain" parent="ParallaxBackground/ParallaxLayer" instance=ExtResource( 12 )]
-scale = Vector2( 0.05, 0.05 )
-cell_size = Vector2( 64, 64 )
-tile_data = PoolIntArray( -261396, 4, 0, -130286, 0, 0, 328032, 2, 0, 459188, 0, 0, 459205, 0, 0, 524661, 4, 0, 524939, 0, 0 )
 
 [node name="TileMap" parent="." instance=ExtResource( 3 )]
 material = SubResource( 153 )
