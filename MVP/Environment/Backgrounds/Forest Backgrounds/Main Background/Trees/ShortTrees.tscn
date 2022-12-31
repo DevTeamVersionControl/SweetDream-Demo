@@ -89,7 +89,7 @@
 5/z_index = 0
 
 [node name="ShortTrees" type="TileMap"]
-scale = Vector2( 0.2, 0.2 )
+scale = Vector2( 0.35, 0.35 )
 tile_set = SubResource( 1 )
 cell_custom_transform = Transform2D( 256, 0, 0, 256, 0, 0 )
 centered_textures = true

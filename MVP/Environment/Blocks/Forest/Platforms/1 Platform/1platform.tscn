@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Environment/Blocks/Forest/Platforms/1 Platform/1 Platform 720p.png" type="Texture" id=1]
+
+[sub_resource type="Animation" id=1]
+resource_name = "Idle"
+length = 8.0
+
+[node name="1platform" type="KinematicBody2D"]
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 24, 0 )
+scale = Vector2( 0.1, 0.1 )
+texture = ExtResource( 1 )
+hframes = 2
+vframes = 3
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PoolVector2Array( -14, 1, 13, 1, 10, 11, 1, 19, -7, 14, -13, 6 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Idle = SubResource( 1 )
