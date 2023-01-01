@@ -37,12 +37,15 @@ func physics_update(_delta: float) -> void:
 	)
 	
 	# Check to see if we need to transition state
+	
+	if Input.is_action_pressed("crouch"):
+		state_machine.transition_to("Crouched")
+		return
+	
 	if Input.is_action_just_pressed("move_up"):
 		state_machine.transition_to("Air", {do_jump = true})
 	elif is_equal_approx(player.velocity.x, 0.0) && is_equal_approx(input_direction_x, 0.0):
 		state_machine.transition_to("Idle")
-	elif Input.is_action_just_pressed("aim_down"):
-		state_machine.transition_to("Crouched")
 	elif Input.is_action_pressed("dash"):
 		state_machine.transition_to("Dashing")
 		return

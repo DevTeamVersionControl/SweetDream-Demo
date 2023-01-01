@@ -18,7 +18,6 @@ extends JawbreakerState
 #Handles turning around
 
 func enter(_msg := {}) -> void:
-	print("jawbreaker transitionned to idle")
 	if jawbreaker.target != null:
 		activate()
 

@@ -96,8 +96,8 @@ func physics_update(delta: float) -> void:
 		jump_buffer = true
 		jump_buffer_timer.start()
 	
-	if player.global_position.y > player.level_limit_max.y:
-		get_tree().current_scene.die()
+#	if player.global_position.y > player.level_limit_max.y:
+#		get_tree().current_scene.die()
 	
 	if Input.is_action_pressed("shoot") && player.can_shoot:
 		state_machine.transition_to("Aim")

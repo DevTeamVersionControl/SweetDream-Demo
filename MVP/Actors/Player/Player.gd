@@ -52,6 +52,7 @@ func _ready():
 	set_later(camera, "smoothing_enabled", true)
 	call_deferred("emit_signal", "changed_health")
 	call_deferred("emit_signal", "changed_health_pack")
+	camera_arm.position.x = 127 if facing_right else -127
 	camera.limit_left = level_limit_min.x
 	camera.limit_top = level_limit_min.y
 	camera.limit_right = level_limit_max.x

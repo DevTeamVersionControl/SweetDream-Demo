@@ -131,8 +131,9 @@
 8/z_index = 0
 
 [node name="TallTrees" type="TileMap"]
-scale = Vector2( 0.3, 0.3 )
+scale = Vector2( 0.4, 0.4 )
 tile_set = SubResource( 1 )
 cell_custom_transform = Transform2D( 256, 0, 0, 256, 0, 0 )
 centered_textures = true
 format = 1
+tile_data = PoolIntArray( 327712, 0, 0 )

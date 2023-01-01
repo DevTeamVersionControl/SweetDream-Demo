@@ -15,6 +15,8 @@
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 extends Node2D
 
+signal level_loaded
+
 const PLAYER = preload("res://Actors/Player/Player.tscn")
 
 onready var tween = $LevelTransition/ColorRect/Tween
@@ -30,6 +32,7 @@ var player : Player
 var checkpoint = GlobalTypes.Checkpoint.new("Checkpoint",first_level)
 
 func _ready():
+	print("ready")
 	load_level(first_level, checkpoint.name)
 
 func change_level(new_level:PackedScene, portal_name:String):
@@ -43,6 +46,7 @@ func change_level(new_level:PackedScene, portal_name:String):
 
 func _on_animation_finished(_object, _key):
 	if next_level != null:
+		print("animation done")
 		load_level(next_level, door_location)
 		get_tree().paused = false
 
@@ -59,7 +63,7 @@ func load_level(level:PackedScene, location:String):
 	if location != "":
 		var door_node = current_level.find_node(location)
 		if door_node:
-#			player.camera.smoothing_enabled = false
+			player.camera.smoothing_enabled = false
 			player.global_position = door_node.get_spawn_position()
 			player.update()
 	player.level_limit_min = Vector2(current_level.level_range_x.x, current_level.level_range_y.x)
@@ -69,6 +73,7 @@ func load_level(level:PackedScene, location:String):
 		Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	tween.start()
 	next_level = null
+	emit_signal("level_loaded")
 
 func die():
 	next_level = checkpoint.level

@@ -21,13 +21,13 @@ const jawbreaker = preload("res://Ammo/Jawbreaker/Jawbreaker.tscn")
 const pop_rocks = preload("res://Ammo/Pop Rocks/PopRocks.tscn")
 const jelly_bean = preload("res://Ammo/Jelly Bean/JellyBean.tscn")
 
-var ammo_array := [GlobalTypes.Ammo.new("Candy Corn", GlobalTypes.AMMO_TYPE.once, 0.2, 1, candy_corn), GlobalTypes.Ammo.new("Jelly Bean", GlobalTypes.AMMO_TYPE.once, 2, 8, jelly_bean), GlobalTypes.Ammo.new("Jawbreaker", GlobalTypes.AMMO_TYPE.charge, 0, 3, jawbreaker), GlobalTypes.Ammo.new("Pop Rocks", GlobalTypes.AMMO_TYPE.constant, 0, 0.1, pop_rocks), GlobalTypes.Ammo.new("Jello", GlobalTypes.AMMO_TYPE.charge, 2, 3, jello)]
+var ammo_array := [GlobalTypes.Ammo.new("Candy Corn", GlobalTypes.AMMO_TYPE.once, 0.2, 1, candy_corn), GlobalTypes.Ammo.new("Jelly Bean", GlobalTypes.AMMO_TYPE.once, 2, 8, jelly_bean), GlobalTypes.Ammo.new("Jawbreaker", GlobalTypes.AMMO_TYPE.charge, 0, 3, jawbreaker), GlobalTypes.Ammo.new("Pop Rocks", GlobalTypes.AMMO_TYPE.constant, 0, 0.1, pop_rocks), GlobalTypes.Ammo.new("Jello", GlobalTypes.AMMO_TYPE.once, 1, 2, jello)]
 var max_health := 40.0
 var health := max_health
 var max_health_packs := 3
 var health_packs := max_health_packs
 var equiped_ammo_index = 0
-var ammo_equipped_array := [get_ammo("Candy Corn"), get_ammo("Jelly Bean"), get_ammo("Jawbreaker")]
+var ammo_equipped_array := [get_ammo("Candy Corn"), get_ammo("Jelly Bean"), get_ammo("Jawbreaker"), get_ammo("Jello")]
 var double_jump_lock := false
 var dash_lock := false
 

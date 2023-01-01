@@ -1,65 +1,52 @@
-# Sweet Dream, a sweet metroidvannia
-#    Copyright (C) 2022 Kamran Charles Nayebi and William Duplain
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU General Public License as published by
-#    the Free Software Foundation, either version 3 of the License, or
-#    (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU General Public License for more details.
-#
-#    You should have received a copy of the GNU General Public License
-#    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 extends KinematicBody2D
 
-export var COOLDOWN = 2
-export var CUBE_SPAWN_MIN_VOLUME = 0.4
-const PIXELS_PER_METER = 16
-const JELLO_CUBE = preload("res://Ammo/Jello/JelloCube.tscn")
+const GRAVITY = 400.0
+const PLAYER_KNOCKBACK = 100
+const INITIAL_VELOCITY = 200
 
-export var launch_direction = Vector2(20,-10)
-export var gravity := 9.8
-var volume:= 0.0
-var velocity = Vector2.ZERO
+onready var animation_player := $AnimationPlayer
 
+var velocity := Vector2.ZERO
+var locked := false
+
+func _ready():
+	$Timer.start()
+	animation_player.play("Bounce")
+	animation_player.stop(false)
 
 func _physics_process(delta):
-	velocity.y += gravity/2 * pow(delta * 20, 2)
-	velocity = move_and_slide(velocity*PIXELS_PER_METER)
-	velocity /= PIXELS_PER_METER
-	rotation = velocity.angle()
-		
-func launch(direction, strenght):
-	velocity = launch_direction * strenght
-	velocity.x *= direction.x
-	grow(strenght)
-	var scene = get_tree().current_scene
-	var pos = global_position
-	get_parent().crush_detection = false
-	get_parent().get_node("CrushTimer").start(0.5)
-	get_parent().remove_child(self)
-	scene.add_child(self)
-	global_position = pos + Vector2(0,-15)
+	if !locked:
+		velocity.y += GRAVITY/2 * pow(delta * 20, 2)
+		var collision = move_and_collide(velocity*delta)
+		if collision != null:
+			_on_impact(collision.normal)
+			animation_player.play("Bounce", -1, 2, false)
+			animation_player.advance(3.0*1.0/48.0)
+			locked = true
+			yield(animation_player, "animation_finished")
+			locked = false
+			animation_player.play("Bounce")
+			animation_player.stop(true)
+			animation_player.seek(0, true)
 
-func grow(add_volume):
-	volume += add_volume/2
-	set_deferred("scale", Vector2(volume,volume))
+func launch(direction, _strength)->Vector2:
+	velocity = direction * INITIAL_VELOCITY + Vector2.UP * 100
+	return -velocity.normalized() * PLAYER_KNOCKBACK
+
+func _on_impact(normal):
+	velocity = velocity.bounce(normal)
+	velocity *= 0.95
+	animation_player.play("Bounce")
+	animation_player.seek(3.0 * 1.0/24.0, true)
 
 func _on_Area2D_body_entered(body):
+	if body.is_in_group("destructable"):
+		body.disappear()
+		_on_Timer_timeout()
 	if body.is_in_group("enemy"):
-		if body.is_in_group("jello"):
-			body.grow(volume)
-		else:
-			body.take_damage(volume * velocity.length(), Vector2.ZERO)
-		queue_free()
-	elif body.is_in_group("floor"):
-		#if velocity.y > 0:
-			if volume > CUBE_SPAWN_MIN_VOLUME:
-				var new_cube = JELLO_CUBE.instance()
-				get_tree().current_scene.call_deferred("add_child", new_cube)
-				new_cube.global_position = global_position
-				new_cube.grow(volume)
-			queue_free()
+		body.take_damage(GlobalVars.get_ammo("Jello").damage, Vector2.ZERO)
+		_on_Timer_timeout()
+
+func _on_Timer_timeout():
+	animation_player.play("Pop")
+	locked = true

@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Environment/Backgrounds/Forest Backgrounds/Main Background/Background Floors/Background Floors720p.png" type="Texture" id=1]
+
+[node name="BackgroundFloors720p" type="Sprite"]
+texture = ExtResource( 1 )
+hframes = 3
+vframes = 3

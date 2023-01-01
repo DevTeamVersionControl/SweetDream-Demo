@@ -6,7 +6,7 @@
 [ext_resource path="res://Abstract/Checkpoint/Opening/Opening720p.png" type="Texture" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 19.9342, 48 )
+extents = Vector2( 15.7895, 38.5 )
 
 [sub_resource type="Animation" id=2]
 resource_name = "Closed"
@@ -210,13 +210,13 @@ tracks/3/keys = {
 script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 10.7, -46 )
+position = Vector2( 9, -37.5 )
 scale = Vector2( 1.52, 1 )
 shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 7, -44 )
-scale = Vector2( 0.15, 0.15 )
+position = Vector2( 9, -36 )
+scale = Vector2( 0.12, 0.12 )
 texture = ExtResource( 1 )
 hframes = 2
 
