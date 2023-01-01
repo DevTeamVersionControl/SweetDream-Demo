@@ -16,16 +16,12 @@
 extends JawbreakerState
 
 #Handles charging
-const DASH_SPEED = 300
-const DASH_TIME = 1
+const DASH_TIME = 0.5
 
 onready var charge_length_timer := $ChargeLengthTimer
 
 func enter(_msg := {}) -> void:
-	print("jawbreaker transitionned to charge")
 	jawbreaker.animation_player.play("Run")
-	jawbreaker.motion.x = 0
-	jawbreaker.motion.x = DASH_SPEED if jawbreaker.facing_right else -DASH_SPEED
 	charge_length_timer.start(DASH_TIME)
 
 func physics_update(_delta: float) -> void:

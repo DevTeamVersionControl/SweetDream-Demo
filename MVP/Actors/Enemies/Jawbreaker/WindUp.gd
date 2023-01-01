@@ -15,10 +15,18 @@
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 extends JawbreakerState
 
-#Handles turning around
+#Handles winding up
+const DASH_SPEED = 300
 
 func enter(_msg := {}) -> void:
-	print("jawbreaker transitionned to wind up")
 	jawbreaker.animation_player.play("WindUp")
 	yield(jawbreaker.animation_player, "animation_finished")
 	state_machine.transition_to("Charge")
+
+func physics_update(_delta: float) -> void:
+	jawbreaker.motion.y += jawbreaker.gravity
+	jawbreaker.motion = jawbreaker.move_and_slide(jawbreaker.motion)
+
+func charge():
+	var tween = get_tree().create_tween()
+	tween.tween_property(jawbreaker, "motion", Vector2(DASH_SPEED if jawbreaker.facing_right else -DASH_SPEED,0), 14.0/24.0)

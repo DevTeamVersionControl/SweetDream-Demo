@@ -19,10 +19,10 @@ extends KinematicBody2D
 const BASE_DAMAGE = 5
 const CHARGE_DAMAGE = 20
 
-var motion = Vector2()
 var target
 var facing_right := true
 
+export var motion = Vector2()
 export var hp = 20
 export var gravity = 200
 

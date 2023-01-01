@@ -63,7 +63,7 @@ func load_level(level:PackedScene, location:String):
 	if location != "":
 		var door_node = current_level.find_node(location)
 		if door_node:
-#			player.camera.smoothing_enabled = false
+			player.camera.smoothing_enabled = false
 			player.global_position = door_node.get_spawn_position()
 			player.update()
 	player.level_limit_min = Vector2(current_level.level_range_x.x, current_level.level_range_y.x)

@@ -15,15 +15,15 @@
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 extends KinematicBody2D
 
-export var THROW_velocity = 50
+export var THROW_VELOCITY = 50
 export var THROW_ANGLE = 0
 export var COOLDOWN = 1
 const PIXELS_PER_METER = 16
 export var gravity = 9.8
 var touched_something:= false
 
-export var enemy_knockback = 10
-export var player_knockback = 10
+export var enemy_knockback = 100
+export var player_knockback = 300
 
 var velocity = Vector2.ZERO
 
@@ -42,11 +42,7 @@ func _physics_process(delta):
 		_on_impact(collision.normal)
 		
 func launch(direction, strength)->Vector2:
-	if direction.x == 1:
-		velocity = Vector2(cos(deg2rad(THROW_ANGLE)),sin(deg2rad(THROW_ANGLE))) * THROW_velocity
-	elif direction.x == -1:
-		velocity = Vector2(cos(deg2rad(180 - THROW_ANGLE)),sin(deg2rad(180 - THROW_ANGLE))) * THROW_velocity
-	velocity *= Vector2(strength, -strength)
+	velocity = direction * strength * THROW_VELOCITY
 	return -velocity.normalized() * player_knockback
 
 func _on_impact(normal):

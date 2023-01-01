@@ -18,7 +18,12 @@ extends JawbreakerState
 #Handles turning around
 
 func enter(_msg := {}) -> void:
-	print("jawbreaker transitionned to wind down")
 	jawbreaker.animation_player.play("WindDown")
+	var tween = get_tree().create_tween()
+	tween.tween_property(jawbreaker, "motion", Vector2(0,0), 1)
 	yield(jawbreaker.animation_player, "animation_finished")
 	state_machine.transition_to("Idle")
+
+func physics_update(_delta: float) -> void:
+	jawbreaker.motion.y += jawbreaker.gravity
+	jawbreaker.motion = jawbreaker.move_and_slide(jawbreaker.motion)

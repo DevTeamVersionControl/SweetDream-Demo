@@ -1,30 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=2 format=2]
 
 [ext_resource path="res://Environment/Backgrounds/Forest Backgrounds/Main Background/Background Floors/Background Floors720p.png" type="Texture" id=1]
 
-[sub_resource type="Shader" id=1]
-code = "shader_type canvas_item;
-
-void fragment() {
-	// Get the vertex color or the color from the texture if set
-	vec4 finalColor = min(texture(TEXTURE, UV), COLOR);
-
-	if(AT_LIGHT_PASS) {
-		// For all fragments in the light we just use the input color
-		COLOR = finalColor;
-	} else {
-		// For all other fragments we make them B&W
-		float value = dot(finalColor.rgb, vec3(0.2125, 0.7154, 0.0721));
-		COLOR = vec4(value, value, value, 1.0);
-	}
-}
-"
-
-[sub_resource type="ShaderMaterial" id=2]
-shader = SubResource( 1 )
-
 [node name="BackgroundFloors720p" type="Sprite"]
-material = SubResource( 2 )
 texture = ExtResource( 1 )
 hframes = 3
 vframes = 3

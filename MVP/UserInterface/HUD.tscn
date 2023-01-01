@@ -22,6 +22,24 @@ default_font = SubResource( 4 )
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource( 2 )
 
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -302.0
+margin_top = -1.0
+margin_right = -3.0
+margin_bottom = 79.0
+color = Color( 0.776471, 0.596078, 0.835294, 1 )
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -1589.0
+margin_top = -3.0
+margin_right = -1405.0
+margin_bottom = 61.0
+color = Color( 0.776471, 0.596078, 0.835294, 1 )
+
 [node name="AmmoDisplay" type="RichTextLabel" parent="."]
 self_modulate = Color( 0, 0, 0, 1 )
 anchor_left = 1.0

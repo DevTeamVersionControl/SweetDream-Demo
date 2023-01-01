@@ -58,4 +58,4 @@ text = "Resume"
 
 [connection signal="pressed" from="Pause menu/HBoxContainer/VBoxContainer/Options" to="Pause menu" method="_on_Options_pressed"]
 [connection signal="pressed" from="Pause menu/HBoxContainer/VBoxContainer/Exit" to="Pause menu" method="_on_Exit_pressed"]
-[connection signal="pressed" from="Pause menu/HBoxContainer/VBoxContainer/Resume" to="Pause menu" method="_on_Cancel_pressed"]
+[connection signal="pressed" from="Pause menu/HBoxContainer/VBoxContainer/Resume" to="Pause menu" method="_on_Resume_pressed"]
