@@ -1,0 +1,75 @@
+# Sweet Dream, a sweet metroidvannia
+#    Copyright (C) 2022 Kamran Charles Nayebi and William Duplain
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+extends Control
+
+onready var text = $Text
+onready var dialog_name = $Name
+onready var timer = $Timer
+
+var dialog
+var phrase_num = 0
+var finished = false
+
+func _process(_delta):
+	if Input.is_action_just_pressed("ui_accept"):
+		if finished:
+			next_phrase()
+		else:
+			text.visible_characters = len(text.text)
+
+func show():
+	visible = true
+
+func start(path_to_dialog:String):
+	show()
+	dialog = get_dialog(path_to_dialog)
+	next_phrase()
+	set_process_internal(true)
+	phrase_num = 0
+	finished = false
+
+func get_dialog(path_to_dialog:String) -> Array:
+	var file = File.new()
+	assert(file.file_exists(path_to_dialog), "Dialog file does not exist")
+	file.open(path_to_dialog, File.READ)
+	var json = file.get_as_text()
+	var output = parse_json(json)
+	return output if typeof(output) == TYPE_ARRAY else []
+
+func next_phrase() -> void:
+	if phrase_num >= len(dialog):
+		close_dialog()
+		return
+	
+	finished = false
+	
+	dialog_name.bbcode_text = dialog[phrase_num]["Name"]
+	text.bbcode_text = dialog[phrase_num]["Text"]
+	
+	text.visible_characters = 0
+	
+	while text.visible_characters < len(text.text):
+		text.visible_characters += 1
+		timer.start()
+		yield(timer, "timeout")
+	
+	finished = true
+	phrase_num += 1
+
+func close_dialog()->void:
+	visible = false
+	get_tree().paused = false
+	set_process_internal(false)

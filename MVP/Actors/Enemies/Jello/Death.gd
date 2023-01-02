@@ -16,6 +16,7 @@
 extends JelloEnemyState
 
 func enter(_msg := {}) -> void:
+	jello.get_node("CollisionShape2D2").set_deferred("disabled", true)
 	jello.animation_player.play("Death")
 	yield(jello.animation_player, "animation_finished")
 	if jello.volume > jello.BREAK_VOLUME:

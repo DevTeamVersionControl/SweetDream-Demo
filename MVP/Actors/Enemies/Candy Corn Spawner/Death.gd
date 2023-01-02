@@ -16,4 +16,5 @@
 extends SpawnerState
 
 func enter(_msg := {}) -> void:
+	spawner.get_node("CollisionPolygon2D").set_deferred("disabled", true)
 	spawner.animation_player.play("Death")

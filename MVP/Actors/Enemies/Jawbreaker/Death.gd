@@ -18,6 +18,7 @@ extends JawbreakerState
 #Handles turning around
 
 func enter(_msg := {}) -> void:
+	jawbreaker.get_node("CollisionShape2D").set_deferred("disabled", true)
 	jawbreaker.animation_player.play("Die")
 	yield(jawbreaker.animation_player, "animation_finished")
 	jawbreaker.queue_free()

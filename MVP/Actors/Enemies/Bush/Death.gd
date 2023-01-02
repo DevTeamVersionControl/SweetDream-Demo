@@ -16,6 +16,7 @@
 extends BushState
 
 func enter(_msg := {}) -> void:
+	bush.get_node("PhysicsBox").set_deferred("disabled", true)
 	if bush.facing_left:
 		bush.animation_player.play("DeathLeft")
 	else:

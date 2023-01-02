@@ -1,9 +1,79 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://UserInterface/Pause menu.gd" type="Script" id=1]
 [ext_resource path="res://UserInterface/theme.tres" type="Theme" id=2]
+[ext_resource path="res://UserInterface/GUI.gd" type="Script" id=3]
+[ext_resource path="res://UserInterface/Dialog.gd" type="Script" id=4]
+[ext_resource path="res://UserInterface/Fonts/MangabeyRegular-rgqVO.otf" type="DynamicFontData" id=5]
+[ext_resource path="res://UserInterface/Dialog/Portraits/Player.png" type="Texture" id=6]
+
+[sub_resource type="DynamicFont" id=1]
+size = 37
+font_data = ExtResource( 5 )
+
+[sub_resource type="Theme" id=2]
+default_font = SubResource( 1 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 54
+font_data = ExtResource( 5 )
+
+[sub_resource type="Theme" id=4]
+default_font = SubResource( 3 )
 
 [node name="GUI" type="CanvasLayer"]
+script = ExtResource( 3 )
+
+[node name="Dialog" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 4 )
+
+[node name="ColorRect" type="ColorRect" parent="Dialog"]
+anchor_right = 1.0
+margin_left = 150.0
+margin_top = 50.0
+margin_right = -150.0
+margin_bottom = 443.0
+color = Color( 0.160784, 0.0901961, 0.239216, 1 )
+
+[node name="Text" type="RichTextLabel" parent="Dialog"]
+margin_left = 587.0
+margin_top = 131.0
+margin_right = 1952.0
+margin_bottom = 299.0
+theme = SubResource( 2 )
+text = "Lorem ipsium sit atmet"
+
+[node name="Name" type="RichTextLabel" parent="Dialog"]
+margin_left = 214.0
+margin_top = 88.0
+margin_right = 541.0
+margin_bottom = 142.0
+theme = SubResource( 4 )
+text = "Placeholder"
+
+[node name="Timer" type="Timer" parent="Dialog"]
+wait_time = 0.05
+one_shot = true
+
+[node name="TextureRect" type="TextureRect" parent="Dialog"]
+margin_left = 201.0
+margin_top = 161.0
+margin_right = 421.0
+margin_bottom = 381.0
+texture = ExtResource( 6 )
+stretch_mode = 1
+
+[node name="LevelTransition" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="ColorRect" type="ColorRect" parent="LevelTransition"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
 
 [node name="Pause menu" type="Control" parent="."]
 pause_mode = 2

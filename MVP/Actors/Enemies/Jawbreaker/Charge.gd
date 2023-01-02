@@ -16,13 +16,14 @@
 extends JawbreakerState
 
 #Handles charging
-const DASH_TIME = 0.5
+const DASH_TIME = 0.2
 
 onready var charge_length_timer := $ChargeLengthTimer
 
 func enter(_msg := {}) -> void:
-	jawbreaker.animation_player.play("Run")
-	charge_length_timer.start(DASH_TIME)
+	if jawbreaker.health > 0:
+		jawbreaker.animation_player.play("Run")
+		charge_length_timer.start(DASH_TIME)
 
 func physics_update(_delta: float) -> void:
 	jawbreaker.motion.y += jawbreaker.gravity

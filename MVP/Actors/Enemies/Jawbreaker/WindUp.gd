@@ -16,12 +16,14 @@
 extends JawbreakerState
 
 #Handles winding up
-const DASH_SPEED = 300
+const DASH_SPEED = 500
 
 func enter(_msg := {}) -> void:
-	jawbreaker.animation_player.play("WindUp")
+	if jawbreaker.health > 0:
+		jawbreaker.animation_player.play("WindUp")
 	yield(jawbreaker.animation_player, "animation_finished")
-	state_machine.transition_to("Charge")
+	if jawbreaker.health > 0:
+		state_machine.transition_to("Charge")
 
 func physics_update(_delta: float) -> void:
 	jawbreaker.motion.y += jawbreaker.gravity

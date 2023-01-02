@@ -19,8 +19,8 @@ signal level_loaded
 
 const PLAYER = preload("res://Actors/Player/Player.tscn")
 
-onready var tween = $LevelTransition/ColorRect/Tween
-onready var level_transition = $LevelTransition/ColorRect
+onready var gui = $GUI
+onready var level_transition = gui.color_rect
 onready var hud = $HUD
 
 export var first_level = preload("res://Levels/FirstLevel.tscn")
@@ -32,21 +32,19 @@ var player : Player
 var checkpoint = GlobalTypes.Checkpoint.new("Checkpoint",first_level)
 
 func _ready():
-	print("ready")
 	load_level(first_level, checkpoint.name)
 
 func change_level(new_level:PackedScene, portal_name:String):
-	tween.interpolate_property(level_transition, "self_modulate",
-		Color(0, 0, 0, 0), Color(0, 0, 0, 1), 1,
-		Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
-	tween.start()
+	var tween = get_tree().create_tween()
+	tween.set_pause_mode(SceneTreeTween.TWEEN_PAUSE_PROCESS)
+	tween.tween_property(level_transition, "self_modulate", Color(0, 0, 0, 1), 1)
+	tween.tween_callback(self, "_on_animation_finished")
 	get_tree().paused = true
 	next_level = new_level
 	door_location = portal_name
 
-func _on_animation_finished(_object, _key):
+func _on_animation_finished():
 	if next_level != null:
-		print("animation done")
 		load_level(next_level, door_location)
 		get_tree().paused = false
 
@@ -68,10 +66,8 @@ func load_level(level:PackedScene, location:String):
 			player.update()
 	player.level_limit_min = Vector2(current_level.level_range_x.x, current_level.level_range_y.x)
 	player.level_limit_max = Vector2(current_level.level_range_x.y, current_level.level_range_y.y)
-	tween.interpolate_property(level_transition, "self_modulate",
-		Color(0, 0, 0, 1), Color(0, 0, 0, 0), 1,
-		Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
-	tween.start()
+	var tween = get_tree().create_tween()
+	tween.tween_property(level_transition, "self_modulate", Color(0, 0, 0, 0), 1)
 	next_level = null
 	emit_signal("level_loaded")
 
@@ -86,3 +82,7 @@ func set_checkpoint(new_checkpoint):
 
 func checkpoint_on(checkpoint_name) -> bool:
 	return (checkpoint.name == checkpoint_name) && (load(current_level.filename) == checkpoint.level)
+
+func start_dialog(dialog_file:String):
+	gui.dialog.start(dialog_file)
+	get_tree().paused = true

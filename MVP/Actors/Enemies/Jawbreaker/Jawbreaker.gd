@@ -23,7 +23,7 @@ var target
 var facing_right := true
 
 export var motion = Vector2()
-export var hp = 20
+export var health = 20
 export var gravity = 200
 
 onready var animation_player := $AnimationPlayer
@@ -31,9 +31,9 @@ onready var state_machine := $StateMachine
 onready var player_detector_collision := $PlayerDetector/CollisionShape2D
 
 func take_damage(damage, knockback):
-	hp -= damage
+	health -= damage
 	motion += knockback
-	if hp <= 0:
+	if health <= 0:
 		state_machine.transition_to("Death")
 #	else:
 #		$AnimatedSprite.animation = "Hit"
@@ -48,7 +48,7 @@ func _on_PlayerDetector_body_entered(body):
 
 func on_hit_something(something):
 	if something is Player:
-		if state_machine.state == $StateMachine/Charge:
+		if motion.x > 100 || motion.x < -100:
 			something.take_damage(CHARGE_DAMAGE, motion)
 		else:
 			something.take_damage(BASE_DAMAGE, Vector2.ZERO)

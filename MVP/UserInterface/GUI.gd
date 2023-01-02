@@ -13,16 +13,7 @@
 #
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
-extends JawbreakerState
+extends CanvasLayer
 
-#Handles turning around
-
-func enter(_msg := {}) -> void:
-	if jawbreaker.target != null && jawbreaker.health > 0:
-		activate()
-
-func activate():
-	if jawbreaker.facing_right == (jawbreaker.target.global_position.x - jawbreaker.global_position.x < 0):
-		jawbreaker.facing_right = false if jawbreaker.target.global_position.x - jawbreaker.global_position.x < 0 else true
-		jawbreaker.scale.x = -1
-	state_machine.transition_to("WindUp")
+onready var color_rect = $LevelTransition/ColorRect
+onready var dialog = $Dialog

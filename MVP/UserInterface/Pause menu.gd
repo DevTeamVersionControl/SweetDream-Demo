@@ -16,10 +16,12 @@
 extends Control
 
 func _unhandled_input(event):
-	if event.is_action_pressed("show_menu"):
+	if event.is_action_pressed("show_menu") && !event.is_echo():
 		if get_tree().paused:
+			print("escape unpause")
 			_on_Resume_pressed()
 		else:
+			print("initial pause")
 			get_tree().paused = true
 			visible = true
 
@@ -27,6 +29,7 @@ func _on_Exit_pressed():
 	get_tree().notification(MainLoop.NOTIFICATION_WM_QUIT_REQUEST)
 
 func _on_Resume_pressed():
+	print("resume")
 	get_tree().paused = false
 	visible = false
 

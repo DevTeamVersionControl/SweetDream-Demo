@@ -9,7 +9,7 @@ func _ready():
 
 func _unhandled_key_input(_event):
 	if Input.is_action_pressed("interact") && player_is_in_zone:
-		print("Speak")
+		get_tree().current_scene.start_dialog("res://UserInterface/Dialog/Json/Dialog.json")
 		animation_player.play("Speak")
 		yield(animation_player, "animation_finished")
 		animation_player.play("Idle")
