@@ -17,3 +17,24 @@ extends CanvasLayer
 
 onready var color_rect = $LevelTransition/ColorRect
 onready var dialog = $Dialog
+onready var shop = $Shop
+onready var pause_menu = $PauseMenu
+
+var pause_requests := 0
+
+func _unhandled_input(event):
+	if event.is_action_pressed("show_menu") || event.is_action_pressed("ui_accept"):
+		if shop.visible:
+			shop.input()
+		else:
+			pause_menu.input()
+
+func request_pause():
+	get_tree().paused = true
+	pause_requests += 1
+
+func request_unpause():
+	pause_requests -= 1
+	if pause_requests == 0:
+		get_tree().paused = false
+	print("Pause requests:", pause_requests)

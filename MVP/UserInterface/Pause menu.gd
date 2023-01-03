@@ -15,23 +15,24 @@
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 extends Control
 
-func _unhandled_input(event):
-	if event.is_action_pressed("show_menu") && !event.is_echo():
-		if get_tree().paused:
-			print("escape unpause")
+func input():
+	if Input.is_action_pressed("show_menu"):
+		if visible:
+			print("resume")
 			_on_Resume_pressed()
 		else:
-			print("initial pause")
-			get_tree().paused = true
+			mouse_filter = Control.MOUSE_FILTER_STOP
+			get_parent().request_pause()
 			visible = true
 
 func _on_Exit_pressed():
 	get_tree().notification(MainLoop.NOTIFICATION_WM_QUIT_REQUEST)
 
 func _on_Resume_pressed():
-	print("resume")
-	get_tree().paused = false
-	visible = false
+	if visible:
+		mouse_filter = Control.MOUSE_FILTER_PASS
+		get_parent().request_unpause()
+		visible = false
 
 func _on_Options_pressed():
 	pass # Replace with function body.

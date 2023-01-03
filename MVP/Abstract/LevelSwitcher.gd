@@ -39,14 +39,14 @@ func change_level(new_level:PackedScene, portal_name:String):
 	tween.set_pause_mode(SceneTreeTween.TWEEN_PAUSE_PROCESS)
 	tween.tween_property(level_transition, "self_modulate", Color(0, 0, 0, 1), 1)
 	tween.tween_callback(self, "_on_animation_finished")
-	get_tree().paused = true
+	gui.request_pause()
 	next_level = new_level
 	door_location = portal_name
 
 func _on_animation_finished():
 	if next_level != null:
 		load_level(next_level, door_location)
-		get_tree().paused = false
+		gui.request_unpause()
 
 func load_level(level:PackedScene, location:String):
 	if current_level != null:
@@ -85,4 +85,8 @@ func checkpoint_on(checkpoint_name) -> bool:
 
 func start_dialog(dialog_file:String):
 	gui.dialog.start(dialog_file)
-	get_tree().paused = true
+	gui.request_pause()
+
+func start_shop(shop_file:String):
+	gui.shop.start(shop_file)
+	gui.request_pause()

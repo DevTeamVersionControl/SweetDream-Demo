@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://UserInterface/Pause menu.gd" type="Script" id=1]
 [ext_resource path="res://UserInterface/theme.tres" type="Theme" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://UserInterface/Dialog.gd" type="Script" id=4]
 [ext_resource path="res://UserInterface/Fonts/MangabeyRegular-rgqVO.otf" type="DynamicFontData" id=5]
 [ext_resource path="res://UserInterface/Dialog/Portraits/Player.png" type="Texture" id=6]
+[ext_resource path="res://UserInterface/Shops/Shop.tscn" type="PackedScene" id=7]
 
 [sub_resource type="DynamicFont" id=1]
 size = 37
@@ -28,29 +29,33 @@ script = ExtResource( 3 )
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = -2.0
+margin_top = 635.0
+margin_right = -2.0
+margin_bottom = 635.0
 script = ExtResource( 4 )
 
 [node name="ColorRect" type="ColorRect" parent="Dialog"]
 anchor_right = 1.0
 margin_left = 150.0
-margin_top = 50.0
+margin_top = 125.0
 margin_right = -150.0
 margin_bottom = 443.0
 color = Color( 0.160784, 0.0901961, 0.239216, 1 )
 
 [node name="Text" type="RichTextLabel" parent="Dialog"]
-margin_left = 587.0
-margin_top = 131.0
-margin_right = 1952.0
-margin_bottom = 299.0
+margin_left = 425.0
+margin_top = 198.0
+margin_right = 1790.0
+margin_bottom = 407.0
 theme = SubResource( 2 )
 text = "Lorem ipsium sit atmet"
 
 [node name="Name" type="RichTextLabel" parent="Dialog"]
-margin_left = 214.0
-margin_top = 88.0
-margin_right = 541.0
-margin_bottom = 142.0
+margin_left = 179.0
+margin_top = 144.0
+margin_right = 506.0
+margin_bottom = 198.0
 theme = SubResource( 4 )
 text = "Placeholder"
 
@@ -59,73 +64,83 @@ wait_time = 0.05
 one_shot = true
 
 [node name="TextureRect" type="TextureRect" parent="Dialog"]
-margin_left = 201.0
-margin_top = 161.0
-margin_right = 421.0
-margin_bottom = 381.0
+margin_left = 179.0
+margin_top = 196.0
+margin_right = 399.0
+margin_bottom = 416.0
 texture = ExtResource( 6 )
 stretch_mode = 1
 
 [node name="LevelTransition" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 1
 
 [node name="ColorRect" type="ColorRect" parent="LevelTransition"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0, 0, 0, 1 )
 
-[node name="Pause menu" type="Control" parent="."]
+[node name="Shop" parent="." instance=ExtResource( 7 )]
+visible = false
+margin_left = 281.0
+margin_top = 137.0
+margin_right = 281.0
+margin_bottom = 137.0
+mouse_filter = 1
+
+[node name="PauseMenu" type="Control" parent="."]
 pause_mode = 2
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 1
 script = ExtResource( 1 )
 
-[node name="Background colour" type="ColorRect" parent="Pause menu"]
+[node name="Background colour" type="ColorRect" parent="PauseMenu"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0.458824, 0.380392, 0.905882, 1 )
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Pause menu"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PauseMenu"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Pause menu/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu/HBoxContainer"]
 margin_left = 794.0
 margin_right = 1186.0
 margin_bottom = 1080.0
 alignment = 1
 
-[node name="Label" type="Label" parent="Pause menu/HBoxContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="PauseMenu/HBoxContainer/VBoxContainer"]
 margin_top = 345.0
 margin_right = 392.0
 margin_bottom = 435.0
 theme = ExtResource( 2 )
 text = "Sweet Dream"
 
-[node name="Options" type="Button" parent="Pause menu/HBoxContainer/VBoxContainer"]
+[node name="Options" type="Button" parent="PauseMenu/HBoxContainer/VBoxContainer"]
 margin_top = 439.0
 margin_right = 392.0
 margin_bottom = 535.0
 theme = ExtResource( 2 )
 text = "Options"
 
-[node name="Exit" type="Button" parent="Pause menu/HBoxContainer/VBoxContainer"]
+[node name="Exit" type="Button" parent="PauseMenu/HBoxContainer/VBoxContainer"]
 margin_top = 539.0
 margin_right = 392.0
 margin_bottom = 635.0
 theme = ExtResource( 2 )
 text = "Exit"
 
-[node name="Resume" type="Button" parent="Pause menu/HBoxContainer/VBoxContainer"]
+[node name="Resume" type="Button" parent="PauseMenu/HBoxContainer/VBoxContainer"]
 margin_top = 639.0
 margin_right = 392.0
 margin_bottom = 735.0
 theme = ExtResource( 2 )
 text = "Resume"
 
-[connection signal="pressed" from="Pause menu/HBoxContainer/VBoxContainer/Options" to="Pause menu" method="_on_Options_pressed"]
-[connection signal="pressed" from="Pause menu/HBoxContainer/VBoxContainer/Exit" to="Pause menu" method="_on_Exit_pressed"]
-[connection signal="pressed" from="Pause menu/HBoxContainer/VBoxContainer/Resume" to="Pause menu" method="_on_Resume_pressed"]
+[connection signal="pressed" from="PauseMenu/HBoxContainer/VBoxContainer/Options" to="PauseMenu" method="_on_Options_pressed"]
+[connection signal="pressed" from="PauseMenu/HBoxContainer/VBoxContainer/Exit" to="PauseMenu" method="_on_Exit_pressed"]
+[connection signal="pressed" from="PauseMenu/HBoxContainer/VBoxContainer/Resume" to="PauseMenu" method="_on_Resume_pressed"]

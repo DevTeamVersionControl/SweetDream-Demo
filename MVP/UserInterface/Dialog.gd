@@ -15,9 +15,13 @@
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 extends Control
 
+signal dialog_end
+signal talk
+
 onready var text = $Text
 onready var dialog_name = $Name
 onready var timer = $Timer
+onready var portrait = $TextureRect
 
 var dialog
 var phrase_num = 0
@@ -35,11 +39,12 @@ func show():
 
 func start(path_to_dialog:String):
 	show()
+	phrase_num = 0
+	finished = false
 	dialog = get_dialog(path_to_dialog)
 	next_phrase()
 	set_process_internal(true)
-	phrase_num = 0
-	finished = false
+	
 
 func get_dialog(path_to_dialog:String) -> Array:
 	var file = File.new()
@@ -58,6 +63,9 @@ func next_phrase() -> void:
 	
 	dialog_name.bbcode_text = dialog[phrase_num]["Name"]
 	text.bbcode_text = dialog[phrase_num]["Text"]
+	portrait.texture = load("res://UserInterface/Dialog/Portraits/"+dialog[phrase_num]["Name"]+".png")
+	if dialog[phrase_num].has("Signal"):
+		emit_signal(dialog[phrase_num]["Signal"])
 	
 	text.visible_characters = 0
 	
@@ -70,6 +78,8 @@ func next_phrase() -> void:
 	phrase_num += 1
 
 func close_dialog()->void:
-	visible = false
-	get_tree().paused = false
-	set_process_internal(false)
+	if visible:
+		visible = false
+		get_parent().request_unpause()
+		set_process_internal(false)
+		emit_signal("dialog_end")

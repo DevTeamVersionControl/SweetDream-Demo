@@ -30,6 +30,8 @@ var equiped_ammo_index = 0
 var ammo_equipped_array := [get_ammo("Candy Corn"), get_ammo("Jelly Bean"), get_ammo("Jawbreaker"), get_ammo("Jello")]
 var double_jump_lock := false
 var dash_lock := false
+var inventory := []
+var artifacts := 30
 
 func _ready():
 	GameSaver.load()
