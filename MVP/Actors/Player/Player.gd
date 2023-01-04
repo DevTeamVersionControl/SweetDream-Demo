@@ -18,6 +18,7 @@ extends KinematicBody2D
 
 signal changed_ammo()
 signal changed_health()
+signal changed_sugar()
 signal changed_health_pack()
 
 const SPEED = 120
@@ -50,8 +51,7 @@ onready var invulnerability_timer = $InvulnerabilityTimer
 
 func _ready():
 	set_later(camera, "smoothing_enabled", true)
-	call_deferred("emit_signal", "changed_health")
-	call_deferred("emit_signal", "changed_health_pack")
+	call_deferred("update_display")
 	camera_arm.position.x = 127 if facing_right else -127
 	camera.limit_left = level_limit_min.x
 	camera.limit_top = level_limit_min.y
@@ -59,9 +59,10 @@ func _ready():
 	camera.limit_bottom = level_limit_max.y
 
 func _physics_process(_delta):
-	if Input.is_action_just_pressed("ammo_next"):
+	if Input.is_action_just_pressed("ammo_next") && state_machine.state != $StateMachine/Aim:
 		GlobalVars.equiped_ammo_index = (GlobalVars.equiped_ammo_index + 1) % GlobalVars.ammo_equipped_array.size()
-		emit_signal("changed_ammo")
+		GlobalVars.sugar = GlobalVars.max_sugar
+		update_display()
 	if Input.is_action_just_pressed("consume_health_pack"):
 		if GlobalVars.health_packs > 0:
 			set_health_packs(GlobalVars.health_packs - 1)
@@ -87,7 +88,6 @@ func take_damage(damage:float, knockback:Vector2) -> void:
 		invulnerability_timer.start()
 		knockback(knockback)
 		GlobalVars.health -= damage
-		emit_signal("changed_health")
 		if GlobalVars.health <= 0:
 			GlobalVars.health = 0
 			if GlobalVars.health_packs > 0:
@@ -95,14 +95,14 @@ func take_damage(damage:float, knockback:Vector2) -> void:
 				set_health_packs(0)
 			else:
 				get_tree().current_scene.die()
-			emit_signal("changed_health")
+		update_display()
 
 func heal(damage_healed:float):
 	GlobalVars.health += damage_healed
 	if GlobalVars.health > GlobalVars.max_health:
 		GlobalVars.health = GlobalVars.max_health
-	emit_signal("changed_health")
-	
+	update_display()
+
 func knock_out(time:float):
 	state_machine.transition_to("KnockedOut", {0:time})
 
@@ -115,7 +115,13 @@ func set_later(object:Node, variable:String, val):
 
 func set_health_packs(packs:int):
 	GlobalVars.health_packs = packs
-	emit_signal("changed_health_pack")
+	update_display()
 
 func on_invulnerability_off():
 	invulnerable = false
+
+func update_display():
+	emit_signal("changed_health")
+	emit_signal("changed_health_pack")
+	emit_signal("changed_ammo")
+	emit_signal("changed_sugar")

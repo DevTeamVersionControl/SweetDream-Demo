@@ -37,4 +37,3 @@ func request_unpause():
 	pause_requests -= 1
 	if pause_requests == 0:
 		get_tree().paused = false
-	print("Pause requests:", pause_requests)

@@ -17,11 +17,13 @@ extends CanvasLayer
 
 onready var ammo_display = $AmmoDisplay
 onready var health_bar = $HealthBar
+onready var sugar_bar = $SugarBar
 onready var health_pack_display = $HeathPackDisplay
 
 func connect_player():
 	get_tree().current_scene.player.connect("changed_ammo", self, "_on_changed_ammo")
 	get_tree().current_scene.player.connect("changed_health", self, "_on_changed_health")
+	get_tree().current_scene.player.connect("changed_sugar", self, "_on_changed_sugar")
 	get_tree().current_scene.player.connect("changed_health_pack", self, "_on_changed_health_pack")
 
 func _on_changed_ammo():
@@ -30,6 +32,10 @@ func _on_changed_ammo():
 func _on_changed_health():
 	health_bar.max_value = GlobalVars.max_health
 	health_bar.value = GlobalVars.health
+
+func _on_changed_sugar():
+	sugar_bar.max_value = GlobalVars.max_sugar
+	sugar_bar.value = GlobalVars.sugar
 
 func _on_changed_health_pack():
 	health_pack_display.text = "Candy:" + String(GlobalVars.health_packs)

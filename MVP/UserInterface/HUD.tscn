@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://UserInterface/Fonts/Ubuntu-M.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://UserInterface/HUD.gd" type="Script" id=2]
@@ -17,7 +17,25 @@ font_data = ExtResource( 1 )
 [sub_resource type="Theme" id=5]
 default_font = SubResource( 4 )
 
+[sub_resource type="StyleBoxFlat" id=6]
+bg_color = Color( 0.776471, 0.596078, 0.835294, 1 )
+
+[sub_resource type="StyleBoxFlat" id=7]
+bg_color = Color( 0.886275, 0.137255, 0.137255, 1 )
+
 [sub_resource type="Theme" id=3]
+ProgressBar/styles/bg = SubResource( 6 )
+ProgressBar/styles/fg = SubResource( 7 )
+
+[sub_resource type="StyleBoxFlat" id=8]
+bg_color = Color( 0.776471, 0.596078, 0.835294, 1 )
+
+[sub_resource type="StyleBoxFlat" id=9]
+bg_color = Color( 0.34902, 0.603922, 0.898039, 1 )
+
+[sub_resource type="Theme" id=10]
+ProgressBar/styles/bg = SubResource( 8 )
+ProgressBar/styles/fg = SubResource( 9 )
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource( 2 )
@@ -32,9 +50,9 @@ color = Color( 0.776471, 0.596078, 0.835294, 1 )
 [node name="ColorRect2" type="ColorRect" parent="."]
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -1589.0
-margin_right = -1405.0
-margin_bottom = 61.0
+margin_left = -1590.0
+margin_right = -1403.0
+margin_bottom = 54.0
 color = Color( 0.776471, 0.596078, 0.835294, 1 )
 
 [node name="AmmoDisplay" type="RichTextLabel" parent="."]
@@ -52,9 +70,9 @@ text = "Candy Corn"
 self_modulate = Color( 0, 0, 0, 1 )
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -1577.0
+margin_left = -1578.0
 margin_top = 8.0
-margin_right = -1354.0
+margin_right = -1355.0
 margin_bottom = 60.0
 theme = SubResource( 5 )
 text = "Candy:"
@@ -63,3 +81,11 @@ text = "Candy:"
 margin_right = 390.0
 margin_bottom = 54.0
 theme = SubResource( 3 )
+value = 50.0
+
+[node name="SugarBar" type="ProgressBar" parent="."]
+margin_top = 54.0
+margin_right = 390.0
+margin_bottom = 108.0
+theme = SubResource( 10 )
+value = 50.0

@@ -75,7 +75,7 @@ func input():
 
 func buy():
 	GlobalVars.artifacts -= int(items[item_list.get_selected_items()[0]]["Price"])
-	GlobalVars.inventory.append(items[item_list.get_selected_items()[0]])
+	GlobalVars.add_to_inventory(items[item_list.get_selected_items()[0]])
 	items.remove(item_list.get_selected_items()[0])
 	item_list.remove_item(item_list.get_selected_items()[0])
 	if item_list.get_item_count() > 0:
@@ -90,3 +90,4 @@ func save_shop():
 	file.open(path, File.WRITE)
 	file.store_line(to_json(items))
 	file.close()
+	GameSaver.save()

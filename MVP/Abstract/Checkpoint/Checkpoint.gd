@@ -42,6 +42,7 @@ func _unhandled_key_input(_event):
 			animation_player.play("Opening")
 			yield(animation_player, "animation_finished")
 			animation_player.play("Opened")
+		GameSaver.save()
 
 func get_spawn_position() -> Vector2:
 	return global_position

@@ -30,7 +30,7 @@ func physics_update(_delta: float) -> void:
 
 	if Input.is_action_just_pressed("move_up"):
 		state_machine.transition_to("Air", {do_jump = true})
-	elif Input.is_action_pressed("shoot") && player.can_shoot:
+	elif Input.is_action_pressed("shoot") && player.can_shoot && GlobalVars.sugar >= GlobalVars.ammo_equipped_array[GlobalVars.equiped_ammo_index].sugar:
 		state_machine.transition_to("Aim", {crouched = true})
 	elif !Input.is_action_pressed("aim_down"):
 		state_machine.transition_to("Idle")

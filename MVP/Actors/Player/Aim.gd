@@ -87,6 +87,10 @@ func shoot(position:NodePath) -> void:
 	player.cooldown_timer.start(GlobalVars.ammo_equipped_array[GlobalVars.equiped_ammo_index].cooldown)
 	
 	var knockback = bullet.launch((player.get_node(position).global_position - player.bullet_center.global_position).normalized(), bullet_strength)
+	
+	GlobalVars.sugar -= GlobalVars.ammo_equipped_array[GlobalVars.equiped_ammo_index].sugar
+	player.update_display()
+	
 	if !crouched:
 		state_machine.transition_to("Knockback", {0: knockback})
 

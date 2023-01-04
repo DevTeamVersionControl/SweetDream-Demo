@@ -23,12 +23,14 @@ class Ammo:
 	var type : int
 	var cooldown : float
 	var damage : float
+	var sugar : float
 	var scene : PackedScene
-	func _init(ammo_name, ammo_type, ammo_cooldown, ammo_damage, ammo_scene):
+	func _init(ammo_name, ammo_type, ammo_cooldown, ammo_damage, ammo_sugar, ammo_scene):
 		name = ammo_name
 		type = ammo_type
 		cooldown = ammo_cooldown
 		damage = ammo_damage
+		sugar = ammo_sugar
 		scene = ammo_scene
 
 class Checkpoint:

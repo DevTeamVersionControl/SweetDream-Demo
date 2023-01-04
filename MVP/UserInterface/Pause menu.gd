@@ -18,7 +18,6 @@ extends Control
 func input():
 	if Input.is_action_pressed("show_menu"):
 		if visible:
-			print("resume")
 			_on_Resume_pressed()
 		else:
 			mouse_filter = Control.MOUSE_FILTER_STOP
@@ -26,6 +25,7 @@ func input():
 			visible = true
 
 func _on_Exit_pressed():
+	GameSaver.save()
 	get_tree().notification(MainLoop.NOTIFICATION_WM_QUIT_REQUEST)
 
 func _on_Resume_pressed():

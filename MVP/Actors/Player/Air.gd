@@ -99,7 +99,7 @@ func physics_update(delta: float) -> void:
 #	if player.global_position.y > player.level_limit_max.y:
 #		get_tree().current_scene.die()
 	
-	if Input.is_action_pressed("shoot") && player.can_shoot:
+	if Input.is_action_pressed("shoot") && player.can_shoot && GlobalVars.sugar >= GlobalVars.ammo_equipped_array[GlobalVars.equiped_ammo_index].sugar:
 		state_machine.transition_to("Aim")
 
 func _on_JumpBufferTimer_timeout():

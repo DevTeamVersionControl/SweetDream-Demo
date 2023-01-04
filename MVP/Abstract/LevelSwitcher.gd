@@ -32,7 +32,15 @@ var player : Player
 var checkpoint = GlobalTypes.Checkpoint.new("Checkpoint",first_level)
 
 func _ready():
-	load_level(first_level, checkpoint.name)
+	GameSaver.load()
+	load_level(checkpoint.level, checkpoint.name)
+
+func save(game_data):
+	game_data.data["checkpoint_level"] = checkpoint.level
+	game_data.data["checkpoint_name"] = checkpoint.name
+
+func load(game_data):
+	checkpoint = GlobalTypes.Checkpoint.new(game_data.data["checkpoint_name"],game_data.data["checkpoint_level"])
 
 func change_level(new_level:PackedScene, portal_name:String):
 	var tween = get_tree().create_tween()
@@ -75,6 +83,7 @@ func die():
 	next_level = checkpoint.level
 	GlobalVars.health_packs = GlobalVars.max_health_packs
 	GlobalVars.health = GlobalVars.max_health
+	GlobalVars.sugar = GlobalVars.max_sugar
 	call_deferred("load_level", next_level, checkpoint.name)
 
 func set_checkpoint(new_checkpoint):
