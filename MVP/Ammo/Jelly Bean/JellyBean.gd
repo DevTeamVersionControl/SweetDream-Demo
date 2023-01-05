@@ -49,3 +49,6 @@ func _on_Area2D_body_entered(body):
 		body.state_machine.transition_to("knockback", {0:(body.bullet_center.global_position - global_position).normalized() * player_explosion_knockback})
 	if body.is_in_group("movable"):
 		body.apply_central_impulse((body.global_position - global_position).normalized() * player_explosion_knockback * 100)
+
+func shake():
+	get_tree().current_scene.shaker.start(0.2, 20, 2)

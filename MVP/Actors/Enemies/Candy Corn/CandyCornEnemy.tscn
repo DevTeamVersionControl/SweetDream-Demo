@@ -1,10 +1,11 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://Abstract/StateMachine.gd" type="Script" id=1]
 [ext_resource path="res://Actors/Enemies/Candy Corn/Candy Corn Attack/Candy Corn Attack720p.png" type="Texture" id=2]
 [ext_resource path="res://Actors/Enemies/Candy Corn/Candy Corn Flip/Candy Corn Flip720p.png" type="Texture" id=3]
 [ext_resource path="res://Actors/Enemies/Candy Corn/Candy Corn Death/Candy Corn Death720p.png" type="Texture" id=4]
 [ext_resource path="res://Actors/Enemies/Candy Corn/Candy Corn Start Walking/Candy Corn Start Walking720p.png" type="Texture" id=5]
+[ext_resource path="res://Actors/flash.tres" type="Material" id=6]
 [ext_resource path="res://Actors/Enemies/Candy Corn/Candy Corn Stop Walking/Candy Corn Stop Walk720p.png" type="Texture" id=7]
 [ext_resource path="res://Actors/Enemies/Candy Corn/Idle.gd" type="Script" id=8]
 [ext_resource path="res://Actors/Enemies/Candy Corn/Attack.gd" type="Script" id=9]
@@ -665,6 +666,7 @@ scale = Vector2( 2.5, 1 )
 shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
+material = ExtResource( 6 )
 position = Vector2( 4, -11 )
 scale = Vector2( 0.075, 0.075 )
 texture = ExtResource( 7 )

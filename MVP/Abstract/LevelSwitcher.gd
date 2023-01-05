@@ -22,6 +22,7 @@ const PLAYER = preload("res://Actors/Player/Player.tscn")
 onready var gui = $GUI
 onready var level_transition = gui.color_rect
 onready var hud = $HUD
+onready var shaker = $Shaker
 
 export var first_level = preload("res://Levels/FirstLevel.tscn")
 
@@ -74,6 +75,7 @@ func load_level(level:PackedScene, location:String):
 			player.update()
 	player.level_limit_min = Vector2(current_level.level_range_x.x, current_level.level_range_y.x)
 	player.level_limit_max = Vector2(current_level.level_range_x.y, current_level.level_range_y.y)
+	shaker.camera = player.camera
 	var tween = get_tree().create_tween()
 	tween.tween_property(level_transition, "self_modulate", Color(0, 0, 0, 0), 1)
 	next_level = null

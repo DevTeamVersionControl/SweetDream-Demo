@@ -35,9 +35,10 @@ func take_damage(damage, knockback):
 	motion += knockback
 	if health <= 0:
 		state_machine.transition_to("Death")
-#	else:
-#		$AnimatedSprite.animation = "Hit"
-#		yield($AnimatedSprite, "animation_finished")
+	else:
+		$Sprite.get_material().set("shader_param/flashState", 1.0)
+		yield(get_tree().create_timer(0.1), "timeout")
+		$Sprite.get_material().set("shader_param/flashState", 0.0)
 
 func _on_PlayerDetector_body_entered(body):
 	if body.is_in_group("player"):
@@ -47,7 +48,7 @@ func _on_PlayerDetector_body_entered(body):
 
 
 func on_hit_something(something):
-	if something is Player:
+	if something is Player && health > 0:
 		if motion.x > 100 || motion.x < -100:
 			something.take_damage(CHARGE_DAMAGE, motion)
 		else:

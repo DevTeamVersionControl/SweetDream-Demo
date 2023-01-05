@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Actors/Enemies/Jawbreaker/Jawbreaker.gd" type="Script" id=1]
 [ext_resource path="res://Actors/Enemies/Jawbreaker/Jaw Breaker Wind Up/Jaw Breaker Wind Up720p.png" type="Texture" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://Actors/Enemies/Jawbreaker/Death.gd" type="Script" id=9]
 [ext_resource path="res://Actors/Enemies/Jawbreaker/WindUp.gd" type="Script" id=10]
 [ext_resource path="res://Actors/Enemies/Jawbreaker/WindDown.gd" type="Script" id=11]
+[ext_resource path="res://Actors/flash.tres" type="Material" id=12]
 
 [sub_resource type="CapsuleShape2D" id=3]
 radius = 62.1702
@@ -482,6 +483,7 @@ script = ExtResource( 9 )
 shape = SubResource( 14 )
 
 [node name="Sprite" type="Sprite" parent="."]
+material = ExtResource( 12 )
 position = Vector2( -1, 0 )
 scale = Vector2( 0.12, 0.074 )
 texture = ExtResource( 2 )

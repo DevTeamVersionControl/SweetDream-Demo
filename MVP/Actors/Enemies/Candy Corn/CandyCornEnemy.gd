@@ -40,3 +40,7 @@ func take_damage(damage:float, knockback:Vector2):
 func on_hit_something(something):
 	if something is Player:
 		something.take_damage(5, Vector2.ZERO)
+	else:
+		$Sprite.get_material().set("shader_param/flashState", 1.0)
+		yield(get_tree().create_timer(0.1), "timeout")
+		$Sprite.get_material().set("shader_param/flashState", 0.0)

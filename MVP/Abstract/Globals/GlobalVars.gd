@@ -21,7 +21,7 @@ const jawbreaker = preload("res://Ammo/Jawbreaker/Jawbreaker.tscn")
 const pop_rocks  = preload("res://Ammo/Pop Rocks/PopRocks.tscn")
 const jelly_bean = preload("res://Ammo/Jelly Bean/JellyBean.tscn")
 const BASE_MAX_HEALTH = 40.0
-const BASE_MAX_SUGAR = 10.0
+const BASE_MAX_SUGAR = 15.0
 
 var ammo_array := [GlobalTypes.Ammo.new("Candy Corn", GlobalTypes.AMMO_TYPE.once, 0.2, 1, 1, candy_corn), 
 	GlobalTypes.Ammo.new("Jelly Bean", GlobalTypes.AMMO_TYPE.once, 2, 8, 10, jelly_bean), 

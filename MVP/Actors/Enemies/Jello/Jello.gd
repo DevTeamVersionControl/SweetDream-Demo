@@ -30,7 +30,7 @@ var is_on_floor:bool
 var volume := 0.5
 var stuck := false
 
-export var hp = 10
+export var health = 10
 export(float, 0.5, 2.5) var initial_volume = 2.1
 
 onready var animation_player = $AnimationPlayer
@@ -41,13 +41,17 @@ func _ready():
 	grow(initial_volume)
 
 func take_damage(damage, knockback):
-	hp -= damage
+	health -= damage
 	motion += knockback
-	if hp <= 0 && animation_player.current_animation != "Death":
+	if health <= 0 && animation_player.current_animation != "Death":
 		state_machine.transition_to("Death")
+	else:
+		$Sprite.get_material().set("shader_param/flashState", 1.0)
+		yield(get_tree().create_timer(0.1), "timeout")
+		$Sprite.get_material().set("shader_param/flashState", 0.0)
 
 func on_hit_something(something):
-	if something is Player:
+	if something is Player && health > 0:
 		something.take_damage(DAMAGE, motion)
 
 func grow(add_volume:float)->void:

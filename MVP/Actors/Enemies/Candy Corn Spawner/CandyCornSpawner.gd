@@ -31,3 +31,7 @@ func _physics_process(_delta)->void:
 		motion.y += 10
 		motion.x = lerp(motion.x, 0, 0.1)
 		motion = move_and_slide(motion)
+	else:
+		$Sprite.get_material().set("shader_param/flashState", 1.0)
+		yield(get_tree().create_timer(0.1), "timeout")
+		$Sprite.get_material().set("shader_param/flashState", 0.0)

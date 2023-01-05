@@ -1,4 +1,4 @@
-[gd_scene load_steps=120 format=2]
+[gd_scene load_steps=121 format=2]
 
 [ext_resource path="res://Abstract/StateMachine.gd" type="Script" id=1]
 [ext_resource path="res://Actors/Player/Idle.gd" type="Script" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://Actors/Player/Crouched.gd" type="Script" id=11]
 [ext_resource path="res://Actors/Player/Dashing.gd" type="Script" id=12]
 [ext_resource path="res://Actors/Player/KnockedOut.gd" type="Script" id=13]
+[ext_resource path="res://Actors/flash.tres" type="Material" id=14]
 
 [sub_resource type="CanvasItemMaterial" id=139]
 light_mode = 1
@@ -2401,6 +2402,7 @@ position = Vector2( 38, 48 )
 script = ExtResource( 4 )
 
 [node name="Sprite" type="Sprite" parent="."]
+material = ExtResource( 14 )
 position = Vector2( 0, -26 )
 scale = Vector2( 0.024, 0.024 )
 texture = ExtResource( 6 )

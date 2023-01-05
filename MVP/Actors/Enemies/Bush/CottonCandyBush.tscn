@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://Actors/Enemies/Bush/CottonCandyBush.gd" type="Script" id=1]
 [ext_resource path="res://Actors/Enemies/Bush/Bush720p.png" type="Texture" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://Actors/Enemies/Bush/Attacking.gd" type="Script" id=6]
 [ext_resource path="res://Actors/Enemies/Bush/Death.gd" type="Script" id=7]
 [ext_resource path="res://Actors/Enemies/Bush/Bush Wave/Bush Wave720p.png" type="Texture" id=8]
+[ext_resource path="res://Actors/flash.tres" type="Material" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 30.4, 10.7 )
@@ -916,6 +917,7 @@ disabled = true
 position = Vector2( -54, 0 )
 
 [node name="Sprite" type="Sprite" parent="."]
+material = ExtResource( 9 )
 position = Vector2( -1, -13 )
 scale = Vector2( 0.195, 0.195 )
 texture = ExtResource( 2 )

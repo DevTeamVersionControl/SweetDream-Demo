@@ -95,7 +95,12 @@ func take_damage(damage:float, knockback:Vector2) -> void:
 				set_health_packs(0)
 			else:
 				get_tree().current_scene.die()
+		else:
+			$Sprite.get_material().set("shader_param/flashState", 1.0)
+			yield(get_tree().create_timer(0.25), "timeout")
+			$Sprite.get_material().set("shader_param/flashState", 0.0)
 		update_display()
+		
 
 func heal(damage_healed:float):
 	GlobalVars.health += damage_healed

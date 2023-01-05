@@ -23,7 +23,7 @@ func enter(_msg := {}) -> void:
 func physics_update(delta):
 	jello.motion.y += jello.GRAVITY
 	var collision = jello.move_and_collide(jello.motion * delta)
-	if collision && jello.hp > 0:
+	if collision && jello.health > 0:
 		if jello.animation_player.current_animation_position < 0.04:
 			jello.stuck = true
 			state_machine.transition_to("Idle")

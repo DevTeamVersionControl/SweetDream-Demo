@@ -66,7 +66,7 @@ margin_bottom = 64.0
 theme = SubResource( 2 )
 text = "Candy Corn"
 
-[node name="HeathPackDisplay" type="RichTextLabel" parent="."]
+[node name="HealthPackDisplay" type="RichTextLabel" parent="."]
 self_modulate = Color( 0, 0, 0, 1 )
 anchor_left = 1.0
 anchor_right = 1.0

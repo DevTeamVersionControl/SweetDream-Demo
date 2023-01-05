@@ -22,7 +22,7 @@ const GRAB_DAMAGE = 20
 const PULL_STRENGTH = 400
 const WAVE_STRENGTH = 100
 
-var hp = 20
+var health = 20
 var target
 var facing_left := true
 
@@ -36,9 +36,13 @@ func knockback(_vector:Vector2):
 	pass
 
 func take_damage(damage:int, _vector:Vector2):
-	hp -= damage
-	if hp <= 0:
+	health -= damage
+	if health <= 0:
 		state_machine.transition_to("Death")
+	else:
+		$Sprite.get_material().set("shader_param/flashState", 1.0)
+		yield(get_tree().create_timer(0.1), "timeout")
+		$Sprite.get_material().set("shader_param/flashState", 0.0)
 
 
 func on_ran_into_something(something):

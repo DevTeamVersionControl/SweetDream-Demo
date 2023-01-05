@@ -18,7 +18,7 @@ extends CanvasLayer
 onready var ammo_display = $AmmoDisplay
 onready var health_bar = $HealthBar
 onready var sugar_bar = $SugarBar
-onready var health_pack_display = $HeathPackDisplay
+onready var health_pack_display = $HealthPackDisplay
 
 func connect_player():
 	get_tree().current_scene.player.connect("changed_ammo", self, "_on_changed_ammo")

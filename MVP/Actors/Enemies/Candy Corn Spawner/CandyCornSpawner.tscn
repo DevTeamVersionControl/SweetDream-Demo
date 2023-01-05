@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Abstract/StateMachine.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Actors/Enemies/Candy Corn Spawner/CandyCornSpawner.gd" type="Script" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://Actors/Enemies/Candy Corn Spawner/Candy Corn Spawner Idle/Candy Corn Spawner Spawner Idle720p.png" type="Texture" id=6]
 [ext_resource path="res://Actors/Enemies/Candy Corn Spawner/Candy Corn Spawner Spawning/Candy Corn Spawner Spawning720p.png" type="Texture" id=7]
 [ext_resource path="res://Actors/Enemies/Candy Corn Spawner/Candy Corn Spawner Death/Candy Corn Spawner Death720p.png" type="Texture" id=8]
+[ext_resource path="res://Actors/flash.tres" type="Material" id=9]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 251.002
@@ -266,6 +267,7 @@ scale = Vector2( 0.5, 0.5 )
 polygon = PoolVector2Array( -50, -1, -31, -58, 0, -105, 28, -60, 48, -6, 42, 3, 0, 11 )
 
 [node name="Sprite" type="Sprite" parent="."]
+material = ExtResource( 9 )
 position = Vector2( 0, -28 )
 scale = Vector2( 0.15, 0.15 )
 texture = ExtResource( 6 )

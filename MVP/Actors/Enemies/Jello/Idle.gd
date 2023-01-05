@@ -24,7 +24,7 @@ func enter(_msg := {}) -> void:
 		activate()
 
 func activate() -> void:
-	if jello.hp > 0:
+	if jello.health > 0:
 		turn_around()
 		if !jello.stuck:
 			state_machine.transition_to("Jump")

@@ -12,6 +12,6 @@ data = {
 "checkpoint_name": "Checkpoint",
 "dash_lock": false,
 "double_jump_lock": false,
-"equipped_ammo_index": 2,
+"equipped_ammo_index": 1,
 "inventory": [  ]
 }

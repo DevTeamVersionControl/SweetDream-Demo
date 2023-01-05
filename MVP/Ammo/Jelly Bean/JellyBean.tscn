@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Ammo/Jelly Bean/JellyBean.gd" type="Script" id=1]
 [ext_resource path="res://Abstract/StateMachine.gd" type="Script" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Ammo/Jelly Bean/Jelly Bean Fly/Jelly Bean 720p.png" type="Texture" id=4]
 [ext_resource path="res://Ammo/Jelly Bean/Explode.gd" type="Script" id=5]
 [ext_resource path="res://Ammo/Jelly Bean/Jelly Bean Explosion/Explosion 720p.png" type="Texture" id=6]
+[ext_resource path="res://Environment/Light/light.png" type="Texture" id=7]
 
 [sub_resource type="Animation" id=5]
 resource_name = "Bounce"
@@ -70,9 +71,12 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0.44 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 0.44 ),
+"transitions": PoolRealArray( 1, 1 ),
 "values": [ {
+"args": [  ],
+"method": "shake"
+}, {
 "args": [  ],
 "method": "queue_free"
 } ]
@@ -111,7 +115,7 @@ tracks/6/keys = {
 "times": PoolRealArray( 0, 0.04, 0.12 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 0.693779, 0.458497 ), Vector2( 1, 1 ), Vector2( 1.31445, 1.64842 ) ]
+"values": [ Vector2( 0.2, 0.2 ), Vector2( 1, 1 ), Vector2( 1.31445, 1.64842 ) ]
 }
 tracks/7/type = "value"
 tracks/7/path = NodePath("ExplosionCollision:monitoring")
@@ -136,6 +140,42 @@ tracks/8/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ true, false ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("EffectSprite:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0, 0.36 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("EffectSprite:scale")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0, 0.04, 0.12, 0.2, 0.28, 0.32 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1.66895, 1.80469 ), Vector2( 4, 4 ), Vector2( 6, 6 ), Vector2( 10, 10 ), Vector2( 15, 15 ), Vector2( 20, 20 ) ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("EffectSprite:self_modulate")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0, 0.16 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
 [sub_resource type="Animation" id=3]
@@ -189,6 +229,18 @@ tracks/3/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ true ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("EffectSprite:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
 }
 
 [sub_resource type="Animation" id=4]
@@ -325,9 +377,58 @@ tracks/10/keys = {
 "update": 0,
 "values": [ false ]
 }
+tracks/11/type = "value"
+tracks/11/path = NodePath("EffectSprite:scale")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1.66895, 1.80469 ) ]
+}
+tracks/12/type = "value"
+tracks/12/path = NodePath("EffectSprite:visible")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/13/type = "value"
+tracks/13/path = NodePath("EffectSprite:self_modulate")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 210.059
+
+[sub_resource type="Shader" id=9]
+code = "shader_type canvas_item;
+
+void fragment() {
+	vec2 distortedUV = SCREEN_UV + texture(TEXTURE, UV).a * 0.1;
+	vec4 screenColor = texture(SCREEN_TEXTURE, distortedUV + vec2(-0.1,-0.1));
+	COLOR = screenColor;
+	COLOR.a *= texture(TEXTURE, UV).a;
+}"
+
+[sub_resource type="ShaderMaterial" id=8]
+shader = SubResource( 9 )
 
 [node name="KinematicBody2D" type="KinematicBody2D"]
 scale = Vector2( 0.1, 0.1 )
@@ -385,6 +486,11 @@ shape = SubResource( 1 )
 
 [node name="ExplosionTimer" type="Timer" parent="."]
 wait_time = 2.0
+
+[node name="EffectSprite" type="Sprite" parent="."]
+material = SubResource( 8 )
+scale = Vector2( 1.66895, 1.80469 )
+texture = ExtResource( 7 )
 
 [connection signal="body_entered" from="ExplosionCollision" to="StateMachine/Exploding" method="_on_Explosion"]
 [connection signal="timeout" from="ExplosionTimer" to="StateMachine/Flying" method="_on_ExplosionTimer_timeout"]

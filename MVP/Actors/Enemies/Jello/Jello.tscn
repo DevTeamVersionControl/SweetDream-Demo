@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Actors/Enemies/Jello/Jello.gd" type="Script" id=1]
 [ext_resource path="res://Actors/Enemies/Jello/Jello 720p.png" type="Texture" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://Actors/Enemies/Jello/Jump.gd" type="Script" id=6]
 [ext_resource path="res://Actors/Enemies/Jello/Land.gd" type="Script" id=7]
 [ext_resource path="res://Actors/Enemies/Jello/Death.gd" type="Script" id=8]
+[ext_resource path="res://Actors/flash.tres" type="Material" id=9]
 
 [sub_resource type="CircleShape2D" id=3]
 radius = 124.926
@@ -143,6 +144,7 @@ scale = Vector2( 1, 0.5 )
 shape = SubResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
+material = ExtResource( 9 )
 scale = Vector2( 0.1, 0.1 )
 texture = ExtResource( 2 )
 hframes = 13
