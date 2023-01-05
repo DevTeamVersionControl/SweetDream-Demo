@@ -24,6 +24,7 @@ func enter(msg := {}) -> void:
 	print("Transitioned to knockback")
 	if msg.get(0) != null:
 		player.velocity = msg.get(0)
+		get_tree().current_scene.shaker.start(0.2, 5, msg.get(0).length()/100)
 
 func physics_update(delta: float) -> void:
 	player.velocity.x = lerp(player.velocity.x, 0, knockback_recovery)

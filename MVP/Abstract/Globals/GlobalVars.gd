@@ -24,7 +24,7 @@ const BASE_MAX_HEALTH = 40.0
 const BASE_MAX_SUGAR = 15.0
 
 var ammo_array := [GlobalTypes.Ammo.new("Candy Corn", GlobalTypes.AMMO_TYPE.once, 0.2, 1, 1, candy_corn), 
-	GlobalTypes.Ammo.new("Jelly Bean", GlobalTypes.AMMO_TYPE.once, 2, 8, 10, jelly_bean), 
+	GlobalTypes.Ammo.new("Jelly Bean", GlobalTypes.AMMO_TYPE.once, 2, 8, 7.5, jelly_bean), 
 	GlobalTypes.Ammo.new("Jawbreaker", GlobalTypes.AMMO_TYPE.charge, 0, 3, 5, jawbreaker), 
 	GlobalTypes.Ammo.new("Pop Rocks", GlobalTypes.AMMO_TYPE.constant, 0, 0.1, 0.1, pop_rocks), 
 	GlobalTypes.Ammo.new("Jello", GlobalTypes.AMMO_TYPE.once, 1, 2, 2, jello)]

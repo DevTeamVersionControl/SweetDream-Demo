@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=2]
+[gd_scene load_steps=68 format=2]
 
 [ext_resource path="res://Environment/Blocks/Forest/TileSets/Tile Pack/Grass Tile Pack/Grass Tile Pack 333p.png" type="Texture" id=1]
 [ext_resource path="res://Abstract/Checkpoint/Checkpoint.tscn" type="PackedScene" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://Actors/NPC/Mr. Gerald/MrGerald.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Abstract/GenericDoor/GenericDoor.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Environment/Backgrounds/Forest Backgrounds/Main Background/Scatter Terrain/ScatterTerrain.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Environment/Backgrounds/Forest Backgrounds/WavyTrees.tres" type="Material" id=13]
 
 [sub_resource type="CanvasItemMaterial" id=158]
 light_mode = 2
@@ -551,29 +552,35 @@ position = Vector2( 1327, 340 )
 texture = ExtResource( 8 )
 
 [node name="TallTrees" parent="ParallaxBackground/ParallaxLayer4" instance=ExtResource( 7 )]
+material = ExtResource( 13 )
 position = Vector2( 0, 3 )
 cell_size = Vector2( 32, 32 )
 tile_data = PoolIntArray( 589854, 6, 0 )
 
 [node name="ShortTrees" parent="ParallaxBackground/ParallaxLayer4" instance=ExtResource( 9 )]
+material = ExtResource( 13 )
 tile_data = PoolIntArray( 458762, 5, 0 )
 
 [node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
 
 [node name="TallTrees" parent="ParallaxBackground/ParallaxLayer3" instance=ExtResource( 7 )]
+material = ExtResource( 13 )
 scale = Vector2( -0.4, 0.4 )
 tile_data = PoolIntArray( 327662, 3, 0 )
 
 [node name="TallTrees2" parent="ParallaxBackground/ParallaxLayer3" instance=ExtResource( 7 )]
+material = ExtResource( 13 )
 tile_data = PoolIntArray( 262149, 5, 0 )
 
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
 
 [node name="TallTrees" parent="ParallaxBackground/ParallaxLayer2" instance=ExtResource( 7 )]
+material = ExtResource( 13 )
 cell_size = Vector2( 32, 32 )
 tile_data = PoolIntArray( 589829, 0, 0 )
 
 [node name="ShortTrees" parent="ParallaxBackground/ParallaxLayer2" instance=ExtResource( 9 )]
+material = ExtResource( 13 )
 cell_size = Vector2( 32, 32 )
 tile_data = PoolIntArray( 917541, 0, 0 )
 
