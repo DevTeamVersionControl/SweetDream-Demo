@@ -57,6 +57,7 @@ func _ready():
 	camera.limit_top = level_limit_min.y
 	camera.limit_right = level_limit_max.x
 	camera.limit_bottom = level_limit_max.y
+	set_canvas_item_light_mask_value($Sprite, 5, true)
 
 func _physics_process(_delta):
 	if Input.is_action_just_pressed("ammo_next") && state_machine.state != $StateMachine/Aim:
@@ -130,3 +131,10 @@ func update_display():
 	emit_signal("changed_health_pack")
 	emit_signal("changed_ammo")
 	emit_signal("changed_sugar")
+
+func set_canvas_item_light_mask_value(canvas_item: CanvasItem, layer_number: int, value: bool) -> void:
+	assert(layer_number >= 1 and layer_number <= 20, "layer_number must be between 1 and 20 inclusive")
+	if value:
+		canvas_item.light_mask |= 1 << (layer_number - 1)
+	else:
+		canvas_item.light_mask &= ~(1 << (layer_number - 1))

@@ -49,22 +49,22 @@ func save(game_data):
 	var ammo_equipped_names := []
 	for i in ammo_equipped_array.size():
 		ammo_equipped_names.append(ammo_equipped_array[i].name)
-	game_data.data["ammo_equipped_names"] = ammo_equipped_names
-	game_data.data["equipped_ammo_index"] = equiped_ammo_index
-	game_data.data["double_jump_lock"] = double_jump_lock
-	game_data.data["dash_lock"] = dash_lock
-	game_data.data["inventory"] = inventory
-	game_data.data["artifacts"] = artifacts
+	game_data["ammo_equipped_names"] = ammo_equipped_names
+	game_data["equipped_ammo_index"] = equiped_ammo_index
+	game_data["double_jump_lock"] = double_jump_lock
+	game_data["dash_lock"] = dash_lock
+	game_data["inventory"] = inventory
+	game_data["artifacts"] = artifacts
 	
 func load(game_data):
 	ammo_equipped_array = []
-	for i in game_data.data["ammo_equipped_names"].size():
-		ammo_equipped_array.append(get_ammo(game_data.data["ammo_equipped_names"][i]))
-	equiped_ammo_index = game_data.data["equipped_ammo_index"]
-	double_jump_lock = game_data.data["double_jump_lock"]
-	dash_lock = game_data.data["dash_lock"]
-	inventory = game_data.data["inventory"]
-	artifacts = game_data.data["artifacts"]
+	for i in game_data["ammo_equipped_names"].size():
+		ammo_equipped_array.append(get_ammo(game_data["ammo_equipped_names"][i]))
+	equiped_ammo_index = int(game_data["equipped_ammo_index"])
+	double_jump_lock = game_data["double_jump_lock"]
+	dash_lock = game_data["dash_lock"]
+	inventory = game_data["inventory"]
+	artifacts = game_data["artifacts"]
 
 func get_ammo(ammo_name : String):
 	for ammo in ammo_array:

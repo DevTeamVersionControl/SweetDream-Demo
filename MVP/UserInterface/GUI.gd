@@ -19,6 +19,7 @@ onready var color_rect = $LevelTransition/ColorRect
 onready var dialog = $Dialog
 onready var shop = $Shop
 onready var pause_menu = $PauseMenu
+onready var input_menu := $InputMenu
 
 var pause_requests := 0
 
@@ -28,6 +29,8 @@ func _unhandled_input(event):
 			shop.input()
 		else:
 			pause_menu.input()
+	if input_menu.visible:
+			input_menu.input(event)
 
 func request_pause():
 	get_tree().paused = true

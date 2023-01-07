@@ -83,11 +83,12 @@ func buy():
 		item_list.select(0)
 		_on_ItemList_item_selected(0)
 	money.text = "Current:" + String(GlobalVars.artifacts)
-	save_shop()
-
-func save_shop():
-	var file = File.new()
-	file.open(path, File.WRITE)
-	file.store_line(to_json(items))
-	file.close()
 	GameSaver.save()
+	
+func save(save_data):
+	if path:
+		save_data[path] = items
+
+func load(save_data):
+	if save_data.has(path):
+		items = save_data[path]

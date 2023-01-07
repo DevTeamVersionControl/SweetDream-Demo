@@ -3,7 +3,7 @@
 [ext_resource path="res://UserInterface/Fonts/MangabeyRegular-rgqVO.otf" type="DynamicFontData" id=1]
 
 [sub_resource type="DynamicFont" id=1]
-size = 100
+size = 120
 font_data = ExtResource( 1 )
 
 [resource]

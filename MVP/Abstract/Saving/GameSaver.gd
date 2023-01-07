@@ -15,21 +15,35 @@
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 extends Node
 
-onready var SaveData = load("res://Abstract/Saving/SaveData.gd")
+const DEFAULT_SAVE_PATH = "res://Saves/SaveData.json"
 
-func save():
-	var save_data = SaveData.new()
+func save(save_path = DEFAULT_SAVE_PATH):
+	var save_data = {}
 	for node in get_tree().get_nodes_in_group("save"):
 		node.save(save_data)
-	print(ResourceSaver.save("res://Saves/SaveData.tres", save_data))
+	var file = File.new()
+	var error = file.open(save_path, File.WRITE)
+	if error != OK:
+		printerr("Could not create save file")
+		return
+	
+	var json_string := JSON.print(save_data)
+	file.store_string(json_string)
+	file.close()
 	
 func save_scene():
 	var saved_scene = PackedScene.new()
 	saved_scene.pack(get_tree().current_scene)
 	print(ResourceSaver.save("res://Saves/".plus_file(get_tree().get_current_scene().filename.get_file()), saved_scene))
 	
-func load():
-	if ResourceLoader.exists("res://Saves/SaveData.tres"):
-		var save_data : Resource = ResourceLoader.load("res://Saves/SaveData.tres")
-		for node in get_tree().get_nodes_in_group("save"):
-			node.load(save_data)
+func load(save_path = DEFAULT_SAVE_PATH):
+	var file = File.new()
+	var error = file.open(save_path, File.READ)
+	if error != OK:
+		printerr("Could not load save")
+		return
+	var json_string = file.get_as_text()
+	file.close()
+	var save_data : Dictionary = JSON.parse(json_string).result
+	for node in get_tree().get_nodes_in_group("save"):
+		node.load(save_data)

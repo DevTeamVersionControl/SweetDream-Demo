@@ -74,11 +74,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Actors/Player/PlayerState.gd"
 }, {
-"base": "Resource",
-"class": "SaveData",
-"language": "GDScript",
-"path": "res://Abstract/Saving/SaveData.gd"
-}, {
 "base": "State",
 "class": "SpawnerState",
 "language": "GDScript",
@@ -108,7 +103,6 @@ _global_script_class_icons={
 "JellyBeanState": "",
 "Player": "",
 "PlayerState": "",
-"SaveData": "",
 "SpawnerState": "",
 "State": "",
 "StateMachine": ""
@@ -209,6 +203,10 @@ crouch={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777234,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
  ]
+}
+ui_back={
+"deadzone": 0.5,
+"events": [  ]
 }
 
 [layer_names]

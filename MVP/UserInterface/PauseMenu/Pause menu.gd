@@ -13,8 +13,35 @@
 #
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
-extends Resource
+extends Control
 
-class_name SaveData
+onready var item_list := $ItemList
 
-export var data : Dictionary = {}
+func input():
+	if Input.is_action_pressed("show_menu"):
+		if visible:
+			resume()
+		else:
+			mouse_filter = Control.MOUSE_FILTER_STOP
+			get_parent().request_pause()
+			visible = true
+			item_list.select(0)
+			item_list.grab_focus()
+	if Input.is_action_just_pressed("ui_accept") && visible:
+		select_option()
+
+func select_option():
+	match item_list.get_item_text(item_list.get_selected_items()[0]):
+		"Settings":
+			get_parent().input_menu.visible = true
+		"Exit":
+			GameSaver.save()
+			get_tree().notification(MainLoop.NOTIFICATION_WM_QUIT_REQUEST)
+		"Resume":
+			resume()
+	
+func resume():
+	if visible:
+		mouse_filter = Control.MOUSE_FILTER_PASS
+		get_parent().request_unpause()
+		visible = false
