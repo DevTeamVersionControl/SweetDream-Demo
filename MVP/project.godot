@@ -35,6 +35,16 @@ _global_script_classes=[ {
 "path": "res://Actors/Enemies/Candy Corn/CandyCornState.gd"
 }, {
 "base": "KinematicBody2D",
+"class": "Heart",
+"language": "GDScript",
+"path": "res://Actors/Enemies/Heart Enemy/Heart.gd"
+}, {
+"base": "State",
+"class": "HeartState",
+"language": "GDScript",
+"path": "res://Actors/Enemies/Heart Enemy/HeartState.gd"
+}, {
+"base": "KinematicBody2D",
 "class": "Jawbreaker",
 "language": "GDScript",
 "path": "res://Actors/Enemies/Jawbreaker/Jawbreaker.gd"
@@ -95,6 +105,8 @@ _global_script_class_icons={
 "CandyCorn": "",
 "CandyCornSpawner": "",
 "CandyCornState": "",
+"Heart": "",
+"HeartState": "",
 "Jawbreaker": "",
 "JawbreakerState": "",
 "JelloEnemy": "",

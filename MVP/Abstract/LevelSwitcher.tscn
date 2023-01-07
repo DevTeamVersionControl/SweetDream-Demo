@@ -10,8 +10,10 @@ pause_mode = 1
 script = ExtResource( 3 )
 
 [node name="HUD" parent="." instance=ExtResource( 1 )]
+layer = 100
 
 [node name="GUI" parent="." instance=ExtResource( 4 )]
 pause_mode = 2
+layer = 100
 
 [node name="Shaker" parent="." instance=ExtResource( 2 )]
