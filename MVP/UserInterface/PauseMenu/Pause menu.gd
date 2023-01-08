@@ -26,9 +26,6 @@ func _ready():
 	item_list.select(index)
 
 func input():
-	if visible && !item_list.has_focus():
-		print("Pause menu")
-		item_list.grab_focus()
 	if Input.is_action_pressed("show_menu"):
 		if visible:
 			resume()
@@ -40,10 +37,10 @@ func input():
 	if Input.is_action_just_pressed("ui_accept") && visible:
 		select_option()
 	if Input.is_action_pressed("ui_up"):
-		index = (index - 1)%item_list.get_item_count()
+		index = clamp(index - 1, 0, item_list.get_item_count())
 		item_list.select(index)
 	if Input.is_action_pressed("ui_down"):
-		index = (index + 1)%item_list.get_item_count()
+		index = clamp(index + 1, 0, item_list.get_item_count())
 		item_list.select(index)
 
 func select_option():

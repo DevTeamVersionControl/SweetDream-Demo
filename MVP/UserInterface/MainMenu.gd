@@ -25,12 +25,11 @@ func _unhandled_input(event):
 		if Input.is_action_pressed("ui_back"):
 			load_menu()
 		if Input.is_action_pressed("ui_up"):
-			index = (index - 1)%item_list.get_item_count()
+			index = clamp(index - 1, 0, item_list.get_item_count()-1)
 			item_list.select(index)
 		if Input.is_action_pressed("ui_down"):
-			index = (index + 1)%item_list.get_item_count()
+			index = clamp(index + 1, 0, item_list.get_item_count()-1)
 			item_list.select(index)
-
 func select_option():
 	if item_list.get_item_text(0) == "Play":
 		match item_list.get_item_text(item_list.get_selected_items()[0]):

@@ -42,6 +42,16 @@ var inventory := []
 var artifacts := 30
 
 func initialize():
+	max_health = BASE_MAX_HEALTH
+	max_health_packs = 3
+	health_packs = max_health_packs
+	max_sugar = BASE_MAX_SUGAR
+	sugar = max_sugar
+	equiped_ammo_index = 0
+	double_jump_lock = true
+	dash_lock = false
+	inventory = []
+	artifacts = 30
 	GameSaver.load()
 	call_deferred("apply_items")
 
