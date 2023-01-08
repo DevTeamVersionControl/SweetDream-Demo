@@ -24,13 +24,12 @@ onready var input_menu := $InputMenu
 var pause_requests := 0
 
 func _unhandled_input(event):
-	if event.is_action_pressed("show_menu") || event.is_action_pressed("ui_accept"):
-		if shop.visible:
-			shop.input()
-		else:
-			pause_menu.input()
-	if input_menu.visible:
-			input_menu.input(event)
+	if shop.visible:
+		shop.input()
+	elif input_menu.visible:
+		input_menu.input(event)
+	else:
+		pause_menu.input()
 
 func request_pause():
 	get_tree().paused = true

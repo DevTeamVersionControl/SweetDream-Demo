@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://Actors/Enemies/Heart Enemy/Heart.gd" type="Script" id=1]
 [ext_resource path="res://Abstract/StateMachine.gd" type="Script" id=2]
@@ -799,7 +799,7 @@ tracks/15/keys = {
 }
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 25.7099
+radius = 3.33333
 
 [sub_resource type="RectangleShape2D" id=11]
 extents = Vector2( 10, 29.5 )
@@ -813,7 +813,11 @@ radius = 100.18
 [sub_resource type="CircleShape2D" id=14]
 radius = 209.002
 
+[sub_resource type="CircleShape2D" id=15]
+radius = 23.3333
+
 [node name="Heart" type="KinematicBody2D" groups=["enemy"]]
+scale = Vector2( 0.3, 0.3 )
 collision_layer = 2
 collision_mask = 2
 script = ExtResource( 1 )
@@ -867,7 +871,7 @@ vframes = 4
 frame = 17
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, -4 )
+position = Vector2( 0, 100 )
 shape = SubResource( 1 )
 
 [node name="Wave" type="Area2D" parent="."]
@@ -903,6 +907,10 @@ shape = SubResource( 13 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ShieldZone"]
 shape = SubResource( 14 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 10 )
+shape = SubResource( 15 )
 
 [connection signal="timeout" from="StateMachine/Idle/Timer" to="StateMachine/Idle" method="attack"]
 [connection signal="body_entered" from="Wave" to="StateMachine/Attacking" method="_on_Wave_body_entered"]

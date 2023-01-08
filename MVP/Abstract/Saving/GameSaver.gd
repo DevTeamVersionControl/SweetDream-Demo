@@ -17,7 +17,9 @@ extends Node
 
 const DEFAULT_SAVE_PATH = "res://Saves/SaveData.json"
 
-func save(save_path = DEFAULT_SAVE_PATH):
+var save_path := DEFAULT_SAVE_PATH
+
+func save():
 	var save_data = {}
 	for node in get_tree().get_nodes_in_group("save"):
 		node.save(save_data)
@@ -26,17 +28,11 @@ func save(save_path = DEFAULT_SAVE_PATH):
 	if error != OK:
 		printerr("Could not create save file")
 		return
-	
 	var json_string := JSON.print(save_data)
 	file.store_string(json_string)
 	file.close()
-	
-func save_scene():
-	var saved_scene = PackedScene.new()
-	saved_scene.pack(get_tree().current_scene)
-	print(ResourceSaver.save("res://Saves/".plus_file(get_tree().get_current_scene().filename.get_file()), saved_scene))
-	
-func load(save_path = DEFAULT_SAVE_PATH):
+
+func load():
 	var file = File.new()
 	var error = file.open(save_path, File.READ)
 	if error != OK:
@@ -44,6 +40,38 @@ func load(save_path = DEFAULT_SAVE_PATH):
 		return
 	var json_string = file.get_as_text()
 	file.close()
+	if json_string == "":
+		return
 	var save_data : Dictionary = JSON.parse(json_string).result
 	for node in get_tree().get_nodes_in_group("save"):
 		node.load(save_data)
+
+func partial_load(node:Node):
+	var file = File.new()
+	var error = file.open(node.save_path, File.READ)
+	if error != OK:
+		printerr("Could not load save")
+		return
+	var json_string = file.get_as_text()
+	file.close()
+	if json_string == "":
+		return
+	var save_data : Dictionary = JSON.parse(json_string).result
+	node.load(save_data)
+	
+func partial_save(node:Node):
+	var file = File.new()
+	var save_data = {}
+	if file.file_exists(node.save_path):
+		file.open(node.save_path, File.READ)
+		var json = file.get_as_text()
+		save_data = parse_json(json)
+		file.close()
+	node.save(save_data)
+	var error = file.open(node.save_path, File.WRITE)
+	if error != OK:
+		printerr("Could not create save file")
+		return
+	var json_string := JSON.print(save_data)
+	file.store_string(json_string)
+	file.close()

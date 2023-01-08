@@ -41,7 +41,7 @@ var dash_lock := false
 var inventory := []
 var artifacts := 30
 
-func _ready():
+func initialize():
 	GameSaver.load()
 	call_deferred("apply_items")
 

@@ -33,7 +33,7 @@ var player : Player
 var checkpoint = GlobalTypes.Checkpoint.new("Checkpoint",first_level)
 
 func _ready():
-	GameSaver.load()
+	GlobalVars.initialize()
 	load_level(checkpoint.level, checkpoint.name)
 
 func save(game_data):

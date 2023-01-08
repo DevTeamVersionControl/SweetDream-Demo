@@ -17,7 +17,15 @@ extends Control
 
 onready var item_list := $ItemList
 
+func _ready():
+	for i in range(0,item_list.get_item_count()):
+		item_list.set_item_tooltip_enabled(i,false)
+	item_list.set_focus_mode(Control.FOCUS_ALL)
+
 func input():
+	if visible && !item_list.has_focus():
+		print("Pause menu")
+		item_list.grab_focus()
 	if Input.is_action_pressed("show_menu"):
 		if visible:
 			resume()
@@ -26,7 +34,6 @@ func input():
 			get_parent().request_pause()
 			visible = true
 			item_list.select(0)
-			item_list.grab_focus()
 	if Input.is_action_just_pressed("ui_accept") && visible:
 		select_option()
 

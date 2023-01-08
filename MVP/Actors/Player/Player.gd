@@ -48,6 +48,7 @@ onready var animation_player = $AnimationPlayer
 onready var shoot_bar = $ShootBar
 onready var cooldown_bar = $CooldownBar
 onready var invulnerability_timer = $InvulnerabilityTimer
+onready var sugar_timer = $SugarTimer
 
 func _ready():
 	set_later(camera, "smoothing_enabled", true)
@@ -62,8 +63,7 @@ func _ready():
 func _physics_process(_delta):
 	if Input.is_action_just_pressed("ammo_next") && state_machine.state != $StateMachine/Aim:
 		GlobalVars.equiped_ammo_index = (GlobalVars.equiped_ammo_index + 1) % GlobalVars.ammo_equipped_array.size()
-		GlobalVars.sugar = GlobalVars.max_sugar
-		update_display()
+		on_sugar_timer_timeout()
 	if Input.is_action_just_pressed("consume_health_pack"):
 		if GlobalVars.health_packs > 0:
 			set_health_packs(GlobalVars.health_packs - 1)
@@ -126,12 +126,17 @@ func set_health_packs(packs:int):
 func on_invulnerability_off():
 	invulnerable = false
 
+func on_sugar_timer_timeout():
+	GlobalVars.sugar = GlobalVars.max_sugar
+	update_display()
+
 func update_display():
 	emit_signal("changed_health")
 	emit_signal("changed_health_pack")
 	emit_signal("changed_ammo")
 	emit_signal("changed_sugar")
 
+# This function isn't mine, I copy pasted it from stack overflow, so feel free to use it how you want
 func set_canvas_item_light_mask_value(canvas_item: CanvasItem, layer_number: int, value: bool) -> void:
 	assert(layer_number >= 1 and layer_number <= 20, "layer_number must be between 1 and 20 inclusive")
 	if value:

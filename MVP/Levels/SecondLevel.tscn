@@ -1,4 +1,4 @@
-[gd_scene load_steps=131 format=2]
+[gd_scene load_steps=132 format=2]
 
 [ext_resource path="res://Environment/Blocks/Forest/TileSets/Tile Pack/Grass Tile Pack/Grass Tile Pack 333p.png" type="Texture" id=1]
 [ext_resource path="res://Abstract/GenericDoor/GenericDoor.tscn" type="PackedScene" id=2]
@@ -22,6 +22,7 @@
 [ext_resource path="res://Environment/Light/light.png" type="Texture" id=20]
 [ext_resource path="res://Environment/Backgrounds/Forest Backgrounds/Main Background/Trees/Tiny Trees/Tiny Tree 720p.png" type="Texture" id=21]
 [ext_resource path="res://Environment/Backgrounds/Forest Backgrounds/Main Background/Trees/Tiny Trees/Tiny Tree 720p_n.png" type="Texture" id=22]
+[ext_resource path="res://Actors/Enemies/Heart Enemy/Heart.tscn" type="PackedScene" id=23]
 
 [sub_resource type="CanvasItemMaterial" id=198]
 light_mode = 2
@@ -374,44 +375,50 @@ shader_param/first_shrink_speed = 0.0
 shader_param/second_shrink_speed = 0.0
 shader_param/before_light_modulate = Color( 1, 1, 1, 1 )
 
-[sub_resource type="ShaderMaterial" id=211]
-resource_local_to_scene = true
-shader = SubResource( 1 )
-shader_param/speed = 1.0
-shader_param/minStrength = 0.05
-shader_param/maxStrength = 0.01
-shader_param/strengthScale = 200.0
-shader_param/interval = 3.5
-shader_param/detail = 1.0
-shader_param/distortion = null
-shader_param/heightOffset = null
-shader_param/offset = 0.0
-shader_param/first_stage = 0.5
-shader_param/first_smooth = 0.0
-shader_param/second_stage = 0.0
-shader_param/second_smooth = 0.0
-shader_param/rim_light = false
-shader_param/rim_thickness = 5.0
-shader_param/rim_intense = 1.0
-shader_param/rim_extra_thick = false
-shader_param/min_light = 0.0
-shader_param/mid_light = 0.0
-shader_param/max_light = 1.0
-shader_param/obj_light_add = 0.0
-shader_param/fake_light_depth = false
-shader_param/obj_height = 0.0
-shader_param/min_scale = 0.2
-shader_param/max_scale = 2.0
-shader_param/light_change_thresh = 0.0
-shader_param/light_fade = false
-shader_param/light_fade_end = 0.0
-shader_param/fake_spot_light = false
-shader_param/first_shrink_speed = 0.0
-shader_param/second_shrink_speed = 0.0
-shader_param/before_light_modulate = Color( 1, 1, 1, 1 )
+[sub_resource type="Shader" id=211]
+code = "// original wind shader from https://github.com/Maujoe/godot-simple-wind-shader-2d/tree/master/assets/maujoe.simple_wind_shader_2d
+// original script modified by HungryProton so that the assets are moving differently : https://pastebin.com/VL3AfV8D
+//
+// speed - The speed of the wind movement.
+// minStrength - The minimal strength of the wind movement.
+// maxStrength - The maximal strength of the wind movement.
+// strengthScale - Scalefactor for the wind strength.
+// interval - The time between minimal and maximal strength changes.
+// detail - The detail (number of waves) of the wind movement.
+// distortion - The strength of geometry distortion.
+// heightOffset - The height where the wind begins to move. By default 0.0.
 
-[sub_resource type="Shader" id=204]
-code = "shader_type canvas_item;
+shader_type canvas_item;
+render_mode blend_mix;
+
+// Wind settings.
+uniform float speed = 1.0;
+uniform float minStrength : hint_range(0.0, 1.0) = 0.05;
+uniform float maxStrength : hint_range(0.0, 1.0) = 0.01;
+uniform float strengthScale = 100.0;
+uniform float interval = 3.5;
+uniform float detail = 1.0;
+uniform float distortion : hint_range(0.0, 1.0);
+uniform float heightOffset : hint_range(0.0, 1.0);
+
+// With the offset value, you can if you want different moves for each asset. Just put a random value (1, 2, 3) in the editor. Don't forget to mark the material as unique if you use this
+uniform float offset = 0; 
+
+
+float getWind(vec2 vertex, vec2 uv, float time){
+    float diff = pow(maxStrength - minStrength, 2.0);
+    float strength = clamp(minStrength + diff + sin(time / interval) * diff, minStrength, maxStrength) * strengthScale;
+    float wind = (sin(time) + cos(time * detail)) * strength * max(0.0, (1.0-uv.y) - heightOffset);
+    
+    return wind; 
+}
+
+void vertex() {
+    vec4 pos = WORLD_MATRIX * vec4(0.0, 0.0, 0.0, 1.0);
+    float time = TIME * speed + offset;
+    //float time = TIME * speed + pos.x * pos.y  ; not working when moving...
+    VERTEX.x += getWind(VERTEX.xy, UV, time);
+}
 
 uniform float first_stage : hint_range(0.0, 1.0) = 0.5; 
 uniform float first_smooth : hint_range(0.0, 1.0) = 0.0; // Lengthens the color transition
@@ -533,20 +540,66 @@ void light() {
 	}
 }"
 
-[sub_resource type="ShaderMaterial" id=205]
-shader = SubResource( 204 )
-shader_param/first_stage = 0.0
+[sub_resource type="ShaderMaterial" id=212]
+resource_local_to_scene = true
+shader = SubResource( 211 )
+shader_param/speed = 1.0
+shader_param/minStrength = 0.05
+shader_param/maxStrength = 0.01
+shader_param/strengthScale = 200.0
+shader_param/interval = 3.5
+shader_param/detail = 1.0
+shader_param/distortion = null
+shader_param/heightOffset = null
+shader_param/offset = 0.0
+shader_param/first_stage = 0.126
 shader_param/first_smooth = 0.0
-shader_param/second_stage = 0.338
+shader_param/second_stage = 0.0
 shader_param/second_smooth = 0.0
-shader_param/rim_light = false
-shader_param/rim_thickness = 5.0
+shader_param/rim_light = true
+shader_param/rim_thickness = 2.576
 shader_param/rim_intense = 1.0
 shader_param/rim_extra_thick = false
 shader_param/min_light = 0.0
 shader_param/mid_light = 0.0
-shader_param/max_light = 1.0
-shader_param/obj_light_add = 0.495
+shader_param/max_light = 0.449
+shader_param/obj_light_add = 0.0
+shader_param/fake_light_depth = false
+shader_param/obj_height = 0.0
+shader_param/min_scale = 0.2
+shader_param/max_scale = 2.0
+shader_param/light_change_thresh = 0.0
+shader_param/light_fade = false
+shader_param/light_fade_end = 0.0
+shader_param/fake_spot_light = false
+shader_param/first_shrink_speed = 0.0
+shader_param/second_shrink_speed = 0.0
+shader_param/before_light_modulate = Color( 1, 1, 1, 1 )
+
+[sub_resource type="ShaderMaterial" id=213]
+resource_local_to_scene = true
+shader = SubResource( 211 )
+shader_param/speed = 1.0
+shader_param/minStrength = 0.05
+shader_param/maxStrength = 0.01
+shader_param/strengthScale = 200.0
+shader_param/interval = 3.5
+shader_param/detail = 1.0
+shader_param/distortion = null
+shader_param/heightOffset = null
+shader_param/offset = 0.0
+shader_param/first_stage = 0.126
+shader_param/first_smooth = 0.0
+shader_param/second_stage = 0.0
+shader_param/second_smooth = 0.0
+shader_param/rim_light = true
+shader_param/rim_thickness = 2.576
+shader_param/rim_intense = 1.0
+shader_param/rim_extra_thick = false
+shader_param/min_light = 0.0
+shader_param/mid_light = 0.0
+shader_param/max_light = 0.449
+shader_param/obj_light_add = 0.0
 shader_param/fake_light_depth = false
 shader_param/obj_height = 0.0
 shader_param/min_scale = 0.2
@@ -1692,7 +1745,7 @@ tile_data = PoolIntArray( 262239, 9, 0, 393294, 3, 0 )
 material = SubResource( 210 )
 scale = Vector2( -0.35, 0.35 )
 cell_size = Vector2( 32, 32 )
-tile_data = PoolIntArray( 393156, 9, 0, 524265, 8, 0, 589823, 9, 0 )
+tile_data = PoolIntArray( 393156, 9, 0, 589823, 9, 0 )
 
 [node name="BackgroundFloors720p4" parent="ParallaxBackground/ParallaxLayer2" instance=ExtResource( 11 )]
 position = Vector2( 624, 159 )
@@ -1731,11 +1784,12 @@ rotation = 0.0917011
 tile_data = PoolIntArray( 2031779, 3, 0 )
 
 [node name="ForestBackground" parent="ParallaxLayer" instance=ExtResource( 7 )]
-material = SubResource( 211 )
+material = SubResource( 212 )
 cell_size = Vector2( 16, 16 )
 tile_data = PoolIntArray( -458545, 11, 0, -458463, 9, 0, 65593, 1, 0, 196615, 9, 0, 196722, 10, 0 )
 
 [node name="ScatterTerrain2" parent="ParallaxLayer" instance=ExtResource( 12 )]
+tile_data = PoolIntArray( 2293863, 0, 0 )
 
 [node name="ScatterTerrain4" parent="ParallaxLayer" instance=ExtResource( 12 )]
 rotation = 2.98768
@@ -1768,7 +1822,7 @@ scale = Vector2( 0.228, -0.19 )
 tile_data = PoolIntArray( -2162825, 5, 0, -2162795, 5, 0, -2097252, 2, 0, -1835074, 2, 0, -1703967, 5, 0, -1703952, 2, 0 )
 
 [node name="ShortTrees" parent="ParallaxLayer" instance=ExtResource( 9 )]
-material = SubResource( 205 )
+material = SubResource( 213 )
 rotation = -3.14159
 scale = Vector2( 0.35, -0.35 )
 cell_size = Vector2( 16, 16 )
@@ -1833,3 +1887,6 @@ light_mask = 17
 position = Vector2( 1733.5, 0 )
 scale = Vector2( 0.449219, 3.7207 )
 texture = ExtResource( 20 )
+
+[node name="Heart" parent="." instance=ExtResource( 23 )]
+position = Vector2( 611, 131 )

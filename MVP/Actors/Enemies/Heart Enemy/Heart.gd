@@ -47,7 +47,7 @@ func take_damage(damage:int, _vector:Vector2):
 		yield(get_tree().create_timer(0.1), "timeout")
 		$Sprite.get_material().set("shader_param/flashState", 0.0)
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if health > 0:
 		motion.y += 10
 		motion.x = lerp(motion.x, 0, 0.1)

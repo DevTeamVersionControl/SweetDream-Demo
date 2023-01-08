@@ -27,6 +27,7 @@ func _ready():
 	$InputMapper.connect('profile_changed', self, 'rebuild')
 	$Column/ProfilesMenu.initialize($InputMapper)
 	$InputMapper.change_profile($Column/ProfilesMenu.selected)
+	GameSaver.partial_load($InputMapper)
 
 func input(event):
 	if visible:
@@ -54,4 +55,4 @@ func _on_InputLine_change_button_pressed(action_name, line):
 	line.update_key(key_scancode)
 
 func save():
-	GameSaver.save()
+	GameSaver.partial_save($InputMapper)

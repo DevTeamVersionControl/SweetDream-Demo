@@ -1648,7 +1648,7 @@ tracks/3/keys = {
 "values": [ Vector2( 1, -18 ) ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("Sprite:scale")
+tracks/4/path = NodePath("Sprite:position")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
@@ -1657,10 +1657,10 @@ tracks/4/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ Vector2( 0.024, 0.014 ) ]
+"values": [ Vector2( 0, -17 ) ]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("Sprite:position")
+tracks/5/path = NodePath("Sprite:frame")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
@@ -1669,10 +1669,10 @@ tracks/5/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ Vector2( 0, -17 ) ]
+"values": [ 0 ]
 }
 tracks/6/type = "value"
-tracks/6/path = NodePath("Sprite:frame")
+tracks/6/path = NodePath("BulletCenter:position")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/imported = false
@@ -1681,27 +1681,15 @@ tracks/6/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 0 ]
+"values": [ Vector2( 1, -25 ) ]
 }
-tracks/7/type = "value"
-tracks/7/path = NodePath("BulletCenter:position")
+tracks/7/type = "method"
+tracks/7/path = NodePath("StateMachine/Aim")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/imported = false
 tracks/7/enabled = true
 tracks/7/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ Vector2( 1, -25 ) ]
-}
-tracks/8/type = "method"
-tracks/8/path = NodePath("StateMachine/Aim")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
@@ -2528,6 +2516,10 @@ script = ExtResource( 13 )
 
 [node name="InvulnerabilityTimer" type="Timer" parent="."]
 
+[node name="SugarTimer" type="Timer" parent="."]
+wait_time = 3.5
+one_shot = true
+
 [node name="BulletSpawnUp" type="Position2D" parent="."]
 visible = false
 position = Vector2( 1, -55 )
@@ -2581,3 +2573,4 @@ energy = 0.5
 [connection signal="timeout" from="StateMachine/Dashing/DashLengthTimer" to="StateMachine/Dashing" method="on_dash_end"]
 [connection signal="timeout" from="CooldownTimer" to="StateMachine/Aim" method="_on_CooldownTimer_timeout"]
 [connection signal="timeout" from="InvulnerabilityTimer" to="." method="on_invulnerability_off"]
+[connection signal="timeout" from="SugarTimer" to="." method="on_sugar_timer_timeout"]

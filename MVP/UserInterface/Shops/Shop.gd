@@ -24,6 +24,7 @@ onready var price = $Price
 onready var unit = $Unit
 onready var money = $Money
 
+var save_path = GameSaver.save_path
 var items
 var path : String
 
@@ -31,25 +32,21 @@ func show():
 	visible = true
 
 func start(path_to_shop:String):
+	save_path = GameSaver.save_path
 	path = path_to_shop
 	item_list.clear()
 	show()
-	items = get_items()
+	GameSaver.partial_load(self)
 	load_items()
 	money.text = "Current:" + String(GlobalVars.artifacts)
 
-func get_items() -> Array:
-	var file = File.new()
-	assert(file.file_exists(path), "Dialog file does not exist")
-	file.open(path, File.READ)
-	var json = file.get_as_text()
-	var output = parse_json(json)
-	return output if typeof(output) == TYPE_ARRAY else []
-
 func load_items() -> void:
+	if items == null:
+		default_load()
 	for i in items.size():
 		if items[i].has("Icon"):
 			item_list.add_item(items[i]["Name"], load("res://UserInterface/Shops/Icon/"+items[i]["Icon"]))
+			item_list.set_item_tooltip_enabled(i,false)
 	if item_list.get_item_count() > 0:
 		item_list.select(0)
 		item_list.grab_focus()
@@ -83,7 +80,7 @@ func buy():
 		item_list.select(0)
 		_on_ItemList_item_selected(0)
 	money.text = "Current:" + String(GlobalVars.artifacts)
-	GameSaver.save()
+	GameSaver.partial_save(self)
 	
 func save(save_data):
 	if path:
@@ -92,3 +89,11 @@ func save(save_data):
 func load(save_data):
 	if save_data.has(path):
 		items = save_data[path]
+	else:
+		default_load()
+
+func default_load():
+	var file = File.new()
+	file.open(path, File.READ)
+	var json_string = file.get_as_text()
+	items = parse_json(json_string)

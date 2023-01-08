@@ -90,6 +90,7 @@ func shoot(position:NodePath) -> void:
 	
 	GlobalVars.sugar -= GlobalVars.ammo_equipped_array[GlobalVars.equiped_ammo_index].sugar
 	player.update_display()
+	player.sugar_timer.start()
 	
 	if !crouched:
 		state_machine.transition_to("Knockback", {0: knockback})

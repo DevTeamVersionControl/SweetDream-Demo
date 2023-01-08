@@ -23,6 +23,8 @@ extends Node
 
 signal profile_changed(new_profile, is_customizable)
 
+var save_path := "res://Saves/InputProfiles.json"
+
 var current_profile_id := 0
 var profiles = {
 	0: {"Name":"normal", "customizable":false},
