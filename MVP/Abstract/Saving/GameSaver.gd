@@ -20,10 +20,15 @@ const DEFAULT_SAVE_PATH = "res://Saves/SaveData.json"
 var save_path := DEFAULT_SAVE_PATH
 
 func save():
+	var file = File.new()
 	var save_data = {}
+	if file.file_exists(save_path):
+		file.open(save_path, File.READ)
+		var json = file.get_as_text()
+		save_data = parse_json(json)
+		file.close()
 	for node in get_tree().get_nodes_in_group("save"):
 		node.save(save_data)
-	var file = File.new()
 	var error = file.open(save_path, File.WRITE)
 	if error != OK:
 		printerr("Could not create save file")

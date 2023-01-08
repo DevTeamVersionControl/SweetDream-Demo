@@ -17,10 +17,13 @@ extends Control
 
 onready var item_list := $ItemList
 
+var index := 0
+
 func _ready():
 	for i in range(0,item_list.get_item_count()):
 		item_list.set_item_tooltip_enabled(i,false)
-	item_list.set_focus_mode(Control.FOCUS_ALL)
+	item_list.set_focus_mode(Control.FOCUS_NONE)
+	item_list.select(index)
 
 func input():
 	if visible && !item_list.has_focus():
@@ -36,12 +39,22 @@ func input():
 			item_list.select(0)
 	if Input.is_action_just_pressed("ui_accept") && visible:
 		select_option()
+	if Input.is_action_pressed("ui_up"):
+		index = (index - 1)%item_list.get_item_count()
+		item_list.select(index)
+	if Input.is_action_pressed("ui_down"):
+		index = (index + 1)%item_list.get_item_count()
+		item_list.select(index)
 
 func select_option():
 	match item_list.get_item_text(item_list.get_selected_items()[0]):
 		"Settings":
 			get_parent().input_menu.visible = true
-		"Exit":
+		"Main menu":
+			GameSaver.save()
+			get_tree().paused = false
+			get_tree().change_scene("res://UserInterface/MainMenu.tscn")
+		"Close game":
 			GameSaver.save()
 			get_tree().notification(MainLoop.NOTIFICATION_WM_QUIT_REQUEST)
 		"Resume":

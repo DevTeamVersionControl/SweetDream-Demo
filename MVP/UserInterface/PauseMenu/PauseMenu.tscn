@@ -45,4 +45,4 @@ margin_top = 366.0
 margin_right = 1213.0
 margin_bottom = 1076.0
 theme = SubResource( 11 )
-items = [ "Settings", null, false, "Exit", null, false, "Resume", null, false ]
+items = [ "Settings", null, false, "Main menu", null, false, "Close game", null, false, "Resume", null, false ]
