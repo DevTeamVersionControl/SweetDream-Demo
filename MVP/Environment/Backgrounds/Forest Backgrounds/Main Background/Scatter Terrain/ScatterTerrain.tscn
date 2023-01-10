@@ -551,7 +551,6 @@ scale = Vector2( 0.075, 0.075 )
 tile_set = SubResource( 1 )
 centered_textures = true
 format = 1
-tile_data = PoolIntArray( 2228337, 0, 0 )
 
 [node name="Light2D" type="Light2D" parent="."]
 visible = false

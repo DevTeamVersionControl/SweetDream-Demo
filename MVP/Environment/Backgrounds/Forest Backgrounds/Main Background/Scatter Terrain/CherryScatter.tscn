@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Environment/Backgrounds/Forest Backgrounds/Main Background/Scatter Terrain/Cherry720p.png" type="Texture" id=1]
+[ext_resource path="res://Environment/Backgrounds/Forest Backgrounds/Main Background/Scatter Terrain/ScatterShader.tres" type="Material" id=2]
+[ext_resource path="res://Environment/Backgrounds/Forest Backgrounds/Main Background/Scatter Terrain/Cherry720p_n.png" type="Texture" id=3]
+
+[node name="CherryScatter" type="Sprite"]
+material = ExtResource( 2 )
+scale = Vector2( 0.075, 0.075 )
+texture = ExtResource( 1 )
+normal_map = ExtResource( 3 )
+hframes = 2
+vframes = 3
