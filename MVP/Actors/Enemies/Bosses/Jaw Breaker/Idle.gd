@@ -1,0 +1,28 @@
+# Sweet Dream, a sweet metroidvannia
+#    Copyright (C) 2022 Kamran Charles Nayebi and William Duplain
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+extends JawbreakerBossState
+
+#Handles turning around
+
+func enter(_msg := {}) -> void:
+	if jawbreaker_boss.health > 0 && jawbreaker_boss.phase == jawbreaker_boss.PHASE.SECOND:
+		activate()
+
+func activate():
+	if jawbreaker_boss.facing_right == (get_tree().current_scene.player.global_position.x - jawbreaker_boss.sprite.global_position.x < 0):
+		jawbreaker_boss.facing_right = !(get_tree().current_scene.player.global_position.x - jawbreaker_boss.sprite.global_position.x < 0)
+		jawbreaker_boss.sprite.flip_h = !jawbreaker_boss.facing_right
+	state_machine.transition_to("WindUp")

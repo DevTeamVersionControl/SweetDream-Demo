@@ -255,7 +255,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ true ]
+"values": [ false ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("JellyBeanSprite:visible")
@@ -267,7 +267,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ false ]
+"values": [ true ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("ExplosionSprite:frame")
@@ -399,7 +399,7 @@ tracks/12/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ true ]
+"values": [ false ]
 }
 tracks/13/type = "value"
 tracks/13/path = NodePath("EffectSprite:self_modulate")
@@ -432,7 +432,7 @@ shader = SubResource( 9 )
 
 [node name="KinematicBody2D" type="KinematicBody2D"]
 scale = Vector2( 0.1, 0.1 )
-collision_layer = 8
+collision_layer = 0
 collision_mask = 8
 script = ExtResource( 1 )
 THROW_velocity = 300
@@ -444,7 +444,6 @@ anims/Flying = SubResource( 3 )
 anims/RESET = SubResource( 4 )
 
 [node name="JellyBeanSprite" type="Sprite" parent="."]
-visible = false
 modulate = Color( 1, 0.694118, 0.694118, 1 )
 position = Vector2( 0, 3.8147e-06 )
 scale = Vector2( 0.3, 0.3 )
@@ -453,6 +452,7 @@ hframes = 2
 vframes = 3
 
 [node name="ExplosionSprite" type="Sprite" parent="."]
+visible = false
 position = Vector2( 20, -260 )
 scale = Vector2( 3, 3 )
 texture = ExtResource( 6 )
@@ -474,7 +474,6 @@ script = ExtResource( 3 )
 script = ExtResource( 5 )
 
 [node name="ExplosionCollision" type="Area2D" parent="."]
-visible = false
 collision_layer = 3
 collision_mask = 3
 monitoring = false
@@ -486,11 +485,23 @@ shape = SubResource( 1 )
 
 [node name="ExplosionTimer" type="Timer" parent="."]
 wait_time = 2.0
+one_shot = true
 
 [node name="EffectSprite" type="Sprite" parent="."]
+visible = false
 material = SubResource( 8 )
 scale = Vector2( 1.66895, 1.80469 )
 texture = ExtResource( 7 )
 
+[node name="Impact" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="Collision" type="CollisionPolygon2D" parent="Impact"]
+position = Vector2( 0, 2.27374e-13 )
+scale = Vector2( 1.1, 1.1 )
+polygon = PoolVector2Array( -26, -18, 0, -13, 25, -19, 33, -15, 33, 1, 23, 14, 0, 20, -27, 13, -34, 1, -33, -12 )
+
 [connection signal="body_entered" from="ExplosionCollision" to="StateMachine/Exploding" method="_on_Explosion"]
 [connection signal="timeout" from="ExplosionTimer" to="StateMachine/Flying" method="_on_ExplosionTimer_timeout"]
+[connection signal="body_entered" from="Impact" to="StateMachine/Flying" method="_on_Impact_body_entered"]

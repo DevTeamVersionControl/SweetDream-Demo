@@ -20,8 +20,8 @@ var explosion_location_weight := 5
 var explosion_strength := 6000
 
 func enter(_msg := {}) -> void:
-	jelly_bean.explosion_collision.monitorable = true
-	jelly_bean.explosion_collision.monitoring = true
+	jelly_bean.explosion_collision.set_deferred("monitorable", true)
+	jelly_bean.explosion_collision.set_deferred("monitoring", true)
 	jelly_bean.animation_player.play("Exploding")
 
 func _on_Explosion(body):
@@ -29,6 +29,8 @@ func _on_Explosion(body):
 		body.take_damage(GlobalVars.get_ammo("Jelly Bean").damage, calculate_explosion_knockback(body.global_position))
 	elif body.is_in_group("player"):
 		body.knockback(calculate_explosion_knockback(body.global_position))
+	elif body.is_in_group("destructable"):
+		body.disappear()
 
 func calculate_explosion_knockback(body_pos:Vector2) -> Vector2:
 	# Direction

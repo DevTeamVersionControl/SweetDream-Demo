@@ -871,7 +871,7 @@ vframes = 4
 frame = 17
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, 100 )
+position = Vector2( 0, 86.6667 )
 shape = SubResource( 1 )
 
 [node name="Wave" type="Area2D" parent="."]

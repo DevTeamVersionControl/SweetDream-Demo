@@ -16,12 +16,14 @@
 class_name Jawbreaker
 extends KinematicBody2D
 
+signal died
+
 const BASE_DAMAGE = 5
 const CHARGE_DAMAGE = 20
 
 var target
-var facing_right := true
 
+export var facing_right := true
 export var motion = Vector2()
 export var health = 20
 export var gravity = 200
@@ -34,6 +36,7 @@ func take_damage(damage, knockback):
 	health -= damage
 	motion += knockback
 	if health <= 0:
+		emit_signal("died")
 		state_machine.transition_to("Death")
 	else:
 		$Sprite.get_material().set("shader_param/flashState", 1.0)
@@ -45,7 +48,6 @@ func _on_PlayerDetector_body_entered(body):
 		target = body
 		state_machine.state.activate()
 		player_detector_collision.set_deferred("disabled", true)
-
 
 func on_hit_something(something):
 	if something is Player && health > 0:

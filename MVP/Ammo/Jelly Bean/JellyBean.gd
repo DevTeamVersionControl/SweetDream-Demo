@@ -39,16 +39,6 @@ func launch(direction, _strength):
 #		velocity = Vector2(cos(deg2rad(180 - THROW_ANGLE)),sin(deg2rad(180 - THROW_ANGLE))) * THROW_velocity
 	velocity = direction * THROW_velocity
 	#get_parent().motion += -velocity.normalized() * player_knockback
-
-func _on_Area2D_body_entered(body):
-	if body.is_in_group("destructable"):
-		body.disappear()
-	if body.is_in_group("enemy"):
-		body.take_damage(GlobalVars.get_ammo("Jelly Bean").damage, (body.global_position - global_position).normalized() * enemy_knockback)
-	if body.is_in_group("player"):
-		body.state_machine.transition_to("knockback", {0:(body.bullet_center.global_position - global_position).normalized() * player_explosion_knockback})
-	if body.is_in_group("movable"):
-		body.apply_central_impulse((body.global_position - global_position).normalized() * player_explosion_knockback * 100)
-
+	
 func shake():
 	get_tree().current_scene.shaker.start(0.2, 20, 2)

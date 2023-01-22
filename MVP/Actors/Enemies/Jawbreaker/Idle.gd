@@ -20,9 +20,16 @@ extends JawbreakerState
 func enter(_msg := {}) -> void:
 	if jawbreaker.target != null && jawbreaker.health > 0:
 		activate()
+	else:
+		if !jawbreaker.facing_right:
+			jawbreaker.facing_right = true
+			turn_around()
 
 func activate():
 	if jawbreaker.facing_right == (jawbreaker.target.global_position.x - jawbreaker.global_position.x < 0):
-		jawbreaker.facing_right = false if jawbreaker.target.global_position.x - jawbreaker.global_position.x < 0 else true
-		jawbreaker.scale.x = -1
+		turn_around()
 	state_machine.transition_to("WindUp")
+
+func turn_around():
+	jawbreaker.facing_right = !jawbreaker.facing_right
+	jawbreaker.scale.x = -1

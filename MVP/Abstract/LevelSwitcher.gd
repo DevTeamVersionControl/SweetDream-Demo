@@ -24,7 +24,7 @@ onready var level_transition = gui.color_rect
 onready var hud = $HUD
 onready var shaker = $Shaker
 
-export var first_level = preload("res://Levels/FirstLevel.tscn")
+export var first_level = preload("res://Levels/Jawbreaker Boss Room/JawbreakerRoom.tscn")#"res://Levels/FirstLevel.tscn")
 
 var current_level : Node2D
 var next_level : PackedScene

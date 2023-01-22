@@ -49,6 +49,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Actors/Enemies/Jawbreaker/Jawbreaker.gd"
 }, {
+"base": "KinematicBody2D",
+"class": "JawbreakerBoss",
+"language": "GDScript",
+"path": "res://Actors/Enemies/Bosses/Jaw Breaker/JawbreakerBoss.gd"
+}, {
+"base": "State",
+"class": "JawbreakerBossState",
+"language": "GDScript",
+"path": "res://Actors/Enemies/Bosses/Jaw Breaker/JawbreakerBossState.gd"
+}, {
 "base": "State",
 "class": "JawbreakerState",
 "language": "GDScript",
@@ -108,6 +118,8 @@ _global_script_class_icons={
 "Heart": "",
 "HeartState": "",
 "Jawbreaker": "",
+"JawbreakerBoss": "",
+"JawbreakerBossState": "",
 "JawbreakerState": "",
 "JelloEnemy": "",
 "JelloEnemyState": "",

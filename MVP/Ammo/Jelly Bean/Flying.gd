@@ -37,4 +37,14 @@ func _on_inpact(normal):
 		jelly_bean.velocity = Vector2.ZERO
 
 func _on_ExplosionTimer_timeout():
-	state_machine.transition_to("Exploding")
+	if state_machine.state.name != "Exploding":
+		state_machine.transition_to("Exploding")
+
+
+func _on_Impact_body_entered(body):
+	if state_machine.state.name != "Exploding":
+		if body.is_in_group("destructable"):
+			state_machine.transition_to("Exploding")
+		if body.is_in_group("enemy"):
+			print("detected enemy")
+			state_machine.transition_to("Exploding")

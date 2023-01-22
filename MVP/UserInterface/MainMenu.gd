@@ -12,9 +12,6 @@ func _ready():
 		item_list.set_item_tooltip_enabled(i,false)
 	item_list.set_focus_mode(Control.FOCUS_NONE)
 	item_list.select(index)
-	
-#	item_list.select(0)
-#	item_list.grab_focus()
 
 func _unhandled_input(event):
 	if input_menu.visible:
@@ -53,9 +50,13 @@ func load_saves():
 			item_list.add_item("Save" + String(i+1))
 		else:
 			item_list.add_item("New Game")
+	index = 0
+	item_list.select(index)
 
 func load_menu():
 	item_list.clear()
 	item_list.add_item("Play")
 	item_list.add_item("Settings")
 	item_list.add_item("Exit")
+	index = 0
+	item_list.select(index)
