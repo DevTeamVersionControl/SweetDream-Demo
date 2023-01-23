@@ -15,7 +15,7 @@
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 extends JawbreakerState
 
-#Handles turning around
+#Handles death
 
 func enter(_msg := {}) -> void:
 	jawbreaker.get_node("CollisionShape2D").set_deferred("disabled", true)

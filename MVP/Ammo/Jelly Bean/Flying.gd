@@ -46,5 +46,4 @@ func _on_Impact_body_entered(body):
 		if body.is_in_group("destructable"):
 			state_machine.transition_to("Exploding")
 		if body.is_in_group("enemy"):
-			print("detected enemy")
 			state_machine.transition_to("Exploding")

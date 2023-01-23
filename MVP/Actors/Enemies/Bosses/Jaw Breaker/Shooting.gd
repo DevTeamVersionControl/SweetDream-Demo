@@ -15,20 +15,27 @@
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 extends JawbreakerBossState
 
-#Handles winding up
-const DASH_SPEED = 300
+const PROJECTILE = preload("res://Actors/Enemies/Bosses/Jaw Breaker/JawbreakerBossProjectile.tscn")
+const SPEED = 400
+const HEIGHTS = [-50, 0, 50]
 
 func enter(_msg := {}) -> void:
 	if jawbreaker_boss.health > 0:
-		jawbreaker_boss.animation_player.play("ChargeStart")
-	yield(jawbreaker_boss.animation_player, "animation_finished")
-	if jawbreaker_boss.health > 0:
-		state_machine.transition_to("Charge")
+		jawbreaker_boss.animation_player.play("Idle")
+		for i in 5:
+			shoot()
+			yield(get_tree().create_timer(0.6), "timeout")
+		yield(get_tree().create_timer(1), "timeout")
+		state_machine.transition_to("WindUp")
 
 func physics_update(_delta: float) -> void:
 	jawbreaker_boss.motion.y += jawbreaker_boss.gravity
 	jawbreaker_boss.motion = jawbreaker_boss.move_and_slide(jawbreaker_boss.motion)
 
-func charge():
-	var tween = get_tree().create_tween()
-	tween.tween_property(jawbreaker_boss, "motion", Vector2(DASH_SPEED if jawbreaker_boss.facing_right else -DASH_SPEED,0), 3.0/24.0)
+func shoot():
+	var projectile = PROJECTILE.instance()
+	projectile.motion = Vector2.RIGHT if jawbreaker_boss.facing_right else Vector2.LEFT
+	projectile.motion *= SPEED
+	get_tree().current_scene.current_level.add_child(projectile)
+	projectile.global_position = jawbreaker_boss.sprite.global_position + projectile.motion.normalized() * 100
+	projectile.global_position.y += HEIGHTS[randi()%HEIGHTS.size()]

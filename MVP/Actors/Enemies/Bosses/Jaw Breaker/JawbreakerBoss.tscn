@@ -1,8 +1,9 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://Actors/Enemies/Bosses/Jaw Breaker/Idle/Idle720p.png" type="Texture" id=1]
 [ext_resource path="res://Actors/Enemies/Bosses/Jaw Breaker/Death/Death720p.png" type="Texture" id=2]
 [ext_resource path="res://Actors/Enemies/Bosses/Jaw Breaker/Down/Down720p_n.png" type="Texture" id=3]
+[ext_resource path="res://Actors/Enemies/Bosses/Jaw Breaker/Death.gd" type="Script" id=4]
 [ext_resource path="res://Actors/Enemies/Bosses/Jaw Breaker/Idle/Idle720p_n.png" type="Texture" id=5]
 [ext_resource path="res://Actors/Enemies/Bosses/Jaw Breaker/Up/Up720p.png" type="Texture" id=6]
 [ext_resource path="res://Actors/Enemies/Bosses/Jaw Breaker/Down/Down720p.png" type="Texture" id=7]
@@ -20,6 +21,7 @@
 [ext_resource path="res://Actors/Enemies/Bosses/Jaw Breaker/WindUp.gd" type="Script" id=19]
 [ext_resource path="res://Actors/Enemies/Bosses/Jaw Breaker/WindDown.gd" type="Script" id=20]
 [ext_resource path="res://Actors/Enemies/Bosses/Jaw Breaker/Idle.gd" type="Script" id=21]
+[ext_resource path="res://Actors/Enemies/Bosses/Jaw Breaker/Shooting.gd" type="Script" id=22]
 
 [sub_resource type="Shader" id=7]
 code = "shader_type canvas_item;
@@ -472,17 +474,17 @@ tracks/6/keys = {
 "values": [ Vector2( 342, 178 ), Vector2( 337, 323 ) ]
 }
 tracks/7/type = "method"
-tracks/7/path = NodePath(".")
+tracks/7/path = NodePath("StateMachine/Death")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/imported = false
 tracks/7/enabled = true
 tracks/7/keys = {
-"times": PoolRealArray( 1.25 ),
+"times": PoolRealArray( 0.25 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [  ],
-"method": "queue_free"
+"method": "shake"
 } ]
 }
 
@@ -841,6 +843,8 @@ tracks/6/keys = {
 "values": [ 4 ]
 }
 
+[sub_resource type="RectangleShape2D" id=12]
+
 [node name="JawbreakerBoss" type="KinematicBody2D" groups=["enemy"]]
 collision_layer = 2
 collision_mask = 2
@@ -888,11 +892,27 @@ script = ExtResource( 20 )
 [node name="Idle" type="Node" parent="StateMachine"]
 script = ExtResource( 21 )
 
+[node name="Death" type="Node" parent="StateMachine"]
+script = ExtResource( 4 )
+
+[node name="Shooting" type="Node" parent="StateMachine"]
+script = ExtResource( 22 )
+
 [node name="BodyCollisionZone" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BodyCollisionZone"]
 position = Vector2( 343, 179 )
 shape = SubResource( 1 )
+
+[node name="WallSensor" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallSensor"]
+position = Vector2( 407, 177 )
+shape = SubResource( 12 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="WallSensor"]
+position = Vector2( 278, 176 )
+shape = SubResource( 12 )
 
 [connection signal="timeout" from="StateMachine/Charge/ChargeLengthTimer" to="StateMachine/Charge" method="on_dash_end"]
 [connection signal="body_entered" from="BodyCollisionZone" to="." method="on_hit_something"]

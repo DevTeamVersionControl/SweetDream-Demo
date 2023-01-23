@@ -23,13 +23,14 @@ const BASE_DAMAGE = 10
 
 var motion := Vector2.ZERO
 var facing_right := true
-var health := 100
+var health := 10
 var gravity := 10
 var phase = PHASE.FIRST
 
 onready var animation_player := $AnimationPlayer
 onready var state_machine := $StateMachine
 onready var sprite := $Sprite
+onready var wall_sensor := $BodyCollisionZone
 
 func take_damage(damage, knockback):
 	health -= damage
@@ -47,6 +48,8 @@ func on_hit_something(something):
 			something.take_damage(CHARGE_DAMAGE, motion)
 		else:
 			something.take_damage(BASE_DAMAGE, Vector2.ZERO)
+	if something.is_in_group("destructable"):
+		something.disappear()
 
 #Starts the second phase
 func _on_EnemyCounter_on():

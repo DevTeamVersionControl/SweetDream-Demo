@@ -1,0 +1,128 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://Environment/Blocks/Forest/Platforms/Breaking Platform/Normal/Normal 720p.png" type="Texture" id=1]
+[ext_resource path="res://Environment/Blocks/Forest/Platforms/Breaking Platform/BreakablePlatform.gd" type="Script" id=2]
+[ext_resource path="res://Environment/Blocks/Forest/Platforms/Breaking Platform/Break 2/Break 2 720p.png" type="Texture" id=3]
+[ext_resource path="res://Environment/Blocks/Forest/Platforms/Breaking Platform/Break 1/Break 1 720p_n.png" type="Texture" id=4]
+[ext_resource path="res://Environment/Blocks/Forest/Platforms/Breaking Platform/Break 1/Break 1 720p.png" type="Texture" id=5]
+[ext_resource path="res://Environment/Blocks/Forest/Platforms/Breaking Platform/Normal/Normal 720p_n.png" type="Texture" id=6]
+[ext_resource path="res://Environment/Blocks/Forest/Platforms/Breaking Platform/Break 2/Break 2 720p_n.png" type="Texture" id=7]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 180, 16 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 178.5, 13 )
+
+[sub_resource type="Animation" id=3]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ ExtResource( 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:normal_map")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ ExtResource( 6 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sprite:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "break"
+length = 0.375
+step = 0.0416667
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.125, 0.25 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 1 ), ExtResource( 5 ), ExtResource( 3 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:normal_map")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.125, 0.25 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 6 ), ExtResource( 4 ), ExtResource( 7 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sprite:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.375 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[node name="BreakablePlatformMedium" type="StaticBody2D" groups=["destructable"]]
+collision_layer = 15
+collision_mask = 15
+script = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+normal_map = ExtResource( 6 )
+vframes = 3
+frame = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 2, -4 )
+shape = SubResource( 1 )
+one_way_collision = true
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( 2.5, -9 )
+shape = SubResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 3 )
+anims/break = SubResource( 4 )
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]

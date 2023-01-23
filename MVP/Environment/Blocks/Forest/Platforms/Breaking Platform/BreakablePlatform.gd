@@ -5,8 +5,7 @@ var should_reappear:= false
 
 func disappear():
 	visible = false
-	set_collision_layer_bit(0, false)
-	set_collision_layer_bit(1, false)
+	$CollisionShape2D.set_deferred("disabled", true)
 	$Timer.start()
 
 func _on_Timer_timeout():
@@ -17,8 +16,7 @@ func _on_Timer_timeout():
 
 func reappear():
 	visible = true
-	set_collision_layer_bit(0, true)
-	set_collision_layer_bit(1, true)
+	$CollisionShape2D.set_deferred("disabled", false)
 	should_reappear = true
 
 func _on_Area2D_body_entered(body):

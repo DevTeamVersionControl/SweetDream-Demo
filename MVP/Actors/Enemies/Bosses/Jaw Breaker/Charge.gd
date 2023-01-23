@@ -16,7 +16,7 @@
 extends JawbreakerBossState
 
 #Handles charging
-const DASH_TIME = 1
+const DASH_TIME = 2
 
 onready var charge_length_timer := $ChargeLengthTimer
 
@@ -26,9 +26,12 @@ func enter(_msg := {}) -> void:
 		charge_length_timer.start(DASH_TIME)
 
 func physics_update(_delta: float) -> void:
+	for body in jawbreaker_boss.wall_sensor.get_overlapping_areas():
+		if body.is_in_group("wall") && state_machine.state.name == "Charge":
+			state_machine.transition_to("WindDown")
 	jawbreaker_boss.motion.y += jawbreaker_boss.gravity
 	jawbreaker_boss.motion = jawbreaker_boss.move_and_slide(jawbreaker_boss.motion)
 
 func on_dash_end():
-	if jawbreaker_boss.health > 0:
+	if jawbreaker_boss.health > 0 && state_machine.state.name == "Charge":
 		state_machine.transition_to("WindDown")

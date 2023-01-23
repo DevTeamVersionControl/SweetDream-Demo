@@ -15,20 +15,11 @@
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 extends JawbreakerBossState
 
-#Handles winding up
-const DASH_SPEED = 300
-
 func enter(_msg := {}) -> void:
-	if jawbreaker_boss.health > 0:
-		jawbreaker_boss.animation_player.play("ChargeStart")
+	jawbreaker_boss.get_node("CollisionShape2D").set_deferred("disabled", true)
+	jawbreaker_boss.animation_player.play("Death")
 	yield(jawbreaker_boss.animation_player, "animation_finished")
-	if jawbreaker_boss.health > 0:
-		state_machine.transition_to("Charge")
+	jawbreaker_boss.queue_free()
 
-func physics_update(_delta: float) -> void:
-	jawbreaker_boss.motion.y += jawbreaker_boss.gravity
-	jawbreaker_boss.motion = jawbreaker_boss.move_and_slide(jawbreaker_boss.motion)
-
-func charge():
-	var tween = get_tree().create_tween()
-	tween.tween_property(jawbreaker_boss, "motion", Vector2(DASH_SPEED if jawbreaker_boss.facing_right else -DASH_SPEED,0), 3.0/24.0)
+func shake():
+	get_tree().current_scene.shaker.start(1, 15, 20)
