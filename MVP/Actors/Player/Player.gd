@@ -26,7 +26,7 @@ const GRAVITY = 1200
 const JUMP_IMPULSE = 300
 const JUMP_ACCEL = 600
 const DECELERATION = 0.1
-const ACCELERATION = 10
+const ACCELERATION = 50
 const HEAL_FROM_CANDY = 20
 
 var velocity = Vector2.ZERO

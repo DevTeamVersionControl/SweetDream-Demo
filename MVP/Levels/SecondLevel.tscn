@@ -1894,4 +1894,4 @@ scale = Vector2( 0.449219, 3.7207 )
 texture = ExtResource( 20 )
 
 [node name="Heart" parent="." instance=ExtResource( 23 )]
-position = Vector2( 611, 131 )
+position = Vector2( 610, 129 )

@@ -48,5 +48,5 @@ func _on_Area2D_body_entered(body):
 		_on_Timer_timeout()
 
 func _on_Timer_timeout():
-	animation_player.play("Pop")
+	animation_player.play("Pop", -1, 2, false)
 	locked = true

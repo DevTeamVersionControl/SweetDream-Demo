@@ -44,7 +44,7 @@ func take_damage(damage, knockback):
 		$Sprite.get_material().set("shader_param/flashState", 0.0)
 
 func _on_PlayerDetector_body_entered(body):
-	if body.is_in_group("player"):
+	if body.is_in_group("player") && state_machine.state.name == "Idle":
 		target = body
 		state_machine.state.activate()
 		player_detector_collision.set_deferred("disabled", true)

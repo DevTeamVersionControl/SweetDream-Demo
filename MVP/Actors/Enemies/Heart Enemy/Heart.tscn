@@ -817,7 +817,7 @@ radius = 209.002
 radius = 23.3333
 
 [node name="Heart" type="KinematicBody2D" groups=["enemy"]]
-scale = Vector2( 0.3, 0.3 )
+scale = Vector2( 0.7, 0.7 )
 collision_layer = 2
 collision_mask = 2
 script = ExtResource( 1 )
@@ -864,6 +864,7 @@ hframes = 4
 vframes = 4
 
 [node name="AttackWave" type="Sprite" parent="."]
+position = Vector2( 0, 17.1429 )
 scale = Vector2( 0.15, 0.15 )
 texture = ExtResource( 3 )
 hframes = 5
@@ -871,7 +872,7 @@ vframes = 4
 frame = 17
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, 86.6667 )
+position = Vector2( 0, 54.2857 )
 shape = SubResource( 1 )
 
 [node name="Wave" type="Area2D" parent="."]
@@ -889,6 +890,7 @@ shape = SubResource( 11 )
 disabled = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Wave"]
+position = Vector2( 0, 17.1429 )
 polygon = PoolVector2Array( -35, 18, -25, 8, -18, 17, 18, 16, 25, 10, 31, 15, 19, 17, -18, 18 )
 disabled = true
 

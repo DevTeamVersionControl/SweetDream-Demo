@@ -1254,7 +1254,7 @@ enemies = [ NodePath("../JawbreakerEnemy4"), NodePath("../JawbreakerEnemy6"), No
 position = Vector2( 249, 361 )
 
 [node name="JawbreakerEnemy6" parent="." instance=ExtResource( 12 )]
-position = Vector2( 449, 364 )
+position = Vector2( 449, 360 )
 
 [node name="JawbreakerEnemy7" parent="." instance=ExtResource( 12 )]
 position = Vector2( 622, 361 )
@@ -1266,15 +1266,7 @@ position = Vector2( 64, 364 )
 
 [node name="BreakablePlatformMedium" parent="." instance=ExtResource( 14 )]
 position = Vector2( 342, 320 )
-scale = Vector2( 0.2, 0.2 )
-
-[node name="BreakablePlatformMedium2" parent="." instance=ExtResource( 14 )]
-position = Vector2( 153, 320 )
-scale = Vector2( 0.2, 0.2 )
-
-[node name="BreakablePlatformMedium3" parent="." instance=ExtResource( 14 )]
-position = Vector2( 544, 320 )
-scale = Vector2( 0.2, 0.2 )
+scale = Vector2( 0.3, 0.2 )
 
 [node name="Wall" type="Area2D" parent="." groups=["wall"]]
 

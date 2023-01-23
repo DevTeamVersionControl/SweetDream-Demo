@@ -29,6 +29,9 @@ uniform float second_shrink_speed : hint_range(0.0, 120.0) = 0.0;
 //---------------Color Override
 uniform vec4 before_light_modulate : hint_color = vec4(1.0,1.0,1.0,1.0);
 
+uniform vec4 line_color : hint_color = vec4(1);
+uniform float line_thickness : hint_range(0, 10) = 1.0;
+
 void fragment() {
 	vec4 texture_color = texture(TEXTURE, UV);
 	if (AT_LIGHT_PASS) {
@@ -38,6 +41,22 @@ void fragment() {
 	}
 	COLOR = mix(COLOR, flashColor, flashState);
 	COLOR.a *= texture_color.a;
+	
+	// Black outline shader
+	vec2 size = TEXTURE_PIXEL_SIZE * line_thickness;
+	
+	float outline = texture(TEXTURE, UV + vec2(-size.x, 0)).a;
+	outline += texture(TEXTURE, UV + vec2(0, size.y)).a;
+	outline += texture(TEXTURE, UV + vec2(size.x, 0)).a;
+	outline += texture(TEXTURE, UV + vec2(0, -size.y)).a;
+	outline += texture(TEXTURE, UV + vec2(-size.x, size.y)).a;
+	outline += texture(TEXTURE, UV + vec2(size.x, size.y)).a;
+	outline += texture(TEXTURE, UV + vec2(-size.x, -size.y)).a;
+	outline += texture(TEXTURE, UV + vec2(size.x, -size.y)).a;
+	outline = min(outline, 1.0);
+	
+	vec4 color = texture(TEXTURE, UV);
+	COLOR = mix(color, line_color, outline - color.a);
 }
 float light_calc(float light_strength, float would_be_strength) {
 	float target_strength = light_strength + would_be_strength * obj_light_add;

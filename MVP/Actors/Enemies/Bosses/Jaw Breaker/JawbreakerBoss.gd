@@ -23,7 +23,7 @@ const BASE_DAMAGE = 10
 
 var motion := Vector2.ZERO
 var facing_right := true
-var health := 10
+var health := 50
 var gravity := 10
 var phase = PHASE.FIRST
 
