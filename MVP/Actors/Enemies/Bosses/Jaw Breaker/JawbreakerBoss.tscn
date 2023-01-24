@@ -173,7 +173,7 @@ shader_param/second_shrink_speed = 0.0
 shader_param/before_light_modulate = Color( 1, 1, 1, 1 )
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 55.0
+radius = 55.1453
 
 [sub_resource type="Animation" id=9]
 resource_name = "Charge"

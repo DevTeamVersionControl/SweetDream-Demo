@@ -19,6 +19,7 @@ extends JawbreakerBossState
 var touching_wall = false
 
 func enter(_msg := {}) -> void:
+	jawbreaker_boss.animation_player.play("Idle")
 	if jawbreaker_boss.health > 0 && jawbreaker_boss.phase == jawbreaker_boss.PHASE.SECOND:
 		touching_wall = false
 		for body in jawbreaker_boss.wall_sensor.get_overlapping_areas():

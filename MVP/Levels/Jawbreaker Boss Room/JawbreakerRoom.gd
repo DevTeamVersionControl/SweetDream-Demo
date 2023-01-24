@@ -20,4 +20,4 @@ export var level_range_y : Vector2
 
 func _ready():
 	yield(get_tree().current_scene, "level_loaded")
-	$Camera2D.current = true
+	#$Camera2D.current = true

@@ -27,12 +27,18 @@ var dialog
 var phrase_num = 0
 var finished = false
 
-func _process(_delta):
-	if Input.is_action_just_pressed("ui_accept"):
-		if finished:
+#func _process(_delta):
+#	if Input.is_action_just_pressed("ui_accept"):
+#		if finished:
+#			next_phrase()
+#		else:
+#			text.visible_characters = len(text.text)
+
+func input():
+	if finished:
 			next_phrase()
-		else:
-			text.visible_characters = len(text.text)
+	else:
+		text.visible_characters = len(text.text)
 
 func show():
 	visible = true

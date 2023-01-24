@@ -26,6 +26,8 @@ var pause_requests := 0
 func _unhandled_input(event):
 	if shop.visible:
 		shop.input()
+	elif dialog.visible:
+		dialog.input()
 	elif input_menu.visible:
 		input_menu.input(event)
 	else:
