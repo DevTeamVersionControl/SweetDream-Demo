@@ -55,3 +55,8 @@ func on_hit_something(something):
 			something.take_damage(CHARGE_DAMAGE, motion)
 		else:
 			something.take_damage(BASE_DAMAGE, Vector2.ZERO)
+
+func _on_WallDetector_body_entered(body):
+	if body.is_in_group("floor"):
+		if state_machine.state.name == "Charge":
+			state_machine.state.stun()

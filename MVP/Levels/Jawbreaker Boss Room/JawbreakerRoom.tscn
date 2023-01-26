@@ -1212,7 +1212,7 @@ level_range_y = Vector2( 0, 380 )
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2( 0.9, 1 )
-motion_offset = Vector2( -100, 0 )
+motion_offset = Vector2( -30, 0 )
 
 [node name="UndergroundBackground" parent="ParallaxBackground/ParallaxLayer" instance=ExtResource( 10 )]
 scale = Vector2( 0.07, 0.07 )

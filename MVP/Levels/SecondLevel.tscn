@@ -1,4 +1,4 @@
-[gd_scene load_steps=131 format=2]
+[gd_scene load_steps=130 format=2]
 
 [ext_resource path="res://Environment/Blocks/Forest/TileSets/Tile Pack/Grass Tile Pack/Grass Tile Pack 333p.png" type="Texture" id=1]
 [ext_resource path="res://Abstract/GenericDoor/GenericDoor.tscn" type="PackedScene" id=2]
@@ -21,7 +21,6 @@
 [ext_resource path="res://Environment/Light/light.png" type="Texture" id=20]
 [ext_resource path="res://Environment/Backgrounds/Forest Backgrounds/Main Background/Trees/Tiny Trees/Tiny Tree 720p.png" type="Texture" id=21]
 [ext_resource path="res://Environment/Backgrounds/Forest Backgrounds/Main Background/Trees/Tiny Trees/Tiny Tree 720p_n.png" type="Texture" id=22]
-[ext_resource path="res://Actors/Enemies/Heart Enemy/Heart.tscn" type="PackedScene" id=23]
 [ext_resource path="res://Environment/Backgrounds/Forest Backgrounds/Main Background/Scatter Terrain/MintScatter.tscn" type="PackedScene" id=24]
 
 [sub_resource type="CanvasItemMaterial" id=198]
@@ -1850,7 +1849,7 @@ position = Vector2( 33, 138 )
 target_scene = "res://Levels/FirstLevel.tscn"
 
 [node name="JawbreakerEnemy" parent="." instance=ExtResource( 17 )]
-position = Vector2( 1378, 324 )
+position = Vector2( 982, 119 )
 
 [node name="GodRays" type="Sprite" parent="."]
 material = ExtResource( 19 )
@@ -1882,6 +1881,3 @@ polygon = PoolVector2Array( -575.714, -286, -581.429, 146, -557.143, 402, 371.42
 position = Vector2( 3457, -270 )
 scale = Vector2( 0.557496, 7.99062 )
 texture = ExtResource( 20 )
-
-[node name="Heart" parent="." instance=ExtResource( 23 )]
-position = Vector2( 671, 336 )

@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://Actors/Enemies/Jawbreaker/Jawbreaker.gd" type="Script" id=1]
 [ext_resource path="res://Actors/Enemies/Jawbreaker/Jaw Breaker Wind Up/Jaw Breaker Wind Up720p.png" type="Texture" id=2]
@@ -648,6 +648,9 @@ tracks/8/keys = {
 [sub_resource type="CircleShape2D" id=14]
 radius = 16.0
 
+[sub_resource type="RectangleShape2D" id=17]
+extents = Vector2( 4.5, 7 )
+
 [node name="JawbreakerEnemy" type="KinematicBody2D" groups=["enemy"]]
 material = SubResource( 16 )
 collision_layer = 2
@@ -713,6 +716,17 @@ position = Vector2( 51, -38 )
 texture = ExtResource( 17 )
 energy = 0.7
 
+[node name="WallDetector" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallDetector"]
+position = Vector2( -17, 0 )
+shape = SubResource( 17 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="WallDetector"]
+position = Vector2( 17, 0 )
+shape = SubResource( 17 )
+
 [connection signal="body_entered" from="PlayerDetector" to="." method="_on_PlayerDetector_body_entered"]
 [connection signal="timeout" from="StateMachine/Charge/ChargeLengthTimer" to="StateMachine/Charge" method="on_dash_end"]
 [connection signal="body_entered" from="BodyHitZone" to="." method="on_hit_something"]
+[connection signal="body_entered" from="WallDetector" to="." method="_on_WallDetector_body_entered"]

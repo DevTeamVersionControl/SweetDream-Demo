@@ -50,8 +50,8 @@ color = Color( 0.776471, 0.596078, 0.835294, 1 )
 [node name="ColorRect2" type="ColorRect" parent="."]
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -1590.0
-margin_right = -1403.0
+margin_left = -1531.0
+margin_right = -1344.0
 margin_bottom = 54.0
 color = Color( 0.776471, 0.596078, 0.835294, 1 )
 
@@ -70,10 +70,10 @@ text = "Candy Corn"
 self_modulate = Color( 0, 0, 0, 1 )
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -1578.0
-margin_top = 8.0
-margin_right = -1355.0
-margin_bottom = 60.0
+margin_left = -1528.0
+margin_top = 7.0
+margin_right = -1305.0
+margin_bottom = 59.0
 theme = SubResource( 5 )
 text = "Candy:"
 

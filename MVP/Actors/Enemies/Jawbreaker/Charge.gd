@@ -32,3 +32,7 @@ func physics_update(_delta: float) -> void:
 func on_dash_end():
 	if jawbreaker.get_node_or_null("StateMachine/Death") != null:
 		state_machine.transition_to("WindDown")
+
+func stun():
+	jawbreaker.motion.x *= -1
+	jawbreaker.animation_player.play("Idle") 

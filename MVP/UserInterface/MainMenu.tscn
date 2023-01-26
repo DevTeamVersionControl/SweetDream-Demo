@@ -36,10 +36,8 @@ anchor_bottom = 1.0
 script = ExtResource( 2 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
-anchor_top = 1.0
+anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -1080.0
-margin_right = 1980.0
 color = Color( 0.160784, 0.0901961, 0.239216, 1 )
 
 [node name="Label" type="Label" parent="."]
