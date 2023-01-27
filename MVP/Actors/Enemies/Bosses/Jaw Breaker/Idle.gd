@@ -18,15 +18,17 @@ extends JawbreakerBossState
 #Handles turning around
 var touching_wall = false
 
-func enter(_msg := {}) -> void:
+func enter(msg := {}) -> void:
 	jawbreaker_boss.animation_player.play("Idle")
 	if jawbreaker_boss.health > 0 && jawbreaker_boss.phase == jawbreaker_boss.PHASE.SECOND:
 		touching_wall = false
 		for body in jawbreaker_boss.wall_sensor.get_overlapping_areas():
-			print(body.name)
 			if body.is_in_group("wall"):
 				touching_wall = true
 		activate()
+		if msg.has("initial_charge"):
+			jawbreaker_boss.facing_right = !jawbreaker_boss.facing_right
+			jawbreaker_boss.sprite.flip_h = !jawbreaker_boss.facing_right
 
 func activate():
 	if jawbreaker_boss.facing_right == (get_tree().current_scene.player.global_position.x - jawbreaker_boss.sprite.global_position.x < 0):

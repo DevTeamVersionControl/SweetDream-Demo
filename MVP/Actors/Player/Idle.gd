@@ -22,10 +22,14 @@ func enter(_msg := {}) -> void:
 	player.animation_mode.travel("Idle")
 	player.camera_arm.position.x = 127 if player.facing_right else -127
 
-func physics_update(_delta: float) -> void:
+func physics_update(delta: float) -> void:
 	if not player.is_on_floor():
 		state_machine.transition_to("Air")
 		return
+	
+	player.velocity.y += player.GRAVITY * delta
+	player.velocity.x = 0
+	player.velocity = player.move_and_slide(player.velocity, Vector2.UP)
 	
 	if Input.is_action_pressed("crouch"):
 		state_machine.transition_to("Crouched")

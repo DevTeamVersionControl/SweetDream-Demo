@@ -56,4 +56,4 @@ func _on_EnemyCounter_on():
 	animation_player.play("Down")
 	yield(animation_player,"animation_finished")
 	phase = PHASE.SECOND
-	state_machine.transition_to("Idle")
+	state_machine.transition_to("Idle", {initial_charge = true})
