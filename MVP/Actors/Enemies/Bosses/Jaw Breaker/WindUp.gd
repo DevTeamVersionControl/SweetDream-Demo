@@ -19,11 +19,9 @@ extends JawbreakerBossState
 const DASH_SPEED = 300
 
 func enter(_msg := {}) -> void:
-	if jawbreaker_boss.health > 0:
-		jawbreaker_boss.animation_player.play("ChargeStart")
+	jawbreaker_boss.animation_player.play("ChargeStart")
 	yield(jawbreaker_boss.animation_player, "animation_finished")
-	if jawbreaker_boss.health > 0:
-		state_machine.transition_to("Charge")
+	state_machine.transition_to("Charge")
 
 func physics_update(_delta: float) -> void:
 	jawbreaker_boss.motion.y += jawbreaker_boss.gravity

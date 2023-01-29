@@ -21,9 +21,8 @@ const DASH_TIME = 2
 onready var charge_length_timer := $ChargeLengthTimer
 
 func enter(_msg := {}) -> void:
-	if jawbreaker_boss.health > 0:
-		jawbreaker_boss.animation_player.play("Charge")
-		charge_length_timer.start(DASH_TIME)
+	jawbreaker_boss.animation_player.play("Charge")
+	charge_length_timer.start(DASH_TIME)
 
 func physics_update(_delta: float) -> void:
 	for body in jawbreaker_boss.wall_sensor.get_overlapping_areas():

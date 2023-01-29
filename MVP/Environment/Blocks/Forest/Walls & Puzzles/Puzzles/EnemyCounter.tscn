@@ -11,9 +11,14 @@ var on := false
 var num : int
 
 func _ready():
+	start(enemies)
+
+func start(new_enemies:Array):
+	enemies = new_enemies
 	for enemy in enemies:
 		get_node(enemy).connect(\"died\", self, \"on_enemy_died\")
 	num = enemies.size()
+	on = false
 
 func on_enemy_died():
 	num = num-1

@@ -18,13 +18,11 @@ extends JawbreakerBossState
 #Handles turning around
 
 func enter(_msg := {}) -> void:
-	if jawbreaker_boss.health > 0:
-		jawbreaker_boss.animation_player.play("ChargeEnd")
-		var tween = get_tree().create_tween()
-		tween.tween_property(jawbreaker_boss, "motion", Vector2(0,0), 0.5)
+	jawbreaker_boss.animation_player.play("ChargeEnd")
+	var tween = get_tree().create_tween()
+	tween.tween_property(jawbreaker_boss, "motion", Vector2(0,0), 0.5)
 	yield(jawbreaker_boss.animation_player, "animation_finished")
-	if jawbreaker_boss.health > 0:
-		state_machine.transition_to("Idle")
+	state_machine.transition_to("Idle")
 
 func physics_update(_delta: float) -> void:
 	jawbreaker_boss.motion.y += jawbreaker_boss.gravity

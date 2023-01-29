@@ -26,8 +26,11 @@ func enter(_msg := {}) -> void:
 			turn_around()
 
 func activate():
-	if jawbreaker.facing_right == (jawbreaker.target.global_position.x - jawbreaker.global_position.x < 0):
-		turn_around()
+	if jawbreaker == null:
+		yield(get_parent(), "ready")
+	if jawbreaker.health > 0:
+		if jawbreaker.facing_right == (jawbreaker.target.global_position.x - jawbreaker.global_position.x < 0):
+			turn_around()
 	state_machine.transition_to("WindUp")
 
 func turn_around():

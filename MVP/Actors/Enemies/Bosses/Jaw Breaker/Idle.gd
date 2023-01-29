@@ -20,7 +20,7 @@ var touching_wall = false
 
 func enter(msg := {}) -> void:
 	jawbreaker_boss.animation_player.play("Idle")
-	if jawbreaker_boss.health > 0 && jawbreaker_boss.phase == jawbreaker_boss.PHASE.SECOND:
+	if jawbreaker_boss.phase == jawbreaker_boss.PHASE.SECOND:
 		touching_wall = false
 		for body in jawbreaker_boss.wall_sensor.get_overlapping_areas():
 			if body.is_in_group("wall"):
@@ -34,6 +34,9 @@ func activate():
 	if jawbreaker_boss.facing_right == (get_tree().current_scene.player.global_position.x - jawbreaker_boss.sprite.global_position.x < 0):
 		jawbreaker_boss.facing_right = !(get_tree().current_scene.player.global_position.x - jawbreaker_boss.sprite.global_position.x < 0)
 		jawbreaker_boss.sprite.flip_h = !jawbreaker_boss.facing_right
+	if jawbreaker_boss.should_transition == true:
+		state_machine.transition_to("Phase3")
+		return
 	if touching_wall:
 		if state_machine.state.name != "Shooting":
 			state_machine.transition_to("Shooting")

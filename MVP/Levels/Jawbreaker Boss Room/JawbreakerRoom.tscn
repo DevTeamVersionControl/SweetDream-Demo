@@ -1259,15 +1259,12 @@ tile_data = PoolIntArray( -65538, 3, 8, -65537, 3, 262153, -131072, 3, 262154, -
 enemies = [ NodePath("../JawbreakerEnemy4"), NodePath("../JawbreakerEnemy6") ]
 
 [node name="JawbreakerEnemy4" parent="." instance=ExtResource( 12 )]
-position = Vector2( 449, 359 )
+position = Vector2( 617, 360 )
 initial_target_player = true
 
 [node name="JawbreakerEnemy6" parent="." instance=ExtResource( 12 )]
-position = Vector2( 243, 360 )
+position = Vector2( 253, 358 )
 initial_target_player = true
-
-[node name="JawbreakerBoss" parent="." instance=ExtResource( 13 )]
-position = Vector2( 0, -2 )
 
 [node name="BreakablePlatformMedium" parent="." instance=ExtResource( 14 )]
 position = Vector2( 342, 320 )
@@ -1284,5 +1281,7 @@ shape = SubResource( 202 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Wall2" groups=["wall"]]
 position = Vector2( 687, 330 )
 shape = SubResource( 202 )
+
+[node name="JawbreakerBoss" parent="." instance=ExtResource( 13 )]
 
 [connection signal="on" from="EnemyCounter" to="JawbreakerBoss" method="_on_EnemyCounter_on"]

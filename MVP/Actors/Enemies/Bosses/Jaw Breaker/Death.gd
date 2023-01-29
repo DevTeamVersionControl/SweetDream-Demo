@@ -19,6 +19,7 @@ func enter(_msg := {}) -> void:
 	jawbreaker_boss.get_node("CollisionShape2D").set_deferred("disabled", true)
 	jawbreaker_boss.animation_player.play("Death")
 	yield(jawbreaker_boss.animation_player, "animation_finished")
+	print("jawbreaker boss died")
 	jawbreaker_boss.queue_free()
 
 func shake():

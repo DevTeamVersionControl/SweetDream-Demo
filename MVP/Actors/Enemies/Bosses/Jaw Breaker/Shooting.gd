@@ -20,15 +20,21 @@ const SPEED = 400
 const HEIGHTS = [-50, 0, 50]
 
 func enter(_msg := {}) -> void:
-	if jawbreaker_boss.health > 0:
-		jawbreaker_boss.animation_player.play("Idle")
-		for i in 5:
-			shoot()
-			yield(get_tree().create_timer(0.6), "timeout")
-		yield(get_tree().create_timer(1), "timeout")
-		state_machine.transition_to("WindUp")
+	jawbreaker_boss.animation_player.play("Idle")
+	for i in 5:
+		if jawbreaker_boss.should_transition == true:
+			state_machine.transition_to("Phase3")
+			return
+		shoot()
+		yield(get_tree().create_timer(0.6), "timeout")
+	yield(get_tree().create_timer(1), "timeout")
+	if jawbreaker_boss.should_transition == true:
+		state_machine.transition_to("Phase3")
+		return
+	state_machine.transition_to("WindUp")
 
 func physics_update(_delta: float) -> void:
+	jawbreaker_boss.motion.x = 0
 	jawbreaker_boss.motion.y += jawbreaker_boss.gravity
 	jawbreaker_boss.motion = jawbreaker_boss.move_and_slide(jawbreaker_boss.motion)
 

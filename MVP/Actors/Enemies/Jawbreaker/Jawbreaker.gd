@@ -27,7 +27,7 @@ export var initial_target_player : bool
 export var facing_right := true
 export var motion = Vector2()
 export var health = 20
-export var gravity = 200
+export var gravity = 100
 
 onready var animation_player := $AnimationPlayer
 onready var state_machine := $StateMachine
@@ -36,7 +36,8 @@ onready var player_detector_collision := $PlayerDetector/CollisionShape2D
 func _ready():
 	# If the jawbreaker has an initial target, attack it immediately
 	if initial_target_player:
-		yield(get_tree().current_scene, "ready")
+		if get_tree().current_scene.player == null:
+			yield(get_tree().current_scene, "ready")
 		_on_PlayerDetector_body_entered(get_tree().current_scene.player)
 
 func take_damage(damage, knockback):

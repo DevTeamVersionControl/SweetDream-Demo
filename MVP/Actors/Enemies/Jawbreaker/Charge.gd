@@ -35,4 +35,5 @@ func on_dash_end():
 
 func stun():
 	jawbreaker.motion.x *= -1
-	jawbreaker.animation_player.play("Idle") 
+	jawbreaker.animation_player.play("WindUp")
+	jawbreaker.animation_player.stop()

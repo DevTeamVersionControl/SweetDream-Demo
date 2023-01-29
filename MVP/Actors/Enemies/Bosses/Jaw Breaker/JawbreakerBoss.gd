@@ -23,24 +23,29 @@ const BASE_DAMAGE = 10
 
 var motion := Vector2.ZERO
 var facing_right := true
-var health := 50
+var health := 70
 var gravity := 10
 var phase = PHASE.FIRST
+var should_transition := false
 
 onready var animation_player := $AnimationPlayer
 onready var state_machine := $StateMachine
 onready var sprite := $Sprite
 onready var wall_sensor := $BodyCollisionZone
+onready var collision := $CollisionShape2D
+onready var body_hitbox := $BodyCollisionZone/CollisionShape2D
 
 func take_damage(damage, knockback):
-	health -= damage
-	motion += knockback
-	if health <= 0:
-		state_machine.transition_to("Death")
-	else:
-		$Sprite.get_material().set("shader_param/flashState", 1.0)
-		yield(get_tree().create_timer(0.1), "timeout")
-		$Sprite.get_material().set("shader_param/flashState", 0.0)
+	if phase == PHASE.SECOND:
+		health -= damage
+		motion += knockback
+		if health <= 0:
+			# Makes it so the boss doesn't teleport when going to phase 3
+			should_transition = true
+		else:
+			sprite.get_material().set("shader_param/flashState", 1.0)
+			yield(get_tree().create_timer(0.1), "timeout")
+		sprite.get_material().set("shader_param/flashState", 0.0)
 
 func on_hit_something(something):
 	if something is Player && health > 0:
@@ -49,11 +54,14 @@ func on_hit_something(something):
 		else:
 			something.take_damage(BASE_DAMAGE, Vector2.ZERO)
 	if something.is_in_group("destructable"):
-		something.disappear()
+		something.disappear() 
 
 #Starts the second phase
 func _on_EnemyCounter_on():
-	animation_player.play("Down")
-	yield(animation_player,"animation_finished")
-	phase = PHASE.SECOND
-	state_machine.transition_to("Idle", {initial_charge = true})
+	if phase == PHASE.FIRST:
+		animation_player.play("Down")
+		yield(animation_player,"animation_finished")
+		phase = PHASE.SECOND
+		state_machine.transition_to("Idle", {initial_charge = true})
+	elif phase == PHASE.THIRD:
+		state_machine.state.activate()
