@@ -28,6 +28,7 @@ func enter(_msg := {}) -> void:
 func activate():
 	if jawbreaker == null:
 		yield(get_parent(), "ready")
+	jawbreaker.target = get_tree().current_scene.player
 	if jawbreaker.health > 0:
 		if jawbreaker.facing_right == (jawbreaker.target.global_position.x - jawbreaker.global_position.x < 0):
 			turn_around()
