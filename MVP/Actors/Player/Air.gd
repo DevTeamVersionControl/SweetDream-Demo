@@ -110,9 +110,9 @@ func _on_CoyoteTimeTimer_timeout():
 	coyote_time = false
 
 func lock_input(direction : bool):
-	input_locked = true
-	yield(get_tree().create_timer(0.2), "timeout")
-	input_locked = false
+#	input_locked = true
+#	yield(get_tree().create_timer(0.2), "timeout")
+#	input_locked = false
 	player.facing_right = direction
 	player.animation_tree.set('parameters/Air/blend_position', 1 if player.facing_right else -1)
 	player.camera_arm.position.x = 127 if player.facing_right else -127

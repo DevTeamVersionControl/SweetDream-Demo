@@ -35,3 +35,5 @@ func _on_Hit(body):
 func launch(bullet_direction : Vector2, _strength) -> void:
 	direction = bullet_direction
 	rotation = direction.angle()
+	if direction.angle() > PI/2:
+		$Sprite.flip_v = true
