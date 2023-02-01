@@ -1,4 +1,4 @@
-[gd_scene load_steps=123 format=2]
+[gd_scene load_steps=124 format=2]
 
 [ext_resource path="res://Abstract/StateMachine.gd" type="Script" id=1]
 [ext_resource path="res://Actors/Player/Idle.gd" type="Script" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://Actors/Player/Crouched.gd" type="Script" id=11]
 [ext_resource path="res://Actors/Player/Dashing.gd" type="Script" id=12]
 [ext_resource path="res://Actors/Player/KnockedOut.gd" type="Script" id=13]
+[ext_resource path="res://Actors/Player/shot.mp3" type="AudioStream" id=14]
 [ext_resource path="res://Environment/Light/light.png" type="Texture" id=15]
 [ext_resource path="res://Actors/Player/spritesheet_n.png" type="Texture" id=16]
 
@@ -2744,6 +2745,15 @@ position = Vector2( -7, -54 )
 texture = ExtResource( 15 )
 color = Color( 0.113725, 0.290196, 0.592157, 1 )
 energy = 0.7
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 14 )
+
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 14 )
+
+[node name="AudioStreamPlayer3" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 14 )
 
 [connection signal="timeout" from="StateMachine/Air/JumpBufferTimer" to="StateMachine/Air" method="_on_JumpBufferTimer_timeout"]
 [connection signal="timeout" from="StateMachine/Air/CoyoteTimeTimer" to="StateMachine/Air" method="_on_CoyoteTimeTimer_timeout"]

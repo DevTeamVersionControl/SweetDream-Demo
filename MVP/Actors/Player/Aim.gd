@@ -94,6 +94,16 @@ func shoot(position:NodePath) -> void:
 	
 	if !crouched:
 		state_machine.transition_to("Knockback", {0: knockback})
+	
+	#Play sound
+	if player.audio_stream_player.playing:
+		if player.secondary_audio_stream_player.playing:
+			player.tertiary_audio_stream_player.play()
+		else:
+			player.secondary_audio_stream_player.play()
+	else:
+		player.audio_stream_player.play()
+
 
 func _on_CooldownTimer_timeout() -> void:
 	player.can_shoot = true

@@ -980,18 +980,6 @@ tracks/11/keys = {
 "update": 0,
 "values": [ Vector2( 269, 323 ) ]
 }
-tracks/12/type = "value"
-tracks/12/path = NodePath("WallSensor/CollisionShape2D:position")
-tracks/12/interp = 1
-tracks/12/loop_wrap = true
-tracks/12/imported = false
-tracks/12/enabled = true
-tracks/12/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 398, 324 ) ]
-}
 
 [sub_resource type="Animation" id=6]
 resource_name = "Up"
