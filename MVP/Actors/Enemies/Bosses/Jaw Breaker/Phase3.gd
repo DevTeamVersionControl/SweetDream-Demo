@@ -33,6 +33,7 @@ func enter(_msg := {}) -> void:
 
 func activate():
 	#Spawns jawbreakers and permanently destroys platform
+	yield(get_tree().create_timer(2,0), "timeout")
 	charges -= 1
 	if charges == 0:
 		state_machine.transition_to("Death")
