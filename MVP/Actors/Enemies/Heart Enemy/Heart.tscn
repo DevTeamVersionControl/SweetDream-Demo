@@ -131,7 +131,7 @@ tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0, 0.0416667, 0.0833333, 0.125, 0.166667, 0.208333, 0.25, 0.291667, 0.333333, 0.375, 0.416667, 0.458333, 0.5, 0.541667, 0.583333, 0.625, 0.666667 ),
+"times": PoolRealArray( 0, 0.0416667, 0.0833333, 0.125, 0.166667, 0.208333, 0.25, 0.291667, 0.333333, 0.375, 0.458333, 0.5, 0.583333, 0.625, 0.666667, 0.708333, 0.75 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 ]
@@ -143,7 +143,7 @@ tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/keys = {
-"times": PoolRealArray( 0, 0.458333, 0.5 ),
+"times": PoolRealArray( 0, 0.5, 0.583333 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
 "values": [ Vector2( 0.15, 0.15 ), Vector2( 0.3, 0.3 ), Vector2( 0.6, 0.3 ) ]
@@ -263,7 +263,7 @@ tracks/15/loop_wrap = true
 tracks/15/imported = false
 tracks/15/enabled = true
 tracks/15/keys = {
-"times": PoolRealArray( 0.416667, 0.458333, 0.5 ),
+"times": PoolRealArray( 0.416667, 0.5, 0.583333 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
 "values": [ PoolVector2Array( -35, 18, -25, 8, -18, 17, 18, 16, 25, 10, 31, 15, 19, 17, -18, 18 ), PoolVector2Array( -67, 35, -51, 18, -37, 34, 37, 32, 50, 19, 61, 29, 38, 34, -38, 36 ), PoolVector2Array( -91, 41, -198, 38, -137, 19, -194, -64, -128, -97, -17, -92, 0, -82, 13, -94, 128, -101, 168, -65, 143, -6, 118, 17, 213, 30, 90, 35, 122, -12, 128, -61, 86, -79, 4, -69, -124, -78, -168, -53, -110, 13 ) ]
@@ -497,7 +497,7 @@ tracks/4/keys = {
 
 [sub_resource type="Animation" id=8]
 resource_name = "Idle"
-length = 0.333333
+length = 0.458334
 loop = true
 step = 0.0416667
 tracks/0/type = "value"
@@ -543,7 +543,7 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 0.0416667, 0.0833333, 0.125, 0.166667, 0.208333, 0.25, 0.291667, 0.333333 ),
+"times": PoolRealArray( 0, 0.0416667, 0.0833333, 0.166667, 0.208333, 0.25, 0.333333, 0.375, 0.416667 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 0, 1, 2, 3, 4, 5, 6, 7, 8 ]
@@ -551,7 +551,7 @@ tracks/3/keys = {
 
 [sub_resource type="Animation" id=9]
 resource_name = "IdleBlock"
-length = 0.333333
+length = 0.458334
 loop = true
 step = 0.0416667
 tracks/0/type = "value"
@@ -597,7 +597,7 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 0.0416667, 0.0833333, 0.125, 0.166667, 0.208333, 0.25, 0.291667, 0.333333 ),
+"times": PoolRealArray( 0, 0.0416667, 0.0833333, 0.166667, 0.208333, 0.25, 0.333333, 0.375, 0.416667 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 0, 1, 2, 3, 4, 5, 6, 7, 8 ]
