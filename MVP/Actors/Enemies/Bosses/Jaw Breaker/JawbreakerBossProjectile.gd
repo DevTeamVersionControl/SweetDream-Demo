@@ -1,14 +1,13 @@
 extends KinematicBody2D
 
 const color_path = "res://Actors/Enemies/Bosses/Jaw Breaker/Projectile/Color {str}/Color {str}720p.png"
-const color_normal_path = "res://Actors/Enemies/Bosses/Jaw Breaker/Projectile/Color {str}/Color {str}720p_n.png"
+const color_normal_path = "res://Actors/Enemies/Bosses/Jaw Breaker/Projectile/Color 1/Color 1720p_n.png"
 
 var motion : Vector2
 var moving = false
 
 func _ready():
 	$Sprite.texture = load(color_path.format({"str": (randi() % 3) + 1}))
-	$Sprite.normal_map = load(color_normal_path.format({"str": (randi() % 3) + 1}))
 	$AnimationPlayer.play("Fly")
 	if motion.x < 0:
 		$Sprite.flip_h = true

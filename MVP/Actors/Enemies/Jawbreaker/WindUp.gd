@@ -20,9 +20,9 @@ const DASH_SPEED = 500
 
 func enter(_msg := {}) -> void:
 	if jawbreaker.health > 0:
-		jawbreaker.animation_player.play("WindUp")
+		jawbreaker.animation_player.play("WindUp" if jawbreaker.facing_right else "WindUpLeft")
 	yield(jawbreaker.animation_player, "animation_finished")
-	if jawbreaker.health > 0:
+	if state_machine.state.name == "WindUp":
 		state_machine.transition_to("Charge")
 
 func physics_update(_delta: float) -> void:
@@ -32,3 +32,11 @@ func physics_update(_delta: float) -> void:
 func charge():
 	var tween = get_tree().create_tween()
 	tween.tween_property(jawbreaker, "motion", Vector2(DASH_SPEED if jawbreaker.facing_right else -DASH_SPEED,0), 14.0/24.0)
+
+func stun():
+	jawbreaker.motion.x = 0
+	jawbreaker.animation_player.play("WindUp")
+	jawbreaker.animation_player.stop(false)
+	jawbreaker.animation_player.seek(0, true)
+	yield(get_tree().create_timer(1.5), "timeout")
+	state_machine.transition_to("Idle")

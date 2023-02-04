@@ -33,7 +33,7 @@ onready var state_machine := $StateMachine
 onready var sprite := $Sprite
 onready var wall_sensor := $BodyCollisionZone
 onready var collision := $CollisionShape2D
-onready var body_hitbox := $BodyCollisionZone/CollisionShape2D
+onready var body_hitbox := $BodyCollisionZone/Hitbox
 
 func take_damage(damage, knockback):
 	if phase == PHASE.SECOND:

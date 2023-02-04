@@ -30,10 +30,13 @@ func physics_update(_delta: float) -> void:
 	jawbreaker.motion = jawbreaker.move_and_slide(jawbreaker.motion)
 
 func on_dash_end():
-	if jawbreaker.get_node_or_null("StateMachine/Death") != null:
+	if state_machine.state.name == "Charge":
 		state_machine.transition_to("WindDown")
 
 func stun():
-	jawbreaker.motion.x *= -1
+	jawbreaker.motion.x = 0
 	jawbreaker.animation_player.play("WindUp")
-	jawbreaker.animation_player.stop()
+	jawbreaker.animation_player.stop(false)
+	jawbreaker.animation_player.seek(0, true)
+	yield(get_tree().create_timer(1.5), "timeout")
+	state_machine.transition_to("Idle")

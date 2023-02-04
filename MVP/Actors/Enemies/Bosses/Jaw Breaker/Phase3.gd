@@ -25,6 +25,7 @@ var jawbreaker_array := []
 
 func enter(_msg := {}) -> void:
 	jawbreaker_boss.phase = jawbreaker_boss.PHASE.THIRD
+	jawbreaker_boss.collision.disabled = true
 	jawbreaker_boss.animation_player.play("ChargeToCenterRight" if jawbreaker_boss.facing_right else "ChargeToCenterLeft")
 	yield(jawbreaker_boss.animation_player, "animation_finished")
 	jawbreaker_boss.animation_player.play("Up")
@@ -49,10 +50,13 @@ func activate():
 	jawbreaker_array = []
 	for i in charges:
 		var jawbreaker = JAWBREAKER.instance()
-		jawbreaker.initial_target_player = true
 		get_tree().current_scene.current_level.add_child(jawbreaker)
-		jawbreaker.global_position = Vector2((i+1)*680/5, 100)
+		jawbreaker.global_position = Vector2((i+1)*680/3, 25)
 		jawbreaker_array.append(jawbreaker.get_path())
+		jawbreaker.player_detector_collision.disabled = true
 	get_tree().current_scene.current_level.get_node("EnemyCounter").start(jawbreaker_array)
 	
+	yield(get_tree().create_timer(0.6), "timeout")
+	for jawbreaker in jawbreaker_array:
+		get_tree().current_scene.current_level.get_node(jawbreaker)._on_PlayerDetector_body_entered(get_tree().current_scene.player)
 	jawbreaker_boss.animation_player.play("Up")

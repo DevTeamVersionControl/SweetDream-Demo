@@ -36,4 +36,4 @@ func activate():
 
 func turn_around():
 	jawbreaker.facing_right = !jawbreaker.facing_right
-	jawbreaker.scale.x = -1
+	jawbreaker.sprite.flip_h = !jawbreaker.facing_right

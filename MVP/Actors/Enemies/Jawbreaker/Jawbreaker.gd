@@ -32,6 +32,7 @@ export var gravity = 100
 onready var animation_player := $AnimationPlayer
 onready var state_machine := $StateMachine
 onready var player_detector_collision := $PlayerDetector/CollisionShape2D
+onready var sprite := $Sprite
 
 func _ready():
 	# If the jawbreaker has an initial target, attack it immediately
@@ -67,5 +68,6 @@ func on_hit_something(something):
 
 func _on_WallDetector_body_entered(body):
 	if body.is_in_group("floor"):
-		if state_machine.state.name == "Charge":
+		print(state_machine.state.name)
+		if state_machine.state.name == "Charge" || state_machine.state.name == "WindUp" || state_machine.state.name == "WindDown":
 			state_machine.state.stun()

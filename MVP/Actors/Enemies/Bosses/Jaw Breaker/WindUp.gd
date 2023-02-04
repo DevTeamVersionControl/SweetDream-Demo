@@ -25,6 +25,8 @@ func enter(_msg := {}) -> void:
 
 func physics_update(_delta: float) -> void:
 	jawbreaker_boss.motion.y += jawbreaker_boss.gravity
+	jawbreaker_boss.motion.x = clamp(jawbreaker_boss.motion.x, -DASH_SPEED, DASH_SPEED)
+	jawbreaker_boss.motion.y = clamp(jawbreaker_boss.motion.y, -DASH_SPEED, DASH_SPEED)
 	jawbreaker_boss.motion = jawbreaker_boss.move_and_slide(jawbreaker_boss.motion)
 
 func charge():

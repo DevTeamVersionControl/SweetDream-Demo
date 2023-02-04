@@ -59,8 +59,8 @@ void fragment() {
 	} else {
 		COLOR = texture_color * before_light_modulate;
 	}
-	COLOR = mix(COLOR, flashColor, flashState);
-	COLOR.a *= texture_color.a;
+//	COLOR = mix(COLOR, flashColor, flashState);
+//	COLOR.a *= texture_color.a;
 	
 	// Black outline shader
 	vec2 size = TEXTURE_PIXEL_SIZE * line_thickness;
@@ -77,6 +77,8 @@ void fragment() {
 	
 	vec4 color = texture(TEXTURE, UV);
 	COLOR = mix(color, line_color, outline - color.a);
+	COLOR = mix(COLOR, flashColor, flashState);
+	COLOR.a *= outline;
 }
 float light_calc(float light_strength, float would_be_strength) {
 	float target_strength = light_strength + would_be_strength * obj_light_add;

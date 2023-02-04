@@ -23,9 +23,17 @@ func enter(_msg := {}) -> void:
 		var tween = get_tree().create_tween()
 		tween.tween_property(jawbreaker, "motion", Vector2(0,0), 1)
 	yield(jawbreaker.animation_player, "animation_finished")
-	if jawbreaker.health > 0:
+	if state_machine.state.name == "WindDown":
 		state_machine.transition_to("Idle")
 
 func physics_update(_delta: float) -> void:
 	jawbreaker.motion.y += jawbreaker.gravity
 	jawbreaker.motion = jawbreaker.move_and_slide(jawbreaker.motion)
+
+func stun():
+	jawbreaker.motion.x = 0
+	jawbreaker.animation_player.play("WindUp")
+	jawbreaker.animation_player.stop(false)
+	jawbreaker.animation_player.seek(0, true)
+	yield(get_tree().create_timer(1.5), "timeout")
+	state_machine.transition_to("Idle")

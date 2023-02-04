@@ -17,7 +17,7 @@ extends JellyBeanState
 
 # Affects how much being near the center of the explosion affects the knockback
 var explosion_location_weight := 5
-var explosion_strength := 6000
+var explosion_strength := 40
 
 func enter(_msg := {}) -> void:
 	jelly_bean.explosion_collision.set_deferred("monitorable", true)
@@ -35,6 +35,6 @@ func _on_Explosion(body):
 func calculate_explosion_knockback(body_pos:Vector2) -> Vector2:
 	# Direction
 	var explosion_knockback := (body_pos - jelly_bean.global_position).normalized()
-	# Strength based on closeness to explosion
-	explosion_knockback *= explosion_location_weight/(explosion_location_weight * (body_pos - jelly_bean.global_position).length())
+	# Strength based on closeness to explosion (disabled for now)
+	#explosion_knockback *= explosion_location_weight/(explosion_location_weight * (body_pos - jelly_bean.global_position).length())
 	return explosion_knockback * explosion_strength

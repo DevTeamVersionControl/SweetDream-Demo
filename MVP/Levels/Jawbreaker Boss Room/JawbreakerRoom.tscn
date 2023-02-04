@@ -1259,8 +1259,7 @@ tile_data = PoolIntArray( -65538, 3, 8, -65537, 3, 262153, -131072, 3, 262154, -
 enemies = [ NodePath("../JawbreakerEnemy4"), NodePath("../JawbreakerEnemy6") ]
 
 [node name="JawbreakerEnemy4" parent="." instance=ExtResource( 12 )]
-position = Vector2( 617, 360 )
-initial_target_player = true
+position = Vector2( 596, 52 )
 
 [node name="JawbreakerEnemy6" parent="." instance=ExtResource( 12 )]
 position = Vector2( 253, 358 )
