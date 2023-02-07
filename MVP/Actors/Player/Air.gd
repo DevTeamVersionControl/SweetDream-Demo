@@ -105,7 +105,6 @@ func physics_update(delta: float) -> void:
 func _on_JumpBufferTimer_timeout():
 	jump_buffer = false
 
-
 func _on_CoyoteTimeTimer_timeout():
 	coyote_time = false
 

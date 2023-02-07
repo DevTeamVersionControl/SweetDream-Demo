@@ -32,8 +32,8 @@ func physics_update(_delta: float) -> void:
 
 func stun():
 	jawbreaker.motion.x = 0
-	jawbreaker.animation_player.play("WindUp")
-	jawbreaker.animation_player.stop(false)
-	jawbreaker.animation_player.seek(0, true)
+	jawbreaker.animation_player.play("WindDown")
+#	jawbreaker.animation_player.stop(false)
+#	jawbreaker.animation_player.seek(0, true)
 	yield(get_tree().create_timer(1.5), "timeout")
 	state_machine.transition_to("Idle")

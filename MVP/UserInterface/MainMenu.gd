@@ -19,14 +19,17 @@ func _unhandled_input(event):
 	else:
 		if Input.is_action_pressed("ui_accept"):
 			select_option()
-		if Input.is_action_pressed("ui_back"):
+		elif Input.is_action_pressed("ui_back"):
 			load_menu()
-		if Input.is_action_pressed("ui_up"):
+		elif Input.is_action_pressed("ui_up"):
 			index = clamp(index - 1, 0, item_list.get_item_count()-1)
 			item_list.select(index)
-		if Input.is_action_pressed("ui_down"):
+		elif Input.is_action_pressed("ui_down"):
 			index = clamp(index + 1, 0, item_list.get_item_count()-1)
 			item_list.select(index)
+		elif Input.is_action_pressed("delete") && "Save" in item_list.get_item_text(item_list.get_selected_items()[0]):
+			delete_save()
+
 func select_option():
 	if item_list.get_item_text(0) == "Play":
 		match item_list.get_item_text(item_list.get_selected_items()[0]):
@@ -60,3 +63,9 @@ func load_menu():
 	item_list.add_item("Exit")
 	index = 0
 	item_list.select(index)
+
+func delete_save():
+	var file = File.new()
+	if file.file_exists("res://Saves/Save%s.json"%(item_list.get_selected_items()[0]+1)):
+		Directory.new().remove("res://Saves/Save%s.json"%(item_list.get_selected_items()[0]+1))
+		load_saves()

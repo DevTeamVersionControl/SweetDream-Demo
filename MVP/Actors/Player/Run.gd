@@ -20,14 +20,14 @@ func enter(_msg := {}) -> void:
 	player.animation_tree.set('parameters/Run/blend_position', 1 if player.facing_right else -1)
 	player.animation_mode.travel("Run")
 
-func physics_update(_delta: float) -> void:
+func physics_update(delta: float) -> void:
 	# Notice how we have some code duplication between states. That's inherent to the pattern,
 	# although in production, your states will tend to be more complex and duplicate code
 	# much more rare.
-	if !player.is_on_floor():
-		state_machine.transition_to("Air", {coyote_time = true})
-		return
-
+	if not player.is_on_floor():
+			state_machine.transition_to("Air", {coyote_time = true})
+			return
+		
 	# We move the run-specific input code to the state.
 	# A good alternative would be to define a `get_input_direction()` function on the `Player.gd`
 	# script to avoid duplicating these lines in every script.

@@ -122,5 +122,5 @@ shader_param/ray1_density = 8.0
 shader_param/ray2_density = 30.0
 shader_param/ray2_intensity = 0.1
 shader_param/color = Color( 0.65098, 0.858824, 1, 0.8 )
-shader_param/hdr = false
+shader_param/hdr = true
 shader_param/seed = 5.0

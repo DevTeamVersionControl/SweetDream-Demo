@@ -40,7 +40,8 @@ var normal = {
 	'dash' : KEY_D,
 	'ui_accept' : KEY_ENTER,
 	'ui_cancel' : KEY_ESCAPE,
-	'ui_back' : KEY_X
+	'ui_back' : KEY_X,
+	'delete' : KEY_DELETE
 }
 var custom = normal
 

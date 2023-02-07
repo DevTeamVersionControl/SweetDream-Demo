@@ -2622,13 +2622,11 @@ parameters/Shoot/blend_position = Vector2( -0.0123457, 0.321185 )
 parameters/ShootCrouched/blend_position = 0
 
 [node name="Hurtbox" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2( 1, -29 )
 scale = Vector2( 1, 1.01 )
 shape = SubResource( 1 )
 
 [node name="Physics" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2( 1, -10 )
 rotation = 1.57079
 scale = Vector2( 0.605794, 0.357638 )
@@ -2674,7 +2672,7 @@ script = ExtResource( 5 )
 wait_time = 0.1
 
 [node name="CoyoteTimeTimer" type="Timer" parent="StateMachine/Air"]
-wait_time = 0.1
+wait_time = 0.15
 
 [node name="Aim" type="Node" parent="StateMachine"]
 script = ExtResource( 8 )

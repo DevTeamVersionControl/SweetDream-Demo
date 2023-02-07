@@ -24,9 +24,9 @@ func enter(_msg := {}) -> void:
 
 func physics_update(delta: float) -> void:
 	if not player.is_on_floor():
-		state_machine.transition_to("Air")
+		state_machine.transition_to("Air", {coyote_time = true})
 		return
-	
+
 	player.velocity.y += player.GRAVITY * delta
 	player.velocity.x = 0
 	player.velocity = player.move_and_slide(player.velocity, Vector2.UP)
