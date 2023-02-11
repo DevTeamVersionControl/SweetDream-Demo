@@ -2,6 +2,7 @@ tool
 extends Area2D
 
 signal on
+signal off
 
 export var colour:int setget set_colour
 
