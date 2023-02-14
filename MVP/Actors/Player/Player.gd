@@ -23,7 +23,7 @@ signal changed_health_pack()
 
 const SPEED = 120
 const GRAVITY = 1200
-const JUMP_IMPULSE = 300
+const JUMP_IMPULSE = 350
 const JUMP_ACCEL = 600
 const DECELERATION = 0.1
 const ACCELERATION = 50

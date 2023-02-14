@@ -17,3 +17,15 @@ extends Node2D
 
 export var level_range_x : Vector2
 export var level_range_y : Vector2
+
+func _ready():
+	GameSaver.load()
+
+func _on_Button_on():
+	$TileMap.set_cell(5,8,-1)
+	$TileMap.set_cell(5,9,-1)
+	$TileMap.set_cell(6,8,-1)
+	$TileMap.set_cell(6,9,-1)
+	$TileMap.update_bitmask_area(Vector2(6,9))
+	$TileMap.update_bitmask_area(Vector2(5,8))
+	$TileMap.update_bitmask_area(Vector2(5,9))
