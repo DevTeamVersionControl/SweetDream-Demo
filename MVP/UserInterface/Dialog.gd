@@ -17,6 +17,7 @@ extends Control
 
 signal dialog_end
 signal talk
+signal shop
 
 onready var text = $Text
 onready var dialog_name = $Name
@@ -27,17 +28,10 @@ var dialog
 var phrase_num = 0
 var finished = false
 
-#func _process(_delta):
-#	if Input.is_action_just_pressed("ui_accept"):
-#		if finished:
-#			next_phrase()
-#		else:
-#			text.visible_characters = len(text.text)
-
-func input():
+func input(event):
 	if finished:
-			next_phrase()
-	else:
+		next_phrase()
+	elif event.pressed:
 		text.visible_characters = len(text.text)
 
 func show():
@@ -61,17 +55,17 @@ func get_dialog(path_to_dialog:String) -> Array:
 	return output if typeof(output) == TYPE_ARRAY else []
 
 func next_phrase() -> void:
-	if phrase_num >= len(dialog):
+	if phrase_num >= len(dialog[0]):
 		close_dialog()
 		return
 	
 	finished = false
 	
-	dialog_name.bbcode_text = dialog[phrase_num]["Name"]
-	text.bbcode_text = dialog[phrase_num]["Text"]
-	portrait.texture = load("res://UserInterface/Dialog/Portraits/"+dialog[phrase_num]["Name"]+".png")
-	if dialog[phrase_num].has("Signal"):
-		emit_signal(dialog[phrase_num]["Signal"])
+	dialog_name.bbcode_text = dialog[0][phrase_num]["Name"]
+	text.bbcode_text = dialog[0][phrase_num]["Text"]
+	portrait.texture = load(dialog[0][phrase_num]["Portrait"])
+	if dialog[0][phrase_num].has("Signal"):
+		emit_signal(dialog[0][phrase_num]["Signal"])
 	
 	text.visible_characters = 0
 	

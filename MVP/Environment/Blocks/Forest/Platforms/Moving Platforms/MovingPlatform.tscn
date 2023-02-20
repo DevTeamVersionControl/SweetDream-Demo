@@ -192,6 +192,7 @@ IDLE_DURATION = 1.0
 speed = 3.0
 
 [node name="Platform" type="KinematicBody2D" parent="."]
+scale = Vector2( 0.6, 0.6 )
 
 [node name="Sprite" type="Sprite" parent="Platform"]
 scale = Vector2( 0.1, 0.1 )

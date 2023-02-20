@@ -27,7 +27,7 @@ func _unhandled_input(event):
 	if shop.visible:
 		shop.input()
 	elif dialog.visible:
-		dialog.input()
+		dialog.input(event)
 	elif input_menu.visible:
 		input_menu.input(event)
 	else:

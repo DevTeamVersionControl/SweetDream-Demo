@@ -60,7 +60,7 @@ theme = SubResource( 4 )
 text = "Placeholder"
 
 [node name="Timer" type="Timer" parent="Dialog"]
-wait_time = 0.05
+wait_time = 0.02
 one_shot = true
 
 [node name="TextureRect" type="TextureRect" parent="Dialog"]

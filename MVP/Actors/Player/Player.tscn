@@ -2638,7 +2638,7 @@ disabled = true
 [node name="Camera2D" type="Camera2D" parent="Camera arm"]
 position = Vector2( 1, -36 )
 current = true
-zoom = Vector2( 0.3, 0.3 )
+zoom = Vector2( 0.35, 0.35 )
 process_mode = 0
 drag_margin_h_enabled = true
 drag_margin_v_enabled = true

@@ -1,0 +1,34 @@
+[
+    [
+    {"Name":"Unknown",
+        "Text":"What in the sweet candy is this?", 
+    "Signal":"talk", "Portrait":"res://UserInterface/Dialog/Portraits/MrGerald.png"},
+    
+    {"Name":"Unknown",
+        "Text":"...", 
+    "Portrait":"res://UserInterface/Dialog/Portraits/Player.png"},
+
+    {"Name":"Unknown", 
+        "Text":"I didn't think you would wake up! This is wonderful, what is your name?", 
+    "Signal":"talk", "Portrait":"res://UserInterface/Dialog/Portraits/MrGerald.png"},
+
+    {"Name":"Unknown",
+        "Text":"I don't know, who are you?",
+    "Portrait":"res://UserInterface/Dialog/Portraits/Player.png"},
+
+    {"Name":"MrGerald", 
+        "Text":"How impolite of me, I'm Mr.Gerald and you arrive right at the perfect time!", 
+    "Signal":"talk", "Portrait":"res://UserInterface/Dialog/Portraits/MrGerald.png"},
+
+    {"Name":"MrGerald", 
+        "Text":"You see, I've been eying this artifact right outside of these ruins for quite some time, but I'm not so young anymore and I can't reach it.", 
+    "Signal":"talk", "Portrait":"res://UserInterface/Dialog/Portraits/MrGerald.png"},
+
+    {"Name":"MrGerald", 
+        "Text":"Could you go get it and bring it back to me? It would mean the world. Just go out the door and you should see it right away!", 
+    "Signal":"talk", "Portrait":"res://UserInterface/Dialog/Portraits/MrGerald.png"}
+    
+    
+    ]
+    
+]

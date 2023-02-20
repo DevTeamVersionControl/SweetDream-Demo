@@ -492,6 +492,7 @@ tracks/6/keys = {
 }
 
 [node name="Checkpoint" type="Area2D"]
+pause_mode = 2
 script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
