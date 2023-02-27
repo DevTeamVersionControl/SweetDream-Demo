@@ -18,9 +18,9 @@ extends KinematicBody2D
 
 const BREAK_VOLUME = 2.0
 const NUM_OF_BABIES = 3
-const JUMP_VELOCITY_Y = 150
-const JUMP_VELOCITY_X = 40
-const GRAVITY = 5
+const JUMP_VELOCITY_Y = 300
+const JUMP_VELOCITY_X = 80
+const GRAVITY = 10
 const DAMAGE = 10
 
 var motion = Vector2()
@@ -28,7 +28,7 @@ var target
 var facing_right := true
 var is_on_floor:bool
 var volume := 0.5
-var stuck := false
+#var stuck := false
 
 export var health = 10
 export(float, 0.5, 2.5) var initial_volume = 2.1

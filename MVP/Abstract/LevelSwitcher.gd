@@ -41,7 +41,7 @@ func save(game_data):
 	game_data["checkpoint_name"] = checkpoint.name
 
 func load(game_data):
-	checkpoint = GlobalTypes.Checkpoint.new(game_data["checkpoint_name"],load(game_data["checkpoint_level"]))
+	checkpoint = GlobalTypes.Checkpoint.new(game_data["checkpoint_name"], load(game_data["checkpoint_level"]))
 
 func change_level(new_level:PackedScene, portal_name:String):
 	var tween = get_tree().create_tween()

@@ -29,3 +29,5 @@ func _on_Button_on():
 	$TileMap.update_bitmask_area(Vector2(6,9))
 	$TileMap.update_bitmask_area(Vector2(5,8))
 	$TileMap.update_bitmask_area(Vector2(5,9))
+	if get_node_or_null("DarkZone2"):
+		$DarkZone2.disappear()

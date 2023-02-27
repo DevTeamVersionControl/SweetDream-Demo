@@ -97,7 +97,7 @@ margin_bottom = -50.0
 custom_constants/separation = 25
 
 [node name="Title" type="Label" parent="Column"]
-margin_right = 1880.0
+margin_right = 1820.0
 margin_bottom = 72.0
 custom_constants/shadow_offset_y = 5
 custom_fonts/font = SubResource( 3 )
@@ -107,9 +107,9 @@ autowrap = true
 uppercase = true
 
 [node name="ProfilesMenu" type="OptionButton" parent="Column"]
-margin_left = 925.0
+margin_left = 895.0
 margin_top = 97.0
-margin_right = 954.0
+margin_right = 924.0
 margin_bottom = 134.0
 size_flags_horizontal = 4
 custom_fonts/font = ExtResource( 4 )
@@ -119,11 +119,11 @@ script = SubResource( 1 )
 
 [node name="Header" type="HBoxContainer" parent="Column"]
 margin_top = 159.0
-margin_right = 1880.0
+margin_right = 1820.0
 margin_bottom = 190.0
 
 [node name="Action" type="Label" parent="Column/Header"]
-margin_right = 624.0
+margin_right = 604.0
 margin_bottom = 31.0
 size_flags_horizontal = 3
 custom_constants/shadow_offset_x = 0
@@ -133,8 +133,8 @@ text = "Action"
 uppercase = true
 
 [node name="Control" type="Label" parent="Column/Header"]
-margin_left = 628.0
-margin_right = 1252.0
+margin_left = 608.0
+margin_right = 1212.0
 margin_bottom = 31.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -146,8 +146,8 @@ align = 1
 uppercase = true
 
 [node name="Button" type="Label" parent="Column/Header"]
-margin_left = 1794.0
-margin_right = 1880.0
+margin_left = 1734.0
+margin_right = 1820.0
 margin_bottom = 31.0
 rect_pivot_offset = Vector2( 733, 854 )
 size_flags_horizontal = 10
@@ -160,12 +160,12 @@ uppercase = true
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Column"]
 margin_top = 215.0
-margin_right = 1880.0
+margin_right = 1820.0
 margin_bottom = 912.0
 size_flags_vertical = 3
 
 [node name="ActionList" type="VBoxContainer" parent="Column/ScrollContainer"]
-margin_right = 1880.0
+margin_right = 1820.0
 margin_bottom = 697.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -174,7 +174,7 @@ script = ExtResource( 5 )
 
 [node name="Button" type="Button" parent="Column"]
 margin_top = 937.0
-margin_right = 1880.0
+margin_right = 1820.0
 margin_bottom = 980.0
 theme = SubResource( 5 )
 text = "Save"

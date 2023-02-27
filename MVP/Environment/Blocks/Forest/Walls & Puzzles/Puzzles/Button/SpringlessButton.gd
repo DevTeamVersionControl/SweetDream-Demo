@@ -19,13 +19,12 @@ func set_colour(new_colour):
 	$Sprite.position.y = -3
 
 func save(game_data:Dictionary):
-	print(get_tree().current_scene.current_level.filename)
 	game_data[get_tree().current_scene.current_level.filename + name] = on
 
 func load(game_data):
-	print(get_tree().current_scene.current_level.name)
 	if game_data.has(get_tree().current_scene.current_level.filename + name):
-		push()
+		if game_data.get(get_tree().current_scene.current_level.filename + name):
+			push()
 
 func push():
 	emit_signal("on")

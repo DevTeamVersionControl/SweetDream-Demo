@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Actors/Enemies/Jello/Jello.gd" type="Script" id=1]
 [ext_resource path="res://Actors/Enemies/Jello/Jello 720p.png" type="Texture" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://Actors/Enemies/Jello/Land.gd" type="Script" id=7]
 [ext_resource path="res://Actors/Enemies/Jello/Death.gd" type="Script" id=8]
 [ext_resource path="res://Actors/flash.tres" type="Material" id=9]
+[ext_resource path="res://Actors/Enemies/Jello/Drop.gd" type="Script" id=10]
 
 [sub_resource type="CircleShape2D" id=3]
 radius = 124.926
@@ -169,6 +170,9 @@ script = ExtResource( 5 )
 
 [node name="Death" type="Node" parent="StateMachine"]
 script = ExtResource( 8 )
+
+[node name="Drop" type="Node" parent="StateMachine"]
+script = ExtResource( 10 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Air = SubResource( 4 )

@@ -20,14 +20,14 @@ extends JelloEnemyState
 func enter(_msg := {}) -> void:
 	jello.animation_player.play("Idle")
 	if jello.target != null:
-		yield(get_tree().create_timer(rand_range(0,0.2)), "timeout")
+		yield(get_tree().create_timer(rand_range(0.0,0.2)), "timeout")
 		activate()
 
 func activate() -> void:
 	if jello.health > 0:
 		turn_around()
-		if !jello.stuck:
-			state_machine.transition_to("Jump")
+		#if !jello.stuck:
+		state_machine.transition_to("Jump")
 
 func on_something_detected(something) -> void:
 	if something is Player && jello.target == null:
@@ -38,9 +38,12 @@ func turn_around() -> void:
 	if jello.facing_right == (jello.target.global_position.x - jello.global_position.x < 0):
 		jello.facing_right = false if jello.target.global_position.x - jello.global_position.x < 0 else true
 		jello.sprite.flip_h = !jello.facing_right
-		jello.stuck = false
 		activate()
 		
-func physics_update(_delta:float) -> void:
-	if jello.stuck:
-		turn_around()
+#func physics_update(_delta:float) -> void:
+#	if jello.stuck:
+#		turn_around()
+func physics_process(delta):
+	jello.motion.y += jello.GRAVITY
+	jello.motion.x = lerp(jello.motion.x, 0, 0.2)
+	jello.move_and_slide(jello.motion)
