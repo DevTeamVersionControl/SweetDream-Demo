@@ -23,7 +23,7 @@ func enter(_msg := {}) -> void:
 	if jello.health > 0:
 		state_machine.transition_to("Idle")
 
-func physics_process(delta):
+func physics_process(_delta):
 	jello.motion.y += jello.GRAVITY
 	jello.motion.x = lerp(jello.motion.x, 0, 0.2)
-	jello.move_and_slide(jello.motion)
+	jello.motion = jello.move_and_slide(jello.motion)

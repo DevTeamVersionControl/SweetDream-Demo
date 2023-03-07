@@ -1132,7 +1132,7 @@ rotation = 3.14159
 scale = Vector2( 42.2457, -19.9767 )
 polygon = PoolVector2Array( 13.2343, -4.65674, 12.4369, -27.5708, -20.5736, -26.0961, -22.0886, 12.9258, 10.3638, 14.2871, 13.5532, 8.95557 )
 
-[node name="Pickup" parent="." instance=ExtResource( 15 )]
+[node name="Pickup" parent="." groups=["save"] instance=ExtResource( 15 )]
 position = Vector2( 892, -76 )
 description = {
 "Description": "It's that quest item another npc asked for to progress the main story",

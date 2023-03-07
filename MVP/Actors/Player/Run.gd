@@ -44,7 +44,8 @@ func physics_update(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("move_up"):
 		state_machine.transition_to("Air", {do_jump = true})
-	elif is_equal_approx(player.velocity.x, 0.0) && is_equal_approx(input_direction_x, 0.0):
+	elif player.velocity.length() < 0.2 && is_equal_approx(input_direction_x, 0.0):
+		player.velocity = Vector2.ZERO
 		state_machine.transition_to("Idle")
 	elif Input.is_action_pressed("dash"):
 		state_machine.transition_to("Dashing")
@@ -69,5 +70,6 @@ func physics_update(delta: float) -> void:
 	player.velocity.x = clamp(player.velocity.x, -player.SPEED, player.SPEED)
 	player.velocity = player.move_and_slide_with_snap(player.velocity, Vector2.DOWN * 16, Vector2.UP, false, 4, PI/4, false)
 	
-	if Input.is_action_pressed("shoot") && player.can_shoot && GlobalVars.sugar >= GlobalVars.ammo_equipped_array[GlobalVars.equiped_ammo_index].sugar:
-		state_machine.transition_to("Aim")
+	if Input.is_action_pressed("shoot") && player.can_shoot:
+		if GlobalVars.ammo_equipped_array.size() != 0 && GlobalVars.sugar >= GlobalVars.ammo_equipped_array[GlobalVars.equiped_ammo_index].sugar:
+			state_machine.transition_to("Aim")

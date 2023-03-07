@@ -22,10 +22,10 @@ func _unhandled_input(event):
 		elif Input.is_action_pressed("ui_back"):
 			load_menu()
 		elif Input.is_action_pressed("ui_up"):
-			index = clamp(index - 1, 0, item_list.get_item_count()-1)
+			index = int(clamp(index - 1, 0, item_list.get_item_count()-1))
 			item_list.select(index)
 		elif Input.is_action_pressed("ui_down"):
-			index = clamp(index + 1, 0, item_list.get_item_count()-1)
+			index = int(clamp(index + 1, 0, item_list.get_item_count()-1))
 			item_list.select(index)
 		elif Input.is_action_pressed("delete") && "Save" in item_list.get_item_text(item_list.get_selected_items()[0]):
 			delete_save()

@@ -64,7 +64,7 @@ func _ready():
 	set_canvas_item_light_mask_value($Sprite, 5, true)
 
 func _physics_process(_delta):
-	if Input.is_action_just_pressed("ammo_next") && state_machine.state != $StateMachine/Aim:
+	if Input.is_action_just_pressed("ammo_next") && state_machine.state != $StateMachine/Aim && GlobalVars.ammo_equipped_array.size() != 0:
 		GlobalVars.equiped_ammo_index = (GlobalVars.equiped_ammo_index + 1) % GlobalVars.ammo_equipped_array.size()
 		on_sugar_timer_timeout()
 	if Input.is_action_just_pressed("consume_health_pack"):

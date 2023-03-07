@@ -27,12 +27,10 @@ func physics_update(delta):
 		# Keeps it from being stuck on a ceiling
 		if jello.motion.y < 0:
 			jello.motion = jello.motion.bounce(collision.normal)
-			
-			# Turn around
-			if jello.facing_right == (jello.target.global_position.x - jello.global_position.x < 0):
-				jello.facing_right = false if jello.target.global_position.x - jello.global_position.x < 0 else true
-				jello.sprite.flip_h = !jello.facing_right
-			
 			collision = null
 		else:
 			state_machine.transition_to("Land")
+	# Turn around
+	if jello.facing_right == (jello.motion.x < 0):
+		jello.facing_right = not jello.motion.x < 0
+		jello.sprite.flip_h = !jello.facing_right

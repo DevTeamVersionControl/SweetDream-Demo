@@ -27,7 +27,8 @@ func connect_player():
 	get_tree().current_scene.player.connect("changed_health_pack", self, "_on_changed_health_pack")
 
 func _on_changed_ammo():
-	ammo_display.text = GlobalVars.ammo_equipped_array[GlobalVars.equiped_ammo_index].name
+	if GlobalVars.ammo_equipped_array.size() != 0:
+		ammo_display.text = GlobalVars.ammo_equipped_array[GlobalVars.equiped_ammo_index].name
 
 func _on_changed_health():
 	health_bar.max_value = GlobalVars.max_health

@@ -43,7 +43,7 @@ func turn_around() -> void:
 #func physics_update(_delta:float) -> void:
 #	if jello.stuck:
 #		turn_around()
-func physics_process(delta):
+func physics_process(_delta):
 	jello.motion.y += jello.GRAVITY
 	jello.motion.x = lerp(jello.motion.x, 0, 0.2)
-	jello.move_and_slide(jello.motion)
+	jello.motion = jello.move_and_slide(jello.motion)

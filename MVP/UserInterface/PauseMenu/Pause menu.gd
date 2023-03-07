@@ -37,10 +37,10 @@ func input():
 	if Input.is_action_just_pressed("ui_accept") && visible:
 		select_option()
 	if Input.is_action_pressed("ui_up"):
-		index = clamp(index - 1, 0, item_list.get_item_count()-1)
+		index = int(clamp(index - 1, 0, item_list.get_item_count()-1))
 		item_list.select(index)
 	if Input.is_action_pressed("ui_down"):
-		index = clamp(index + 1, 0, item_list.get_item_count()-1)
+		index = int(clamp(index + 1, 0, item_list.get_item_count()-1))
 		item_list.select(index)
 
 func select_option():
@@ -50,7 +50,7 @@ func select_option():
 		"Main menu":
 			GameSaver.save()
 			get_tree().paused = false
-			get_tree().change_scene("res://UserInterface/MainMenu.tscn")
+			printerr(get_tree().change_scene("res://UserInterface/MainMenu.tscn"))
 		"Close game":
 			GameSaver.save()
 			get_tree().notification(MainLoop.NOTIFICATION_WM_QUIT_REQUEST)

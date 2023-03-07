@@ -39,7 +39,8 @@ func physics_update(delta: float) -> void:
 		state_machine.transition_to("Air", {do_jump = true})
 	elif Input.is_action_pressed("move_left") or Input.is_action_pressed("move_right"):
 		state_machine.transition_to("Run")
-	elif Input.is_action_pressed("shoot") && player.can_shoot && GlobalVars.sugar >= GlobalVars.ammo_equipped_array[GlobalVars.equiped_ammo_index].sugar:
-		state_machine.transition_to("Aim")
+	elif Input.is_action_pressed("shoot") && player.can_shoot:
+		if GlobalVars.ammo_equipped_array.size() != 0 && GlobalVars.sugar >= GlobalVars.ammo_equipped_array[GlobalVars.equiped_ammo_index].sugar:
+			state_machine.transition_to("Aim")
 	elif Input.is_action_pressed("dash"):
 		state_machine.transition_to("Dashing")

@@ -64,15 +64,15 @@ margin_top = 12.0
 margin_right = -28.0
 margin_bottom = 64.0
 theme = SubResource( 2 )
-text = "Candy Corn"
+text = "No ammo"
 
 [node name="HealthPackDisplay" type="RichTextLabel" parent="."]
 self_modulate = Color( 0, 0, 0, 1 )
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -1528.0
+margin_left = -1520.0
 margin_top = 7.0
-margin_right = -1305.0
+margin_right = -1297.0
 margin_bottom = 59.0
 theme = SubResource( 5 )
 text = "Candy:"
