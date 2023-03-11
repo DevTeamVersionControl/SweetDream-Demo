@@ -9,10 +9,11 @@ func _ready():
 	animation_player.play("Idle")
 	get_tree().current_scene.gui.dialog.connect("talk", self, "on_talk")
 	get_tree().current_scene.gui.dialog.connect("shop", self, "on_shop")
+	get_tree().current_scene.gui.dialog.connect("equip_candy_corn", self, "equip_candy_corn")
 
 func _unhandled_key_input(_event):
 	if Input.is_action_pressed("interact") && player_is_in_zone && !in_dialog:
-		get_tree().current_scene.start_dialog("res://UserInterface/Dialog/Json/MrGerald.json")
+		get_tree().current_scene.start_dialog("res://UserInterface/Dialog/Json/MrGerald.json", get_dialog_num())
 		in_dialog = true
 
 func _on_InteractionBox_body_entered(body):
@@ -31,3 +32,20 @@ func on_shop():
 	get_tree().current_scene.start_shop("res://UserInterface/Shops/Json/MrGerald.json")
 	yield(get_tree().current_scene.gui.shop, "dialog_end")
 	in_dialog = false
+	
+# Used once to equip candy corn ammo to player at the beginning of the game
+func equip_candy_corn():
+	GlobalVars.ammo_equipped_array.append(GlobalVars.get_ammo("Candy Corn"))
+	GlobalVars.remove_from_inventory("Candy Corn")
+	get_tree().current_scene.player.update_display()
+	#GlobalVars.add_to_inventory({"Name":"Gimald shop","StoryPoint":"2"})
+
+# Returns the point at the conversation the dialog should be
+func get_dialog_num() -> int:
+	for item in GlobalVars.inventory:
+		if item.has("StoryPoint"):
+			var story_point = int(item.get("StoryPoint"))
+			if item.has("Temporary"):
+				item.erase("StoryPoint")
+			return story_point
+	return 0

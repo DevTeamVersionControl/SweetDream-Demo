@@ -27,15 +27,25 @@
 
     {"Name":"Dr.Gamal", 
         "Text":"Could you go get it and bring it back to me? It would mean the world. Just go out the door and you should see it right away!", 
-    "Signal":"talk", "Portrait":"res://UserInterface/Dialog/Portraits/MrGerald.png"}
+    "Signal":"talk", "Portrait":"res://UserInterface/Dialog/Portraits/MrGerald.png"},
     
-    ]
-
-    [
+    ],
     
-    {"Name":"Cadus III",
+    [{"Name":"Cadus III",
         "Text":"I found what you were looking for",
-    "Portrait":"res://UserInterface/Dialog/Portraits/MrGerald.png"}
+    "Portrait":"res://UserInterface/Dialog/Portraits/Player.png"},
+    
+    {"Name":"Dr.Gamal",
+        "Text":"Wonderful! Let me take a look at that",
+    "Portrait":"res://UserInterface/Dialog/Portraits/MrGerald.png"},
+
+    {"Name":"Dr.Gamal",
+        "Text":"Well, it looks like this would fit into that gun of yours. Let me put that in for you",
+    "Portrait":"res://UserInterface/Dialog/Portraits/MrGerald.png"},
+
+    {"Name":"Cadus III",
+        "Text":"Thank you... strange man",
+    "Portrait":"res://UserInterface/Dialog/Portraits/Player.png" , "Signal":"equip_candy_corn"}
     ]
     
 ]

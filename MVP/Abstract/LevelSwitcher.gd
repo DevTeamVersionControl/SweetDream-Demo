@@ -94,8 +94,8 @@ func set_checkpoint(new_checkpoint):
 func checkpoint_on(checkpoint_name) -> bool:
 	return (checkpoint.name == checkpoint_name) && (load(current_level.filename) == checkpoint.level)
 
-func start_dialog(dialog_file:String):
-	gui.dialog.start(dialog_file)
+func start_dialog(dialog_file:String, story_point:int):
+	gui.dialog.start(dialog_file, story_point)
 	gui.request_pause()
 
 func start_shop(shop_file:String):

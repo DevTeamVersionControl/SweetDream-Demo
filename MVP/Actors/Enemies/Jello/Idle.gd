@@ -26,7 +26,6 @@ func enter(_msg := {}) -> void:
 func activate() -> void:
 	if jello.health > 0:
 		turn_around()
-		#if !jello.stuck:
 		state_machine.transition_to("Jump")
 
 func on_something_detected(something) -> void:
@@ -40,9 +39,7 @@ func turn_around() -> void:
 		jello.sprite.flip_h = !jello.facing_right
 		activate()
 		
-#func physics_update(_delta:float) -> void:
-#	if jello.stuck:
-#		turn_around()
+
 func physics_process(_delta):
 	jello.motion.y += jello.GRAVITY
 	jello.motion.x = lerp(jello.motion.x, 0, 0.2)

@@ -85,6 +85,11 @@ func get_ammo(ammo_name : String):
 func add_to_inventory(item:Dictionary):
 	inventory.append(item)
 	apply_items()
+	
+func remove_from_inventory(item_name:String):
+	for i in inventory.size():
+		if inventory[i].get("Name") == item_name:
+			inventory.remove(i)
 
 func add_max_health(num:int)->void:
 	max_health += num

@@ -1135,10 +1135,11 @@ polygon = PoolVector2Array( 13.2343, -4.65674, 12.4369, -27.5708, -20.5736, -26.
 [node name="Pickup" parent="." groups=["save"] instance=ExtResource( 15 )]
 position = Vector2( 892, -76 )
 description = {
-"Description": "It's that quest item another npc asked for to progress the main story",
+"Description": "First ammo",
 "Icon": "res://Pickups/Candy Corn 720p.png",
-"Name": "Quest Item",
+"Name": "Candy Corn",
 "Price": "30",
+"StoryPoint": "1",
 "Unit": "artifacts"
 }
 

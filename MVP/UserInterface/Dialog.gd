@@ -1,5 +1,5 @@
 # Sweet Dream, a sweet metroidvannia
-#    Copyright (C) 2022 Kamran Charles Nayebi and William Duplain
+#    Copyright (C) 2story_point22 Kamran Charles Nayebi and William Duplain
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -18,6 +18,7 @@ extends Control
 signal dialog_end
 signal talk
 signal shop
+signal equip_candy_corn
 
 onready var text = $Text
 onready var dialog_name = $Name
@@ -27,6 +28,8 @@ onready var portrait = $TextureRect
 var dialog
 var phrase_num = 0
 var finished = false
+var story_point := 0
+
 
 func input(event):
 	if finished:
@@ -37,9 +40,10 @@ func input(event):
 func show():
 	visible = true
 
-func start(path_to_dialog:String):
+func start(path_to_dialog:String, m_story_point:int):
 	show()
 	phrase_num = 0
+	story_point = m_story_point
 	finished = false
 	dialog = get_dialog(path_to_dialog)
 	next_phrase()
@@ -55,19 +59,19 @@ func get_dialog(path_to_dialog:String) -> Array:
 	return output if typeof(output) == TYPE_ARRAY else []
 
 func next_phrase() -> void:
-	if phrase_num >= len(dialog[0]):
+	if phrase_num >= len(dialog[story_point]):
 		close_dialog()
 		return
 	
 	finished = false
 	
-	dialog_name.bbcode_text = dialog[0][phrase_num]["Name"]
-	text.bbcode_text = dialog[0][phrase_num]["Text"]
-	portrait.texture = load(dialog[0][phrase_num]["Portrait"])
-	if dialog[0][phrase_num].has("Signal"):
-		emit_signal(dialog[0][phrase_num]["Signal"])
+	dialog_name.bbcode_text = dialog[story_point][phrase_num]["Name"]
+	text.bbcode_text = dialog[story_point][phrase_num]["Text"]
+	portrait.texture = load(dialog[story_point][phrase_num]["Portrait"])
+	if dialog[story_point][phrase_num].has("Signal"):
+		emit_signal(dialog[story_point][phrase_num]["Signal"])
 	
-	text.visible_characters = 0
+	text.visible_characters = story_point
 	
 	while text.visible_characters < len(text.text):
 		text.visible_characters += 1
@@ -83,3 +87,8 @@ func close_dialog()->void:
 		get_parent().request_unpause()
 		set_process_internal(false)
 		emit_signal("dialog_end")
+
+# Used once to equip candy corn ammo to player at the beginning of the game
+func equip_candy_corn():
+	GlobalVars.ammo_equipped_array.append(GlobalVars.get_ammo("Candy Corn"))
+	GlobalVars.remove_from_inventory("Candy Corn")
