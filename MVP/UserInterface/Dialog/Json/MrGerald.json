@@ -46,6 +46,14 @@
     {"Name":"Cadus III",
         "Text":"Thank you... strange man",
     "Portrait":"res://UserInterface/Dialog/Portraits/Player.png" , "Signal":"equip_candy_corn"}
-    ]
+    ],
     
+    [{"Name":"Dr.Gamal",
+        "Text":"If you ever stumble on more artifacts, you can come back to me, I'll make it worth your while",
+    "Portrait":"res://UserInterface/Dialog/Portraits/MrGerald.png"},
+
+    {"Name":"Dr.Gamal",
+        "Text":" ",
+    "Portrait":"res://UserInterface/Dialog/Portraits/MrGerald.png","Signal":"shop"}
+    ]
 ]

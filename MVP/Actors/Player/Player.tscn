@@ -1,4 +1,4 @@
-[gd_scene load_steps=131 format=2]
+[gd_scene load_steps=134 format=2]
 
 [ext_resource path="res://Abstract/StateMachine.gd" type="Script" id=1]
 [ext_resource path="res://Actors/Player/Idle.gd" type="Script" id=2]
@@ -2596,6 +2596,9 @@ blend_point_1/pos = -1.0
 [sub_resource type="AnimationNodeAnimation" id=142]
 animation = "RESET"
 
+[sub_resource type="AnimationNodeAnimation" id=152]
+animation = "RESET"
+
 [sub_resource type="AnimationNodeAnimation" id=143]
 animation = "RESET"
 
@@ -2670,11 +2673,6 @@ blend_point_1/pos = 1.0
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=78]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=94]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=95]
-advance_condition = "not_held"
-
 [sub_resource type="AnimationNodeStateMachineTransition" id=96]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=97]
@@ -2725,9 +2723,17 @@ auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=151]
 
+[sub_resource type="AnimationNodeStateMachineTransition" id=153]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=154]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=155]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=156]
+
 [sub_resource type="AnimationNodeStateMachine" id=34]
 states/Aim/node = SubResource( 93 )
-states/Aim/position = Vector2( 245, 60.6564 )
+states/Aim/position = Vector2( 245, 12.6564 )
 states/AimCrouched/node = SubResource( 109 )
 states/AimCrouched/position = Vector2( 3.151, 60.6564 )
 states/Air/node = SubResource( 67 )
@@ -2746,15 +2752,17 @@ states/RESET/node = SubResource( 143 )
 states/RESET/position = Vector2( 464.151, 177 )
 "states/RESET 2/node" = SubResource( 142 )
 "states/RESET 2/position" = Vector2( 377.151, 287 )
+"states/RESET 3/node" = SubResource( 152 )
+"states/RESET 3/position" = Vector2( 245, 79.1512 )
 states/Run/node = SubResource( 41 )
 states/Run/position = Vector2( 676, 177 )
 states/Shoot/node = SubResource( 30 )
-states/Shoot/position = Vector2( 245, -43 )
+states/Shoot/position = Vector2( 245, -90 )
 states/ShootCrouched/node = SubResource( 119 )
 states/ShootCrouched/position = Vector2( 3.151, -43 )
-transitions = [ "Air", "Run", SubResource( 77 ), "Run", "Air", SubResource( 78 ), "Idle", "Aim", SubResource( 94 ), "Aim", "Idle", SubResource( 95 ), "Aim", "Shoot", SubResource( 96 ), "Shoot", "Aim", SubResource( 97 ), "Crouched", "AimCrouched", SubResource( 120 ), "AimCrouched", "ShootCrouched", SubResource( 121 ), "ShootCrouched", "AimCrouched", SubResource( 122 ), "AimCrouched", "Crouched", SubResource( 123 ), "Idle", "Crouch", SubResource( 124 ), "Crouch", "Crouched", SubResource( 125 ), "GetUp", "Idle", SubResource( 126 ), "Crouched", "GetUp", SubResource( 127 ), "Run", "Dash", SubResource( 134 ), "Air", "Dash", SubResource( 135 ), "Dash", "Air", SubResource( 136 ), "Idle", "RESET", SubResource( 144 ), "RESET", "Idle", SubResource( 145 ), "RESET", "Run", SubResource( 146 ), "Run", "RESET", SubResource( 147 ), "Idle", "RESET 2", SubResource( 148 ), "RESET 2", "Air", SubResource( 149 ), "Air", "RESET 2", SubResource( 150 ), "RESET 2", "Idle", SubResource( 151 ) ]
+transitions = [ "Air", "Run", SubResource( 77 ), "Run", "Air", SubResource( 78 ), "Aim", "Shoot", SubResource( 96 ), "Shoot", "Aim", SubResource( 97 ), "Crouched", "AimCrouched", SubResource( 120 ), "AimCrouched", "ShootCrouched", SubResource( 121 ), "ShootCrouched", "AimCrouched", SubResource( 122 ), "AimCrouched", "Crouched", SubResource( 123 ), "Idle", "Crouch", SubResource( 124 ), "Crouch", "Crouched", SubResource( 125 ), "GetUp", "Idle", SubResource( 126 ), "Crouched", "GetUp", SubResource( 127 ), "Run", "Dash", SubResource( 134 ), "Air", "Dash", SubResource( 135 ), "Dash", "Air", SubResource( 136 ), "Idle", "RESET", SubResource( 144 ), "RESET", "Idle", SubResource( 145 ), "RESET", "Run", SubResource( 146 ), "Run", "RESET", SubResource( 147 ), "Idle", "RESET 2", SubResource( 148 ), "RESET 2", "Air", SubResource( 149 ), "Air", "RESET 2", SubResource( 150 ), "RESET 2", "Idle", SubResource( 151 ), "Idle", "RESET 3", SubResource( 153 ), "RESET 3", "Idle", SubResource( 154 ), "RESET 3", "Aim", SubResource( 155 ), "Aim", "RESET 3", SubResource( 156 ) ]
 start_node = "Idle"
-graph_offset = Vector2( -556.849, -92.4115 )
+graph_offset = Vector2( -556.849, -147.849 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=35]
 

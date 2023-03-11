@@ -15,6 +15,8 @@ func _unhandled_key_input(_event):
 	if Input.is_action_pressed("interact") && player_is_in_zone && !in_dialog:
 		get_tree().current_scene.start_dialog("res://UserInterface/Dialog/Json/MrGerald.json", get_dialog_num())
 		in_dialog = true
+		yield(get_tree().current_scene.gui.dialog, "dialog_end")
+		in_dialog = false
 
 func _on_InteractionBox_body_entered(body):
 	if body is Player:
@@ -30,6 +32,7 @@ func on_talk():
 
 func on_shop():
 	get_tree().current_scene.start_shop("res://UserInterface/Shops/Json/MrGerald.json")
+	get_tree().current_scene.gui.dialog.close_dialog()
 	yield(get_tree().current_scene.gui.shop, "dialog_end")
 	in_dialog = false
 	
@@ -38,7 +41,7 @@ func equip_candy_corn():
 	GlobalVars.ammo_equipped_array.append(GlobalVars.get_ammo("Candy Corn"))
 	GlobalVars.remove_from_inventory("Candy Corn")
 	get_tree().current_scene.player.update_display()
-	#GlobalVars.add_to_inventory({"Name":"Gimald shop","StoryPoint":"2"})
+	GlobalVars.add_to_inventory({"Name":"Gimald shop","StoryPoint":"2"})
 
 # Returns the point at the conversation the dialog should be
 func get_dialog_num() -> int:

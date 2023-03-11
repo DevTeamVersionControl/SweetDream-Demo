@@ -30,7 +30,6 @@ var phrase_num = 0
 var finished = false
 var story_point := 0
 
-
 func input(event):
 	if finished:
 		next_phrase()

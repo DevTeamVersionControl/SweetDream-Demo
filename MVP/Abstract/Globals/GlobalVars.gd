@@ -49,7 +49,7 @@ func initialize():
 	sugar = max_sugar
 	equiped_ammo_index = 0
 	double_jump_lock = true
-	dash_lock = false
+	dash_lock = true
 	inventory = []
 	artifacts = 30
 	GameSaver.load()
