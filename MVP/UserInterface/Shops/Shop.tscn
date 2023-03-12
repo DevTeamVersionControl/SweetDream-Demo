@@ -62,6 +62,7 @@ margin_bottom = 590.0
 theme = SubResource( 2 )
 items = [ "Item 0", ExtResource( 3 ), false, "Item 1", null, false, "Item 2", null, false, "Item 3", null, false, "Item 4", null, false, "Item 5", null, false, "Item 6", null, false ]
 auto_height = true
+icon_scale = 0.5
 
 [node name="Description" type="RichTextLabel" parent="."]
 margin_left = 488.0

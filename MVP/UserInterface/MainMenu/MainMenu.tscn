@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://UserInterface/Fonts/MangabeyRegular-rgqVO.otf" type="DynamicFontData" id=1]
-[ext_resource path="res://UserInterface/MainMenu.gd" type="Script" id=2]
+[ext_resource path="res://UserInterface/MainMenu/MainMenu.gd" type="Script" id=2]
 [ext_resource path="res://UserInterface/PauseMenu/input_menu/InputMenu.tscn" type="PackedScene" id=3]
 
 [sub_resource type="DynamicFont" id=1]

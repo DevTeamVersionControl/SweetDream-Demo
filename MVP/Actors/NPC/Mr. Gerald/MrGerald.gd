@@ -12,7 +12,7 @@ func _ready():
 	get_tree().current_scene.gui.dialog.connect("equip_candy_corn", self, "equip_candy_corn")
 
 func _unhandled_key_input(_event):
-	if Input.is_action_pressed("interact") && player_is_in_zone && !in_dialog:
+	if Input.is_action_pressed("interact") && player_is_in_zone && !get_tree().current_scene.gui.dialog.visible && !get_tree().current_scene.gui.shop.visible:
 		get_tree().current_scene.start_dialog("res://UserInterface/Dialog/Json/MrGerald.json", get_dialog_num())
 		in_dialog = true
 		yield(get_tree().current_scene.gui.dialog, "dialog_end")
@@ -39,7 +39,6 @@ func on_shop():
 # Used once to equip candy corn ammo to player at the beginning of the game
 func equip_candy_corn():
 	GlobalVars.ammo_equipped_array.append(GlobalVars.get_ammo("Candy Corn"))
-	GlobalVars.remove_from_inventory("Candy Corn")
 	get_tree().current_scene.player.update_display()
 	GlobalVars.add_to_inventory({"Name":"Gimald shop","StoryPoint":"2"})
 
@@ -50,5 +49,6 @@ func get_dialog_num() -> int:
 			var story_point = int(item.get("StoryPoint"))
 			if item.has("Temporary"):
 				item.erase("StoryPoint")
+				item.erase("Temporary")
 			return story_point
 	return 0

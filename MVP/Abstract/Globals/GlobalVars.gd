@@ -39,9 +39,11 @@ var ammo_equipped_array := []
 var double_jump_lock := false
 var dash_lock := false
 var inventory := []
-var artifacts := 30
+var artifacts := 0
 
 func initialize():
+	ammo_equipped_array = []
+	equiped_ammo_index = 0
 	max_health = BASE_MAX_HEALTH
 	max_health_packs = 3
 	health_packs = max_health_packs
@@ -51,7 +53,7 @@ func initialize():
 	double_jump_lock = true
 	dash_lock = true
 	inventory = []
-	artifacts = 30
+	artifacts = 0
 	GameSaver.load()
 	call_deferred("apply_items")
 
@@ -100,6 +102,9 @@ func add_max_sugar(num:int)->void:
 	max_sugar += num
 	sugar = max_sugar
 	get_tree().current_scene.player.update_display()
+
+func unlock_dash(_placeholder)->void:
+	dash_lock = false
 
 func apply_items():
 	max_health = BASE_MAX_HEALTH

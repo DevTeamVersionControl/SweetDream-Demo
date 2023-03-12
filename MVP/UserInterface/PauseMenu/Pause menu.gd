@@ -50,7 +50,7 @@ func select_option():
 		"Main menu":
 			GameSaver.save()
 			get_tree().paused = false
-			printerr(get_tree().change_scene("res://UserInterface/MainMenu.tscn"))
+			printerr(get_tree().change_scene("res://UserInterface/MainMenu/MainMenu.tscn"))
 		"Close game":
 			GameSaver.save()
 			get_tree().notification(MainLoop.NOTIFICATION_WM_QUIT_REQUEST)
