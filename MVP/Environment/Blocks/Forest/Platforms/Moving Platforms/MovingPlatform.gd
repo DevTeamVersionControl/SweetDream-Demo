@@ -9,10 +9,12 @@ export var move_to = Vector2.RIGHT * 192 setget set_move_to
 export var speed = 2.0
 export var trigger : NodePath
 export var require_trigger = false
+export var num = 1
 
 onready var trigger_obj = get_node_or_null(trigger)
 
 func _ready():
+	$Platform/AnimationPlayer.play("Platform"+String(num))
 	if Engine.is_editor_hint():
 		set_physics_process(false)
 	else :

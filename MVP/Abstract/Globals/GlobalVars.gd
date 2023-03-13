@@ -105,6 +105,9 @@ func add_max_sugar(num:int)->void:
 
 func unlock_dash(_placeholder)->void:
 	dash_lock = false
+	
+func unlock_double_jump(_placeholder)->void:
+	double_jump_lock = false
 
 func apply_items():
 	max_health = BASE_MAX_HEALTH

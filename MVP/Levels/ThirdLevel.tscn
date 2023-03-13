@@ -1,318 +1,20 @@
-[gd_scene load_steps=115 format=2]
+[gd_scene load_steps=106 format=2]
 
-[ext_resource path="res://Environment/Light/light.png" type="Texture" id=1]
-[ext_resource path="res://Levels/Jawbreaker Boss Room/Pillar 720p_n.png" type="Texture" id=2]
-[ext_resource path="res://Levels/Jawbreaker Boss Room/JawbreakerRoom.gd" type="Script" id=3]
-[ext_resource path="res://Environment/Blocks/Forest/TileSets/Tile Pack/Dirt Tile Pack/Dirt_Tile_Pack_333p.png" type="Texture" id=4]
-[ext_resource path="res://Environment/Blocks/Forest/TileSets/Tile Pack/Grass Tile Pack/Grass Tile Pack 333p.png" type="Texture" id=5]
-[ext_resource path="res://Levels/Jawbreaker Boss Room/Pillar 720p.png" type="Texture" id=6]
-[ext_resource path="res://Environment/Blocks/Forest/TileSets/ForestTileMap.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Levels/Jawbreaker Boss Room/Jawbreaker Boss Room 720p.png" type="Texture" id=8]
-[ext_resource path="res://Levels/Jawbreaker Boss Room/Jawbreaker Boss Room 720p_n.png" type="Texture" id=9]
-[ext_resource path="res://Environment/Backgrounds/Forest Backgrounds/Underground Background/Back Textures/UndergroundBackground.tscn" type="PackedScene" id=10]
-[ext_resource path="res://Environment/Blocks/Forest/Walls & Puzzles/Puzzles/EnemyCounter.tscn" type="PackedScene" id=11]
-[ext_resource path="res://Actors/Enemies/Jawbreaker/Jawbreaker.tscn" type="PackedScene" id=12]
-[ext_resource path="res://Actors/Enemies/Bosses/Jaw Breaker/JawbreakerBoss.tscn" type="PackedScene" id=13]
-[ext_resource path="res://Environment/Blocks/Forest/Platforms/Breaking Platform/BreakablePlatformShort.tscn" type="PackedScene" id=14]
-[ext_resource path="res://Abstract/Portal/Portal.tscn" type="PackedScene" id=15]
+[ext_resource path="res://Environment/Blocks/Forest/TileSets/Tile Pack/Grass Tile Pack/Grass Tile Pack 333p.png" type="Texture" id=1]
+[ext_resource path="res://Environment/Blocks/Forest/Platforms/Breaking Platform/BreakablePlatformShort.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Environment/Blocks/Forest/TileSets/ForestTileMap.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Environment/Light/DarkZone.png" type="Texture" id=4]
+[ext_resource path="res://Environment/Blocks/Forest/TileSets/Tile Pack/Dirt Tile Pack/Dirt_Tile_Pack_333p.png" type="Texture" id=5]
+[ext_resource path="res://Environment/Backgrounds/Forest Backgrounds/Main Background/Background Color.png" type="Texture" id=8]
+[ext_resource path="res://Levels/Level.gd" type="Script" id=14]
+[ext_resource path="res://Pickups/Pickup.tscn" type="PackedScene" id=15]
+[ext_resource path="res://Abstract/Portal/Portal.tscn" type="PackedScene" id=19]
 
-[sub_resource type="Shader" id=197]
-code = "shader_type canvas_item;
+[sub_resource type="CanvasItemMaterial" id=198]
+light_mode = 2
 
-uniform float first_stage : hint_range(0.0, 1.0) = 0.5; 
-uniform float first_smooth : hint_range(0.0, 1.0) = 0.0; // Lengthens the color transition
-uniform float second_stage : hint_range(0.0, 1.0) = 0.0;   // If left at 0, only level 1 is used.
-uniform float second_smooth : hint_range(0.0, 1.0) = 0.0;
-uniform bool rim_light = false;
-uniform float rim_thickness : hint_range(0, 40) = 5.0;
-uniform float rim_intense : hint_range(0, 1) = 1.0;
-uniform bool rim_extra_thick = false;
-uniform float min_light : hint_range(0.0, 1.0) = 0.0;
-uniform float mid_light : hint_range(0.0, 1.0) = 0.0;
-uniform float max_light : hint_range(0.0, 1.0) = 1.0;
-uniform float obj_light_add : hint_range(0.0, 1.0) = 0.0;
-// Light height variables
-uniform bool fake_light_depth = false;
-uniform float obj_height : hint_range(-2048.0, 2048.0) = 0.0; 
-uniform float min_scale : hint_range(0.0, 10.0) = 0.2;
-uniform float max_scale : hint_range(0.0, 10.0) = 2.0; 
-uniform float light_change_thresh : hint_range(0.0, 4080.0) = 0.0;
-uniform bool light_fade = false;
-uniform float light_fade_end : hint_range(0.0, 4080.0) = 0.0;
-uniform bool fake_spot_light = false;
-uniform float first_shrink_speed : hint_range(0.0, 120.0) = 0.0; 
-uniform float second_shrink_speed : hint_range(0.0, 120.0) = 0.0; 
-//---------------Color Override
-uniform vec4 before_light_modulate : hint_color = vec4(1.0,1.0,1.0,1.0);
-
-void fragment() {
-	vec4 texture_color = texture(TEXTURE, UV);
-	if (AT_LIGHT_PASS) {
-		COLOR = texture_color;
-	} else {
-		COLOR = texture_color * before_light_modulate;
-	}
-}
-float light_calc(float light_strength, float would_be_strength) {
-	float target_strength = light_strength + would_be_strength * obj_light_add;
-	if (target_strength == 0.0) {target_strength = 0.000001;}
-	if (would_be_strength == 0.0) {would_be_strength = 1.0;}
-	return(target_strength / would_be_strength);
-}
-
-void light() {
-	float level_1 = first_stage;
-	float level_1_smooth = first_smooth;
-	float level_2 = second_stage;
-	float level_2_smooth = second_smooth;
-	//---- Light height calc start ------------------------------------
-	//-----------------------------------------------------------------
-	if (fake_light_depth) {
-		float base_height = LIGHT_HEIGHT;
-		float new_height = base_height - obj_height;
-		LIGHT_HEIGHT = new_height;
-		if (fake_spot_light && obj_height < base_height && light_change_thresh < new_height ){
-			if (level_1 != 1.0) {
-				level_1 -= (light_change_thresh - new_height) * (first_shrink_speed * .0001);
-				if (level_2 != 0.0 && level_2 != 1.0) {
-					level_2 -= (light_change_thresh - new_height) * (second_shrink_speed * .0001);
-				}
-			}
-		}
-		if (light_fade && new_height > light_change_thresh) {
-			float n_height_safety = new_height;
-			if (n_height_safety == 0.0) { n_height_safety += 0.01; }
-			float light_dist_safety = light_change_thresh;
-			if (light_dist_safety == 0.0) { light_dist_safety += 0.001; }
-			float new_intens = 1.0;
-			float dark_distance = light_fade_end;
-			if (dark_distance == 0.0) {dark_distance = 1.0;}
-			new_intens = 1.0 - abs(abs(light_dist_safety) - abs(n_height_safety)) / dark_distance;
-			float light_drop_a = clamp(LIGHT_COLOR.a * new_intens, 0.0, 1.0);
-			LIGHT_COLOR *= light_drop_a;
-		}
-	}
-	//---- Light height calc end --------------------------------------
-	
-	float mid_range_light = mid_light;
-	if (mid_light == 0.0) { mid_range_light = max_light * 0.5; }
-	vec3 light_normal = normalize(vec3(LIGHT_VEC, -LIGHT_HEIGHT));
-	float would_be_strength = max(dot(-light_normal, NORMAL), 0.0);
-//-----Light Rim start------------------------------------------------------
-	if (rim_light) {
-		vec2 size = TEXTURE_PIXEL_SIZE * rim_thickness;
-		float outline = texture(TEXTURE, UV + vec2(-size.x, 0)).a;
-		outline *= texture(TEXTURE, UV + vec2(0, size.y)).a;
-		outline *= texture(TEXTURE, UV + vec2(size.x, 0)).a;
-		outline *= texture(TEXTURE, UV + vec2(0, -size.y)).a;
-		if (rim_extra_thick) {
-			outline *= texture(TEXTURE, UV + vec2(-size.x, size.y)).a;
-			outline *= texture(TEXTURE, UV + vec2(size.x, size.y)).a;
-			outline *= texture(TEXTURE, UV + vec2(-size.x, -size.y)).a;
-			outline *= texture(TEXTURE, UV + vec2(size.x, -size.y)).a;
-		}
-		outline = 1.0 - outline;
-
-		vec4 color = texture(TEXTURE, UV);
-		float rim_cap = outline * color.a * rim_intense * (max_light - min_light);
-		LIGHT += rim_cap;
-	}
-	//-----Light Rim end------------------------------------------------------
-	if (would_be_strength > level_1 && level_2 == 0.0 ) {
-		float diff = smoothstep(level_1, (level_1 + level_1_smooth), would_be_strength) + min_light;
-		if (diff >= max_light) {diff = max_light;}
-		LIGHT *= light_calc(diff, would_be_strength);
-	} else if (would_be_strength > level_1 && would_be_strength < level_2 && level_2 != 0.0 ) {
-		float diff = smoothstep(level_1, (level_1 + level_1_smooth), would_be_strength) + min_light;
-		if (diff >= mid_range_light ) {diff = mid_range_light;}
-		LIGHT *= light_calc(diff, would_be_strength);
-	} else if (would_be_strength >= level_2 && level_2 != 0.0 ) {
-		float diff = smoothstep(level_2, (level_2 + level_2_smooth), would_be_strength) + mid_range_light;
-		if (diff < mid_range_light ) {diff = mid_range_light;}
-		if (diff >= max_light) {diff = max_light;}
-		LIGHT *= light_calc(diff, would_be_strength);
-	} else { 
-		if (min_light != 0.0) { 
-			LIGHT_VEC = -NORMAL.xy*length(LIGHT_VEC); 
-		}
-		LIGHT *= min_light;                                                                                                                                  
-	}
-}"
-
-[sub_resource type="ShaderMaterial" id=198]
-shader = SubResource( 197 )
-shader_param/first_stage = 0.5
-shader_param/first_smooth = 0.0
-shader_param/second_stage = 0.0
-shader_param/second_smooth = 0.0
-shader_param/rim_light = false
-shader_param/rim_thickness = 5.0
-shader_param/rim_intense = 1.0
-shader_param/rim_extra_thick = false
-shader_param/min_light = 0.0
-shader_param/mid_light = 0.0
-shader_param/max_light = 1.0
-shader_param/obj_light_add = 0.0
-shader_param/fake_light_depth = false
-shader_param/obj_height = 0.0
-shader_param/min_scale = 0.2
-shader_param/max_scale = 2.0
-shader_param/light_change_thresh = 0.0
-shader_param/light_fade = false
-shader_param/light_fade_end = 0.0
-shader_param/fake_spot_light = false
-shader_param/first_shrink_speed = 0.0
-shader_param/second_shrink_speed = 0.0
-shader_param/before_light_modulate = Color( 1, 1, 1, 1 )
-
-[sub_resource type="Shader" id=199]
-code = "shader_type canvas_item;
-
-uniform float first_stage : hint_range(0.0, 1.0) = 0.5; 
-uniform float first_smooth : hint_range(0.0, 1.0) = 0.0; // Lengthens the color transition
-uniform float second_stage : hint_range(0.0, 1.0) = 0.0;   // If left at 0, only level 1 is used.
-uniform float second_smooth : hint_range(0.0, 1.0) = 0.0;
-uniform bool rim_light = false;
-uniform float rim_thickness : hint_range(0, 40) = 5.0;
-uniform float rim_intense : hint_range(0, 1) = 1.0;
-uniform bool rim_extra_thick = false;
-uniform float min_light : hint_range(0.0, 1.0) = 0.0;
-uniform float mid_light : hint_range(0.0, 1.0) = 0.0;
-uniform float max_light : hint_range(0.0, 1.0) = 1.0;
-uniform float obj_light_add : hint_range(0.0, 1.0) = 0.0;
-// Light height variables
-uniform bool fake_light_depth = false;
-uniform float obj_height : hint_range(-2048.0, 2048.0) = 0.0; 
-uniform float min_scale : hint_range(0.0, 10.0) = 0.2;
-uniform float max_scale : hint_range(0.0, 10.0) = 2.0; 
-uniform float light_change_thresh : hint_range(0.0, 4080.0) = 0.0;
-uniform bool light_fade = false;
-uniform float light_fade_end : hint_range(0.0, 4080.0) = 0.0;
-uniform bool fake_spot_light = false;
-uniform float first_shrink_speed : hint_range(0.0, 120.0) = 0.0; 
-uniform float second_shrink_speed : hint_range(0.0, 120.0) = 0.0; 
-//---------------Color Override
-uniform vec4 before_light_modulate : hint_color = vec4(1.0,1.0,1.0,1.0);
-
-void fragment() {
-	vec4 texture_color = texture(TEXTURE, UV);
-	if (AT_LIGHT_PASS) {
-		COLOR = texture_color;
-	} else {
-		COLOR = texture_color * before_light_modulate;
-	}
-}
-float light_calc(float light_strength, float would_be_strength) {
-	float target_strength = light_strength + would_be_strength * obj_light_add;
-	if (target_strength == 0.0) {target_strength = 0.000001;}
-	if (would_be_strength == 0.0) {would_be_strength = 1.0;}
-	return(target_strength / would_be_strength);
-}
-
-void light() {
-	float level_1 = first_stage;
-	float level_1_smooth = first_smooth;
-	float level_2 = second_stage;
-	float level_2_smooth = second_smooth;
-	//---- Light height calc start ------------------------------------
-	//-----------------------------------------------------------------
-	if (fake_light_depth) {
-		float base_height = LIGHT_HEIGHT;
-		float new_height = base_height - obj_height;
-		LIGHT_HEIGHT = new_height;
-		if (fake_spot_light && obj_height < base_height && light_change_thresh < new_height ){
-			if (level_1 != 1.0) {
-				level_1 -= (light_change_thresh - new_height) * (first_shrink_speed * .0001);
-				if (level_2 != 0.0 && level_2 != 1.0) {
-					level_2 -= (light_change_thresh - new_height) * (second_shrink_speed * .0001);
-				}
-			}
-		}
-		if (light_fade && new_height > light_change_thresh) {
-			float n_height_safety = new_height;
-			if (n_height_safety == 0.0) { n_height_safety += 0.01; }
-			float light_dist_safety = light_change_thresh;
-			if (light_dist_safety == 0.0) { light_dist_safety += 0.001; }
-			float new_intens = 1.0;
-			float dark_distance = light_fade_end;
-			if (dark_distance == 0.0) {dark_distance = 1.0;}
-			new_intens = 1.0 - abs(abs(light_dist_safety) - abs(n_height_safety)) / dark_distance;
-			float light_drop_a = clamp(LIGHT_COLOR.a * new_intens, 0.0, 1.0);
-			LIGHT_COLOR *= light_drop_a;
-		}
-	}
-	//---- Light height calc end --------------------------------------
-	
-	float mid_range_light = mid_light;
-	if (mid_light == 0.0) { mid_range_light = max_light * 0.5; }
-	vec3 light_normal = normalize(vec3(LIGHT_VEC, -LIGHT_HEIGHT));
-	float would_be_strength = max(dot(-light_normal, NORMAL), 0.0);
-//-----Light Rim start------------------------------------------------------
-	if (rim_light) {
-		vec2 size = TEXTURE_PIXEL_SIZE * rim_thickness;
-		float outline = texture(TEXTURE, UV + vec2(-size.x, 0)).a;
-		outline *= texture(TEXTURE, UV + vec2(0, size.y)).a;
-		outline *= texture(TEXTURE, UV + vec2(size.x, 0)).a;
-		outline *= texture(TEXTURE, UV + vec2(0, -size.y)).a;
-		if (rim_extra_thick) {
-			outline *= texture(TEXTURE, UV + vec2(-size.x, size.y)).a;
-			outline *= texture(TEXTURE, UV + vec2(size.x, size.y)).a;
-			outline *= texture(TEXTURE, UV + vec2(-size.x, -size.y)).a;
-			outline *= texture(TEXTURE, UV + vec2(size.x, -size.y)).a;
-		}
-		outline = 1.0 - outline;
-
-		vec4 color = texture(TEXTURE, UV);
-		float rim_cap = outline * color.a * rim_intense * (max_light - min_light);
-		LIGHT += rim_cap;
-	}
-	//-----Light Rim end------------------------------------------------------
-	if (would_be_strength > level_1 && level_2 == 0.0 ) {
-		float diff = smoothstep(level_1, (level_1 + level_1_smooth), would_be_strength) + min_light;
-		if (diff >= max_light) {diff = max_light;}
-		LIGHT *= light_calc(diff, would_be_strength);
-	} else if (would_be_strength > level_1 && would_be_strength < level_2 && level_2 != 0.0 ) {
-		float diff = smoothstep(level_1, (level_1 + level_1_smooth), would_be_strength) + min_light;
-		if (diff >= mid_range_light ) {diff = mid_range_light;}
-		LIGHT *= light_calc(diff, would_be_strength);
-	} else if (would_be_strength >= level_2 && level_2 != 0.0 ) {
-		float diff = smoothstep(level_2, (level_2 + level_2_smooth), would_be_strength) + mid_range_light;
-		if (diff < mid_range_light ) {diff = mid_range_light;}
-		if (diff >= max_light) {diff = max_light;}
-		LIGHT *= light_calc(diff, would_be_strength);
-	} else { 
-		if (min_light != 0.0) { 
-			LIGHT_VEC = -NORMAL.xy*length(LIGHT_VEC); 
-		}
-		LIGHT *= min_light;                                                                                                                                  
-	}
-}"
-
-[sub_resource type="ShaderMaterial" id=200]
-shader = SubResource( 199 )
-shader_param/first_stage = 0.5
-shader_param/first_smooth = 0.0
-shader_param/second_stage = 0.0
-shader_param/second_smooth = 0.0
-shader_param/rim_light = true
-shader_param/rim_thickness = 5.0
-shader_param/rim_intense = 1.0
-shader_param/rim_extra_thick = false
-shader_param/min_light = 0.0
-shader_param/mid_light = 0.0
-shader_param/max_light = 1.0
-shader_param/obj_light_add = 0.0
-shader_param/fake_light_depth = false
-shader_param/obj_height = 0.0
-shader_param/min_scale = 0.2
-shader_param/max_scale = 2.0
-shader_param/light_change_thresh = 0.0
-shader_param/light_fade = false
-shader_param/light_fade_end = 0.0
-shader_param/fake_spot_light = false
-shader_param/first_shrink_speed = 0.0
-shader_param/second_shrink_speed = 0.0
-shader_param/before_light_modulate = Color( 1, 1, 1, 1 )
+[sub_resource type="CanvasItemMaterial" id=200]
+light_mode = 2
 
 [sub_resource type="ConvexPolygonShape2D" id=104]
 points = PoolVector2Array( 0, 0, 320, 0, 320, 320, 0, 320 )
@@ -593,10 +295,10 @@ points = PoolVector2Array( 0, 0, 336, 0, 336, 336, 0, 336 )
 [sub_resource type="ConvexPolygonShape2D" id=196]
 points = PoolVector2Array( 0, 0, 336, 0, 336, 336, 0, 336 )
 
-[sub_resource type="TileSet" id=201]
+[sub_resource type="TileSet" id=197]
 resource_local_to_scene = true
 2/name = "Grass Tile Pack 2160p.png 2"
-2/texture = ExtResource( 5 )
+2/texture = ExtResource( 1 )
 2/tex_offset = Vector2( 0, 0 )
 2/modulate = Color( 1, 1, 1, 1 )
 2/region = Rect2( 0, 7, 3840, 1600 )
@@ -902,7 +604,7 @@ resource_local_to_scene = true
 } ]
 2/z_index = 0
 3/name = "Dirt_Tile_Pack_2160p.png 3"
-3/texture = ExtResource( 4 )
+3/texture = ExtResource( 5 )
 3/tex_offset = Vector2( 0, 0 )
 3/modulate = Color( 1, 1, 1, 1 )
 3/region = Rect2( 0, 7, 4032, 1680 )
@@ -1202,93 +904,75 @@ resource_local_to_scene = true
 } ]
 3/z_index = 0
 
-[sub_resource type="RectangleShape2D" id=202]
-
-[node name="JawbreakerRoom" type="Node2D"]
-script = ExtResource( 3 )
-level_range_x = Vector2( 0, 680 )
-level_range_y = Vector2( 0, 380 )
+[node name="ThirdLevel" type="Node2D"]
+pause_mode = 1
+material = SubResource( 198 )
+script = ExtResource( 14 )
+level_range_x = Vector2( 0, 3855 )
+level_range_y = Vector2( -250, 3500 )
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
-[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_scale = Vector2( 0.9, 1 )
-motion_offset = Vector2( -35, 0 )
-
-[node name="UndergroundBackground" parent="ParallaxBackground/ParallaxLayer" instance=ExtResource( 10 )]
-scale = Vector2( 0.07, 0.07 )
-tile_data = PoolIntArray( -196606, 0, 3, -196605, 0, 196613, -196604, 0, 196612, -196603, 0, 196612, -196602, 0, 196613, -196601, 0, 4, -65537, 0, 3, -131072, 0, 196614, -131071, 0, 196614, -131070, 0, 131073, -131069, 0, 131078, -131068, 0, 131078, -131067, 0, 131076, -131066, 0, 131077, -131065, 0, 65537, -131064, 0, 196612, -131063, 0, 196613, -131062, 0, 196613, -131061, 0, 196611, -131060, 0, 4, -1, 0, 327682, -65536, 0, 196609, -65535, 0, 196609, -65534, 0, 131077, -65533, 0, 131074, -65532, 0, 131076, -65531, 0, 131075, -65530, 0, 196610, -65529, 0, 131074, -65528, 0, 131075, -65527, 0, 131076, -65526, 0, 131078, -65525, 0, 196610, -65524, 0, 65537, -65523, 0, 5, 65534, 0, 3, 65535, 0, 131073, 0, 0, 196608, 1, 0, 131075, 2, 0, 196609, 3, 0, 131076, 4, 0, 196609, 5, 0, 131075, 6, 0, 196609, 7, 0, 131077, 8, 0, 131075, 9, 0, 196610, 10, 0, 131075, 11, 0, 131077, 12, 0, 196610, 13, 0, 65537, 14, 0, 196611, 15, 0, 4, 131070, 0, 327681, 131071, 0, 196610, 65536, 0, 131074, 65537, 0, 131076, 65538, 0, 196608, 65539, 0, 131074, 65540, 0, 196608, 65541, 0, 196608, 65542, 0, 131074, 65543, 0, 131074, 65544, 0, 131074, 65545, 0, 131075, 65546, 0, 196609, 65547, 0, 131076, 65548, 0, 131078, 65549, 0, 196610, 65550, 0, 65540, 65551, 0, 6, 196606, 0, 327681, 196607, 0, 131074, 131072, 0, 131076, 131073, 0, 131076, 131074, 0, 196610, 131075, 0, 196610, 131076, 0, 131076, 131077, 0, 131074, 131078, 0, 131074, 131079, 0, 131075, 131080, 0, 131078, 131081, 0, 131077, 131082, 0, 131077, 131083, 0, 196609, 131084, 0, 131077, 131085, 0, 196609, 131086, 0, 262147, 262142, 0, 327683, 262143, 0, 196609, 196608, 0, 196610, 196609, 0, 196608, 196610, 0, 196609, 196611, 0, 131076, 196612, 0, 196609, 196613, 0, 131074, 196614, 0, 131076, 196615, 0, 131074, 196616, 0, 196609, 196617, 0, 131078, 196618, 0, 131076, 196619, 0, 196610, 196620, 0, 196609, 196621, 0, 196609, 196622, 0, 262145, 327678, 0, 327682, 327679, 0, 196608, 262144, 0, 131077, 262145, 0, 131078, 262146, 0, 196610, 262147, 0, 131075, 262148, 0, 131078, 262149, 0, 131074, 262150, 0, 131078, 262151, 0, 131074, 262152, 0, 131077, 262153, 0, 131077, 262154, 0, 196610, 262155, 0, 131076, 262156, 0, 196608, 262157, 0, 196609, 262158, 0, 65537, 262159, 0, 4, 393214, 0, 327682, 393215, 0, 196609, 327680, 0, 196609, 327681, 0, 131077, 327682, 0, 131077, 327683, 0, 196608, 327684, 0, 131075, 327685, 0, 196609, 327686, 0, 131075, 327687, 0, 196610, 327688, 0, 131076, 327689, 0, 131078, 327690, 0, 131074, 327691, 0, 131077, 327692, 0, 131077, 327693, 0, 196608, 327694, 0, 131078, 327695, 0, 262146, 458750, 0, 0, 458751, 0, 65541, 393216, 0, 131075, 393217, 0, 196610, 393218, 0, 131075, 393219, 0, 196610, 393220, 0, 196608, 393221, 0, 131074, 393222, 0, 131074, 393223, 0, 131077, 393224, 0, 196609, 393225, 0, 196608, 393226, 0, 131078, 393227, 0, 196608, 393228, 0, 131074, 393229, 0, 131076, 393230, 0, 131077, 393231, 0, 262146, 524287, 0, 327684, 458752, 0, 131074, 458753, 0, 196610, 458754, 0, 131075, 458755, 0, 196609, 458756, 0, 131074, 458757, 0, 196608, 458758, 0, 196608, 458759, 0, 131074, 458760, 0, 196610, 458761, 0, 196609, 458762, 0, 131075, 458763, 0, 196609, 458764, 0, 196608, 458765, 0, 196608, 458766, 0, 65540, 458767, 0, 65536, 589823, 0, 0, 524288, 0, 327680, 524289, 0, 65542, 524290, 0, 196608, 524291, 0, 131075, 524292, 0, 131076, 524293, 0, 131074, 524294, 0, 131074, 524295, 0, 131076, 524296, 0, 131077, 524297, 0, 131077, 524298, 0, 131078, 524299, 0, 131077, 524300, 0, 131078, 524301, 0, 131074, 524302, 0, 262144, 589825, 0, 0, 589826, 0, 262149, 589827, 0, 262148, 589828, 0, 262150, 589829, 0, 262150, 589830, 0, 262149, 589831, 0, 262150, 589832, 0, 262150, 589833, 0, 262150, 589834, 0, 262148, 589835, 0, 262150, 589836, 0, 262150, 589837, 0, 262149, 589838, 0, 6 )
-
-[node name="ColorRect" type="ColorRect" parent="ParallaxBackground/ParallaxLayer"]
-margin_top = -3.0
-margin_right = 40.0
-margin_bottom = 37.0
-rect_scale = Vector2( 17.9306, 11.7638 )
-color = Color( 0, 0, 0, 0.270588 )
-
-[node name="JawbreakerBossRoom720p" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
-material = SubResource( 198 )
-position = Vector2( 342.148, 204.391 )
-scale = Vector2( 0.540292, 0.540292 )
-texture = ExtResource( 8 )
-normal_map = ExtResource( 9 )
-
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2( 341, 198 )
-current = true
-zoom = Vector2( 0.353, 0.353 )
-
-[node name="Light2D" type="Light2D" parent="."]
-visible = false
-position = Vector2( 335, 200 )
-scale = Vector2( 2.125, 1.70508 )
-texture = ExtResource( 1 )
-energy = 0.7
-
-[node name="Pillar720p" type="Sprite" parent="."]
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground"]
 material = SubResource( 200 )
-position = Vector2( 343, 198 )
-scale = Vector2( 0.530587, 0.530587 )
-texture = ExtResource( 6 )
-normal_map = ExtResource( 2 )
+use_parent_material = true
+motion_scale = Vector2( 0.1, 1 )
 
-[node name="TileMap" parent="." instance=ExtResource( 7 )]
-tile_set = SubResource( 201 )
-tile_data = PoolIntArray( -65538, 3, 8, -65537, 3, 11, -131067, 3, 8, -131066, 3, 262155, -131065, 3, 262155, -131064, 3, 262154, -131063, 3, 262155, -131062, 3, 10, -131061, 3, 262154, -131060, 3, 262155, -131059, 3, 262154, -131058, 3, 10, -131057, 3, 262153, -131056, 3, 262155, -131055, 3, 262155, -131054, 3, 262154, -131053, 3, 10, -131052, 3, 262153, -131051, 3, 10, -131050, 3, 10, -131049, 3, 262153, -131048, 3, 262153, -131047, 3, 10, -131046, 3, 262153, -131045, 3, 10, -131044, 3, 262155, -131043, 3, 10, -131042, 3, 11, -2, 3, 65544, -1, 3, 131083, -65531, 3, 196616, -65530, 3, 196617, -65529, 3, 196617, -65528, 3, 196617, -65527, 3, 196617, -65526, 3, 196617, -65525, 3, 196617, -65524, 3, 196617, -65523, 3, 196617, -65522, 3, 196617, -65521, 3, 196617, -65520, 3, 196617, -65519, 3, 196617, -65518, 3, 196617, -65517, 3, 196617, -65516, 3, 196617, -65515, 3, 196617, -65514, 3, 196617, -65513, 3, 196617, -65512, 3, 196617, -65511, 3, 196617, -65510, 3, 196617, -65509, 3, 196617, -65508, 3, 196617, -65507, 3, 131077, -65506, 3, 131083, 65534, 3, 65544, 65535, 3, 131083, 29, 3, 65544, 30, 3, 131083, 131070, 3, 65544, 131071, 3, 131083, 65565, 3, 65544, 65566, 3, 131083, 196606, 3, 65544, 196607, 3, 131083, 131101, 3, 65544, 131102, 3, 131083, 262142, 3, 65544, 262143, 3, 131083, 196637, 3, 65544, 196638, 3, 131083, 327678, 3, 65544, 327679, 3, 131083, 262173, 3, 65544, 262174, 3, 131083, 393214, 3, 65544, 393215, 3, 131083, 327709, 3, 65544, 327710, 3, 131083, 458750, 3, 65544, 458751, 3, 131083, 393245, 3, 65544, 393246, 3, 131083, 524286, 3, 65544, 524287, 3, 131083, 458781, 3, 65544, 458782, 3, 131083, 589822, 3, 65544, 589823, 3, 131083, 524317, 3, 65544, 524318, 3, 131083, 655358, 3, 65544, 655359, 3, 131083, 589853, 3, 65544, 589854, 3, 131083, 720894, 3, 65544, 720895, 3, 131083, 655389, 3, 65544, 655390, 3, 131083, 786430, 3, 65544, 786431, 3, 131083, 720925, 3, 65544, 720926, 3, 131083, 851966, 3, 65544, 851967, 3, 131083, 786461, 3, 65544, 786462, 3, 131083, 917502, 3, 65544, 917503, 3, 131083, 851997, 3, 65544, 851998, 3, 131083, 983038, 3, 65544, 983039, 3, 131083, 917533, 3, 65544, 917534, 3, 131083, 1048574, 3, 65544, 1048575, 3, 131083, 983069, 3, 65544, 983070, 3, 131083, 1114110, 3, 65544, 1114111, 3, 65542, 1048576, 3, 262155, 1048577, 3, 262154, 1048578, 3, 262154, 1048579, 3, 262153, 1048580, 3, 262154, 1048581, 3, 262155, 1048582, 3, 262153, 1048583, 3, 262153, 1048584, 3, 262155, 1048585, 3, 262155, 1048586, 3, 262155, 1048587, 3, 262155, 1048588, 3, 10, 1048589, 3, 10, 1048590, 3, 262153, 1048591, 3, 262154, 1048592, 3, 262155, 1048593, 3, 262154, 1048594, 3, 262153, 1048595, 3, 262155, 1048596, 3, 262154, 1048597, 3, 262154, 1048598, 3, 262154, 1048599, 3, 262154, 1048600, 3, 262154, 1048601, 3, 10, 1048602, 3, 10, 1048603, 3, 10, 1048604, 3, 262155, 1048605, 3, 65541, 1048606, 3, 131083, 1179646, 3, 65544, 1179647, 3, 131081, 1114112, 3, 131081, 1114113, 3, 131081, 1114114, 3, 131081, 1114115, 3, 131081, 1114116, 3, 131081, 1114117, 3, 131081, 1114118, 3, 131081, 1114119, 3, 131081, 1114120, 3, 131081, 1114121, 3, 131081, 1114122, 3, 131081, 1114123, 3, 131081, 1114124, 3, 131081, 1114125, 3, 131081, 1114126, 3, 131081, 1114127, 3, 131081, 1114128, 3, 131081, 1114129, 3, 131081, 1114130, 3, 131081, 1114131, 3, 131081, 1114132, 3, 131081, 1114133, 3, 131081, 1114134, 3, 131081, 1114135, 3, 131081, 1114136, 3, 131081, 1114137, 3, 131081, 1114138, 3, 131081, 1114139, 3, 131081, 1114140, 3, 131081, 1114141, 3, 131081, 1114142, 3, 131083, 1245182, 3, 196616, 1245183, 3, 196617, 1179648, 3, 196617, 1179649, 3, 196617, 1179650, 3, 196617, 1179651, 3, 196617, 1179652, 3, 196617, 1179653, 3, 196617, 1179654, 3, 196617, 1179655, 3, 196617, 1179656, 3, 196617, 1179657, 3, 196617, 1179658, 3, 196617, 1179659, 3, 196617, 1179660, 3, 196617, 1179661, 3, 196617, 1179662, 3, 196617, 1179663, 3, 196617, 1179664, 3, 196617, 1179665, 3, 196617, 1179666, 3, 196617, 1179667, 3, 196617, 1179668, 3, 196617, 1179669, 3, 196617, 1179670, 3, 196617, 1179671, 3, 196617, 1179672, 3, 196617, 1179673, 3, 196617, 1179674, 3, 196617, 1179675, 3, 196617, 1179676, 3, 196617, 1179677, 3, 196617, 1179678, 3, 196619 )
+[node name="BackgroundColor" type="Sprite" parent="ParallaxBackground/ParallaxLayer4"]
+light_mask = 0
+position = Vector2( 2506, 1392 )
+scale = Vector2( 1.63354, 2.27593 )
+z_index = -100
+texture = ExtResource( 8 )
 
-[node name="EnemyCounter" parent="." instance=ExtResource( 11 )]
-enemies = [ NodePath("../JawbreakerEnemy4"), NodePath("../JawbreakerEnemy6") ]
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
+light_mask = 2
+z_index = -75
+motion_scale = Vector2( 0.25, 1 )
 
-[node name="JawbreakerEnemy4" parent="." instance=ExtResource( 12 )]
-position = Vector2( 490, 360 )
-initial_target_player = true
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+light_mask = 2
+z_index = -50
+motion_scale = Vector2( 0.5, 1 )
 
-[node name="JawbreakerEnemy6" parent="." instance=ExtResource( 12 )]
-position = Vector2( 253, 358 )
-initial_target_player = true
+[node name="ParallaxLayer" type="Node2D" parent="."]
 
-[node name="BreakablePlatformMedium" parent="." instance=ExtResource( 14 )]
-position = Vector2( 342, 320 )
-scale = Vector2( 0.3, 0.2 )
+[node name="TileMap" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1, -189 )
+scale = Vector2( 0.14, 0.14 )
+tile_set = SubResource( 197 )
+tile_data = PoolIntArray( -327627, 2, 8, -327626, 2, 262153, -327625, 2, 10, -327624, 2, 262154, -327623, 2, 262155, -327622, 2, 10, -327621, 2, 10, -327620, 2, 10, -327619, 2, 262155, -327618, 2, 262153, -327617, 2, 262153, -327616, 2, 262153, -327615, 2, 262154, -327614, 2, 262155, -327613, 2, 262155, -327612, 2, 262155, -327611, 2, 10, -327610, 2, 262153, -327609, 2, 262155, -327608, 2, 262153, -327607, 2, 262155, -327606, 2, 10, -327605, 2, 262155, -327604, 2, 262155, -327603, 2, 10, -327602, 2, 262154, -327601, 2, 10, -327600, 2, 10, -327599, 2, 262153, -327598, 2, 10, -327597, 2, 262155, -327596, 2, 11, -262091, 2, 65544, -262090, 2, 131081, -262089, 2, 131081, -262088, 2, 131081, -262087, 2, 131081, -262086, 2, 131081, -262085, 2, 131081, -262084, 2, 131081, -262083, 2, 131081, -262082, 2, 131081, -262081, 2, 131081, -262080, 2, 131081, -262079, 2, 131081, -262078, 2, 131081, -262077, 2, 131081, -262076, 2, 131081, -262075, 2, 131081, -262074, 2, 131081, -262073, 2, 131081, -262072, 2, 131081, -262071, 2, 131081, -262070, 2, 131081, -262069, 2, 131081, -262068, 2, 131081, -262067, 2, 131081, -262066, 2, 131081, -262065, 2, 131081, -262064, 2, 131081, -262063, 2, 131081, -262062, 2, 131081, -262061, 2, 131081, -262060, 2, 131083, -196555, 2, 65544, -196554, 2, 131081, -196553, 2, 131078, -196552, 2, 196617, -196551, 2, 196617, -196550, 2, 196617, -196549, 2, 196617, -196548, 2, 196617, -196547, 2, 196617, -196546, 2, 196617, -196545, 2, 196617, -196544, 2, 196617, -196543, 2, 196617, -196542, 2, 196617, -196541, 2, 196617, -196540, 2, 196617, -196539, 2, 196617, -196538, 2, 196617, -196537, 2, 196617, -196536, 2, 196617, -196535, 2, 196617, -196534, 2, 196617, -196533, 2, 196617, -196532, 2, 196617, -196531, 2, 196617, -196530, 2, 196617, -196529, 2, 196617, -196528, 2, 196617, -196527, 2, 196617, -196526, 2, 131077, -196525, 2, 131081, -196524, 2, 131083, -131019, 2, 65544, -131018, 2, 131081, -131017, 2, 131083, -130990, 2, 65544, -130989, 2, 131081, -130988, 2, 131083, -65483, 2, 65544, -65482, 2, 131081, -65481, 2, 131083, -65454, 2, 65544, -65453, 2, 131081, -65452, 2, 131083, 53, 2, 65544, 54, 2, 131081, 55, 2, 131083, 82, 2, 65544, 83, 2, 131081, 84, 2, 131083, 65589, 2, 65544, 65590, 2, 131081, 65591, 2, 131083, 65618, 2, 65544, 65619, 2, 131081, 65620, 2, 131083, 131125, 2, 65544, 131126, 2, 131081, 131127, 2, 131083, 131154, 2, 65544, 131155, 2, 131081, 131156, 2, 131083, 196661, 2, 65544, 196662, 2, 131081, 196663, 2, 131083, 196690, 2, 65544, 196691, 2, 131081, 196692, 2, 131083, 262197, 2, 65544, 262198, 2, 131081, 262199, 2, 131083, 262226, 2, 65544, 262227, 2, 131081, 262228, 2, 131083, 327733, 2, 65544, 327734, 2, 131081, 327735, 2, 131083, 327762, 2, 65544, 327763, 2, 131081, 327764, 2, 131083, 393269, 2, 65544, 393270, 2, 131081, 393271, 2, 131083, 393298, 2, 65544, 393299, 2, 131081, 393300, 2, 131083, 458805, 2, 65544, 458806, 2, 131081, 458807, 2, 131083, 458834, 2, 65544, 458835, 2, 131081, 458836, 2, 131083, 524341, 2, 65544, 524342, 2, 131081, 524343, 2, 131083, 524370, 2, 65544, 524371, 2, 131081, 524372, 2, 131083, 589877, 2, 65544, 589878, 2, 131081, 589879, 2, 131083, 589906, 2, 65544, 589907, 2, 131081, 589908, 2, 131083, 655413, 2, 65544, 655414, 2, 131081, 655415, 2, 131083, 655442, 2, 65544, 655443, 2, 131081, 655444, 2, 131083, 720949, 2, 65544, 720950, 2, 131081, 720951, 2, 131083, 720978, 2, 65544, 720979, 2, 131081, 720980, 2, 131083, 786485, 2, 65544, 786486, 2, 131081, 786487, 2, 131083, 786514, 2, 65544, 786515, 2, 131081, 786516, 2, 131083, 852021, 2, 65544, 852022, 2, 131081, 852023, 2, 131083, 852050, 2, 65544, 852051, 2, 131081, 852052, 2, 131083, 917557, 2, 65544, 917558, 2, 131081, 917559, 2, 131083, 917586, 2, 65544, 917587, 2, 131081, 917588, 2, 131083, 983093, 2, 65544, 983094, 2, 131081, 983095, 2, 131083, 983122, 2, 65544, 983123, 2, 131081, 983124, 2, 131083, 1048629, 2, 65544, 1048630, 2, 131081, 1048631, 2, 131083, 1048658, 2, 65544, 1048659, 2, 131081, 1048660, 2, 131083, 1114165, 2, 65544, 1114166, 2, 131081, 1114167, 2, 131083, 1114194, 2, 65544, 1114195, 2, 131081, 1114196, 2, 131083, 1179701, 2, 65544, 1179702, 2, 131081, 1179703, 2, 131083, 1179730, 2, 65544, 1179731, 2, 131081, 1179732, 2, 131083, 1245237, 2, 65544, 1245238, 2, 131081, 1245239, 2, 131083, 1245266, 2, 65544, 1245267, 2, 131081, 1245268, 2, 131083, 1310773, 2, 65544, 1310774, 2, 131081, 1310775, 2, 131083, 1310802, 2, 65544, 1310803, 2, 131081, 1310804, 2, 131083, 1376309, 2, 65544, 1376310, 2, 131081, 1376311, 2, 131083, 1376338, 2, 65544, 1376339, 2, 131081, 1376340, 2, 131083, 1441845, 2, 65544, 1441846, 2, 131081, 1441847, 2, 131083, 1441874, 2, 65544, 1441875, 2, 131081, 1441876, 2, 131083, 1507381, 2, 65544, 1507382, 2, 131081, 1507383, 2, 131083, 1507410, 2, 65544, 1507411, 2, 131081, 1507412, 2, 131083, 1572917, 2, 65544, 1572918, 2, 131081, 1572919, 2, 131083, 1572946, 2, 65544, 1572947, 2, 131081, 1572948, 2, 131083, 1638453, 2, 65544, 1638454, 2, 131081, 1638455, 2, 131083, 1638482, 2, 65544, 1638483, 2, 131081, 1638484, 2, 131083, 1703989, 2, 65544, 1703990, 2, 131081, 1703991, 2, 131083, 1704018, 2, 65544, 1704019, 2, 131081, 1704020, 2, 131083, 1769525, 2, 65544, 1769526, 2, 131081, 1769527, 2, 131083, 1769554, 2, 65544, 1769555, 2, 131081, 1769556, 2, 131083, 1835061, 2, 65544, 1835062, 2, 131081, 1835063, 2, 131083, 1835090, 2, 65544, 1835091, 2, 131081, 1835092, 2, 131083, 1900597, 2, 65544, 1900598, 2, 131081, 1900599, 2, 131083, 1900626, 2, 65544, 1900627, 2, 131081, 1900628, 2, 131083, 1966133, 2, 65544, 1966134, 2, 131081, 1966135, 2, 131083, 1966162, 2, 65544, 1966163, 2, 131081, 1966164, 2, 131083, 2031669, 2, 65544, 2031670, 2, 131081, 2031671, 2, 131083, 2031698, 2, 65544, 2031699, 2, 131081, 2031700, 2, 131083, 2097205, 2, 65544, 2097206, 2, 131081, 2097207, 2, 131083, 2097234, 2, 65544, 2097235, 2, 131081, 2097236, 2, 131083, 2162741, 2, 65544, 2162742, 2, 131081, 2162743, 2, 131083, 2162770, 2, 65544, 2162771, 2, 131081, 2162772, 2, 131083, 2228277, 2, 65544, 2228278, 2, 131081, 2228279, 2, 131083, 2228306, 2, 65544, 2228307, 2, 131081, 2228308, 2, 131083, 2293813, 2, 65544, 2293814, 2, 131081, 2293815, 2, 131083, 2293842, 2, 65544, 2293843, 2, 131081, 2293844, 2, 131083, 2359349, 2, 65544, 2359350, 2, 131081, 2359351, 2, 131083, 2359378, 2, 65544, 2359379, 2, 131081, 2359380, 2, 131083, 2424885, 2, 65544, 2424886, 2, 131081, 2424887, 2, 131083, 2424914, 2, 65544, 2424915, 2, 131081, 2424916, 2, 131083, 2490421, 2, 65544, 2490422, 2, 131081, 2490423, 2, 131083, 2490450, 2, 65544, 2490451, 2, 131081, 2490452, 2, 131083, 2555957, 2, 65544, 2555958, 2, 131081, 2555959, 2, 131083, 2555986, 2, 65544, 2555987, 2, 131081, 2555988, 2, 131083, 2621493, 2, 65544, 2621494, 2, 131081, 2621495, 2, 131083, 2621522, 2, 65544, 2621523, 2, 131081, 2621524, 2, 131083, 2687029, 2, 65544, 2687030, 2, 131081, 2687031, 2, 131083, 2687058, 2, 65544, 2687059, 2, 131081, 2687060, 2, 131083, 2752565, 2, 65544, 2752566, 2, 131081, 2752567, 2, 131083, 2752594, 2, 65544, 2752595, 2, 131081, 2752596, 2, 131083, 2818101, 2, 65544, 2818102, 2, 131081, 2818103, 2, 131083, 2818130, 2, 65544, 2818131, 2, 131081, 2818132, 2, 131083, 2883637, 2, 65544, 2883638, 2, 131081, 2883639, 2, 131083, 2883666, 2, 65544, 2883667, 2, 131081, 2883668, 2, 131083, 2949173, 2, 65544, 2949174, 2, 131081, 2949175, 2, 131083, 2949202, 2, 65544, 2949203, 2, 131081, 2949204, 2, 131083, 3014709, 2, 65544, 3014710, 2, 131081, 3014711, 2, 131083, 3014738, 2, 65544, 3014739, 2, 131081, 3014740, 2, 131083, 3080245, 2, 65544, 3080246, 2, 131081, 3080247, 2, 131083, 3080274, 2, 65544, 3080275, 2, 131081, 3080276, 2, 131083, 3145781, 2, 65544, 3145782, 2, 131081, 3145783, 2, 131083, 3145810, 2, 65544, 3145811, 2, 131081, 3145812, 2, 131083, 3211317, 2, 65544, 3211318, 2, 131081, 3211319, 2, 131083, 3211346, 2, 196616, 3211347, 2, 196617, 3211348, 2, 196619, 3276853, 2, 65544, 3276854, 2, 131081, 3276855, 2, 131083, 3342389, 2, 65544, 3342390, 2, 131081, 3342391, 2, 131083, 3407925, 2, 65544, 3407926, 2, 131081, 3407927, 2, 131083, 3473461, 2, 65544, 3473462, 2, 131081, 3473463, 2, 131083, 3538997, 2, 65544, 3538998, 2, 131081, 3538999, 2, 131083, 3604533, 2, 65544, 3604534, 2, 131081, 3604535, 2, 131083, 3670069, 2, 65544, 3670070, 2, 131081, 3670071, 2, 131083, 3735605, 2, 65544, 3735606, 2, 131081, 3735607, 2, 131083, 3801141, 3, 65544, 3801142, 3, 131081, 3801143, 2, 131083, 3866677, 3, 65544, 3866678, 3, 131081, 3866679, 3, 131083, 3866687, 3, 8, 3866688, 3, 262153, 3866689, 3, 262155, 3866690, 3, 262154, 3866691, 3, 10, 3866692, 3, 262153, 3866693, 3, 262153, 3866694, 3, 10, 3866695, 3, 262153, 3866696, 3, 10, 3866697, 3, 10, 3866698, 3, 10, 3866699, 3, 10, 3866700, 3, 262155, 3866701, 3, 262153, 3866702, 3, 262153, 3866703, 3, 262154, 3866704, 3, 10, 3866705, 3, 10, 3866706, 3, 10, 3866707, 3, 262153, 3866708, 3, 11, 3932213, 3, 65544, 3932214, 3, 131081, 3932215, 3, 131083, 3932223, 3, 65544, 3932224, 3, 131081, 3932225, 3, 131081, 3932226, 3, 131081, 3932227, 3, 131081, 3932228, 3, 131081, 3932229, 3, 131081, 3932230, 3, 131081, 3932231, 3, 131081, 3932232, 3, 131081, 3932233, 3, 131081, 3932234, 3, 131081, 3932235, 3, 131081, 3932236, 3, 131081, 3932237, 3, 131081, 3932238, 3, 131081, 3932239, 3, 131081, 3932240, 3, 131081, 3932241, 3, 131081, 3932242, 3, 131081, 3932243, 3, 131081, 3932244, 3, 131083, 3997749, 3, 65544, 3997750, 3, 131081, 3997751, 3, 131083, 3997759, 3, 65544, 3997760, 3, 131081, 3997761, 3, 131081, 3997762, 3, 131081, 3997763, 3, 131081, 3997764, 3, 131081, 3997765, 3, 131081, 3997766, 3, 131081, 3997767, 3, 131081, 3997768, 3, 131081, 3997769, 3, 131081, 3997770, 3, 131081, 3997771, 3, 131081, 3997772, 3, 131081, 3997773, 3, 131081, 3997774, 3, 131081, 3997775, 3, 131081, 3997776, 3, 131081, 3997777, 3, 131081, 3997778, 3, 131081, 3997779, 3, 131081, 3997780, 3, 131083, 4063285, 3, 65544, 4063286, 3, 131081, 4063287, 3, 131083, 4063295, 3, 65544, 4063296, 3, 131081, 4063297, 3, 131081, 4063298, 3, 131081, 4063299, 3, 131081, 4063300, 3, 131081, 4063301, 3, 131081, 4063302, 3, 131081, 4063303, 3, 131081, 4063304, 3, 131081, 4063305, 3, 131081, 4063306, 3, 131081, 4063307, 3, 131081, 4063308, 3, 131081, 4063309, 3, 131081, 4063310, 3, 131081, 4063311, 3, 131081, 4063312, 3, 131081, 4063313, 3, 131081, 4063314, 3, 131081, 4063315, 3, 131081, 4063316, 3, 131083, 4128821, 3, 65544, 4128822, 3, 131081, 4128823, 3, 65542, 4128824, 3, 10, 4128825, 3, 262155, 4128826, 3, 262154, 4128827, 3, 262153, 4128828, 3, 262154, 4128829, 3, 262155, 4128830, 3, 262153, 4128831, 3, 65541, 4128832, 3, 131081, 4128833, 3, 131081, 4128834, 3, 131081, 4128835, 3, 131081, 4128836, 3, 131081, 4128837, 3, 131081, 4128838, 3, 131081, 4128839, 3, 131081, 4128840, 3, 131081, 4128841, 3, 131081, 4128842, 3, 131081, 4128843, 3, 131081, 4128844, 3, 131081, 4128845, 3, 131081, 4128846, 3, 131081, 4128847, 3, 131081, 4128848, 3, 131081, 4128849, 3, 131081, 4128850, 3, 131081, 4128851, 3, 131081, 4128852, 3, 131083, 4194357, 3, 65544, 4194358, 3, 131081, 4194359, 3, 131081, 4194360, 3, 131081, 4194361, 3, 131081, 4194362, 3, 131081, 4194363, 3, 131081, 4194364, 3, 131081, 4194365, 3, 131081, 4194366, 3, 131081, 4194367, 3, 131081, 4194368, 3, 131081, 4194369, 3, 131081, 4194370, 3, 131081, 4194371, 3, 131081, 4194372, 3, 131081, 4194373, 3, 131081, 4194374, 3, 131081, 4194375, 3, 131081, 4194376, 3, 131081, 4194377, 3, 131081, 4194378, 3, 131081, 4194379, 3, 131081, 4194380, 3, 131081, 4194381, 3, 131081, 4194382, 3, 131081, 4194383, 3, 131081, 4194384, 3, 131081, 4194385, 3, 131081, 4194386, 3, 131081, 4194387, 3, 131081, 4194388, 3, 131083, 4259893, 3, 196616, 4259894, 3, 196617, 4259895, 3, 196617, 4259896, 3, 196617, 4259897, 3, 196617, 4259898, 3, 196617, 4259899, 3, 196617, 4259900, 3, 196617, 4259901, 3, 196617, 4259902, 3, 196617, 4259903, 3, 196617, 4259904, 3, 196617, 4259905, 3, 196617, 4259906, 3, 196617, 4259907, 3, 196617, 4259908, 3, 196617, 4259909, 3, 196617, 4259910, 3, 196617, 4259911, 3, 196617, 4259912, 3, 196617, 4259913, 3, 196617, 4259914, 3, 196617, 4259915, 3, 196617, 4259916, 3, 196617, 4259917, 3, 196617, 4259918, 3, 196617, 4259919, 3, 196617, 4259920, 3, 196617, 4259921, 3, 196617, 4259922, 3, 196617, 4259923, 3, 196617, 4259924, 3, 196619 )
 
-[node name="Wall" type="Area2D" parent="." groups=["wall"]]
+[node name="DarkZone" type="Sprite" parent="."]
+position = Vector2( 2812, 2794 )
+scale = Vector2( 0.440668, 0.502559 )
+texture = ExtResource( 4 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall" groups=["wall"]]
-position = Vector2( -4, 326 )
-shape = SubResource( 202 )
+[node name="BreakablePlatformMedium" parent="." instance=ExtResource( 2 )]
+position = Vector2( 2798, 2622 )
+scale = Vector2( 0.911303, 0.819345 )
 
-[node name="Wall2" type="Area2D" parent="." groups=["wall"]]
+[node name="Platform" type="Node2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall2" groups=["wall"]]
-position = Vector2( 687, 330 )
-shape = SubResource( 202 )
+[node name="Pickup" parent="." instance=ExtResource( 15 )]
+position = Vector2( 3191, -76 )
+description = {
+"Description": "First ammo",
+"Icon": "res://Pickups/Candy Corn 720p.png",
+"Name": "Candy Corn",
+"Price": "30",
+"StoryPoint": "1",
+"Temporary": null,
+"Unit": "artifacts"
+}
 
-[node name="JawbreakerBoss" parent="." instance=ExtResource( 13 )]
+[node name="Portal" parent="." instance=ExtResource( 19 )]
+position = Vector2( 3933, 2584 )
+scale = Vector2( -1.17791, 2.04508 )
+target_scene = "res://Levels/SecondLevel.tscn"
 
-[node name="Portal2" parent="." instance=ExtResource( 15 )]
-position = Vector2( 0, -13 )
-rotation = 1.5708
-scale = Vector2( 0.807191, 0.560553 )
-target_scene = "res://Levels/ThirdLevel.tscn"
-
-[connection signal="on" from="EnemyCounter" to="JawbreakerBoss" method="_on_EnemyCounter_on"]
+[node name="Portal2" parent="." instance=ExtResource( 19 )]
+position = Vector2( 2979, 2697 )
+rotation = 4.71239
+scale = Vector2( 2.51201, 1.605 )
+target_scene = "res://Levels/Jawbreaker Boss Room/JawbreakerRoom.tscn"

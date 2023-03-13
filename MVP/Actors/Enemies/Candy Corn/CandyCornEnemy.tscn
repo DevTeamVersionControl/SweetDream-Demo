@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://Abstract/StateMachine.gd" type="Script" id=1]
 [ext_resource path="res://Actors/Enemies/Candy Corn/Candy Corn Attack/Candy Corn Attack720p.png" type="Texture" id=2]
@@ -13,12 +13,13 @@
 [ext_resource path="res://Actors/Enemies/Candy Corn/TurnAround.gd" type="Script" id=11]
 [ext_resource path="res://Actors/Enemies/Candy Corn/Walk.gd" type="Script" id=12]
 [ext_resource path="res://Actors/Enemies/Candy Corn/Death.gd" type="Script" id=13]
+[ext_resource path="res://Actors/Enemies/Candy Corn/Candy Corn Walk/Candy Corn Walk720p.png" type="Texture" id=14]
 
 [sub_resource type="CircleShape2D" id=10]
 radius = 254.049
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 3.50909, 9.75 )
+extents = Vector2( 3.95455, 11.375 )
 
 [sub_resource type="Animation" id=2]
 resource_name = "Attack"
@@ -632,7 +633,7 @@ tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 7 ) ]
+"values": [ ExtResource( 14 ) ]
 }
 tracks/4/type = "value"
 tracks/4/path = NodePath("Sprite:position")
@@ -661,14 +662,14 @@ script = ExtResource( 10 )
 shape = SubResource( 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 1, -11 )
+position = Vector2( 2.11364, -12.625 )
 scale = Vector2( 2.5, 1 )
 shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
 material = ExtResource( 6 )
 position = Vector2( 4, -11 )
-scale = Vector2( 0.075, 0.075 )
+scale = Vector2( 0.0819444, 0.0819444 )
 texture = ExtResource( 7 )
 hframes = 5
 vframes = 5

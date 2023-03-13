@@ -23,7 +23,7 @@ const BODY_DAMAGE = 5
 
 var health := 10.0
 var target : Player
-var facing_right := true
+var facing_right := false
 var motion := Vector2.ZERO
 
 onready var animation_player := $AnimationPlayer
@@ -35,6 +35,10 @@ func take_damage(damage:float, knockback:Vector2):
 	motion += knockback
 	if health <= 0:
 		state_machine.transition_to("Death")
+	else:
+		$Sprite.get_material().set("shader_param/flashState", 1.0)
+		yield(get_tree().create_timer(0.1), "timeout")
+		$Sprite.get_material().set("shader_param/flashState", 0.0)
 
 
 func on_hit_something(something):
