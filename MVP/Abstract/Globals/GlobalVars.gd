@@ -121,4 +121,4 @@ func apply_items():
 			call_deferred(item["Effect"][0], item["Effect"][1])
 		if item.has("Currency"):
 			add_currency(item)
-			inventory.remove(item)
+			inventory.erase(item)
