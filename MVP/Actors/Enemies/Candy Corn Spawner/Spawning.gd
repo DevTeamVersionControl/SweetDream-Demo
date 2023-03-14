@@ -24,6 +24,7 @@ func enter(_msg := {}) -> void:
 
 func spawn() -> void:
 	var candy_corn = CANDY_CORN.instance()
+	candy_corn.facing_right = true
 	get_tree().current_scene.current_level.add_child(candy_corn)
 	candy_corn.global_position = spawner.candy_corn_spawn.global_position
 	spawn_timer.start()

@@ -1,0 +1,37 @@
+[
+    [
+    
+    {"Name":"Unknown",
+        "Text":"Hey....", 
+    "Signal":"talk", "Portrait":"res://UserInterface/Dialog/Portraits/Birb.png"},
+    
+    {"Name":"Birb",
+        "Text":"I'm Birb, nice ta meet ya", 
+    "Portrait":"res://UserInterface/Dialog/Portraits/Birb.png"},
+
+    {"Name":"Cadus III", 
+        "Text":"Hello, I'm Cadus III", 
+    "Signal":"talk", "Portrait":"res://UserInterface/Dialog/Portraits/Player.png"},
+
+    {"Name":"Birb",
+        "Text":"If you ever have artifacts, I know a guy who's willing to give ya some cool stuff",
+    "Portrait":"res://UserInterface/Dialog/Portraits/Birb.png"},
+
+    {"Name":"Cadus III", 
+        "Text":"I think I know the guy, Dr.Gimal right?", 
+    "Signal":"talk", "Portrait":"res://UserInterface/Dialog/Portraits/Player.png"},
+
+    {"Name":"Birb", 
+        "Text":"Ahhhh so you know the guy. If you give me the artifacts I can fly out to get you his stuff, but I gotta charge ya extra ya know?", 
+    "Signal":"talk", "Portrait":"res://UserInterface/Dialog/Portraits/Birb.png"},
+
+    {"Name":"Birb", 
+        "Text":"Here check out his stuff, what do ya want?", 
+    "Signal":"talk", "Portrait":"res://UserInterface/Dialog/Portraits/Birb.png"},
+
+    {"Name":"Birb",
+        "Text":"",
+    "Signal":"shop", "Portrait":"res://UserInterface/Dialog/Portraits/Birb.png"}
+    
+    ]
+]

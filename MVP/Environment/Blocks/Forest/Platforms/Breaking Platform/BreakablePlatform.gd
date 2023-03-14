@@ -1,20 +1,22 @@
 extends StaticBody2D
 
-const BREAK_TIME = 2.0
+export var break_time = 0.5
 
 var can_reappear = true
 var should_reappear:= false
 
 var break_level := 0.0
 
+export var weight_sensitive = true
+
 func _physics_process(delta):
 	for body in $Area2D.get_overlapping_bodies():
-		if body is Player:
+		if body is Player && weight_sensitive:
 			break_level += delta
-			if break_level > BREAK_TIME:
+			if break_level > break_time:
 				if $AnimationPlayer.current_animation != "stage3":
 					$AnimationPlayer.play("stage3")
-			elif break_level > BREAK_TIME * 1/2:
+			elif break_level > break_time * 1/2:
 				$AnimationPlayer.play("stage2")
 			elif break_level > 0.0:
 				$AnimationPlayer.play("stage1")
@@ -39,7 +41,7 @@ func reappear():
 	should_reappear = false
 
 func _on_Area2D_body_entered(body):
-	if body is Player:
+	if body is Player && weight_sensitive:
 		$Shaker.play("Shake")
 		can_reappear = false
 

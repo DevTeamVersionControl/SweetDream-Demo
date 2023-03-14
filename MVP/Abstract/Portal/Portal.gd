@@ -21,10 +21,7 @@ onready var spawn_position = $Position
 
 func _on_Portal_body_entered(body):
 	if body is Player:
-		if ResourceLoader.exists("res://Saves/".plus_file(target_scene.get_file())):
-			get_tree().current_scene.change_level(load("res://Saves/".plus_file(target_scene.get_file())), name)
-		else:
-			get_tree().current_scene.change_level(load(target_scene), name)
+		get_tree().current_scene.change_level(load(target_scene), name)
 
 func get_spawn_position() -> Vector2:
 	return spawn_position.global_position

@@ -103,6 +103,10 @@ func add_max_sugar(num:int)->void:
 	sugar = max_sugar
 	get_tree().current_scene.player.update_display()
 
+func add_currency(item:Dictionary):
+	if item["Unit"] == "artifact":
+		artifacts += item["Value"]
+
 func unlock_dash(_placeholder)->void:
 	dash_lock = false
 	
@@ -115,3 +119,6 @@ func apply_items():
 	for item in inventory:
 		if item.has("Effect"):
 			call_deferred(item["Effect"][0], item["Effect"][1])
+		if item.has("Currency"):
+			add_currency(item)
+			inventory.remove(item)

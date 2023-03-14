@@ -10,8 +10,9 @@
 [ext_resource path="res://Actors/Enemies/Candy Corn Spawner/Candy Corn Spawner Death/Candy Corn Spawner Death720p.png" type="Texture" id=8]
 [ext_resource path="res://Actors/flash.tres" type="Material" id=9]
 
-[sub_resource type="CircleShape2D" id=1]
-radius = 251.002
+[sub_resource type="CapsuleShape2D" id=6]
+radius = 87.0
+height = 388.0
 
 [sub_resource type="Animation" id=2]
 resource_name = "Death"
@@ -259,8 +260,9 @@ script = ExtResource( 2 )
 [node name="PlayerDetector" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector"]
-position = Vector2( 0, -34 )
-shape = SubResource( 1 )
+position = Vector2( 1, -74 )
+rotation = 1.5708
+shape = SubResource( 6 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 scale = Vector2( 0.5, 0.5 )

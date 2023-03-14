@@ -1270,6 +1270,7 @@ initial_target_player = true
 [node name="BreakablePlatformMedium" parent="." instance=ExtResource( 14 )]
 position = Vector2( 342, 320 )
 scale = Vector2( 0.3, 0.2 )
+break_time = 2.0
 
 [node name="Wall" type="Area2D" parent="." groups=["wall"]]
 
@@ -1286,9 +1287,11 @@ shape = SubResource( 202 )
 [node name="JawbreakerBoss" parent="." instance=ExtResource( 13 )]
 
 [node name="Portal2" parent="." instance=ExtResource( 15 )]
-position = Vector2( 0, -13 )
+position = Vector2( -1, -9 )
 rotation = 1.5708
-scale = Vector2( 0.807191, 0.560553 )
+scale = Vector2( 0.594821, 0.563252 )
+collision_layer = 0
+collision_mask = 0
 target_scene = "res://Levels/ThirdLevel.tscn"
 
 [connection signal="on" from="EnemyCounter" to="JawbreakerBoss" method="_on_EnemyCounter_on"]

@@ -16,6 +16,10 @@ func take_damage(damage:float, knockback:Vector2) -> void:
 	motion += knockback
 	if health <= 0:
 		state_machine.transition_to("Death")
+	else:
+		$Sprite.get_material().set("shader_param/flashState", 1.0)
+		yield(get_tree().create_timer(0.1), "timeout")
+		$Sprite.get_material().set("shader_param/flashState", 0.0)
 
 func on_something_detected(something)->void:
 	if something is Player && target == null:
@@ -31,7 +35,3 @@ func _physics_process(_delta)->void:
 		motion.y += 10
 		motion.x = lerp(motion.x, 0, 0.1)
 		motion = move_and_slide(motion)
-	else:
-		$Sprite.get_material().set("shader_param/flashState", 1.0)
-		yield(get_tree().create_timer(0.1), "timeout")
-		$Sprite.get_material().set("shader_param/flashState", 0.0)
