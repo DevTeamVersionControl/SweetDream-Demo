@@ -1,4 +1,4 @@
-[gd_scene load_steps=83 format=2]
+[gd_scene load_steps=85 format=2]
 
 [ext_resource path="res://Environment/Blocks/Forest/TileSets/Tile Pack/Grass Tile Pack/Grass Tile Pack 333p.png" type="Texture" id=1]
 [ext_resource path="res://Abstract/Checkpoint/Checkpoint.tscn" type="PackedScene" id=2]
@@ -17,6 +17,8 @@
 [ext_resource path="res://Environment/Backgrounds/Forest Backgrounds/Main Background/Scatter Terrain/CherryScatter.tscn" type="PackedScene" id=15]
 [ext_resource path="res://Environment/Backgrounds/Forest Backgrounds/Main Background/Scatter Terrain/Bush.tscn" type="PackedScene" id=16]
 [ext_resource path="res://Environment/Backgrounds/Forest Backgrounds/Main Background/Scatter Terrain/Lollipop.tscn" type="PackedScene" id=17]
+[ext_resource path="res://Environment/Backgrounds/Forest Backgrounds/Main Background/Scatter Terrain/MintScatter.tscn" type="PackedScene" id=18]
+[ext_resource path="res://Environment/Backgrounds/Forest Backgrounds/Main Background/Scatter Terrain/JelloScatter.tscn" type="PackedScene" id=19]
 
 [sub_resource type="CanvasItemMaterial" id=158]
 light_mode = 2
@@ -1192,7 +1194,7 @@ layer = -1
 [node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground"]
 
 [node name="BackgroundColor" type="Sprite" parent="ParallaxBackground/ParallaxLayer4"]
-position = Vector2( 1281, 415 )
+position = Vector2( 1339, 366 )
 texture = ExtResource( 8 )
 
 [node name="TallTrees" parent="ParallaxBackground/ParallaxLayer4" instance=ExtResource( 7 )]
@@ -1257,12 +1259,46 @@ rotation = 0.277266
 scale = Vector2( 0.0572196, 0.0572196 )
 frame = 1
 
+[node name="CandyCaneScatter3" parent="ParallaxBackground/ParallaxLayer2" instance=ExtResource( 14 )]
+position = Vector2( 490, 72 )
+rotation = -0.471225
+scale = Vector2( 0.096, 0.101 )
+frame = 2
+
+[node name="MintScatter" parent="." instance=ExtResource( 18 )]
+position = Vector2( 517, 76 )
+rotation = -0.165396
+scale = Vector2( 0.0544355, 0.0544355 )
+frame = 1
+
 [node name="StartBackground720p" type="Sprite" parent="."]
 material = SubResource( 164 )
 position = Vector2( 329, 130.404 )
 scale = Vector2( 0.2, 0.207261 )
 texture = ExtResource( 4 )
 normal_map = ExtResource( 13 )
+
+[node name="LollipopScatter2" parent="StartBackground720p" instance=ExtResource( 17 )]
+position = Vector2( 1583.17, 493.915 )
+rotation = 2.84427
+scale = Vector2( 0.484366, -0.484366 )
+frame = 1
+
+[node name="CandyCaneScatter2" parent="StartBackground720p" instance=ExtResource( 14 )]
+position = Vector2( 1595, -469.958 )
+rotation = 2.8188
+scale = Vector2( 0.392588, -0.392247 )
+frame = 1
+
+[node name="LollipopScatter" parent="StartBackground720p" instance=ExtResource( 17 )]
+position = Vector2( 1601.27, -315.238 )
+rotation = -0.602649
+scale = Vector2( -0.485519, 0.485519 )
+
+[node name="CandyCaneScatter2" parent="." instance=ExtResource( 14 )]
+position = Vector2( 653.681, 200.805 )
+rotation = -0.562174
+scale = Vector2( 0.099997, 0.103466 )
 
 [node name="TileMap" parent="." instance=ExtResource( 3 )]
 position = Vector2( 0, 25 )
@@ -1287,12 +1323,31 @@ position = Vector2( 597, 209 )
 target_scene = "res://Levels/SecondLevel.tscn"
 
 [node name="CherryScatter" parent="." instance=ExtResource( 15 )]
-position = Vector2( 1.00001, 237 )
-rotation = 0.405773
+position = Vector2( 23, 252 )
+rotation = 0.24999
+scale = Vector2( 0.0358655, 0.0343099 )
 z_index = 1
+frame = 1
+
+[node name="LollipopScatter3" parent="." instance=ExtResource( 17 )]
+position = Vector2( 585, 244 )
+rotation = -2.67028
+scale = Vector2( 0.0602469, -0.0606096 )
+frame = 1
 
 [node name="CandyCaneScatter" parent="." instance=ExtResource( 14 )]
-position = Vector2( 16, 215 )
-rotation = 0.550666
-scale = Vector2( 0.112651, 0.112651 )
+position = Vector2( 14, 224 )
+rotation = 0.682161
+scale = Vector2( 0.0838919, 0.0838919 )
+z_index = 1
+
+[node name="CherryScatter2" parent="." instance=ExtResource( 15 )]
+position = Vector2( 576, 255 )
+rotation = -0.120583
+scale = Vector2( -0.0234392, 0.0234392 )
+
+[node name="JelloScatter" parent="." instance=ExtResource( 19 )]
+position = Vector2( 3, 248 )
+rotation = 0.381631
+scale = Vector2( 0.0501771, 0.0501771 )
 z_index = 1
