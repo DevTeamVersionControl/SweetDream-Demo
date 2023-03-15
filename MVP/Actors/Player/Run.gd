@@ -25,8 +25,7 @@ func physics_update(delta: float) -> void:
 	# although in production, your states will tend to be more complex and duplicate code
 	# much more rare.
 	if not player.is_on_floor():
-			state_machine.transition_to("Air", {coyote_time = true})
-			return
+		check_floor()
 		
 	# We move the run-specific input code to the state.
 	# A good alternative would be to define a `get_input_direction()` function on the `Player.gd`
@@ -44,7 +43,7 @@ func physics_update(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("move_up"):
 		state_machine.transition_to("Air", {do_jump = true})
-	elif player.velocity.length() < 0.2 && is_equal_approx(input_direction_x, 0.0):
+	elif player.velocity.length() < 0.5 && is_equal_approx(input_direction_x, 0.0):
 		player.velocity = Vector2.ZERO
 		state_machine.transition_to("Idle")
 	elif Input.is_action_pressed("dash"):
@@ -53,12 +52,8 @@ func physics_update(delta: float) -> void:
 	
 	# Check to see if the player needs to turn around
 	if player.facing_right != (input_direction_x > 0) && input_direction_x != 0:
-		if player.facing_right:
-			player.animation_player.play("TurnLeft")
-		else:
-			player.animation_player.play("TurnRight")
-		yield(player.animation_player, "animation_finished")
 		player.facing_right = input_direction_x > 0
+		player.sprite.flip_h = !player.facing_right
 		player.animation_tree.set('parameters/Run/blend_position', 1 if player.facing_right else -1)
 		player.animation_tree.set('parameters/Idle/blend_position', 1 if player.facing_right else -1)
 		player.camera_arm.position.x = 127 if player.facing_right else -127
@@ -73,3 +68,8 @@ func physics_update(delta: float) -> void:
 	if Input.is_action_pressed("shoot") && player.can_shoot:
 		if GlobalVars.ammo_equipped_array.size() != 0 && GlobalVars.sugar >= GlobalVars.ammo_equipped_array[GlobalVars.equiped_ammo_index].sugar:
 			state_machine.transition_to("Aim")
+
+func check_floor():
+	yield(get_tree().create_timer(0.1), "timeout")
+	if not player.is_on_floor():
+		state_machine.transition_to("Air", {coyote_time = true})

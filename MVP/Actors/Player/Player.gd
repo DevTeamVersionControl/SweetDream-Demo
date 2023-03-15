@@ -25,7 +25,7 @@ const SPEED = 120
 const GRAVITY = 1200
 const JUMP_IMPULSE = 350
 const JUMP_ACCEL = 600
-const DECELERATION = 0.1
+const DECELERATION = 0.5
 const ACCELERATION = 50
 const HEAL_FROM_CANDY = 20
 
@@ -38,6 +38,7 @@ var invulnerable := false
 
 # References to nodes in case they are changed
 onready var cooldown_timer := $CooldownTimer
+onready var sprite = $Sprite
 onready var animation_tree := $AnimationTree
 onready var animation_mode = animation_tree.get("parameters/playback")
 onready var bullet_center := $BulletCenter
@@ -104,7 +105,6 @@ func take_damage(damage:float, knockback:Vector2) -> void:
 			yield(get_tree().create_timer(0.25), "timeout")
 			$Sprite.get_material().set("shader_param/flashState", 0.0)
 		update_display()
-		
 
 func heal(damage_healed:float):
 	GlobalVars.health += damage_healed

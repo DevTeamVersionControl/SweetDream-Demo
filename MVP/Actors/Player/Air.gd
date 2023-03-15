@@ -28,11 +28,15 @@ func enter(msg := {}) -> void:
 	print("Transitioned to air")
 	if msg.has("do_jump"):
 		player.velocity.y = -player.JUMP_IMPULSE
+		player.animation_mode.travel("Air")
 	elif msg.has("coyote_time"):
+		yield(get_tree().create_timer(0.1), "timeout")
+		if not player.is_on_floor():
+			player.animation_mode.travel("Air")
 		coyote_time = true
 		coyote_time_timer.start()
-	player.animation_tree.set('parameters/Air/blend_position', 1 if player.facing_right else -1)
-	player.animation_mode.travel("Air")
+	player.animation_tree.set('parameters/Air/blend_position', 1 if player.velocity.normalized().y > 0 else -1)
+	
 
 func physics_update(delta: float) -> void:
 	# Horizontal movement.
@@ -40,6 +44,10 @@ func physics_update(delta: float) -> void:
 		Input.get_action_strength("move_right")
 		- Input.get_action_strength("move_left")
 	)
+	
+	# Animation going up or down
+	player.animation_tree.set('parameters/Air/blend_position', 1 if player.velocity.normalized().y > 0 else -1)
+	
 	# Check to see if the player needs to turn around
 	if player.facing_right != (input_direction_x > 0) && input_direction_x != 0 && !input_locked:
 		lock_input(input_direction_x > 0)
@@ -111,5 +119,5 @@ func _on_CoyoteTimeTimer_timeout():
 
 func lock_input(direction : bool):
 	player.facing_right = direction
-	player.animation_tree.set('parameters/Air/blend_position', 1 if player.facing_right else -1)
+	player.sprite.flip_h = !player.facing_right
 	player.camera_arm.position.x = 127 if player.facing_right else -127
