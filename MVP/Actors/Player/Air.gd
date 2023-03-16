@@ -19,6 +19,7 @@ var jump_buffer := false
 var coyote_time := false
 var input_locked := false
 var double_jump := false
+var cache := Vector2.ZERO
 
 onready var jump_buffer_timer := $JumpBufferTimer
 onready var coyote_time_timer := $CoyoteTimeTimer
@@ -36,6 +37,7 @@ func enter(msg := {}) -> void:
 		coyote_time = true
 		coyote_time_timer.start()
 	player.animation_tree.set('parameters/Air/blend_position', 1 if player.velocity.normalized().y > 0 else -1)
+	cache = player.velocity
 	
 
 func physics_update(delta: float) -> void:
@@ -44,6 +46,11 @@ func physics_update(delta: float) -> void:
 		Input.get_action_strength("move_right")
 		- Input.get_action_strength("move_left")
 	)
+	
+	# Check for transition animation
+	if cache.y < 0 and player.velocity.y > 0:
+		player.animation_mode.travel("Transition")
+	cache = player.velocity
 	
 	# Animation going up or down
 	player.animation_tree.set('parameters/Air/blend_position', 1 if player.velocity.normalized().y > 0 else -1)

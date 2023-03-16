@@ -1190,4 +1190,3 @@ polygon = PoolVector2Array( 7.18584, -5.42766, 7.18584, 8.93298, -9.56458, 9.385
 
 [node name="2platform" parent="." instance=ExtResource( 18 )]
 position = Vector2( 3243, 801 )
-
