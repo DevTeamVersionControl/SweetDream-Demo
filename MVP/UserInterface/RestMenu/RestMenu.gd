@@ -64,8 +64,8 @@ func input():
 
 func equip():
 	if GlobalVars.ammo_equipped_array[0] != null:
-		GlobalVars.ammo_equipped_array[0] = GlobalVars.get_ammo(items[item_list.get_selected_items()[0]]["Name"])
 		items.add_item(GlobalVars.ammo_equipped_array[0], load(GlobalVars.ammo_equipped_array[0]["Icon"]))
+		GlobalVars.ammo_equipped_array[0] = GlobalVars.get_ammo(items[item_list.get_selected_items()[0]]["Name"])
 	GlobalVars.ammo_equipped_array[0] = GlobalVars.get_ammo(items[item_list.get_selected_items()[0]]["Name"])
 	items.remove(item_list.get_selected_items()[0])
 	item_list.remove_item(item_list.get_selected_items()[0])
