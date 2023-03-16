@@ -24,7 +24,7 @@ signal changed_health_pack()
 const SPEED = 120
 const GRAVITY = 1200
 const JUMP_IMPULSE = 350
-const JUMP_ACCEL = 600
+const JUMP_ACCEL = 620
 const DECELERATION = 0.5
 const ACCELERATION = 50
 const HEAL_FROM_CANDY = 20
