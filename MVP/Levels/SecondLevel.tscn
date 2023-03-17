@@ -582,44 +582,36 @@ position = Vector2( 429.237, 162.132 )
 scale = Vector2( 0.6375, 0.6375 )
 
 [node name="BackgroundFloors720p" parent="ParallaxBackground/ParallaxLayer2/Ground Top" instance=ExtResource( 5 )]
-scale = Vector2( 1, 1 )
 frame = 2
 
 [node name="BackgroundFloors720p4" parent="ParallaxBackground/ParallaxLayer2/Ground Top" instance=ExtResource( 5 )]
 position = Vector2( 1395.71, 42.1456 )
 rotation = -0.0312642
-scale = Vector2( 1, 1 )
 frame = 2
 
 [node name="BackgroundFloors720p2" parent="ParallaxBackground/ParallaxLayer2/Ground Top" instance=ExtResource( 5 )]
 position = Vector2( -719.117, -4.41724 )
-scale = Vector2( 1, 1 )
 frame = 2
 
 [node name="BackgroundFloors720p5" parent="ParallaxBackground/ParallaxLayer2/Ground Top" instance=ExtResource( 5 )]
 position = Vector2( 2112.57, 34.3025 )
-scale = Vector2( 1, 1 )
 frame = 2
 
 [node name="BackgroundFloors720p6" parent="ParallaxBackground/ParallaxLayer2/Ground Top" instance=ExtResource( 5 )]
 position = Vector2( 2827.86, 37.4398 )
-scale = Vector2( 1, 1 )
 frame = 5
 
 [node name="BackgroundFloors720p7" parent="ParallaxBackground/ParallaxLayer2/Ground Top" instance=ExtResource( 5 )]
 position = Vector2( 3538.45, 37.4398 )
-scale = Vector2( 1, 1 )
 frame = 5
 
 [node name="BackgroundFloors720p8" parent="ParallaxBackground/ParallaxLayer2/Ground Top" instance=ExtResource( 5 )]
 position = Vector2( 4252.18, 37.4398 )
-scale = Vector2( 1, 1 )
 frame = 2
 
 [node name="BackgroundFloors720p3" parent="ParallaxBackground/ParallaxLayer2/Ground Top" instance=ExtResource( 5 )]
 position = Vector2( 718.432, 101.961 )
 rotation = 0.0649407
-scale = Vector2( 1, 1 )
 offset = Vector2( -7.84314, -73.7255 )
 frame = 5
 
@@ -628,7 +620,7 @@ frame = 5
 [node name="ParallaxLayer4" type="ParallaxLayer" parent="Slice 2"]
 material = SubResource( 200 )
 use_parent_material = true
-position = Vector2( -968, 1361 )
+position = Vector2( -965, 1283 )
 motion_scale = Vector2( 0.1, 1 )
 
 [node name="ShortTrees" parent="Slice 2/ParallaxLayer4" instance=ExtResource( 22 )]
@@ -685,7 +677,7 @@ offset = Vector2( -7.84314, -73.7255 )
 
 [node name="ParallaxLayer3" type="ParallaxLayer" parent="Slice 2"]
 light_mask = 2
-position = Vector2( -2035, 1350 )
+position = Vector2( -2032, 1272 )
 motion_scale = Vector2( 0.25, 1 )
 
 [node name="TallTrees" parent="Slice 2/ParallaxLayer3" instance=ExtResource( 21 )]
@@ -754,7 +746,7 @@ frame = 1
 
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="Slice 2"]
 light_mask = 2
-position = Vector2( -2035, 1363 )
+position = Vector2( -2032, 1285 )
 motion_scale = Vector2( 0.5, 1 )
 
 [node name="TallTrees" parent="Slice 2/ParallaxLayer2" instance=ExtResource( 21 )]
@@ -777,52 +769,45 @@ position = Vector2( 429.237, 162.132 )
 scale = Vector2( 0.6375, 0.6375 )
 
 [node name="BackgroundFloors720p" parent="Slice 2/ParallaxLayer2/Ground Top" instance=ExtResource( 5 )]
-scale = Vector2( 1, 1 )
 frame = 2
 
 [node name="BackgroundFloors720p4" parent="Slice 2/ParallaxLayer2/Ground Top" instance=ExtResource( 5 )]
 position = Vector2( 1395.71, 42.1456 )
 rotation = -0.0312642
-scale = Vector2( 1, 1 )
 frame = 2
 
 [node name="BackgroundFloors720p2" parent="Slice 2/ParallaxLayer2/Ground Top" instance=ExtResource( 5 )]
 position = Vector2( -719.117, -4.41724 )
-scale = Vector2( 1, 1 )
 frame = 2
 
 [node name="BackgroundFloors720p5" parent="Slice 2/ParallaxLayer2/Ground Top" instance=ExtResource( 5 )]
 position = Vector2( 2112.57, 34.3025 )
-scale = Vector2( 1, 1 )
 frame = 2
 
 [node name="BackgroundFloors720p6" parent="Slice 2/ParallaxLayer2/Ground Top" instance=ExtResource( 5 )]
 position = Vector2( 2827.86, 37.4398 )
-scale = Vector2( 1, 1 )
 frame = 5
 
 [node name="BackgroundFloors720p7" parent="Slice 2/ParallaxLayer2/Ground Top" instance=ExtResource( 5 )]
 position = Vector2( 3538.45, 37.4398 )
-scale = Vector2( 1, 1 )
 frame = 5
 
 [node name="BackgroundFloors720p8" parent="Slice 2/ParallaxLayer2/Ground Top" instance=ExtResource( 5 )]
 position = Vector2( 4252.18, 37.4398 )
-scale = Vector2( 1, 1 )
 frame = 2
 
 [node name="BackgroundFloors720p3" parent="Slice 2/ParallaxLayer2/Ground Top" instance=ExtResource( 5 )]
 position = Vector2( 718.432, 101.961 )
 rotation = 0.0649407
-scale = Vector2( 1, 1 )
 offset = Vector2( -7.84314, -73.7255 )
 frame = 5
 
 [node name="BackgroundColor2" type="Sprite" parent="Slice 2"]
 light_mask = 0
-position = Vector2( 3036, 1492 )
-scale = Vector2( 0.680625, 0.362593 )
-z_index = 2
+position = Vector2( 2971, 1312 )
+scale = Vector2( 0.642128, 0.425741 )
+z_index = 10
+z_as_relative = false
 texture = ExtResource( 8 )
 
 [node name="Slice 2 (B)" type="ParallaxBackground" parent="."]
@@ -830,7 +815,7 @@ texture = ExtResource( 8 )
 [node name="ParallaxLayer4" type="ParallaxLayer" parent="Slice 2 (B)"]
 material = SubResource( 200 )
 use_parent_material = true
-position = Vector2( 2562, 1507 )
+position = Vector2( 2124, 1579 )
 motion_scale = Vector2( 0.1, 1 )
 
 [node name="ShortTrees" parent="Slice 2 (B)/ParallaxLayer4" instance=ExtResource( 22 )]
@@ -887,7 +872,7 @@ offset = Vector2( -7.84314, -73.7255 )
 
 [node name="ParallaxLayer3" type="ParallaxLayer" parent="Slice 2 (B)"]
 light_mask = 2
-position = Vector2( 1495, 1496 )
+position = Vector2( 1057, 1568 )
 motion_scale = Vector2( 0.25, 1 )
 
 [node name="TallTrees" parent="Slice 2 (B)/ParallaxLayer3" instance=ExtResource( 21 )]
@@ -956,7 +941,7 @@ frame = 1
 
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="Slice 2 (B)"]
 light_mask = 2
-position = Vector2( 1495, 1509 )
+position = Vector2( 1057, 1581 )
 motion_scale = Vector2( 0.5, 1 )
 
 [node name="TallTrees" parent="Slice 2 (B)/ParallaxLayer2" instance=ExtResource( 21 )]
@@ -979,44 +964,36 @@ position = Vector2( 429.237, 162.132 )
 scale = Vector2( 0.6375, 0.6375 )
 
 [node name="BackgroundFloors720p" parent="Slice 2 (B)/ParallaxLayer2/Ground Top" instance=ExtResource( 5 )]
-scale = Vector2( 1, 1 )
 frame = 2
 
 [node name="BackgroundFloors720p4" parent="Slice 2 (B)/ParallaxLayer2/Ground Top" instance=ExtResource( 5 )]
 position = Vector2( 1395.71, 42.1456 )
 rotation = -0.0312642
-scale = Vector2( 1, 1 )
 frame = 2
 
 [node name="BackgroundFloors720p2" parent="Slice 2 (B)/ParallaxLayer2/Ground Top" instance=ExtResource( 5 )]
 position = Vector2( -719.117, -4.41724 )
-scale = Vector2( 1, 1 )
 frame = 2
 
 [node name="BackgroundFloors720p5" parent="Slice 2 (B)/ParallaxLayer2/Ground Top" instance=ExtResource( 5 )]
 position = Vector2( 2112.57, 34.3025 )
-scale = Vector2( 1, 1 )
 frame = 2
 
 [node name="BackgroundFloors720p6" parent="Slice 2 (B)/ParallaxLayer2/Ground Top" instance=ExtResource( 5 )]
 position = Vector2( 2827.86, 37.4398 )
-scale = Vector2( 1, 1 )
 frame = 5
 
 [node name="BackgroundFloors720p7" parent="Slice 2 (B)/ParallaxLayer2/Ground Top" instance=ExtResource( 5 )]
 position = Vector2( 3538.45, 37.4398 )
-scale = Vector2( 1, 1 )
 frame = 5
 
 [node name="BackgroundFloors720p8" parent="Slice 2 (B)/ParallaxLayer2/Ground Top" instance=ExtResource( 5 )]
 position = Vector2( 4252.18, 37.4398 )
-scale = Vector2( 1, 1 )
 frame = 2
 
 [node name="BackgroundFloors720p3" parent="Slice 2 (B)/ParallaxLayer2/Ground Top" instance=ExtResource( 5 )]
 position = Vector2( 718.432, 101.961 )
 rotation = 0.0649407
-scale = Vector2( 1, 1 )
 offset = Vector2( -7.84314, -73.7255 )
 frame = 5
 
@@ -1174,44 +1151,36 @@ position = Vector2( 429.237, 162.132 )
 scale = Vector2( 0.6375, 0.6375 )
 
 [node name="BackgroundFloors720p" parent="Slice 2 (B)2/ParallaxLayer2/Ground Top" instance=ExtResource( 5 )]
-scale = Vector2( 1, 1 )
 frame = 2
 
 [node name="BackgroundFloors720p4" parent="Slice 2 (B)2/ParallaxLayer2/Ground Top" instance=ExtResource( 5 )]
 position = Vector2( 1395.71, 42.1456 )
 rotation = -0.0312642
-scale = Vector2( 1, 1 )
 frame = 2
 
 [node name="BackgroundFloors720p2" parent="Slice 2 (B)2/ParallaxLayer2/Ground Top" instance=ExtResource( 5 )]
 position = Vector2( -719.117, -4.41724 )
-scale = Vector2( 1, 1 )
 frame = 2
 
 [node name="BackgroundFloors720p5" parent="Slice 2 (B)2/ParallaxLayer2/Ground Top" instance=ExtResource( 5 )]
 position = Vector2( 2112.57, 34.3025 )
-scale = Vector2( 1, 1 )
 frame = 2
 
 [node name="BackgroundFloors720p6" parent="Slice 2 (B)2/ParallaxLayer2/Ground Top" instance=ExtResource( 5 )]
 position = Vector2( 2827.86, 37.4398 )
-scale = Vector2( 1, 1 )
 frame = 5
 
 [node name="BackgroundFloors720p7" parent="Slice 2 (B)2/ParallaxLayer2/Ground Top" instance=ExtResource( 5 )]
 position = Vector2( 3538.45, 37.4398 )
-scale = Vector2( 1, 1 )
 frame = 5
 
 [node name="BackgroundFloors720p8" parent="Slice 2 (B)2/ParallaxLayer2/Ground Top" instance=ExtResource( 5 )]
 position = Vector2( 4252.18, 37.4398 )
-scale = Vector2( 1, 1 )
 frame = 2
 
 [node name="BackgroundFloors720p3" parent="Slice 2 (B)2/ParallaxLayer2/Ground Top" instance=ExtResource( 5 )]
 position = Vector2( 718.432, 101.961 )
 rotation = 0.0649407
-scale = Vector2( 1, 1 )
 offset = Vector2( -7.84314, -73.7255 )
 frame = 5
 
@@ -1369,44 +1338,36 @@ position = Vector2( 429.237, 162.132 )
 scale = Vector2( 0.6375, 0.6375 )
 
 [node name="BackgroundFloors720p" parent="Slice 2 (B)3/ParallaxLayer2/Ground Top" instance=ExtResource( 5 )]
-scale = Vector2( 1, 1 )
 frame = 2
 
 [node name="BackgroundFloors720p4" parent="Slice 2 (B)3/ParallaxLayer2/Ground Top" instance=ExtResource( 5 )]
 position = Vector2( 1395.71, 42.1456 )
 rotation = -0.0312642
-scale = Vector2( 1, 1 )
 frame = 2
 
 [node name="BackgroundFloors720p2" parent="Slice 2 (B)3/ParallaxLayer2/Ground Top" instance=ExtResource( 5 )]
 position = Vector2( -719.117, -4.41724 )
-scale = Vector2( 1, 1 )
 frame = 2
 
 [node name="BackgroundFloors720p5" parent="Slice 2 (B)3/ParallaxLayer2/Ground Top" instance=ExtResource( 5 )]
 position = Vector2( 2112.57, 34.3025 )
-scale = Vector2( 1, 1 )
 frame = 2
 
 [node name="BackgroundFloors720p6" parent="Slice 2 (B)3/ParallaxLayer2/Ground Top" instance=ExtResource( 5 )]
 position = Vector2( 2827.86, 37.4398 )
-scale = Vector2( 1, 1 )
 frame = 5
 
 [node name="BackgroundFloors720p7" parent="Slice 2 (B)3/ParallaxLayer2/Ground Top" instance=ExtResource( 5 )]
 position = Vector2( 3538.45, 37.4398 )
-scale = Vector2( 1, 1 )
 frame = 5
 
 [node name="BackgroundFloors720p8" parent="Slice 2 (B)3/ParallaxLayer2/Ground Top" instance=ExtResource( 5 )]
 position = Vector2( 4252.18, 37.4398 )
-scale = Vector2( 1, 1 )
 frame = 2
 
 [node name="BackgroundFloors720p3" parent="Slice 2 (B)3/ParallaxLayer2/Ground Top" instance=ExtResource( 5 )]
 position = Vector2( 718.432, 101.961 )
 rotation = 0.0649407
-scale = Vector2( 1, 1 )
 offset = Vector2( -7.84314, -73.7255 )
 frame = 5
 
