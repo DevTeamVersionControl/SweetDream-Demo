@@ -57,12 +57,13 @@ func load_items() -> void:
 	for i in GlobalVars.inventory.size():
 		if GlobalVars.inventory[i].has("Icon") && GlobalVars.inventory[i].has("Ammo"):
 			item_list.add_item(GlobalVars.inventory[i]["Name"], load(GlobalVars.inventory[i]["Icon"]))
-			item_list.set_item_tooltip_enabled(i,false)
 		else:
-			items.remove(i)
+			items.erase(GlobalVars.inventory[i])
 	if item_list.get_item_count() > 0:
 		item_list.select(0)
 		item_list.grab_focus()
+	for i in item_list.get_item_count():
+		item_list.set_item_tooltip_enabled(i,false)
 
 func close_dialog() -> void:
 	if visible:

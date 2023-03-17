@@ -918,8 +918,8 @@ resource_local_to_scene = true
 pause_mode = 1
 material = SubResource( 198 )
 script = ExtResource( 14 )
-level_range_x = Vector2( 0, 3855 )
-level_range_y = Vector2( -250, 3500 )
+level_range_x = Vector2( 2637, 3855 )
+level_range_y = Vector2( -280, 3500 )
 
 [node name="UndergroundBackground" parent="." instance=ExtResource( 17 )]
 scale = Vector2( 0.1, 0.1 )

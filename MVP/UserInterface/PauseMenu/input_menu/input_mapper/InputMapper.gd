@@ -23,7 +23,7 @@ extends Node
 
 signal profile_changed(new_profile, is_customizable)
 
-var save_path := "res://Saves/InputProfiles.json"
+var save_path := "user://InputProfiles.json"
 
 var current_profile_id := 0
 var profiles = {
@@ -37,7 +37,7 @@ var normal = {
 	'move_right': KEY_RIGHT,
 	'shoot': KEY_X,
 	'ammo_next' : KEY_C,
-	'dash' : KEY_D,
+	'dash' : KEY_V,
 	'ui_accept' : KEY_ENTER,
 	'ui_cancel' : KEY_ESCAPE,
 	'ui_back' : KEY_X,
