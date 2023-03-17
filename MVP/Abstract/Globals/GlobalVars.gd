@@ -60,7 +60,10 @@ func initialize():
 func save(game_data):
 	var ammo_equipped_names := []
 	for i in ammo_equipped_array.size():
-		ammo_equipped_names.append(ammo_equipped_array[i].name)
+		if ammo_equipped_array[i] != null:
+			ammo_equipped_names.append(ammo_equipped_array[i].name)
+		else:
+			ammo_equipped_names.append(null)
 	game_data["ammo_equipped_names"] = ammo_equipped_names
 	game_data["equipped_ammo_index"] = equiped_ammo_index
 	game_data["double_jump_lock"] = double_jump_lock
@@ -71,7 +74,10 @@ func save(game_data):
 func load(game_data):
 	ammo_equipped_array = []
 	for i in game_data["ammo_equipped_names"].size():
-		ammo_equipped_array.append(get_ammo(game_data["ammo_equipped_names"][i]))
+		if game_data["ammo_equipped_names"][i] != null:
+			ammo_equipped_array.append(get_ammo(game_data["ammo_equipped_names"][i]))
+		else:
+			ammo_equipped_array.append(null)
 	equiped_ammo_index = int(game_data["equipped_ammo_index"])
 	double_jump_lock = game_data["double_jump_lock"]
 	dash_lock = game_data["dash_lock"]
@@ -87,6 +93,11 @@ func get_ammo(ammo_name : String):
 func add_to_inventory(item:Dictionary):
 	inventory.append(item)
 	apply_items()
+
+func get_from_inventory(name:String):
+	for item in inventory:
+		if item.get("Name") and item["Name"] == name:
+			return item
 	
 func remove_from_inventory(item_name:String):
 	for i in inventory.size():

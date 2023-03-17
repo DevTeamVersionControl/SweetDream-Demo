@@ -66,7 +66,7 @@ func physics_update(delta: float) -> void:
 	player.velocity = player.move_and_slide_with_snap(player.velocity, Vector2.DOWN * 16, Vector2.UP, false, 4, PI/4, false)
 	
 	if Input.is_action_pressed("shoot") && player.can_shoot:
-		if GlobalVars.ammo_equipped_array.size() != 0 && GlobalVars.sugar >= GlobalVars.ammo_equipped_array[GlobalVars.equiped_ammo_index].sugar:
+		if GlobalVars.ammo_equipped_array.size() != 0 && GlobalVars.ammo_equipped_array[GlobalVars.equiped_ammo_index] != null && GlobalVars.sugar >= GlobalVars.ammo_equipped_array[GlobalVars.equiped_ammo_index].sugar:
 			state_machine.transition_to("Aim")
 
 func check_floor():

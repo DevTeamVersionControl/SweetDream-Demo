@@ -41,6 +41,7 @@ func equip_candy_corn():
 	GlobalVars.ammo_equipped_array.append(GlobalVars.get_ammo("Candy Corn"))
 	get_tree().current_scene.player.update_display()
 	GlobalVars.add_to_inventory({"Name":"Gimald shop","StoryPoint":"2"})
+	GameSaver.save()
 
 # Returns the point at the conversation the dialog should be
 func get_dialog_num() -> int:

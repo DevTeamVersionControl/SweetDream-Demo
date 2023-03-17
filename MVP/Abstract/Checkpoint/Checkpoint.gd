@@ -36,6 +36,7 @@ func _on_Checkpoint_body_exited(body):
 func _unhandled_key_input(_event):
 	if player_is_in_zone && Input.is_action_just_pressed("interact"):
 		if get_tree().current_scene.checkpoint_on(name):
+			get_tree().current_scene.start_rest_menu()
 			get_tree().current_scene.die()
 		else:
 			get_tree().current_scene.set_checkpoint(GlobalTypes.Checkpoint.new(name, load(get_tree().current_scene.current_level.filename)))

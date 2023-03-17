@@ -1422,7 +1422,7 @@ tracks/6/keys = {
 "values": [ Vector2( 0.095, 0.095 ) ]
 }
 
-[sub_resource type="Animation" id=189]
+[sub_resource type="Animation" id=204]
 resource_name = "GetUpLeft"
 length = 0.001
 tracks/0/type = "value"
@@ -1447,7 +1447,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 0, -26 ) ]
+"values": [ Vector2( 0, -30 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("Sprite:frame")
@@ -1507,7 +1507,7 @@ tracks/6/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 1, -29 ) ]
+"values": [ Vector2( -2, -32 ) ]
 }
 tracks/7/type = "value"
 tracks/7/path = NodePath("BulletCenter:position")
@@ -1603,10 +1603,22 @@ tracks/14/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ false ]
+"values": [ true ]
+}
+tracks/15/type = "value"
+tracks/15/path = NodePath("Physics:position")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -2, -12 ) ]
 }
 
-[sub_resource type="Animation" id=190]
+[sub_resource type="Animation" id=205]
 resource_name = "GetUpRight"
 length = 0.001
 tracks/0/type = "value"
@@ -1631,7 +1643,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 0, -26 ) ]
+"values": [ Vector2( 0, -30 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("Sprite:frame")
@@ -1691,7 +1703,7 @@ tracks/6/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 1, -29 ) ]
+"values": [ Vector2( -2, -32 ) ]
 }
 tracks/7/type = "value"
 tracks/7/path = NodePath("BulletCenter:position")
@@ -1788,6 +1800,18 @@ tracks/14/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ false ]
+}
+tracks/15/type = "value"
+tracks/15/path = NodePath("Physics:position")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -2, -12 ) ]
 }
 
 [sub_resource type="Animation" id=23]
@@ -2183,6 +2207,18 @@ tracks/7/keys = {
 "update": 1,
 "values": [ Vector2( 1, 0.3 ), Vector2( 1, 0.6 ) ]
 }
+tracks/8/type = "value"
+tracks/8/path = NodePath("Physics:position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0.0833334 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, -9 ) ]
+}
 
 [sub_resource type="Animation" id=199]
 resource_name = "RESET"
@@ -2209,7 +2245,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 0, -26 ) ]
+"values": [ Vector2( 0, -30 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("Sprite:frame")
@@ -2269,7 +2305,7 @@ tracks/6/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( -2, -25 ) ]
+"values": [ Vector2( -2, -32 ) ]
 }
 tracks/7/type = "value"
 tracks/7/path = NodePath("BulletCenter:position")
@@ -2377,7 +2413,7 @@ tracks/15/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( -2, -5 ) ]
+"values": [ Vector2( -2, -12 ) ]
 }
 
 [sub_resource type="Animation" id=3]
@@ -3872,7 +3908,7 @@ script = ExtResource( 4 )
 [node name="Sprite" type="Sprite" parent="."]
 light_mask = 17
 material = SubResource( 140 )
-position = Vector2( 0, -26 )
+position = Vector2( 0, -30 )
 scale = Vector2( 0.095, 0.095 )
 texture = ExtResource( 17 )
 normal_map = ExtResource( 32 )
@@ -3897,8 +3933,8 @@ anims/CrouchRight = SubResource( 203 )
 anims/CrouchedLeft = SubResource( 188 )
 anims/CrouchedRight = SubResource( 105 )
 anims/Dash = SubResource( 173 )
-anims/GetUpLeft = SubResource( 189 )
-anims/GetUpRight = SubResource( 190 )
+anims/GetUpLeft = SubResource( 204 )
+anims/GetUpRight = SubResource( 205 )
 anims/IdleLeft = SubResource( 23 )
 anims/IdleRight = SubResource( 141 )
 anims/Jump = SubResource( 163 )
@@ -3935,12 +3971,12 @@ parameters/Shoot/blend_position = Vector2( -0.0123457, 0.321185 )
 parameters/ShootCrouched/blend_position = 0
 
 [node name="Hurtbox" type="CollisionShape2D" parent="."]
-position = Vector2( -2, -25 )
+position = Vector2( -2, -32 )
 scale = Vector2( 1, 1.01 )
 shape = SubResource( 1 )
 
 [node name="Physics" type="CollisionShape2D" parent="."]
-position = Vector2( -2, -5 )
+position = Vector2( -2, -12 )
 rotation = 1.57079
 scale = Vector2( 0.605794, 0.357638 )
 shape = SubResource( 5 )

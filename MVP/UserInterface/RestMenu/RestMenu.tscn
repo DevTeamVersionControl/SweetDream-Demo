@@ -52,10 +52,10 @@ theme = SubResource( 5 )
 text = "Very interesting Item description, or maybe it's cryptic for no reason"
 
 [node name="Ammo Slots" type="HBoxContainer" parent="."]
-anchor_top = 0.643
+anchor_top = 0.626
 anchor_right = 0.731
 anchor_bottom = 0.738
-margin_top = -18.44
+margin_top = -0.0800781
 margin_right = 1.47998
 margin_bottom = -3.04004
 alignment = 1
