@@ -28,7 +28,7 @@ func show():
 	visible = true
 
 func start():
-	items = GlobalVars.inventory
+	items = GlobalVars.inventory.duplicate()
 	item_list.clear()
 	if GlobalVars.ammo_equipped_array.size() != 2:
 		GlobalVars.ammo_equipped_array.clear()

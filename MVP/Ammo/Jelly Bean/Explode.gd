@@ -29,8 +29,6 @@ func _on_Explosion(body):
 		body.take_damage(GlobalVars.get_ammo("Jelly Bean").damage, calculate_explosion_knockback(body.global_position))
 	elif body.is_in_group("player"):
 		body.knockback(calculate_explosion_knockback(body.global_position))
-	elif body.is_in_group("destructable"):
-		body.disappear()
 
 func calculate_explosion_knockback(body_pos:Vector2) -> Vector2:
 	# Direction

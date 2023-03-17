@@ -79,6 +79,7 @@ func load_level(level:PackedScene, location:String):
 	var tween = get_tree().create_tween()
 	tween.tween_property(level_transition, "self_modulate", Color(0, 0, 0, 0), 1)
 	next_level = null
+	GlobalVars.apply_items()
 	emit_signal("level_loaded")
 
 func die():

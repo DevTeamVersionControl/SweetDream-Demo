@@ -4,7 +4,7 @@ extends KinematicBody2D
 const DAMAGE = 5
 
 var motion := Vector2.ZERO
-var health := 20.0
+var health := 15.0
 var target : Player
 
 onready var state_machine := $StateMachine
