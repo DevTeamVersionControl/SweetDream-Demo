@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=40 format=2]
 
 [ext_resource path="res://Environment/Blocks/Forest/TileSets/ForestTileSet.tres" type="TileSet" id=1]
 [ext_resource path="res://Abstract/GenericDoor/GenericDoor.tscn" type="PackedScene" id=2]
@@ -24,6 +24,12 @@
 [ext_resource path="res://Environment/Backgrounds/Forest Backgrounds/Main Background/Trees/ShortTrees.tscn" type="PackedScene" id=22]
 [ext_resource path="res://Environment/Backgrounds/Forest Backgrounds/Main Background/Clouds/Clouds.tscn" type="PackedScene" id=23]
 [ext_resource path="res://Environment/Backgrounds/Forest Backgrounds/Underground Background/Back Textures/UndergroundBackground.tscn" type="PackedScene" id=24]
+[ext_resource path="res://Environment/Backgrounds/Forest Backgrounds/Main Background/Scatter Terrain/Lollipop.tscn" type="PackedScene" id=25]
+[ext_resource path="res://Environment/Backgrounds/Forest Backgrounds/Main Background/Scatter Terrain/CandyCane.tscn" type="PackedScene" id=26]
+[ext_resource path="res://Environment/Backgrounds/Forest Backgrounds/Main Background/Scatter Terrain/Bush.tscn" type="PackedScene" id=27]
+[ext_resource path="res://Environment/Backgrounds/Forest Backgrounds/Main Background/Scatter Terrain/MintScatter.tscn" type="PackedScene" id=28]
+[ext_resource path="res://Environment/Backgrounds/Forest Backgrounds/Main Background/Scatter Terrain/CandyCornScatter.tscn" type="PackedScene" id=29]
+[ext_resource path="res://Environment/Backgrounds/Forest Backgrounds/Main Background/Scatter Terrain/JelloScatter.tscn" type="PackedScene" id=30]
 
 [sub_resource type="CanvasItemMaterial" id=198]
 light_mode = 2
@@ -432,10 +438,13 @@ motion_scale = Vector2( 0.1, 1 )
 
 [node name="BackgroundColor" type="Sprite" parent="ParallaxBackground/ParallaxLayer4"]
 light_mask = 0
-position = Vector2( 2331.2, 1272.1 )
+position = Vector2( 1957.2, 1443.1 )
 scale = Vector2( 1.63421, 2.27593 )
 z_index = -100
 texture = ExtResource( 8 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="ShortTrees" parent="ParallaxBackground/ParallaxLayer4" instance=ExtResource( 22 )]
 material = SubResource( 201 )
@@ -620,7 +629,7 @@ frame = 5
 [node name="ParallaxLayer4" type="ParallaxLayer" parent="Slice 2"]
 material = SubResource( 200 )
 use_parent_material = true
-position = Vector2( -965, 1283 )
+position = Vector2( -711, 1412 )
 motion_scale = Vector2( 0.1, 1 )
 
 [node name="ShortTrees" parent="Slice 2/ParallaxLayer4" instance=ExtResource( 22 )]
@@ -633,9 +642,19 @@ material = SubResource( 202 )
 position = Vector2( -26, 5.41321 )
 tile_data = PoolIntArray( 65526, 17, 0, 37, 16, 0, 65550, 15, 0, 327712, 0, 0 )
 
+[node name="CandyCaneScatter" parent="Slice 2/ParallaxLayer4" instance=ExtResource( 26 )]
+position = Vector2( 908, 123 )
+rotation = -0.372621
+scale = Vector2( -0.102, 0.102 )
+frame = 3
+
+[node name="MintScatter" parent="Slice 2/ParallaxLayer4" instance=ExtResource( 28 )]
+position = Vector2( 957, 149 )
+frame = 3
+
 [node name="Clouds" parent="Slice 2/ParallaxLayer4" instance=ExtResource( 23 )]
 scale = Vector2( 0.4, 0.4 )
-tile_data = PoolIntArray( -720892, 0, 0, -655312, 3, 0, -524219, 0, 0, -327691, 536870912, 0, -393201, 3, 0, -393180, 0, 0 )
+tile_data = PoolIntArray( -720892, 0, 0, -524219, 0, 0, -327691, 536870912, 0, -393201, 3, 0, -393180, 0, 0 )
 
 [node name="Ground Top" type="Node2D" parent="Slice 2/ParallaxLayer4"]
 position = Vector2( 2334, 1332 )
@@ -677,8 +696,13 @@ offset = Vector2( -7.84314, -73.7255 )
 
 [node name="ParallaxLayer3" type="ParallaxLayer" parent="Slice 2"]
 light_mask = 2
-position = Vector2( -2032, 1272 )
+position = Vector2( -1778, 1401 )
 motion_scale = Vector2( 0.25, 1 )
+
+[node name="CandyCornScatter" parent="Slice 2/ParallaxLayer3" instance=ExtResource( 29 )]
+position = Vector2( 1938, 165 )
+rotation = 0.506292
+frame = 2
 
 [node name="TallTrees" parent="Slice 2/ParallaxLayer3" instance=ExtResource( 21 )]
 material = SubResource( 203 )
@@ -691,7 +715,7 @@ position = Vector2( 226.8, 11.3162 )
 tile_data = PoolIntArray( 196590, 9, 0, 196637, 9, 0, 196653, 8, 0, 196709, 536870920, 0 )
 
 [node name="Clouds" parent="Slice 2/ParallaxLayer3" instance=ExtResource( 23 )]
-tile_data = PoolIntArray( -524295, 1, 0, -458722, 536870913, 0, -458702, 1, 0, -262145, 4, 0, -327638, 1, 0, -262128, 1, 0, -262085, 536870916, 0, -262069, 1, 0, -262055, 4, 0 )
+tile_data = PoolIntArray( -524295, 1, 0, -458722, 536870913, 0, -262145, 4, 0, -327638, 1, 0, -262128, 1, 0, -262085, 536870916, 0, -262069, 1, 0, -262055, 4, 0 )
 
 [node name="Ground Top" type="Node2D" parent="Slice 2/ParallaxLayer3"]
 position = Vector2( 226.8, 11.3161 )
@@ -746,7 +770,7 @@ frame = 1
 
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="Slice 2"]
 light_mask = 2
-position = Vector2( -2032, 1285 )
+position = Vector2( -1778, 1414 )
 motion_scale = Vector2( 0.5, 1 )
 
 [node name="TallTrees" parent="Slice 2/ParallaxLayer2" instance=ExtResource( 21 )]
@@ -762,7 +786,29 @@ tile_data = PoolIntArray( 196603, 536870919, 0, 196620, 536870918, 0, 262184, 6,
 [node name="Clouds" parent="Slice 2/ParallaxLayer2" instance=ExtResource( 23 )]
 position = Vector2( 8, -33 )
 scale = Vector2( 0.4, 0.4 )
-tile_data = PoolIntArray( -589744, 5, 0, -524271, 5, 0, -196609, 2, 0, -262090, 536870914, 0, -262077, 536870917, 0, -196580, 5, 0, -196519, 536870914, 0, -196486, 5, 0, -131035, 2, 0 )
+tile_data = PoolIntArray( -524271, 5, 0, -196609, 2, 0, -262090, 536870914, 0, -262077, 536870917, 0, -196580, 5, 0, -196519, 536870914, 0, -196486, 5, 0, -131035, 2, 0 )
+
+[node name="LollipopScatter" parent="Slice 2/ParallaxLayer2" instance=ExtResource( 25 )]
+position = Vector2( 2319, 137 )
+rotation = 0.440864
+scale = Vector2( 0.123441, 0.123441 )
+frame = 1
+
+[node name="CandyCaneScatter2" parent="Slice 2/ParallaxLayer2" instance=ExtResource( 26 )]
+position = Vector2( 1801, 94 )
+rotation = 3.69434
+scale = Vector2( 0.102, -0.102 )
+frame = 1
+
+[node name="BushScatter" parent="Slice 2/ParallaxLayer2" instance=ExtResource( 27 )]
+position = Vector2( 2286.4, 180.5 )
+scale = Vector2( 0.0680556, 0.0680556 )
+frame = 1
+
+[node name="BushScatter2" parent="Slice 2/ParallaxLayer2" instance=ExtResource( 27 )]
+position = Vector2( 1781, 133 )
+scale = Vector2( 0.0680556, 0.0680556 )
+frame = 1
 
 [node name="Ground Top" type="Node2D" parent="Slice 2/ParallaxLayer2"]
 position = Vector2( 429.237, 162.132 )
@@ -802,9 +848,12 @@ rotation = 0.0649407
 offset = Vector2( -7.84314, -73.7255 )
 frame = 5
 
-[node name="BackgroundColor2" type="Sprite" parent="Slice 2"]
+[node name="ParallaxLayer5" type="ParallaxLayer" parent="Slice 2"]
+position = Vector2( 254, 129 )
+
+[node name="BackgroundColor2" type="Sprite" parent="Slice 2/ParallaxLayer5"]
 light_mask = 0
-position = Vector2( 2971, 1312 )
+position = Vector2( 2692, 1537 )
 scale = Vector2( 0.642128, 0.425741 )
 z_index = 10
 z_as_relative = false
@@ -815,7 +864,7 @@ texture = ExtResource( 8 )
 [node name="ParallaxLayer4" type="ParallaxLayer" parent="Slice 2 (B)"]
 material = SubResource( 200 )
 use_parent_material = true
-position = Vector2( 2124, 1579 )
+position = Vector2( 908, 1578 )
 motion_scale = Vector2( 0.1, 1 )
 
 [node name="ShortTrees" parent="Slice 2 (B)/ParallaxLayer4" instance=ExtResource( 22 )]
@@ -830,7 +879,7 @@ tile_data = PoolIntArray( 65526, 17, 0, 37, 16, 0, 65550, 15, 0, 327712, 0, 0 )
 
 [node name="Clouds" parent="Slice 2 (B)/ParallaxLayer4" instance=ExtResource( 23 )]
 scale = Vector2( 0.4, 0.4 )
-tile_data = PoolIntArray( -720892, 0, 0, -655312, 3, 0, -524219, 0, 0, -327691, 536870912, 0, -393201, 3, 0, -393180, 0, 0 )
+tile_data = PoolIntArray( -655312, 3, 0, -524219, 0, 0, -327691, 536870912, 0, -393201, 3, 0, -393180, 0, 0 )
 
 [node name="Ground Top" type="Node2D" parent="Slice 2 (B)/ParallaxLayer4"]
 position = Vector2( 2334, 1332 )
@@ -843,8 +892,8 @@ scale = Vector2( 0.389699, 0.280659 )
 offset = Vector2( -7.84314, -73.7255 )
 
 [node name="BackgroundFloors720p5" parent="Slice 2 (B)/ParallaxLayer4/Ground Top" instance=ExtResource( 5 )]
-position = Vector2( -1883.38, -512.275 )
-rotation = 0.013955
+position = Vector2( -1877.91, -480.932 )
+rotation = -0.216143
 scale = Vector2( 0.389699, 0.280659 )
 offset = Vector2( -7.84314, -73.7255 )
 
@@ -872,21 +921,21 @@ offset = Vector2( -7.84314, -73.7255 )
 
 [node name="ParallaxLayer3" type="ParallaxLayer" parent="Slice 2 (B)"]
 light_mask = 2
-position = Vector2( 1057, 1568 )
+position = Vector2( 575, 1570 )
 motion_scale = Vector2( 0.25, 1 )
 
 [node name="TallTrees" parent="Slice 2 (B)/ParallaxLayer3" instance=ExtResource( 21 )]
 material = SubResource( 203 )
 position = Vector2( 226.8, 11.3162 )
-tile_data = PoolIntArray( 65527, 13, 0, 65547, 12, 0, 65574, 14, 0, 65601, 12, 0, 65621, 13, 0, 65638, 536870926, 0, 327712, 0, 0 )
+tile_data = PoolIntArray( 131066, 13, 0, 65547, 12, 0, 65574, 14, 0, 65601, 12, 0, 65621, 13, 0, 65638, 536870926, 0, 327712, 0, 0 )
 
 [node name="ShortTrees" parent="Slice 2 (B)/ParallaxLayer3" instance=ExtResource( 22 )]
 material = SubResource( 204 )
 position = Vector2( 226.8, 11.3162 )
-tile_data = PoolIntArray( 196590, 9, 0, 196637, 9, 0, 196653, 8, 0, 196709, 536870920, 0 )
+tile_data = PoolIntArray( 196637, 9, 0, 196653, 8, 0, 196709, 536870920, 0, 393201, 9, 0 )
 
 [node name="Clouds" parent="Slice 2 (B)/ParallaxLayer3" instance=ExtResource( 23 )]
-tile_data = PoolIntArray( -524295, 1, 0, -458722, 536870913, 0, -458702, 1, 0, -262145, 4, 0, -327638, 1, 0, -262128, 1, 0, -262085, 536870916, 0, -262069, 1, 0, -262055, 4, 0 )
+tile_data = PoolIntArray( -524295, 1, 0, -458702, 1, 0, -327638, 1, 0, -262141, 4, 0, -262128, 1, 0, -262085, 536870916, 0, -262069, 1, 0, -262055, 4, 0 )
 
 [node name="Ground Top" type="Node2D" parent="Slice 2 (B)/ParallaxLayer3"]
 position = Vector2( 226.8, 11.3161 )
@@ -900,8 +949,8 @@ offset = Vector2( -7.84314, -73.7255 )
 frame = 4
 
 [node name="BackgroundFloors720p3" parent="Slice 2 (B)/ParallaxLayer3/Ground Top" instance=ExtResource( 5 )]
-position = Vector2( -768.017, 548.103 )
-rotation = 0.00361076
+position = Vector2( -730.857, 679.097 )
+rotation = -0.204635
 scale = Vector2( 1.82141, 1.82945 )
 offset = Vector2( -7.84314, -73.7255 )
 frame = 4
@@ -941,29 +990,31 @@ frame = 1
 
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="Slice 2 (B)"]
 light_mask = 2
-position = Vector2( 1057, 1581 )
+position = Vector2( 849, 1577 )
 motion_scale = Vector2( 0.5, 1 )
 
 [node name="TallTrees" parent="Slice 2 (B)/ParallaxLayer2" instance=ExtResource( 21 )]
 material = SubResource( 205 )
 position = Vector2( 226.8, 11.3162 )
-tile_data = PoolIntArray( 131058, 9, 0, 65585, 536870923, 0, 65596, 9, 0, 65615, 10, 0, 131091, 11, 0, 131102, 10, 0, 131185, 536870922, 0, 327712, 0, 0 )
+tile_data = PoolIntArray( 65585, 536870923, 0, 65596, 9, 0, 65615, 10, 0, 131091, 11, 0, 131102, 10, 0, 131185, 536870922, 0, 327666, 9, 0, 327712, 0, 0 )
 
 [node name="ShortTrees" parent="Slice 2 (B)/ParallaxLayer2" instance=ExtResource( 22 )]
 material = SubResource( 206 )
 position = Vector2( 226.8, 11.3162 )
-tile_data = PoolIntArray( 196603, 536870919, 0, 196620, 536870918, 0, 262184, 6, 0, 262258, 6, 0, 262280, 7, 0 )
+tile_data = PoolIntArray( 262173, 6, 0, 262258, 6, 0, 262280, 7, 0, 327686, 6, 0, 458745, 7, 0 )
 
 [node name="Clouds" parent="Slice 2 (B)/ParallaxLayer2" instance=ExtResource( 23 )]
 position = Vector2( 8, -33 )
 scale = Vector2( 0.4, 0.4 )
-tile_data = PoolIntArray( -589744, 5, 0, -524271, 5, 0, -196609, 2, 0, -262090, 536870914, 0, -262077, 536870917, 0, -196580, 5, 0, -196519, 536870914, 0, -196486, 5, 0, -131035, 2, 0 )
+tile_data = PoolIntArray( -589744, 5, 0, -262090, 536870914, 0, -262077, 536870917, 0, -196580, 5, 0, -196519, 536870914, 0, -196486, 5, 0, -131035, 2, 0, -1, 2, 0 )
 
 [node name="Ground Top" type="Node2D" parent="Slice 2 (B)/ParallaxLayer2"]
 position = Vector2( 429.237, 162.132 )
 scale = Vector2( 0.6375, 0.6375 )
 
 [node name="BackgroundFloors720p" parent="Slice 2 (B)/ParallaxLayer2/Ground Top" instance=ExtResource( 5 )]
+position = Vector2( -0.371826, 70.3811 )
+rotation = -0.190294
 frame = 2
 
 [node name="BackgroundFloors720p4" parent="Slice 2 (B)/ParallaxLayer2/Ground Top" instance=ExtResource( 5 )]
@@ -972,7 +1023,15 @@ rotation = -0.0312642
 frame = 2
 
 [node name="BackgroundFloors720p2" parent="Slice 2 (B)/ParallaxLayer2/Ground Top" instance=ExtResource( 5 )]
-position = Vector2( -719.117, -4.41724 )
+position = Vector2( -646.646, 122.146 )
+frame = 2
+
+[node name="BackgroundFloors720p9" parent="Slice 2 (B)/ParallaxLayer2/Ground Top" instance=ExtResource( 5 )]
+position = Vector2( -1365.08, 117.44 )
+frame = 2
+
+[node name="BackgroundFloors720p10" parent="Slice 2 (B)/ParallaxLayer2/Ground Top" instance=ExtResource( 5 )]
+position = Vector2( -2083.51, 112.734 )
 frame = 2
 
 [node name="BackgroundFloors720p5" parent="Slice 2 (B)/ParallaxLayer2/Ground Top" instance=ExtResource( 5 )]
@@ -1002,7 +1061,7 @@ frame = 5
 [node name="ParallaxLayer4" type="ParallaxLayer" parent="Slice 2 (B)2"]
 material = SubResource( 200 )
 use_parent_material = true
-position = Vector2( 4139, 2405 )
+position = Vector2( 1305, 2329 )
 motion_scale = Vector2( 0.1, 1 )
 
 [node name="ShortTrees" parent="Slice 2 (B)2/ParallaxLayer4" instance=ExtResource( 22 )]
@@ -1017,7 +1076,7 @@ tile_data = PoolIntArray( 65526, 17, 0, 37, 16, 0, 65550, 15, 0, 327712, 0, 0 )
 
 [node name="Clouds" parent="Slice 2 (B)2/ParallaxLayer4" instance=ExtResource( 23 )]
 scale = Vector2( 0.4, 0.4 )
-tile_data = PoolIntArray( -720892, 0, 0, -655312, 3, 0, -524219, 0, 0, -327691, 536870912, 0, -393201, 3, 0, -393180, 0, 0 )
+tile_data = PoolIntArray( -655312, 3, 0, -524219, 0, 0, -327691, 536870912, 0, -393201, 3, 0, -393180, 0, 0 )
 
 [node name="Ground Top" type="Node2D" parent="Slice 2 (B)2/ParallaxLayer4"]
 position = Vector2( 2334, 1332 )
@@ -1030,8 +1089,8 @@ scale = Vector2( 0.389699, 0.280659 )
 offset = Vector2( -7.84314, -73.7255 )
 
 [node name="BackgroundFloors720p5" parent="Slice 2 (B)2/ParallaxLayer4/Ground Top" instance=ExtResource( 5 )]
-position = Vector2( -1883.38, -512.275 )
-rotation = 0.013955
+position = Vector2( -1877.91, -480.932 )
+rotation = -0.216143
 scale = Vector2( 0.389699, 0.280659 )
 offset = Vector2( -7.84314, -73.7255 )
 
@@ -1059,21 +1118,21 @@ offset = Vector2( -7.84314, -73.7255 )
 
 [node name="ParallaxLayer3" type="ParallaxLayer" parent="Slice 2 (B)2"]
 light_mask = 2
-position = Vector2( 3072, 2394 )
+position = Vector2( 898, 2337 )
 motion_scale = Vector2( 0.25, 1 )
 
 [node name="TallTrees" parent="Slice 2 (B)2/ParallaxLayer3" instance=ExtResource( 21 )]
 material = SubResource( 203 )
 position = Vector2( 226.8, 11.3162 )
-tile_data = PoolIntArray( 65527, 13, 0, 65547, 12, 0, 65574, 14, 0, 65601, 12, 0, 65621, 13, 0, 65638, 536870926, 0, 327712, 0, 0 )
+tile_data = PoolIntArray( 131066, 13, 0, 65547, 12, 0, 65574, 14, 0, 65601, 12, 0, 65621, 13, 0, 65638, 536870926, 0, 327712, 0, 0 )
 
 [node name="ShortTrees" parent="Slice 2 (B)2/ParallaxLayer3" instance=ExtResource( 22 )]
 material = SubResource( 204 )
 position = Vector2( 226.8, 11.3162 )
-tile_data = PoolIntArray( 196590, 9, 0, 196637, 9, 0, 196653, 8, 0, 196709, 536870920, 0 )
+tile_data = PoolIntArray( 196637, 9, 0, 196653, 8, 0, 196709, 536870920, 0, 393201, 9, 0 )
 
 [node name="Clouds" parent="Slice 2 (B)2/ParallaxLayer3" instance=ExtResource( 23 )]
-tile_data = PoolIntArray( -524295, 1, 0, -458722, 536870913, 0, -458702, 1, 0, -262145, 4, 0, -327638, 1, 0, -262128, 1, 0, -262085, 536870916, 0, -262069, 1, 0, -262055, 4, 0 )
+tile_data = PoolIntArray( -524295, 1, 0, -458702, 1, 0, -327638, 1, 0, -262141, 4, 0, -262128, 1, 0, -262085, 536870916, 0, -262069, 1, 0, -262055, 4, 0 )
 
 [node name="Ground Top" type="Node2D" parent="Slice 2 (B)2/ParallaxLayer3"]
 position = Vector2( 226.8, 11.3161 )
@@ -1087,8 +1146,8 @@ offset = Vector2( -7.84314, -73.7255 )
 frame = 4
 
 [node name="BackgroundFloors720p3" parent="Slice 2 (B)2/ParallaxLayer3/Ground Top" instance=ExtResource( 5 )]
-position = Vector2( -768.017, 548.103 )
-rotation = 0.00361076
+position = Vector2( -730.857, 679.097 )
+rotation = -0.204635
 scale = Vector2( 1.82141, 1.82945 )
 offset = Vector2( -7.84314, -73.7255 )
 frame = 4
@@ -1128,38 +1187,36 @@ frame = 1
 
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="Slice 2 (B)2"]
 light_mask = 2
-position = Vector2( 3072, 2407 )
+position = Vector2( 689, 2373 )
 motion_scale = Vector2( 0.5, 1 )
 
 [node name="TallTrees" parent="Slice 2 (B)2/ParallaxLayer2" instance=ExtResource( 21 )]
 material = SubResource( 205 )
 position = Vector2( 226.8, 11.3162 )
-tile_data = PoolIntArray( 131058, 9, 0, 65585, 536870923, 0, 65596, 9, 0, 65615, 10, 0, 131091, 11, 0, 131102, 10, 0, 131185, 536870922, 0, 327712, 0, 0 )
+tile_data = PoolIntArray( 65585, 536870923, 0, 65596, 9, 0, 65615, 10, 0, 131091, 11, 0, 131102, 10, 0, 131185, 536870922, 0, 327712, 0, 0 )
 
 [node name="ShortTrees" parent="Slice 2 (B)2/ParallaxLayer2" instance=ExtResource( 22 )]
 material = SubResource( 206 )
 position = Vector2( 226.8, 11.3162 )
-tile_data = PoolIntArray( 196603, 536870919, 0, 196620, 536870918, 0, 262184, 6, 0, 262258, 6, 0, 262280, 7, 0 )
+tile_data = PoolIntArray( 262173, 6, 0, 262258, 6, 0, 262280, 7, 0, 327686, 6, 0 )
 
 [node name="Clouds" parent="Slice 2 (B)2/ParallaxLayer2" instance=ExtResource( 23 )]
 position = Vector2( 8, -33 )
 scale = Vector2( 0.4, 0.4 )
-tile_data = PoolIntArray( -589744, 5, 0, -524271, 5, 0, -196609, 2, 0, -262090, 536870914, 0, -262077, 536870917, 0, -196580, 5, 0, -196519, 536870914, 0, -196486, 5, 0, -131035, 2, 0 )
+tile_data = PoolIntArray( -589744, 5, 0, -262090, 536870914, 0, -262077, 536870917, 0, -196580, 5, 0, -196519, 536870914, 0, -196486, 5, 0, -131035, 2, 0, -1, 2, 0 )
 
 [node name="Ground Top" type="Node2D" parent="Slice 2 (B)2/ParallaxLayer2"]
 position = Vector2( 429.237, 162.132 )
 scale = Vector2( 0.6375, 0.6375 )
 
 [node name="BackgroundFloors720p" parent="Slice 2 (B)2/ParallaxLayer2/Ground Top" instance=ExtResource( 5 )]
+position = Vector2( -0.371826, 70.3811 )
+rotation = -0.190294
 frame = 2
 
 [node name="BackgroundFloors720p4" parent="Slice 2 (B)2/ParallaxLayer2/Ground Top" instance=ExtResource( 5 )]
 position = Vector2( 1395.71, 42.1456 )
 rotation = -0.0312642
-frame = 2
-
-[node name="BackgroundFloors720p2" parent="Slice 2 (B)2/ParallaxLayer2/Ground Top" instance=ExtResource( 5 )]
-position = Vector2( -719.117, -4.41724 )
 frame = 2
 
 [node name="BackgroundFloors720p5" parent="Slice 2 (B)2/ParallaxLayer2/Ground Top" instance=ExtResource( 5 )]
@@ -1184,12 +1241,142 @@ rotation = 0.0649407
 offset = Vector2( -7.84314, -73.7255 )
 frame = 5
 
+[node name="ParallaxLayer5" type="ParallaxLayer" parent="Slice 2 (B)2"]
+light_mask = 2
+position = Vector2( -108, 2522 )
+motion_scale = Vector2( 0.25, 1 )
+
+[node name="TallTrees" parent="Slice 2 (B)2/ParallaxLayer5" instance=ExtResource( 21 )]
+material = SubResource( 203 )
+position = Vector2( 226.8, 11.3162 )
+tile_data = PoolIntArray( 65574, 14, 0, 65601, 12, 0, 65621, 13, 0, 65638, 536870926, 0, 327712, 0, 0 )
+
+[node name="ShortTrees" parent="Slice 2 (B)2/ParallaxLayer5" instance=ExtResource( 22 )]
+material = SubResource( 204 )
+position = Vector2( 226.8, 11.3162 )
+tile_data = PoolIntArray( 196653, 8, 0, 196709, 536870920, 0 )
+
+[node name="Clouds" parent="Slice 2 (B)2/ParallaxLayer5" instance=ExtResource( 23 )]
+tile_data = PoolIntArray( -458702, 1, 0, -327638, 1, 0, -262085, 536870916, 0, -262069, 1, 0, -262055, 4, 0 )
+
+[node name="Ground Top" type="Node2D" parent="Slice 2 (B)2/ParallaxLayer5"]
+position = Vector2( 226.8, 11.3161 )
+scale = Vector2( 0.35, 0.35 )
+
+[node name="BackgroundFloors720p2" parent="Slice 2 (B)2/ParallaxLayer5/Ground Top" instance=ExtResource( 5 )]
+position = Vector2( 534.286, 594.286 )
+rotation = 0.0649407
+scale = Vector2( 1.82143, 1.82143 )
+offset = Vector2( -7.84314, -73.7255 )
+frame = 4
+
+[node name="BackgroundFloors720p5" parent="Slice 2 (B)2/ParallaxLayer5/Ground Top" instance=ExtResource( 5 )]
+position = Vector2( 3086.29, 601.954 )
+rotation = 0.00361076
+scale = Vector2( 1.82141, 1.82945 )
+offset = Vector2( -7.84314, -73.7255 )
+frame = 4
+
+[node name="BackgroundFloors720p6" parent="Slice 2 (B)2/ParallaxLayer5/Ground Top" instance=ExtResource( 5 )]
+position = Vector2( 4380.57, 607.668 )
+scale = Vector2( 1.82141, 1.82945 )
+offset = Vector2( -7.84314, -73.7255 )
+frame = 1
+
+[node name="BackgroundFloors720p7" parent="Slice 2 (B)2/ParallaxLayer5/Ground Top" instance=ExtResource( 5 )]
+position = Vector2( 5692, 619.097 )
+rotation = 0.00361076
+scale = Vector2( 1.82141, 1.82945 )
+offset = Vector2( -7.84314, -73.7255 )
+frame = 1
+
+[node name="BackgroundFloors720p8" parent="Slice 2 (B)2/ParallaxLayer5/Ground Top" instance=ExtResource( 5 )]
+position = Vector2( 6992, 627.668 )
+scale = Vector2( 1.82141, 1.82945 )
+offset = Vector2( -7.84314, -73.7255 )
+frame = 1
+
+[node name="BackgroundFloors720p4" parent="Slice 2 (B)2/ParallaxLayer5/Ground Top" instance=ExtResource( 5 )]
+position = Vector2( 1786.29, 613.382 )
+rotation = -0.02993
+scale = Vector2( 1.82141, 1.82945 )
+offset = Vector2( -7.84314, -73.7255 )
+frame = 1
+
+[node name="ParallaxLayer6" type="ParallaxLayer" parent="Slice 2 (B)2"]
+light_mask = 2
+position = Vector2( 272, 2646 )
+motion_scale = Vector2( 0.5, 1 )
+
+[node name="TallTrees" parent="Slice 2 (B)2/ParallaxLayer6" instance=ExtResource( 21 )]
+material = SubResource( 205 )
+position = Vector2( 226.8, 11.3162 )
+tile_data = PoolIntArray( 65585, 536870923, 0, 65596, 9, 0, 65615, 10, 0, 131185, 536870922, 0, 327712, 0, 0 )
+
+[node name="ShortTrees" parent="Slice 2 (B)2/ParallaxLayer6" instance=ExtResource( 22 )]
+material = SubResource( 206 )
+position = Vector2( 226.8, 11.3162 )
+tile_data = PoolIntArray( 262258, 6, 0, 262280, 7, 0 )
+
+[node name="Clouds" parent="Slice 2 (B)2/ParallaxLayer6" instance=ExtResource( 23 )]
+position = Vector2( 8, -33 )
+scale = Vector2( 0.4, 0.4 )
+tile_data = PoolIntArray( -589744, 5, 0, -262090, 536870914, 0, -262077, 536870917, 0, -196519, 536870914, 0, -196486, 5, 0 )
+
+[node name="Ground Top" type="Node2D" parent="Slice 2 (B)2/ParallaxLayer6"]
+position = Vector2( 429.237, 162.132 )
+scale = Vector2( 0.6375, 0.6375 )
+
+[node name="BackgroundFloors720p" parent="Slice 2 (B)2/ParallaxLayer6/Ground Top" instance=ExtResource( 5 )]
+visible = false
+position = Vector2( -0.371826, 70.3811 )
+rotation = -0.190294
+frame = 2
+
+[node name="BackgroundFloors720p4" parent="Slice 2 (B)2/ParallaxLayer6/Ground Top" instance=ExtResource( 5 )]
+position = Vector2( 1395.71, 42.1456 )
+rotation = -0.0312642
+frame = 2
+
+[node name="BackgroundFloors720p5" parent="Slice 2 (B)2/ParallaxLayer6/Ground Top" instance=ExtResource( 5 )]
+position = Vector2( 2112.57, 34.3025 )
+frame = 2
+
+[node name="BackgroundFloors720p6" parent="Slice 2 (B)2/ParallaxLayer6/Ground Top" instance=ExtResource( 5 )]
+position = Vector2( 2827.86, 37.4398 )
+frame = 5
+
+[node name="BackgroundFloors720p7" parent="Slice 2 (B)2/ParallaxLayer6/Ground Top" instance=ExtResource( 5 )]
+position = Vector2( 3538.45, 37.4398 )
+frame = 5
+
+[node name="BackgroundFloors720p8" parent="Slice 2 (B)2/ParallaxLayer6/Ground Top" instance=ExtResource( 5 )]
+position = Vector2( 4252.18, 37.4398 )
+frame = 2
+
+[node name="BackgroundFloors720p3" parent="Slice 2 (B)2/ParallaxLayer6/Ground Top" instance=ExtResource( 5 )]
+position = Vector2( 718.432, 101.961 )
+rotation = 0.0649407
+offset = Vector2( -7.84314, -73.7255 )
+frame = 5
+
+[node name="ParallaxLayer7" type="ParallaxLayer" parent="Slice 2 (B)2"]
+position = Vector2( 254, 129 )
+
+[node name="BackgroundColor2" type="Sprite" parent="Slice 2 (B)2/ParallaxLayer7"]
+light_mask = 0
+position = Vector2( 324, 3075 )
+scale = Vector2( 0.728564, 0.425741 )
+z_index = 10
+z_as_relative = false
+texture = ExtResource( 8 )
+
 [node name="Slice 2 (B)3" type="ParallaxBackground" parent="."]
 
 [node name="ParallaxLayer4" type="ParallaxLayer" parent="Slice 2 (B)3"]
 material = SubResource( 200 )
 use_parent_material = true
-position = Vector2( 139, 3028 )
+position = Vector2( -1198, 3028 )
 motion_scale = Vector2( 0.1, 1 )
 
 [node name="ShortTrees" parent="Slice 2 (B)3/ParallaxLayer4" instance=ExtResource( 22 )]
@@ -1204,7 +1391,7 @@ tile_data = PoolIntArray( 65526, 17, 0, 37, 16, 0, 65550, 15, 0, 327712, 0, 0 )
 
 [node name="Clouds" parent="Slice 2 (B)3/ParallaxLayer4" instance=ExtResource( 23 )]
 scale = Vector2( 0.4, 0.4 )
-tile_data = PoolIntArray( -720892, 0, 0, -655312, 3, 0, -524219, 0, 0, -327691, 536870912, 0, -393201, 3, 0, -393180, 0, 0 )
+tile_data = PoolIntArray( -720892, 0, 0, -327691, 536870912, 0, -393201, 3, 0, -393180, 0, 0 )
 
 [node name="Ground Top" type="Node2D" parent="Slice 2 (B)3/ParallaxLayer4"]
 position = Vector2( 2334, 1332 )
@@ -1246,7 +1433,7 @@ offset = Vector2( -7.84314, -73.7255 )
 
 [node name="ParallaxLayer3" type="ParallaxLayer" parent="Slice 2 (B)3"]
 light_mask = 2
-position = Vector2( -928, 3017 )
+position = Vector2( -2073, 3017 )
 motion_scale = Vector2( 0.25, 1 )
 
 [node name="TallTrees" parent="Slice 2 (B)3/ParallaxLayer3" instance=ExtResource( 21 )]
@@ -1260,7 +1447,7 @@ position = Vector2( 226.8, 11.3162 )
 tile_data = PoolIntArray( 196590, 9, 0, 196637, 9, 0, 196653, 8, 0, 196709, 536870920, 0 )
 
 [node name="Clouds" parent="Slice 2 (B)3/ParallaxLayer3" instance=ExtResource( 23 )]
-tile_data = PoolIntArray( -524295, 1, 0, -458722, 536870913, 0, -458702, 1, 0, -262145, 4, 0, -327638, 1, 0, -262128, 1, 0, -262085, 536870916, 0, -262069, 1, 0, -262055, 4, 0 )
+tile_data = PoolIntArray( -524295, 1, 0, -458722, 536870913, 0, -458702, 1, 0, -262145, 4, 0, -327638, 1, 0, -262128, 1, 0, -262085, 536870916, 0, -262069, 1, 0, -196521, 1, 0 )
 
 [node name="Ground Top" type="Node2D" parent="Slice 2 (B)3/ParallaxLayer3"]
 position = Vector2( 226.8, 11.3161 )
@@ -1315,7 +1502,7 @@ frame = 1
 
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="Slice 2 (B)3"]
 light_mask = 2
-position = Vector2( -928, 3030 )
+position = Vector2( -2073, 3030 )
 motion_scale = Vector2( 0.5, 1 )
 
 [node name="TallTrees" parent="Slice 2 (B)3/ParallaxLayer2" instance=ExtResource( 21 )]
@@ -1331,7 +1518,7 @@ tile_data = PoolIntArray( 196603, 536870919, 0, 196620, 536870918, 0, 262184, 6,
 [node name="Clouds" parent="Slice 2 (B)3/ParallaxLayer2" instance=ExtResource( 23 )]
 position = Vector2( 8, -33 )
 scale = Vector2( 0.4, 0.4 )
-tile_data = PoolIntArray( -589744, 5, 0, -524271, 5, 0, -196609, 2, 0, -262090, 536870914, 0, -262077, 536870917, 0, -196580, 5, 0, -196519, 536870914, 0, -196486, 5, 0, -131035, 2, 0 )
+tile_data = PoolIntArray( -589744, 5, 0, -524271, 5, 0, -196609, 2, 0, -262090, 536870914, 0, -262077, 536870917, 0, -196580, 5, 0, -196519, 536870914, 0, -131035, 2, 0, -130951, 2, 0 )
 
 [node name="Ground Top" type="Node2D" parent="Slice 2 (B)3/ParallaxLayer2"]
 position = Vector2( 429.237, 162.132 )
@@ -1529,6 +1716,39 @@ texture = ExtResource( 4 )
 [node name="UndergroundBackground" parent="ParallaxLayer" instance=ExtResource( 24 )]
 scale = Vector2( 0.1, 0.1 )
 tile_data = PoolIntArray( 196611, 0, 3, 196612, 0, 196612, 196613, 0, 196613, 196614, 0, 196611, 196615, 0, 5, 196639, 0, 2, 196640, 0, 5, 196658, 1073741824, 3, 196659, 1073741824, 196612, 196660, 1073741824, 4, 262147, 0, 327682, 262148, 0, 131078, 262149, 0, 131077, 262150, 0, 196608, 262151, 0, 65537, 262152, 0, 196611, 262153, 0, 5, 262168, 0, 2, 262169, 0, 196613, 262170, 0, 196614, 262171, 0, 196612, 262172, 0, 196614, 262173, 0, 4, 262175, 0, 0, 262176, 0, 65536, 262194, -536870912, 1, 262195, -536870912, 65542, 262196, 0, 65537, 262197, 0, 196612, 262198, 0, 196611, 262199, 0, 4, 327681, 0, 3, 327682, 0, 196614, 327683, 0, 131073, 327684, 0, 131077, 327685, 0, 196609, 327686, 0, 196609, 327687, 0, 65540, 327688, 0, 327680, 327689, 0, 0, 327704, 0, 327682, 327705, 0, 131075, 327706, 0, 131074, 327707, 0, 196610, 327708, 0, 196609, 327709, 0, 65538, 327710, 0, 196613, 327711, 0, 0, 327731, 0, 1, 327732, -536870912, 65542, 327733, 0, 196609, 327734, 0, 196609, 327735, 0, 262145, 393216, 0, 3, 393217, 0, 0, 393218, 0, 262150, 393219, 0, 65541, 393220, 0, 196609, 393221, 0, 131075, 393222, 0, 196609, 393223, 0, 262145, 393225, 0, 0, 393240, 0, 327683, 393241, 0, 131075, 393242, 0, 196609, 393243, 0, 131078, 393244, 0, 196610, 393245, 0, 196609, 393246, 0, 131074, 393247, 0, 65537, 393248, 0, 4, 393268, 1073741824, 327681, 393269, 0, 196608, 393270, 0, 131078, 393271, 0, 262146, 458752, 0, 327682, 458753, 0, 262147, 458755, 0, 327683, 458756, 0, 196608, 458757, 0, 131077, 458758, 0, 196608, 458759, 0, 65538, 458760, 0, 196612, 458761, 0, 0, 458776, 0, 327684, 458777, 0, 131076, 458778, 0, 131078, 458779, 0, 131075, 458780, 0, 196609, 458781, 0, 131078, 458782, 0, 131078, 458783, 0, 131074, 458784, 0, 262147, 458804, 0, 327684, 458805, 0, 131076, 458806, 0, 131075, 458807, 0, 262146, 524288, 0, 327683, 524289, 0, 65537, 524290, 0, 196614, 524291, 0, 131073, 524292, 0, 196609, 524293, 0, 65540, 524294, 0, 262149, 524295, 0, 262149, 524296, 0, 262150, 524297, 0, 65536, 524312, 0, 0, 524313, 0, 327680, 524314, 0, 327680, 524315, 0, 65541, 524316, 0, 196609, 524317, 0, 196610, 524318, 0, 131077, 524319, 0, 196608, 524320, 0, 65538, 524321, 0, 4, 524335, -2147483648, 0, 524336, 1073741824, 0, 524337, 536870912, 196613, 524338, 536870912, 196611, 524339, 0, 196612, 524340, 0, 131072, 524341, 0, 196608, 524342, 0, 196610, 524343, 0, 262145, 589824, 0, 1, 589825, 0, 327680, 589826, 0, 262148, 589827, 0, 327680, 589828, 0, 262150, 589829, 0, 65536, 589851, 0, 0, 589852, 0, 327680, 589853, 0, 262149, 589854, 0, 262150, 589855, 0, 262148, 589856, 0, 262149, 589857, 0, 65536, 589872, 0, 327681, 589873, 0, 131076, 589874, 0, 196610, 589875, 0, 196609, 589876, 0, 131076, 589877, 0, 131078, 589878, 0, 131078, 589879, 0, 262145, 655408, 0, 0, 655409, 0, 327680, 655410, 0, 262150, 655411, 0, 262149, 655412, 0, 262149, 655413, 0, 262150, 655414, 0, 262149, 655415, 0, 65536 )
+
+[node name="Scatter Main Layer 2" type="Node2D" parent="."]
+position = Vector2( 8.99999, 1498 )
+rotation = 0.619608
+scale = Vector2( 0.0773893, 0.0773893 )
+
+[node name="LollipopScatter" parent="Scatter Main Layer 2" instance=ExtResource( 25 )]
+scale = Vector2( 1, 1 )
+
+[node name="MintScatter" parent="Scatter Main Layer 2" instance=ExtResource( 28 )]
+position = Vector2( 327.222, 369.727 )
+rotation = -0.387015
+scale = Vector2( 0.659236, 0.659236 )
+
+[node name="JelloScatter" parent="Scatter Main Layer 2" instance=ExtResource( 30 )]
+position = Vector2( 905.659, 179.329 )
+rotation = -0.272625
+scale = Vector2( 0.498947, 0.498947 )
+
+[node name="CandyCaneScatter2" parent="Scatter Main Layer 2" instance=ExtResource( 26 )]
+position = Vector2( 5883.48, -1398.41 )
+rotation = -0.0124006
+scale = Vector2( 0.956597, 0.956597 )
+
+[node name="CandyCaneScatter" parent="Scatter Main Layer 2" instance=ExtResource( 26 )]
+position = Vector2( 5731.55, -1532.99 )
+rotation = -0.354683
+scale = Vector2( 1.11619, 1.11619 )
+
+[node name="BushScatter" parent="Scatter Main Layer 2" instance=ExtResource( 27 )]
+position = Vector2( 5809.47, -1223.5 )
+rotation = -0.344297
+scale = Vector2( 0.603645, 0.603645 )
 
 [node name="TileMap" parent="." instance=ExtResource( 3 )]
 position = Vector2( 1, -189 )
