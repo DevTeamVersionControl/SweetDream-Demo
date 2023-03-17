@@ -2505,8 +2505,25 @@ tracks/6/keys = {
 "update": 1,
 "values": [ false ]
 }
+tracks/7/type = "method"
+tracks/7/path = NodePath("StateMachine/Run")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0.168, 0.672 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "play_footstep"
+}, {
+"args": [  ],
+"method": "play_footstep"
+} ]
+}
 
-[sub_resource type="Animation" id=160]
+[sub_resource type="Animation" id=206]
 resource_name = "RunL"
 length = 1.16667
 loop = true
@@ -2594,6 +2611,23 @@ tracks/6/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ true ]
+}
+tracks/7/type = "method"
+tracks/7/path = NodePath("StateMachine/Run")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0.168, 0.672 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "play_footstep"
+}, {
+"args": [  ],
+"method": "play_footstep"
+} ]
 }
 
 [sub_resource type="Animation" id=191]
@@ -3941,7 +3975,7 @@ anims/Jump = SubResource( 163 )
 anims/Land = SubResource( 164 )
 anims/RESET = SubResource( 199 )
 anims/Run = SubResource( 3 )
-anims/RunL = SubResource( 160 )
+anims/RunL = SubResource( 206 )
 anims/ShootCrouchedLeft = SubResource( 191 )
 anims/ShootCrouchedRight = SubResource( 192 )
 anims/ShootDown = SubResource( 177 )
@@ -4013,6 +4047,12 @@ script = ExtResource( 7 )
 [node name="Run" type="Node" parent="StateMachine"]
 script = ExtResource( 3 )
 
+[node name="Footstep1" type="AudioStreamPlayer" parent="StateMachine/Run"]
+volume_db = -8.47
+
+[node name="Footstep2" type="AudioStreamPlayer" parent="StateMachine/Run"]
+volume_db = -7.462
+
 [node name="Air" type="Node" parent="StateMachine"]
 script = ExtResource( 5 )
 
@@ -4024,6 +4064,15 @@ wait_time = 0.15
 
 [node name="Aim" type="Node" parent="StateMachine"]
 script = ExtResource( 8 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="StateMachine/Aim"]
+stream = ExtResource( 14 )
+
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="StateMachine/Aim"]
+stream = ExtResource( 14 )
+
+[node name="AudioStreamPlayer3" type="AudioStreamPlayer" parent="StateMachine/Aim"]
+stream = ExtResource( 14 )
 
 [node name="Dashing" type="Node" parent="StateMachine"]
 script = ExtResource( 12 )
@@ -4086,15 +4135,6 @@ position = Vector2( -7, -54 )
 texture = ExtResource( 15 )
 color = Color( 0.113725, 0.290196, 0.592157, 1 )
 energy = 0.7
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 14 )
-
-[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 14 )
-
-[node name="AudioStreamPlayer3" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 14 )
 
 [connection signal="timeout" from="StateMachine/Air/JumpBufferTimer" to="StateMachine/Air" method="_on_JumpBufferTimer_timeout"]
 [connection signal="timeout" from="StateMachine/Air/CoyoteTimeTimer" to="StateMachine/Air" method="_on_CoyoteTimeTimer_timeout"]

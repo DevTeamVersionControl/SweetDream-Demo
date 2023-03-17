@@ -156,6 +156,13 @@ window/stretch/aspect="keep"
 
 enabled=PoolStringArray(  )
 
+[importer_defaults]
+
+mp3={
+"loop": false,
+"loop_offset": 0
+}
+
 [input]
 
 move_left={

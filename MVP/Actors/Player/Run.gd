@@ -15,6 +15,9 @@
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 extends PlayerState
 
+onready var footstep_player = $Footstep1
+onready var secondary_footstep_player = $Footstep2
+
 func enter(_msg := {}) -> void:
 	print("Transitioned to run")
 	player.animation_tree.set('parameters/Run/blend_position', 1 if player.facing_right else -1)
@@ -73,3 +76,11 @@ func check_floor():
 	yield(get_tree().create_timer(0.1), "timeout")
 	if not player.is_on_floor():
 		state_machine.transition_to("Air", {coyote_time = true})
+
+func play_footstep():
+	if footstep_player.playing:
+		secondary_footstep_player.stream = ResourceLoader.load("res://Actors/Player/Running/Sound/footstep%s.mp3"%int(rand_range(1,3)))
+		secondary_footstep_player.play()
+	else:
+		footstep_player.stream = ResourceLoader.load("res://Actors/Player/Running/Sound/footstep%s.mp3"%int(rand_range(1,3)))
+		footstep_player.play()

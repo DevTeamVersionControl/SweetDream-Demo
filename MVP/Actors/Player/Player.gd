@@ -50,9 +50,6 @@ onready var shoot_bar = $ShootBar
 onready var cooldown_bar = $CooldownBar
 onready var invulnerability_timer = $InvulnerabilityTimer
 onready var sugar_timer = $SugarTimer
-onready var audio_stream_player = $AudioStreamPlayer
-onready var secondary_audio_stream_player = $AudioStreamPlayer2
-onready var tertiary_audio_stream_player = $AudioStreamPlayer3
 
 func _ready():
 	set_later(camera, "smoothing_enabled", true)
