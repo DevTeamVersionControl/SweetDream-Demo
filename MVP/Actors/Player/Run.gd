@@ -15,6 +15,9 @@
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 extends PlayerState
 
+onready var footstep_player = $Footstep1
+onready var secondary_footstep_player = $Footstep2
+
 func enter(_msg := {}) -> void:
 	print("Transitioned to run")
 	player.animation_tree.set('parameters/Run/blend_position', 1 if player.facing_right else -1)
@@ -43,7 +46,7 @@ func physics_update(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("move_up"):
 		state_machine.transition_to("Air", {do_jump = true})
-	elif player.velocity.length() < 0.5 && is_equal_approx(input_direction_x, 0.0):
+	elif -0.5 < player.velocity.x and player.velocity.x < 0.5 && is_equal_approx(input_direction_x, 0.0):
 		player.velocity = Vector2.ZERO
 		state_machine.transition_to("Idle")
 	elif Input.is_action_pressed("dash"):
@@ -66,10 +69,18 @@ func physics_update(delta: float) -> void:
 	player.velocity = player.move_and_slide_with_snap(player.velocity, Vector2.DOWN * 16, Vector2.UP, false, 4, PI/4, false)
 	
 	if Input.is_action_pressed("shoot") && player.can_shoot:
-		if GlobalVars.ammo_equipped_array.size() != 0 && GlobalVars.sugar >= GlobalVars.ammo_equipped_array[GlobalVars.equiped_ammo_index].sugar:
+		if GlobalVars.ammo_equipped_array.size() != 0 && GlobalVars.ammo_equipped_array[GlobalVars.equiped_ammo_index] != null && GlobalVars.sugar >= GlobalVars.ammo_equipped_array[GlobalVars.equiped_ammo_index].sugar:
 			state_machine.transition_to("Aim")
 
 func check_floor():
 	yield(get_tree().create_timer(0.1), "timeout")
 	if not player.is_on_floor():
 		state_machine.transition_to("Air", {coyote_time = true})
+
+func play_footstep():
+	if footstep_player.playing:
+		secondary_footstep_player.stream = ResourceLoader.load("res://Actors/Player/Running/Sound/footstep%s.mp3"%int(rand_range(1,3)))
+		secondary_footstep_player.play()
+	else:
+		footstep_player.stream = ResourceLoader.load("res://Actors/Player/Running/Sound/footstep%s.mp3"%int(rand_range(1,3)))
+		footstep_player.play()

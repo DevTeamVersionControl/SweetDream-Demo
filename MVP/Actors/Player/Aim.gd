@@ -24,6 +24,10 @@ var bullet_strength : float
 var bullet_direction : Vector2
 var crouched : bool
 
+onready var audio_stream_player = $AudioStreamPlayer
+onready var secondary_audio_stream_player = $AudioStreamPlayer2
+onready var tertiary_audio_stream_player = $AudioStreamPlayer3
+
 var held_ammo
 
 func enter(msg := {}) -> void:
@@ -96,13 +100,14 @@ func shoot(position:NodePath) -> void:
 		state_machine.transition_to("Knockback", {0: knockback})
 	
 	#Play sound
-	if player.audio_stream_player.playing:
-		if player.secondary_audio_stream_player.playing:
-			player.tertiary_audio_stream_player.play()
+	if audio_stream_player.playing:
+		if secondary_audio_stream_player.playing:
+			tertiary_audio_stream_player.play()
 		else:
-			player.secondary_audio_stream_player.play()
+			secondary_audio_stream_player.play()
 	else:
-		player.audio_stream_player.play()
+		audio_stream_player.play()
+
 
 
 func _on_CooldownTimer_timeout() -> void:

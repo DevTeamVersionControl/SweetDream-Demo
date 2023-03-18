@@ -12,6 +12,7 @@ func _on_Artifact_body_entered(body):
 	if body is Player:
 		GlobalVars.add_to_inventory(description)
 		disappear()
+		GameSaver.save()
 
 func save(game_data):
 	game_data[get_tree().current_scene.current_level.filename + name] = delete

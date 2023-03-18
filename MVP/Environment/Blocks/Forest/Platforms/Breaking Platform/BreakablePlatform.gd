@@ -46,7 +46,7 @@ func _on_Area2D_body_entered(body):
 		can_reappear = false
 
 func _on_Area2D_body_exited(body):
-	if body is Player:
+	if body is Player && $Shaker != null:
 		$Shaker.stop()
 		can_reappear = true
 		if should_reappear:

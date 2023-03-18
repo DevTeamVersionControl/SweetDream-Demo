@@ -41,7 +41,7 @@ func select_option():
 				get_tree().notification(MainLoop.NOTIFICATION_WM_QUIT_REQUEST)
 	else:
 		var tween = get_tree().create_tween()
-		GameSaver.save_path = "res://Saves/Save%s.json"%(item_list.get_selected_items()[0]+1)
+		GameSaver.save_path = "user://Save%s.json"%(item_list.get_selected_items()[0]+1)
 		tween.tween_property(level_transition, "color", Color(0,0,0,1.2), 0.3)
 		tween.tween_callback(get_tree(), "change_scene", ["res://Abstract/LevelSwitcher.tscn"])
 
@@ -49,7 +49,7 @@ func load_saves():
 	item_list.clear()
 	var file = File.new()
 	for i in 3:
-		if file.file_exists("res://Saves/Save%s.json"%(i+1)):
+		if file.file_exists("user://Save%s.json"%(i+1)):
 			item_list.add_item("Save" + String(i+1))
 		else:
 			item_list.add_item("New Game")
@@ -66,6 +66,6 @@ func load_menu():
 
 func delete_save():
 	var file = File.new()
-	if file.file_exists("res://Saves/Save%s.json"%(item_list.get_selected_items()[0]+1)):
-		Directory.new().remove("res://Saves/Save%s.json"%(item_list.get_selected_items()[0]+1))
+	if file.file_exists("user://Save%s.json"%(item_list.get_selected_items()[0]+1)):
+		Directory.new().remove("user://Save%s.json"%(item_list.get_selected_items()[0]+1))
 		load_saves()

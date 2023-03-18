@@ -15,7 +15,7 @@
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 extends Node
 
-const DEFAULT_SAVE_PATH = "res://Saves/SaveData.json"
+const DEFAULT_SAVE_PATH = "user://SaveData.json"
 
 var save_path := DEFAULT_SAVE_PATH
 

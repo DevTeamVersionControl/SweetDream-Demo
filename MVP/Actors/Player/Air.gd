@@ -19,6 +19,7 @@ var jump_buffer := false
 var coyote_time := false
 var input_locked := false
 var double_jump := false
+var cache := Vector2.ZERO
 
 onready var jump_buffer_timer := $JumpBufferTimer
 onready var coyote_time_timer := $CoyoteTimeTimer
@@ -36,6 +37,7 @@ func enter(msg := {}) -> void:
 		coyote_time = true
 		coyote_time_timer.start()
 	player.animation_tree.set('parameters/Air/blend_position', 1 if player.velocity.normalized().y > 0 else -1)
+	cache = player.velocity
 	
 
 func physics_update(delta: float) -> void:
@@ -44,6 +46,11 @@ func physics_update(delta: float) -> void:
 		Input.get_action_strength("move_right")
 		- Input.get_action_strength("move_left")
 	)
+	
+	# Check for transition animation
+	if cache.y < 0 and player.velocity.y > 0:
+		player.animation_mode.travel("Transition")
+	cache = player.velocity
 	
 	# Animation going up or down
 	player.animation_tree.set('parameters/Air/blend_position', 1 if player.velocity.normalized().y > 0 else -1)
@@ -108,7 +115,7 @@ func physics_update(delta: float) -> void:
 #	if player.global_position.y > player.level_limit_max.y:
 #		get_tree().current_scene.die()
 	
-	if Input.is_action_pressed("shoot") && player.can_shoot && GlobalVars.ammo_equipped_array.size() != 0 && GlobalVars.sugar >= GlobalVars.ammo_equipped_array[GlobalVars.equiped_ammo_index].sugar:
+	if Input.is_action_pressed("shoot") && player.can_shoot && GlobalVars.ammo_equipped_array.size() != 0 && GlobalVars.ammo_equipped_array[GlobalVars.equiped_ammo_index] != null && GlobalVars.sugar >= GlobalVars.ammo_equipped_array[GlobalVars.equiped_ammo_index].sugar:
 		state_machine.transition_to("Aim")
 
 func _on_JumpBufferTimer_timeout():

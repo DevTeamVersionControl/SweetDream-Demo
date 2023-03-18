@@ -918,8 +918,8 @@ resource_local_to_scene = true
 pause_mode = 1
 material = SubResource( 198 )
 script = ExtResource( 14 )
-level_range_x = Vector2( 0, 3855 )
-level_range_y = Vector2( -250, 3500 )
+level_range_x = Vector2( 2637, 3855 )
+level_range_y = Vector2( -280, 3500 )
 
 [node name="UndergroundBackground" parent="." instance=ExtResource( 17 )]
 scale = Vector2( 0.1, 0.1 )
@@ -1107,6 +1107,7 @@ description = {
 "Description": "Artifacts",
 "Icon": "res://Pickups/Artifacts.png",
 "Name": "Artifact",
+"Unit": "artifact",
 "Value": 2
 }
 
@@ -1145,11 +1146,14 @@ scale = Vector2( 0.268059, 0.335481 )
 [node name="BreakablePlatformLong" parent="." instance=ExtResource( 11 )]
 position = Vector2( 2800, 2592 )
 scale = Vector2( 0.268059, 0.335481 )
+collision_layer = 15
+collision_mask = 15
 weight_sensitive = false
 
 [node name="Pickup" parent="." instance=ExtResource( 15 )]
 position = Vector2( 3191, -76 )
 description = {
+"Ammo": null,
 "Description": "Jawbreaker",
 "Icon": "res://Pickups/Jaw Breaker 720p.png",
 "Name": "Jawbreaker",
@@ -1180,6 +1184,7 @@ position = Vector2( 2680, 1775 )
 position = Vector2( 2814, 1779 )
 
 [node name="DarkZone2" parent="." instance=ExtResource( 12 )]
+visible = false
 position = Vector2( 3347, 1474 )
 scale = Vector2( 0.28892, 0.48481 )
 

@@ -28,7 +28,10 @@ func connect_player():
 
 func _on_changed_ammo():
 	if GlobalVars.ammo_equipped_array.size() != 0:
-		ammo_display.text = GlobalVars.ammo_equipped_array[GlobalVars.equiped_ammo_index].name
+		if GlobalVars.ammo_equipped_array[GlobalVars.equiped_ammo_index] != null:
+			ammo_display.text = GlobalVars.ammo_equipped_array[GlobalVars.equiped_ammo_index].name
+		else:
+			ammo_display.text = "No ammo"
 
 func _on_changed_health():
 	health_bar.max_value = GlobalVars.max_health

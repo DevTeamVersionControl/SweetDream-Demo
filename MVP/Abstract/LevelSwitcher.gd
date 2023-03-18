@@ -79,6 +79,7 @@ func load_level(level:PackedScene, location:String):
 	var tween = get_tree().create_tween()
 	tween.tween_property(level_transition, "self_modulate", Color(0, 0, 0, 0), 1)
 	next_level = null
+	GlobalVars.apply_items()
 	emit_signal("level_loaded")
 
 func die():
@@ -100,4 +101,8 @@ func start_dialog(dialog_file:String, story_point:int):
 
 func start_shop(shop_file:String):
 	gui.shop.start(shop_file)
+	gui.request_pause()
+
+func start_rest_menu():
+	gui.rest_menu.start()
 	gui.request_pause()
