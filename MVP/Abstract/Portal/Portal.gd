@@ -29,7 +29,7 @@ func _on_Portal_body_entered(body):
 	if body is Player:
 		if thread.is_alive():
 			thread.wait_to_finish()
-		get_tree().current_scene.change_level(load(target_scene), name)
+		get_tree().current_scene.change_level(loaded_scene, name)
 
 func get_spawn_position() -> Vector2:
 	return spawn_position.global_position

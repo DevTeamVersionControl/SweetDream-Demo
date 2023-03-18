@@ -49,6 +49,7 @@ tracks/0/keys = {
 }
 
 [node name="DarkZone" type="Area2D" groups=["save"]]
+z_index = 3
 script = ExtResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]

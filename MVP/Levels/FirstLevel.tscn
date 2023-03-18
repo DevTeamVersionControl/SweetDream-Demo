@@ -1,4 +1,4 @@
-[gd_scene load_steps=85 format=2]
+[gd_scene load_steps=88 format=2]
 
 [ext_resource path="res://Environment/Blocks/Forest/TileSets/Tile Pack/Grass Tile Pack/Grass Tile Pack 333p.png" type="Texture" id=1]
 [ext_resource path="res://Abstract/Checkpoint/Checkpoint.tscn" type="PackedScene" id=2]
@@ -19,6 +19,9 @@
 [ext_resource path="res://Environment/Backgrounds/Forest Backgrounds/Main Background/Scatter Terrain/Lollipop.tscn" type="PackedScene" id=17]
 [ext_resource path="res://Environment/Backgrounds/Forest Backgrounds/Main Background/Scatter Terrain/MintScatter.tscn" type="PackedScene" id=18]
 [ext_resource path="res://Environment/Backgrounds/Forest Backgrounds/Main Background/Scatter Terrain/JelloScatter.tscn" type="PackedScene" id=19]
+[ext_resource path="res://UserInterface/Tutorial/Tutorial indicator.tscn" type="PackedScene" id=20]
+[ext_resource path="res://UserInterface/Tutorial/LeftRightArrow.png" type="Texture" id=21]
+[ext_resource path="res://UserInterface/Tutorial/UpArrow.png" type="Texture" id=22]
 
 [sub_resource type="CanvasItemMaterial" id=158]
 light_mode = 2
@@ -1352,3 +1355,31 @@ position = Vector2( 3, 248 )
 rotation = 0.381631
 scale = Vector2( 0.0501771, 0.0501771 )
 z_index = 1
+
+[node name="Tutorial indicator" parent="." instance=ExtResource( 20 )]
+position = Vector2( 318, 231 )
+
+[node name="Sprite" type="Sprite" parent="Tutorial indicator"]
+visible = false
+scale = Vector2( 0.08, 0.08 )
+texture = ExtResource( 21 )
+
+[node name="Tutorial indicator2" parent="." instance=ExtResource( 20 )]
+position = Vector2( 503, 198 )
+scale = Vector2( 0.689487, 1.54936 )
+
+[node name="Sprite" type="Sprite" parent="Tutorial indicator2"]
+visible = false
+position = Vector2( 1.16016, 0 )
+scale = Vector2( 0.0959118, 0.0457482 )
+texture = ExtResource( 22 )
+
+[node name="Tutorial indicator3" parent="." instance=ExtResource( 20 )]
+position = Vector2( 612, 195 )
+scale = Vector2( 0.689487, 1.54936 )
+
+[node name="Sprite" type="Sprite" parent="Tutorial indicator3"]
+visible = false
+position = Vector2( 1.16016, 0 )
+scale = Vector2( 0.0959118, 0.0457482 )
+texture = ExtResource( 22 )

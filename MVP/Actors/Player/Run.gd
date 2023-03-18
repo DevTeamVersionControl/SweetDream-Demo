@@ -79,8 +79,8 @@ func check_floor():
 
 func play_footstep():
 	if footstep_player.playing:
-		secondary_footstep_player.stream = ResourceLoader.load("res://Actors/Player/Running/Sound/footstep%s.mp3"%int(rand_range(1,3)))
+		secondary_footstep_player.stream = ResourceLoader.load("res://Actors/Player/Running/Sound/footstep%s.mp3"%((randi()%7)+1))
 		secondary_footstep_player.play()
 	else:
-		footstep_player.stream = ResourceLoader.load("res://Actors/Player/Running/Sound/footstep%s.mp3"%int(rand_range(1,3)))
+		footstep_player.stream = ResourceLoader.load("res://Actors/Player/Running/Sound/footstep%s.mp3"%((randi()%7)+1))
 		footstep_player.play()

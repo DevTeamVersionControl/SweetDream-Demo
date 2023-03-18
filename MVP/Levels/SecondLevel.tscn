@@ -4510,25 +4510,28 @@ position = Vector2( 4210.42, 1284.73 )
 scale = Vector2( 2.35482, 2.03441 )
 
 [node name="JelloEnemy2" parent="Get Gud" instance=ExtResource( 16 )]
-position = Vector2( 4091.5, 1675.34 )
+position = Vector2( 4091.5, 1667.2 )
 scale = Vector2( 1.17741, 1.01721 )
 
 [node name="JelloEnemy3" parent="Get Gud" instance=ExtResource( 16 )]
-position = Vector2( 3892.52, 1676.36 )
+position = Vector2( 3892.52, 1666.18 )
 scale = Vector2( 1.17741, 1.01721 )
+
+[node name="CandyCornEnemy2" parent="Get Gud" instance=ExtResource( 18 )]
+position = Vector2( -3.53913, 1437.31 )
+scale = Vector2( 0.824187, 0.712047 )
+
+[node name="CandyCornEnemy3" parent="Get Gud" instance=ExtResource( 18 )]
+position = Vector2( 222.527, 1437.31 )
+scale = Vector2( 0.824187, 0.712047 )
+
+[node name="Heart" parent="Get Gud" instance=ExtResource( 20 )]
+position = Vector2( 1210.37, 1398.66 )
+scale = Vector2( 0.824187, 0.712047 )
 
 [node name="JelloEnemy4" parent="Get Gud" instance=ExtResource( 16 )]
-position = Vector2( 3180.18, 1673.3 )
+position = Vector2( 3180.18, 1668.22 )
 scale = Vector2( 1.17741, 1.01721 )
-
-[node name="Heart" parent="Get Gud/JelloEnemy4" instance=ExtResource( 20 )]
-position = Vector2( -1673, -269.995 )
-
-[node name="CandyCornEnemy" parent="Get Gud/JelloEnemy4/Heart" instance=ExtResource( 18 )]
-position = Vector2( -1472.86, 54.2856 )
-
-[node name="CandyCornEnemy2" parent="Get Gud/JelloEnemy4/Heart" instance=ExtResource( 18 )]
-position = Vector2( -1198.57, 54.2856 )
 
 [node name="Portal2" parent="Get Gud" instance=ExtResource( 19 )]
 position = Vector2( 4536.56, 2348.73 )

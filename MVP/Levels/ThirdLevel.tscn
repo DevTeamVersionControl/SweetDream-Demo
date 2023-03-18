@@ -960,6 +960,7 @@ tile_data = PoolIntArray( -327627, 3, 8, -327626, 3, 262155, -327625, 3, 10, -32
 [node name="DarkZone" type="Sprite" parent="."]
 position = Vector2( 2769.99, 2780.46 )
 scale = Vector2( 0.375021, 0.540169 )
+z_index = 2
 texture = ExtResource( 4 )
 
 [node name="1platform" parent="." instance=ExtResource( 9 )]
@@ -1221,7 +1222,7 @@ scale = Vector2( -1.93628, 1.57085 )
 target_scene = "res://Levels/SecondLevel.tscn"
 
 [node name="Portal2" parent="." instance=ExtResource( 19 )]
-position = Vector2( 2967, 2630 )
+position = Vector2( 2976, 2697 )
 rotation = 4.71239
 scale = Vector2( 2.51201, 1.605 )
 target_scene = "res://Levels/Jawbreaker Boss Room/JawbreakerRoom.tscn"

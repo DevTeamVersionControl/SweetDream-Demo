@@ -19,6 +19,3 @@ margin_top = 60.0
 margin_right = 20.0
 margin_bottom = 57.0
 theme = SubResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}

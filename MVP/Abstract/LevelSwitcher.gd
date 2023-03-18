@@ -58,6 +58,7 @@ func _on_animation_finished():
 		gui.request_unpause()
 
 func load_level(level:PackedScene, location:String):
+	GameSaver.save()
 	if current_level != null:
 		current_level.queue_free()
 	current_level = level.instance()
@@ -80,6 +81,7 @@ func load_level(level:PackedScene, location:String):
 	tween.tween_property(level_transition, "self_modulate", Color(0, 0, 0, 0), 1)
 	next_level = null
 	GlobalVars.apply_items()
+	GameSaver.load()
 	emit_signal("level_loaded")
 
 func die():
