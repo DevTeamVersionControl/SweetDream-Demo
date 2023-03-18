@@ -1111,6 +1111,61 @@ description = {
 "Value": 2
 }
 
+[node name="Pickup3" parent="." instance=ExtResource( 15 )]
+position = Vector2( 3308, 1584 )
+description = {
+"Currency": null,
+"Description": "Artifacts",
+"Icon": "res://Pickups/Artifacts.png",
+"Name": "Artifact",
+"Unit": "artifact",
+"Value": 2
+}
+
+[node name="Pickup4" parent="." instance=ExtResource( 15 )]
+position = Vector2( 3340, 1585 )
+description = {
+"Currency": null,
+"Description": "Artifacts",
+"Icon": "res://Pickups/Artifacts.png",
+"Name": "Artifact",
+"Unit": "artifact",
+"Value": 2
+}
+
+[node name="Pickup5" parent="." instance=ExtResource( 15 )]
+position = Vector2( 2658, 643 )
+description = {
+"Currency": null,
+"Description": "Artifacts",
+"Icon": "res://Pickups/Artifacts.png",
+"Name": "Artifact",
+"Unit": "artifact",
+"Value": 2
+}
+
+[node name="Pickup6" parent="." instance=ExtResource( 15 )]
+position = Vector2( 2689, 643 )
+description = {
+"Currency": null,
+"Description": "Artifacts",
+"Icon": "res://Pickups/Artifacts.png",
+"Name": "Artifact",
+"Unit": "artifact",
+"Value": 2
+}
+
+[node name="Pickup7" parent="." instance=ExtResource( 15 )]
+position = Vector2( 3492, 313 )
+description = {
+"Currency": null,
+"Description": "Artifacts",
+"Icon": "res://Pickups/Artifacts.png",
+"Name": "Artifact",
+"Unit": "artifact",
+"Value": 2
+}
+
 [node name="BreakablePlatformMedium2" parent="." instance=ExtResource( 2 )]
 position = Vector2( 3626, 1761 )
 scale = Vector2( 0.268059, 0.335481 )
@@ -1184,7 +1239,6 @@ position = Vector2( 2680, 1775 )
 position = Vector2( 2814, 1779 )
 
 [node name="DarkZone2" parent="." instance=ExtResource( 12 )]
-visible = false
 position = Vector2( 3347, 1474 )
 scale = Vector2( 0.28892, 0.48481 )
 
