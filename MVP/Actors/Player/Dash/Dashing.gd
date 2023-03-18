@@ -23,9 +23,9 @@ var can_dash := true
 
 onready var dash_reset_timer = $DashResetTimer
 onready var dash_length_timer = $DashLengthTimer
+onready var dash_audio := $Dash
 
 func enter(_msg := {}) -> void:
-	print("Transitioned to dash")
 	if can_dash && !GlobalVars.dash_lock:
 		player.velocity.y = 0
 		can_dash = false
@@ -34,6 +34,7 @@ func enter(_msg := {}) -> void:
 		player.velocity.x = DASH_SPEED if player.facing_right else -DASH_SPEED
 		dash_reset_timer.start()
 		dash_length_timer.start(DASH_TIME)
+		dash_audio.play()
 	else:
 		state_machine.transition_to("Air")
 

@@ -23,6 +23,7 @@ var cache := Vector2.ZERO
 
 onready var jump_buffer_timer := $JumpBufferTimer
 onready var coyote_time_timer := $CoyoteTimeTimer
+onready var jump_audio := $Jump
 
 # If we get a message asking us to jump, we jump.
 func enter(msg := {}) -> void:
@@ -30,6 +31,7 @@ func enter(msg := {}) -> void:
 	if msg.has("do_jump"):
 		player.velocity.y = -player.JUMP_IMPULSE
 		player.animation_mode.travel("Air")
+		jump_audio.play()
 	elif msg.has("coyote_time"):
 		yield(get_tree().create_timer(0.1), "timeout")
 		if not player.is_on_floor():

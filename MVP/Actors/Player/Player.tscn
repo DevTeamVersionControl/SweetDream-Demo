@@ -1,19 +1,21 @@
-[gd_scene load_steps=128 format=2]
+[gd_scene load_steps=135 format=2]
 
 [ext_resource path="res://Abstract/StateMachine.gd" type="Script" id=1]
-[ext_resource path="res://Actors/Player/Idle.gd" type="Script" id=2]
-[ext_resource path="res://Actors/Player/Run.gd" type="Script" id=3]
+[ext_resource path="res://Actors/Player/Idle/Idle.gd" type="Script" id=2]
+[ext_resource path="res://Actors/Player/Running/Run.gd" type="Script" id=3]
 [ext_resource path="res://Actors/Player/Player.gd" type="Script" id=4]
-[ext_resource path="res://Actors/Player/Air.gd" type="Script" id=5]
+[ext_resource path="res://Actors/Player/Jump/Air.gd" type="Script" id=5]
+[ext_resource path="res://Actors/Player/Jump/Quick_Jump.wav" type="AudioStream" id=6]
 [ext_resource path="res://Actors/Player/Knockback.gd" type="Script" id=7]
-[ext_resource path="res://Actors/Player/Aim.gd" type="Script" id=8]
+[ext_resource path="res://Actors/Player/Shoot/Aim.gd" type="Script" id=8]
 [ext_resource path="res://Actors/Player/shootbar.png" type="Texture" id=9]
 [ext_resource path="res://Actors/Player/cooldownbar.png" type="Texture" id=10]
-[ext_resource path="res://Actors/Player/Crouched.gd" type="Script" id=11]
-[ext_resource path="res://Actors/Player/Dashing.gd" type="Script" id=12]
+[ext_resource path="res://Actors/Player/Crouch/Crouched.gd" type="Script" id=11]
+[ext_resource path="res://Actors/Player/Dash/Dashing.gd" type="Script" id=12]
 [ext_resource path="res://Actors/Player/KnockedOut.gd" type="Script" id=13]
 [ext_resource path="res://Actors/Player/shot.mp3" type="AudioStream" id=14]
 [ext_resource path="res://Environment/Light/light.png" type="Texture" id=15]
+[ext_resource path="res://Actors/Player/Dash/Dash.mp3" type="AudioStream" id=16]
 [ext_resource path="res://Actors/Player/Idle/Idle720p.png" type="Texture" id=17]
 [ext_resource path="res://Actors/Player/Running/Running720p_n.png" type="Texture" id=18]
 [ext_resource path="res://Actors/Player/Running/Running720p.png" type="Texture" id=19]
@@ -30,6 +32,8 @@
 [ext_resource path="res://Actors/Player/Shoot/Shoot Crouch/Shoot Crouch720p_n.png" type="Texture" id=30]
 [ext_resource path="res://Actors/Player/Crouch/Crouch720p.png" type="Texture" id=31]
 [ext_resource path="res://Actors/Player/Idle/Idle720p_n.png" type="Texture" id=32]
+[ext_resource path="res://Actors/Player/Death/Death720p.png" type="Texture" id=33]
+[ext_resource path="res://Actors/Player/Death/Death.gd" type="Script" id=34]
 
 [sub_resource type="Shader" id=139]
 code = "shader_type canvas_item;
@@ -1420,6 +1424,85 @@ tracks/6/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ Vector2( 0.095, 0.095 ) ]
+}
+
+[sub_resource type="Animation" id=207]
+resource_name = "Death"
+length = 0.5
+step = 0.0416667
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 33 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 4 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sprite:vframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 4 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Sprite:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.0416667, 0.0833333, 0.125, 0.166667, 0.208333, 0.25, 0.291667, 0.333333, 0.375, 0.416667, 0.458333, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Sprite:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ Vector2( 18, -36 ) ]
+}
+tracks/5/type = "method"
+tracks/5/path = NodePath("StateMachine/Death")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0.5 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "die"
+} ]
 }
 
 [sub_resource type="Animation" id=204]
@@ -3745,6 +3828,9 @@ blend_point_1/pos = 1.0
 [sub_resource type="AnimationNodeAnimation" id=174]
 animation = "Dash"
 
+[sub_resource type="AnimationNodeAnimation" id=208]
+animation = "Death"
+
 [sub_resource type="AnimationNodeAnimation" id=116]
 animation = "GetUpLeft"
 
@@ -3897,6 +3983,8 @@ auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=202]
 
+[sub_resource type="AnimationNodeStateMachineTransition" id=209]
+
 [sub_resource type="AnimationNodeStateMachine" id=34]
 states/Air/node = SubResource( 67 )
 states/Air/position = Vector2( 419.151, 321 )
@@ -3906,6 +3994,8 @@ states/Crouched/node = SubResource( 115 )
 states/Crouched/position = Vector2( 3.151, 177 )
 states/Dash/node = SubResource( 174 )
 states/Dash/position = Vector2( 691, 321 )
+states/Death/node = SubResource( 208 )
+states/Death/position = Vector2( -159.415, 325.572 )
 states/GetUp/node = SubResource( 118 )
 states/GetUp/position = Vector2( 130.151, 242.589 )
 states/Idle/node = SubResource( 38 )
@@ -3922,7 +4012,7 @@ states/ShootCrouched/node = SubResource( 119 )
 states/ShootCrouched/position = Vector2( 3.151, -43 )
 states/Transition/node = SubResource( 196 )
 states/Transition/position = Vector2( 253.151, 321 )
-transitions = [ "Idle", "Crouch", SubResource( 124 ), "Crouch", "Crouched", SubResource( 125 ), "GetUp", "Idle", SubResource( 126 ), "Crouched", "GetUp", SubResource( 127 ), "Idle", "Run", SubResource( 158 ), "Run", "Idle", SubResource( 159 ), "Idle", "Jump", SubResource( 167 ), "Jump", "Air", SubResource( 168 ), "Run", "Jump", SubResource( 171 ), "Air", "Dash", SubResource( 175 ), "Dash", "Air", SubResource( 176 ), "Idle", "Shoot", SubResource( 181 ), "Shoot", "Idle", SubResource( 182 ), "Crouched", "ShootCrouched", SubResource( 193 ), "ShootCrouched", "Crouched", SubResource( 194 ), "Air", "Transition", SubResource( 197 ), "Transition", "Air", SubResource( 198 ), "Air", "RESET", SubResource( 201 ), "RESET", "Idle", SubResource( 202 ) ]
+transitions = [ "Idle", "Crouch", SubResource( 124 ), "Crouch", "Crouched", SubResource( 125 ), "GetUp", "Idle", SubResource( 126 ), "Crouched", "GetUp", SubResource( 127 ), "Idle", "Run", SubResource( 158 ), "Run", "Idle", SubResource( 159 ), "Idle", "Jump", SubResource( 167 ), "Jump", "Air", SubResource( 168 ), "Run", "Jump", SubResource( 171 ), "Air", "Dash", SubResource( 175 ), "Dash", "Air", SubResource( 176 ), "Idle", "Shoot", SubResource( 181 ), "Shoot", "Idle", SubResource( 182 ), "Crouched", "ShootCrouched", SubResource( 193 ), "ShootCrouched", "Crouched", SubResource( 194 ), "Air", "Transition", SubResource( 197 ), "Transition", "Air", SubResource( 198 ), "Air", "RESET", SubResource( 201 ), "RESET", "Idle", SubResource( 202 ), "Idle", "Death", SubResource( 209 ) ]
 start_node = "Idle"
 graph_offset = Vector2( -513.415, -83.428 )
 
@@ -3967,6 +4057,7 @@ anims/CrouchRight = SubResource( 203 )
 anims/CrouchedLeft = SubResource( 188 )
 anims/CrouchedRight = SubResource( 105 )
 anims/Dash = SubResource( 173 )
+anims/Death = SubResource( 207 )
 anims/GetUpLeft = SubResource( 204 )
 anims/GetUpRight = SubResource( 205 )
 anims/IdleLeft = SubResource( 23 )
@@ -4038,6 +4129,9 @@ initial_state = NodePath("Idle")
 [node name="Idle" type="Node" parent="StateMachine"]
 script = ExtResource( 2 )
 
+[node name="Death" type="Node" parent="StateMachine"]
+script = ExtResource( 34 )
+
 [node name="Crouched" type="Node" parent="StateMachine"]
 script = ExtResource( 11 )
 
@@ -4062,17 +4156,24 @@ wait_time = 0.1
 [node name="CoyoteTimeTimer" type="Timer" parent="StateMachine/Air"]
 wait_time = 0.15
 
+[node name="Jump" type="AudioStreamPlayer" parent="StateMachine/Air"]
+stream = ExtResource( 6 )
+volume_db = -8.47
+
 [node name="Aim" type="Node" parent="StateMachine"]
 script = ExtResource( 8 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="StateMachine/Aim"]
 stream = ExtResource( 14 )
+volume_db = -3.0
 
 [node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="StateMachine/Aim"]
 stream = ExtResource( 14 )
+volume_db = -3.0
 
 [node name="AudioStreamPlayer3" type="AudioStreamPlayer" parent="StateMachine/Aim"]
 stream = ExtResource( 14 )
+volume_db = -3.0
 
 [node name="Dashing" type="Node" parent="StateMachine"]
 script = ExtResource( 12 )
@@ -4083,6 +4184,9 @@ one_shot = true
 
 [node name="DashLengthTimer" type="Timer" parent="StateMachine/Dashing"]
 one_shot = true
+
+[node name="Dash" type="AudioStreamPlayer" parent="StateMachine/Dashing"]
+stream = ExtResource( 16 )
 
 [node name="KnockedOut" type="Node" parent="StateMachine"]
 script = ExtResource( 13 )

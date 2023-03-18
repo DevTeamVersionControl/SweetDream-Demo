@@ -102,10 +102,13 @@ func shoot(position:NodePath) -> void:
 	#Play sound
 	if audio_stream_player.playing:
 		if secondary_audio_stream_player.playing:
+			tertiary_audio_stream_player.pitch_scale = 2 - GlobalVars.ammo_equipped_array[GlobalVars.equiped_ammo_index].sugar/3
 			tertiary_audio_stream_player.play()
 		else:
+			secondary_audio_stream_player.pitch_scale = 2 - GlobalVars.ammo_equipped_array[GlobalVars.equiped_ammo_index].sugar/3
 			secondary_audio_stream_player.play()
 	else:
+		audio_stream_player.pitch_scale = 2 - GlobalVars.ammo_equipped_array[GlobalVars.equiped_ammo_index].sugar/3
 		audio_stream_player.play()
 
 
