@@ -1260,9 +1260,10 @@ scale = Vector2( 0.0572196, 0.0572196 )
 frame = 1
 
 [node name="CandyCaneScatter3" parent="ParallaxBackground/ParallaxLayer2" instance=ExtResource( 14 )]
-position = Vector2( 490, 72 )
+position = Vector2( 502, 55 )
 rotation = -0.471225
 scale = Vector2( 0.096, 0.101 )
+flip_h = true
 frame = 2
 
 [node name="MintScatter" parent="." instance=ExtResource( 18 )]
