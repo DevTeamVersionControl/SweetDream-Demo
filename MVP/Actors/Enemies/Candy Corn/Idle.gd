@@ -24,9 +24,19 @@ func enter(_msg := {}) -> void:
 
 func on_something_detected(something):
 	if something is Player:
+		candy_corn.interest_timer.stop()
 		candy_corn.target = something
 		activate()
+
+func on_something_left(something):
+	if something is Player:
+		candy_corn.interest_timer.start()
 
 func activate():
 	if candy_corn.health > 0:
 		state_machine.transition_to("TurnAround")
+
+func _on_InterestTimer_timeout():
+	if candy_corn.health > 0:
+		candy_corn.target = null
+		state_machine.transition_to("Idle")

@@ -35,3 +35,10 @@ func _physics_process(_delta)->void:
 		motion.y += 10
 		motion.x = lerp(motion.x, 0, 0.1)
 		motion = move_and_slide(motion)
+
+
+func _on_something_leave(something):
+	if something is Player && health > 0:
+		target = null
+		$StateMachine/Spawning/SpawnTimer.stop()
+		state_machine.transition_to("Idle")

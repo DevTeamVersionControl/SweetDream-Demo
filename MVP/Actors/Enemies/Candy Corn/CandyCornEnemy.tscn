@@ -718,6 +718,11 @@ position = Vector2( 1, -10.25 )
 scale = Vector2( 2.2, 1 )
 shape = SubResource( 1 )
 
+[node name="InterestTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
 [connection signal="body_entered" from="PlayerDetector" to="StateMachine/Idle" method="on_something_detected"]
 [connection signal="body_entered" from="AttackHitZone" to="StateMachine/Attack" method="on_hit_something"]
 [connection signal="body_entered" from="BodyHitZone" to="." method="on_hit_something"]
+[connection signal="timeout" from="InterestTimer" to="StateMachine/Idle" method="_on_InterestTimer_timeout"]

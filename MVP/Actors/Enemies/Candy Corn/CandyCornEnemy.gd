@@ -29,6 +29,7 @@ var motion := Vector2.ZERO
 onready var animation_player := $AnimationPlayer
 onready var sprite := $Sprite
 onready var state_machine := $StateMachine
+onready var interest_timer := $InterestTimer
 
 func take_damage(damage:float, knockback:Vector2):
 	health -= damage
