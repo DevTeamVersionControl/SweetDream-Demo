@@ -1,4 +1,4 @@
-[gd_scene load_steps=135 format=2]
+[gd_scene load_steps=136 format=2]
 
 [ext_resource path="res://Abstract/StateMachine.gd" type="Script" id=1]
 [ext_resource path="res://Actors/Player/Idle/Idle.gd" type="Script" id=2]
@@ -34,6 +34,7 @@
 [ext_resource path="res://Actors/Player/Idle/Idle720p_n.png" type="Texture" id=32]
 [ext_resource path="res://Actors/Player/Death/Death720p.png" type="Texture" id=33]
 [ext_resource path="res://Actors/Player/Death/Death.gd" type="Script" id=34]
+[ext_resource path="res://Actors/Player/Death/Death.wav" type="AudioStream" id=35]
 
 [sub_resource type="Shader" id=139]
 code = "shader_type canvas_item;
@@ -4132,6 +4133,9 @@ script = ExtResource( 2 )
 [node name="Death" type="Node" parent="StateMachine"]
 script = ExtResource( 34 )
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="StateMachine/Death"]
+stream = ExtResource( 35 )
+
 [node name="Crouched" type="Node" parent="StateMachine"]
 script = ExtResource( 11 )
 
@@ -4158,7 +4162,7 @@ wait_time = 0.15
 
 [node name="Jump" type="AudioStreamPlayer" parent="StateMachine/Air"]
 stream = ExtResource( 6 )
-volume_db = -8.47
+volume_db = -7.537
 
 [node name="Aim" type="Node" parent="StateMachine"]
 script = ExtResource( 8 )

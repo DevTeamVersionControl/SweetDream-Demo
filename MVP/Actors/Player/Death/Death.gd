@@ -15,9 +15,13 @@
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 extends PlayerState
 
+onready var audio := $AudioStreamPlayer
+
 func enter(_msg := {}) -> void:
 	player.velocity = Vector2.ZERO
 	player.animation_mode.travel("Death")
 
 func die():
+	audio.play()
+	yield(audio,"finished")
 	get_tree().current_scene.die()

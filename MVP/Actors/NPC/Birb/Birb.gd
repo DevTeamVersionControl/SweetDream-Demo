@@ -4,6 +4,7 @@ onready var animation_player = $AnimationPlayer
 
 var player_is_in_zone := false
 var in_dialog := false
+var multiplier := 1.3
 
 func _ready():
 	animation_player.play("Idle")
@@ -31,7 +32,7 @@ func on_talk():
 		animation_player.play("Speak")
 
 func on_shop():
-	get_tree().current_scene.start_shop("res://UserInterface/Shops/Json/MrGerald.json")
+	get_tree().current_scene.start_shop("res://UserInterface/Shops/Json/MrGerald.json", multiplier)
 	get_tree().current_scene.gui.dialog.close_dialog()
 	yield(get_tree().current_scene.gui.shop, "dialog_end")
 	in_dialog = false

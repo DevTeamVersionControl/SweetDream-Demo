@@ -101,8 +101,8 @@ func start_dialog(dialog_file:String, story_point:int):
 	gui.dialog.start(dialog_file, story_point)
 	gui.request_pause()
 
-func start_shop(shop_file:String):
-	gui.shop.start(shop_file)
+func start_shop(shop_file:String, multiplier = 1.0):
+	gui.shop.start(shop_file, multiplier)
 	gui.request_pause()
 
 func start_rest_menu():

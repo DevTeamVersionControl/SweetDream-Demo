@@ -27,11 +27,13 @@ onready var money = $Money
 var save_path = GameSaver.save_path
 var items
 var path : String
+var multiplier := 1.0
 
 func show():
 	visible = true
 
-func start(path_to_shop:String):
+func start(path_to_shop:String, m_multiplier = 1.0):
+	multiplier = m_multiplier
 	save_path = GameSaver.save_path
 	path = path_to_shop
 	item_list.clear()
@@ -59,7 +61,7 @@ func close_dialog()->void:
 		emit_signal("dialog_end")
 
 func _on_ItemList_item_selected(index):
-	price.bbcode_text = items[index]["Price"]
+	price.bbcode_text = String(int(int(items[index]["Price"]) * multiplier))
 	unit.bbcode_text = items[index]["Unit"]
 	description.bbcode_text = items[index]["Description"]
 
@@ -71,7 +73,7 @@ func input():
 			buy()
 
 func buy():
-	GlobalVars.artifacts -= int(items[item_list.get_selected_items()[0]]["Price"])
+	GlobalVars.artifacts -= int(int(items[item_list.get_selected_items()[0]]["Price"])*multiplier)
 	GlobalVars.add_to_inventory(items[item_list.get_selected_items()[0]])
 	items.remove(item_list.get_selected_items()[0])
 	item_list.remove_item(item_list.get_selected_items()[0])
