@@ -4,6 +4,8 @@ onready var sprite := get_node_or_null("Sprite")
 
 var save_path = GameSaver.save_path
 
+export var temporary = true
+
 func _ready(): 
 	sprite.visible = false
 
@@ -18,7 +20,7 @@ func _on_Tutorial_indicator_body_exited(body):
 	sprite.visible = false
 
 func save(game_data):
-	game_data[get_tree().current_scene.current_level.filename + name] = true
+	game_data[get_tree().current_scene.current_level.filename + name] = temporary
 
 func load(game_data):
 	if game_data.has(get_tree().current_scene.current_level.filename + name):

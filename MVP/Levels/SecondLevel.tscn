@@ -1,4 +1,4 @@
-[gd_scene load_steps=141 format=2]
+[gd_scene load_steps=146 format=2]
 
 [ext_resource path="res://Environment/Blocks/Forest/TileSets/Tile Pack/Dirt Tile Pack/Dirt_Tile_Pack_333p.png" type="Texture" id=1]
 [ext_resource path="res://Abstract/GenericDoor/GenericDoor.tscn" type="PackedScene" id=2]
@@ -35,6 +35,11 @@
 [ext_resource path="res://Environment/Backgrounds/Forest Backgrounds/Main Background/Gradient Background.png" type="Texture" id=33]
 [ext_resource path="res://Environment/Backgrounds/Forest Backgrounds/Main Background/Pink Filter.png" type="Texture" id=34]
 [ext_resource path="res://Environment/Blocks/Forest/TileSets/Tile Pack/Grass Tile Pack/Grass Tile Pack 333p.png" type="Texture" id=35]
+[ext_resource path="res://UserInterface/Tutorial/Tutorial indicator.tscn" type="PackedScene" id=36]
+[ext_resource path="res://UserInterface/Tutorial/Dash.png" type="Texture" id=37]
+[ext_resource path="res://UserInterface/Tutorial/DoubleJump.png" type="Texture" id=38]
+[ext_resource path="res://UserInterface/Tutorial/UpArrow.png" type="Texture" id=39]
+[ext_resource path="res://UserInterface/Tutorial/Jump.png" type="Texture" id=40]
 
 [sub_resource type="CanvasItemMaterial" id=198]
 light_mode = 2
@@ -4369,7 +4374,7 @@ z_index = 5
 position = Vector2( -0.000488281, 1.56958 )
 rotation = 3.14159
 scale = Vector2( 42.2457, -19.9767 )
-polygon = PoolVector2Array( 13.133, 0.0785522, 13.3483, -14.0602, -14.1019, -13.9032, -13.2407, 15.3956, 9.79593, 14.7672, 9.2577, -0.314194 )
+polygon = PoolVector2Array( 13.133, 0.0785522, 13.3483, -14.0602, -14.1019, -13.9032, -13.2407, 15.3956, 9.79593, 14.7672, 13.7425, 13.7079 )
 
 [node name="DarkZone2" parent="Get Gud" instance=ExtResource( 12 )]
 position = Vector2( 388.545, 321.437 )
@@ -4538,5 +4543,55 @@ position = Vector2( 4536.56, 2348.73 )
 rotation = 3.14159
 scale = Vector2( 1.40941, -1.60155 )
 target_scene = "res://Levels/Funicular lift/Funicular lift.tscn"
+
+[node name="Tutorial indicator" parent="." instance=ExtResource( 36 )]
+position = Vector2( 3382, 1283 )
+temporary = false
+
+[node name="Sprite" type="Sprite" parent="Tutorial indicator"]
+visible = false
+scale = Vector2( 0.1, 0.1 )
+texture = ExtResource( 37 )
+
+[node name="Tutorial indicator2" parent="." instance=ExtResource( 36 )]
+position = Vector2( 3317, 2639 )
+temporary = false
+
+[node name="Sprite" type="Sprite" parent="Tutorial indicator2"]
+visible = false
+position = Vector2( 29, -54 )
+scale = Vector2( 0.1, 0.1 )
+texture = ExtResource( 38 )
+
+[node name="Tutorial indicator3" parent="." instance=ExtResource( 36 )]
+position = Vector2( 3317, 2583 )
+scale = Vector2( 1, 5 )
+temporary = false
+
+[node name="Sprite" type="Sprite" parent="Tutorial indicator3"]
+visible = false
+position = Vector2( -2, 0.599609 )
+scale = Vector2( 0.1, 0.02 )
+texture = ExtResource( 38 )
+
+[node name="Tutorial indicator4" parent="." instance=ExtResource( 36 )]
+position = Vector2( 464, 112 )
+
+[node name="Sprite" type="Sprite" parent="Tutorial indicator4"]
+visible = false
+position = Vector2( 1, -55 )
+scale = Vector2( 0.1, 0.1 )
+texture = ExtResource( 40 )
+
+[node name="Tutorial indicator6" parent="." instance=ExtResource( 36 )]
+position = Vector2( 1637, 1079 )
+scale = Vector2( 0.689487, 1.54936 )
+temporary = false
+
+[node name="Sprite" type="Sprite" parent="Tutorial indicator6"]
+visible = false
+position = Vector2( 1.16016, 0 )
+scale = Vector2( 0.0959118, 0.0457482 )
+texture = ExtResource( 39 )
 
 [connection signal="on" from="Get Gud/Button" to="." method="_on_Button_on"]

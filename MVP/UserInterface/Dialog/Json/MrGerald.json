@@ -26,7 +26,7 @@
     "Signal":"talk", "Portrait":"res://UserInterface/Dialog/Portraits/MrGerald.png"},
 
     {"Name":"Dr.Gamal", 
-        "Text":"Could you go get it and bring it back to me? It would mean the world. Just go out the door and you should see it right away!", 
+        "Text":"Could you go get it and bring it back to me? It would mean the world. It's right before that blasted jello, just go out the door and you should see it right away!", 
     "Signal":"talk", "Portrait":"res://UserInterface/Dialog/Portraits/MrGerald.png"},
     
     ],
