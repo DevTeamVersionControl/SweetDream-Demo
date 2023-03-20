@@ -36,3 +36,8 @@ func calculate_explosion_knockback(body_pos:Vector2) -> Vector2:
 	# Strength based on closeness to explosion (disabled for now)
 	#explosion_knockback *= explosion_location_weight/(explosion_location_weight * (body_pos - jelly_bean.global_position).length())
 	return explosion_knockback * explosion_strength
+
+func play_sound():
+	$AudioStreamPlayer2D.play()
+	yield($AudioStreamPlayer2D, "finished")
+	jelly_bean.queue_free()

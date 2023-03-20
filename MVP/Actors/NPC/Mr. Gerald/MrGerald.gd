@@ -40,14 +40,14 @@ func on_shop():
 func equip_candy_corn():
 	GlobalVars.ammo_equipped_array.append(GlobalVars.get_ammo("Candy Corn"))
 	get_tree().current_scene.player.update_display()
-	GlobalVars.add_to_inventory({"Name":"Gimald shop","StoryPoint":"2"})
+	GlobalVars.add_to_inventory({"Name":"Gimald shop","StoryPoint":["Gimald", 2]})
 	GameSaver.save()
 
 # Returns the point at the conversation the dialog should be
 func get_dialog_num() -> int:
 	for item in GlobalVars.inventory:
-		if item.has("StoryPoint"):
-			var story_point = int(item.get("StoryPoint"))
+		if item.has("StoryPoint") && item.get("StoryPoint")[0] == "Gimald":
+			var story_point = int(item.get("StoryPoint")[1])
 			if item.has("Temporary"):
 				item.erase("StoryPoint")
 				item.erase("Temporary")

@@ -19,6 +19,7 @@ signal dialog_end
 signal talk
 signal shop
 signal equip_candy_corn
+signal first_interation
 
 onready var text = $Text
 onready var dialog_name = $Name

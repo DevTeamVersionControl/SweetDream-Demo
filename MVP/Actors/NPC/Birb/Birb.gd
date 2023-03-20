@@ -10,7 +10,7 @@ func _ready():
 	animation_player.play("Idle")
 	get_tree().current_scene.gui.dialog.connect("talk", self, "on_talk")
 	get_tree().current_scene.gui.dialog.connect("shop", self, "on_shop")
-	get_tree().current_scene.gui.dialog.connect("equip_candy_corn", self, "equip_candy_corn")
+	get_tree().current_scene.gui.dialog.connect("first_interation", self, "first_interaction")
 
 func _unhandled_key_input(_event):
 	if Input.is_action_pressed("interact") && player_is_in_zone && !get_tree().current_scene.gui.dialog.visible && !get_tree().current_scene.gui.shop.visible:
@@ -37,13 +37,17 @@ func on_shop():
 	yield(get_tree().current_scene.gui.shop, "dialog_end")
 	in_dialog = false
 
+func first_interaction():
+	GlobalVars.add_to_inventory({"Name":"Birb shop","StoryPoint":["Birb", 1]})
+	GameSaver.save()
+
 # Returns the point at the conversation the dialog should be
 func get_dialog_num() -> int:
-#	for item in GlobalVars.inventory:
-#		if item.has("StoryPoint"):
-#			var story_point = int(item.get("StoryPoint"))
-#			if item.has("Temporary"):
-#				item.erase("StoryPoint")
-#				item.erase("Temporary")
-#			return story_point
+	for item in GlobalVars.inventory:
+		if item.has("StoryPoint") && item.get("StoryPoint")[0] == "Birb":
+			var story_point = int(item.get("StoryPoint")[1])
+			if item.has("Temporary"):
+				item.erase("StoryPoint")
+				item.erase("Temporary")
+			return story_point
 	return 0
