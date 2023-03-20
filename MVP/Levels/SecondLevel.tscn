@@ -42,7 +42,7 @@ light_mode = 2
 [sub_resource type="CanvasItemMaterial" id=200]
 light_mode = 2
 
-[sub_resource type="Shader" id=1]
+[sub_resource type="Shader" id=211]
 code = "// original wind shader from https://github.com/Maujoe/godot-simple-wind-shader-2d/tree/master/assets/maujoe.simple_wind_shader_2d
 // original script modified by HungryProton so that the assets are moving differently : https://pastebin.com/VL3AfV8D
 //
@@ -209,7 +209,7 @@ void light() {
 
 [sub_resource type="ShaderMaterial" id=201]
 resource_local_to_scene = true
-shader = SubResource( 1 )
+shader = SubResource( 211 )
 shader_param/speed = 1.0
 shader_param/minStrength = 0.05
 shader_param/maxStrength = 0.01
@@ -245,7 +245,7 @@ shader_param/before_light_modulate = Color( 1, 1, 1, 1 )
 
 [sub_resource type="ShaderMaterial" id=202]
 resource_local_to_scene = true
-shader = SubResource( 1 )
+shader = SubResource( 211 )
 shader_param/speed = 1.0
 shader_param/minStrength = 0.05
 shader_param/maxStrength = 0.01
@@ -281,7 +281,7 @@ shader_param/before_light_modulate = Color( 1, 1, 1, 1 )
 
 [sub_resource type="ShaderMaterial" id=203]
 resource_local_to_scene = true
-shader = SubResource( 1 )
+shader = SubResource( 211 )
 shader_param/speed = 1.0
 shader_param/minStrength = 0.05
 shader_param/maxStrength = 0.01
@@ -317,7 +317,7 @@ shader_param/before_light_modulate = Color( 1, 1, 1, 1 )
 
 [sub_resource type="ShaderMaterial" id=204]
 resource_local_to_scene = true
-shader = SubResource( 1 )
+shader = SubResource( 211 )
 shader_param/speed = 1.0
 shader_param/minStrength = 0.05
 shader_param/maxStrength = 0.01
@@ -353,7 +353,7 @@ shader_param/before_light_modulate = Color( 1, 1, 1, 1 )
 
 [sub_resource type="ShaderMaterial" id=205]
 resource_local_to_scene = true
-shader = SubResource( 1 )
+shader = SubResource( 211 )
 shader_param/speed = 1.0
 shader_param/minStrength = 0.05
 shader_param/maxStrength = 0.01
@@ -389,7 +389,7 @@ shader_param/before_light_modulate = Color( 1, 1, 1, 1 )
 
 [sub_resource type="ShaderMaterial" id=206]
 resource_local_to_scene = true
-shader = SubResource( 1 )
+shader = SubResource( 211 )
 shader_param/speed = 1.0
 shader_param/minStrength = 0.05
 shader_param/maxStrength = 0.01

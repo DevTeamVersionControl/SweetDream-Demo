@@ -1,4 +1,4 @@
-[gd_scene load_steps=116 format=2]
+[gd_scene load_steps=137 format=2]
 
 [ext_resource path="res://Environment/Blocks/Forest/TileSets/Tile Pack/Grass Tile Pack/Grass Tile Pack 333p.png" type="Texture" id=1]
 [ext_resource path="res://Environment/Blocks/Forest/Platforms/Breaking Platform/BreakablePlatformShort.tscn" type="PackedScene" id=2]
@@ -19,12 +19,409 @@
 [ext_resource path="res://Environment/Backgrounds/Forest Backgrounds/Underground Background/Back Textures/UndergroundBackground.tscn" type="PackedScene" id=17]
 [ext_resource path="res://Environment/Blocks/Forest/Platforms/2 Platform/2platform.tscn" type="PackedScene" id=18]
 [ext_resource path="res://Abstract/Portal/Portal.tscn" type="PackedScene" id=19]
+[ext_resource path="res://Environment/Backgrounds/Forest Backgrounds/Main Background/Clouds/Clouds.tscn" type="PackedScene" id=20]
+[ext_resource path="res://Environment/Backgrounds/Forest Backgrounds/Main Background/Scatter Terrain/Lollipop.tscn" type="PackedScene" id=21]
+[ext_resource path="res://Environment/Backgrounds/Forest Backgrounds/Main Background/Trees/TallTrees.tscn" type="PackedScene" id=22]
+[ext_resource path="res://Environment/Backgrounds/Forest Backgrounds/Main Background/Background Floors/BackgroundFloors.tscn" type="PackedScene" id=23]
+[ext_resource path="res://Environment/Backgrounds/Forest Backgrounds/Main Background/Trees/ShortTrees.tscn" type="PackedScene" id=24]
+[ext_resource path="res://Environment/Backgrounds/Forest Backgrounds/Main Background/Scatter Terrain/JelloScatter.tscn" type="PackedScene" id=25]
+[ext_resource path="res://Environment/Backgrounds/Forest Backgrounds/Main Background/Scatter Terrain/MintScatter.tscn" type="PackedScene" id=26]
+[ext_resource path="res://Environment/Backgrounds/Forest Backgrounds/Main Background/Scatter Terrain/CandyCane.tscn" type="PackedScene" id=27]
+[ext_resource path="res://Environment/Backgrounds/Forest Backgrounds/Main Background/Scatter Terrain/Bush.tscn" type="PackedScene" id=28]
+[ext_resource path="res://Environment/Backgrounds/Forest Backgrounds/Main Background/Gradient Background.png" type="Texture" id=29]
+[ext_resource path="res://Environment/Backgrounds/Forest Backgrounds/Main Background/Scatter Terrain/CandyCornScatter.tscn" type="PackedScene" id=30]
+[ext_resource path="res://Environment/Backgrounds/Forest Backgrounds/Main Background/Scatter Terrain/CherryScatter.tscn" type="PackedScene" id=31]
+[ext_resource path="res://Environment/Backgrounds/Forest Backgrounds/Underground Background/Underground Scatter/UndergroundScatter.tscn" type="PackedScene" id=32]
 
 [sub_resource type="CanvasItemMaterial" id=198]
 light_mode = 2
 
 [sub_resource type="CanvasItemMaterial" id=200]
 light_mode = 2
+
+[sub_resource type="CanvasItemMaterial" id=201]
+light_mode = 2
+
+[sub_resource type="Shader" id=1]
+code = "// original wind shader from https://github.com/Maujoe/godot-simple-wind-shader-2d/tree/master/assets/maujoe.simple_wind_shader_2d
+// original script modified by HungryProton so that the assets are moving differently : https://pastebin.com/VL3AfV8D
+//
+// speed - The speed of the wind movement.
+// minStrength - The minimal strength of the wind movement.
+// maxStrength - The maximal strength of the wind movement.
+// strengthScale - Scalefactor for the wind strength.
+// interval - The time between minimal and maximal strength changes.
+// detail - The detail (number of waves) of the wind movement.
+// distortion - The strength of geometry distortion.
+// heightOffset - The height where the wind begins to move. By default 0.0.
+
+shader_type canvas_item;
+render_mode blend_mix;
+
+// Wind settings.
+uniform float speed = 1.0;
+uniform float minStrength : hint_range(0.0, 1.0) = 0.05;
+uniform float maxStrength : hint_range(0.0, 1.0) = 0.01;
+uniform float strengthScale = 100.0;
+uniform float interval = 3.5;
+uniform float detail = 1.0;
+uniform float distortion : hint_range(0.0, 1.0);
+uniform float heightOffset : hint_range(0.0, 1.0);
+
+// With the offset value, you can if you want different moves for each asset. Just put a random value (1, 2, 3) in the editor. Don't forget to mark the material as unique if you use this
+uniform float offset = 0; 
+
+
+float getWind(vec2 vertex, vec2 uv, float time){
+    float diff = pow(maxStrength - minStrength, 2.0);
+    float strength = clamp(minStrength + diff + sin(time / interval) * diff, minStrength, maxStrength) * strengthScale;
+    float wind = (sin(time) + cos(time * detail)) * strength * max(0.0, (1.0-uv.y) - heightOffset);
+    
+    return wind; 
+}
+
+void vertex() {
+    vec4 pos = WORLD_MATRIX * vec4(0.0, 0.0, 0.0, 1.0);
+    float time = TIME * speed + offset;
+    //float time = TIME * speed + pos.x * pos.y  ; not working when moving...
+    VERTEX.x += getWind(VERTEX.xy, UV, time);
+}
+
+uniform float first_stage : hint_range(0.0, 1.0) = 0.5; 
+uniform float first_smooth : hint_range(0.0, 1.0) = 0.0; // Lengthens the color transition
+uniform float second_stage : hint_range(0.0, 1.0) = 0.0;   // If left at 0, only level 1 is used.
+uniform float second_smooth : hint_range(0.0, 1.0) = 0.0;
+uniform bool rim_light = false;
+uniform float rim_thickness : hint_range(0, 40) = 5.0;
+uniform float rim_intense : hint_range(0, 1) = 1.0;
+uniform bool rim_extra_thick = false;
+uniform float min_light : hint_range(0.0, 1.0) = 0.0;
+uniform float mid_light : hint_range(0.0, 1.0) = 0.0;
+uniform float max_light : hint_range(0.0, 1.0) = 1.0;
+uniform float obj_light_add : hint_range(0.0, 1.0) = 0.0;
+// Light height variables
+uniform bool fake_light_depth = false;
+uniform float obj_height : hint_range(-2048.0, 2048.0) = 0.0; 
+uniform float min_scale : hint_range(0.0, 10.0) = 0.2;
+uniform float max_scale : hint_range(0.0, 10.0) = 2.0; 
+uniform float light_change_thresh : hint_range(0.0, 4080.0) = 0.0;
+uniform bool light_fade = false;
+uniform float light_fade_end : hint_range(0.0, 4080.0) = 0.0;
+uniform bool fake_spot_light = false;
+uniform float first_shrink_speed : hint_range(0.0, 120.0) = 0.0; 
+uniform float second_shrink_speed : hint_range(0.0, 120.0) = 0.0; 
+//---------------Color Override
+uniform vec4 before_light_modulate : hint_color = vec4(1.0,1.0,1.0,1.0);
+
+void fragment() {
+	vec4 texture_color = texture(TEXTURE, UV);
+	if (AT_LIGHT_PASS) {
+		COLOR = texture_color;
+	} else {
+		COLOR = texture_color * before_light_modulate;
+	}
+}
+float light_calc(float light_strength, float would_be_strength) {
+	float target_strength = light_strength + would_be_strength * obj_light_add;
+	if (target_strength == 0.0) {target_strength = 0.000001;}
+	if (would_be_strength == 0.0) {would_be_strength = 1.0;}
+	return(target_strength / would_be_strength);
+}
+
+void light() {
+	float level_1 = first_stage;
+	float level_1_smooth = first_smooth;
+	float level_2 = second_stage;
+	float level_2_smooth = second_smooth;
+	//---- Light height calc start ------------------------------------
+	//-----------------------------------------------------------------
+	if (fake_light_depth) {
+		float base_height = LIGHT_HEIGHT;
+		float new_height = base_height - obj_height;
+		LIGHT_HEIGHT = new_height;
+		if (fake_spot_light && obj_height < base_height && light_change_thresh < new_height ){
+			if (level_1 != 1.0) {
+				level_1 -= (light_change_thresh - new_height) * (first_shrink_speed * .0001);
+				if (level_2 != 0.0 && level_2 != 1.0) {
+					level_2 -= (light_change_thresh - new_height) * (second_shrink_speed * .0001);
+				}
+			}
+		}
+		if (light_fade && new_height > light_change_thresh) {
+			float n_height_safety = new_height;
+			if (n_height_safety == 0.0) { n_height_safety += 0.01; }
+			float light_dist_safety = light_change_thresh;
+			if (light_dist_safety == 0.0) { light_dist_safety += 0.001; }
+			float new_intens = 1.0;
+			float dark_distance = light_fade_end;
+			if (dark_distance == 0.0) {dark_distance = 1.0;}
+			new_intens = 1.0 - abs(abs(light_dist_safety) - abs(n_height_safety)) / dark_distance;
+			float light_drop_a = clamp(LIGHT_COLOR.a * new_intens, 0.0, 1.0);
+			LIGHT_COLOR *= light_drop_a;
+		}
+	}
+	//---- Light height calc end --------------------------------------
+	
+	float mid_range_light = mid_light;
+	if (mid_light == 0.0) { mid_range_light = max_light * 0.5; }
+	vec3 light_normal = normalize(vec3(LIGHT_VEC, -LIGHT_HEIGHT));
+	float would_be_strength = max(dot(-light_normal, NORMAL), 0.0);
+//-----Light Rim start------------------------------------------------------
+	if (rim_light) {
+		vec2 size = TEXTURE_PIXEL_SIZE * rim_thickness;
+		float outline = texture(TEXTURE, UV + vec2(-size.x, 0)).a;
+		outline *= texture(TEXTURE, UV + vec2(0, size.y)).a;
+		outline *= texture(TEXTURE, UV + vec2(size.x, 0)).a;
+		outline *= texture(TEXTURE, UV + vec2(0, -size.y)).a;
+		if (rim_extra_thick) {
+			outline *= texture(TEXTURE, UV + vec2(-size.x, size.y)).a;
+			outline *= texture(TEXTURE, UV + vec2(size.x, size.y)).a;
+			outline *= texture(TEXTURE, UV + vec2(-size.x, -size.y)).a;
+			outline *= texture(TEXTURE, UV + vec2(size.x, -size.y)).a;
+		}
+		outline = 1.0 - outline;
+
+		vec4 color = texture(TEXTURE, UV);
+		float rim_cap = outline * color.a * rim_intense * (max_light - min_light);
+		LIGHT += rim_cap;
+	}
+	//-----Light Rim end------------------------------------------------------
+	if (would_be_strength > level_1 && level_2 == 0.0 ) {
+		float diff = smoothstep(level_1, (level_1 + level_1_smooth), would_be_strength) + min_light;
+		if (diff >= max_light) {diff = max_light;}
+		LIGHT *= light_calc(diff, would_be_strength);
+	} else if (would_be_strength > level_1 && would_be_strength < level_2 && level_2 != 0.0 ) {
+		float diff = smoothstep(level_1, (level_1 + level_1_smooth), would_be_strength) + min_light;
+		if (diff >= mid_range_light ) {diff = mid_range_light;}
+		LIGHT *= light_calc(diff, would_be_strength);
+	} else if (would_be_strength >= level_2 && level_2 != 0.0 ) {
+		float diff = smoothstep(level_2, (level_2 + level_2_smooth), would_be_strength) + mid_range_light;
+		if (diff < mid_range_light ) {diff = mid_range_light;}
+		if (diff >= max_light) {diff = max_light;}
+		LIGHT *= light_calc(diff, would_be_strength);
+	} else { 
+		if (min_light != 0.0) { 
+			LIGHT_VEC = -NORMAL.xy*length(LIGHT_VEC); 
+		}
+		LIGHT *= min_light;                                                                                                                                  
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id=202]
+resource_local_to_scene = true
+shader = SubResource( 1 )
+shader_param/speed = 1.0
+shader_param/minStrength = 0.05
+shader_param/maxStrength = 0.01
+shader_param/strengthScale = 200.0
+shader_param/interval = 3.5
+shader_param/detail = 1.0
+shader_param/distortion = null
+shader_param/heightOffset = null
+shader_param/offset = 0.0
+shader_param/first_stage = 0.126
+shader_param/first_smooth = 0.0
+shader_param/second_stage = 0.0
+shader_param/second_smooth = 0.0
+shader_param/rim_light = true
+shader_param/rim_thickness = 2.576
+shader_param/rim_intense = 1.0
+shader_param/rim_extra_thick = false
+shader_param/min_light = 0.0
+shader_param/mid_light = 0.0
+shader_param/max_light = 0.449
+shader_param/obj_light_add = 0.0
+shader_param/fake_light_depth = false
+shader_param/obj_height = 0.0
+shader_param/min_scale = 0.2
+shader_param/max_scale = 2.0
+shader_param/light_change_thresh = 0.0
+shader_param/light_fade = false
+shader_param/light_fade_end = 0.0
+shader_param/fake_spot_light = false
+shader_param/first_shrink_speed = 0.0
+shader_param/second_shrink_speed = 0.0
+shader_param/before_light_modulate = Color( 1, 1, 1, 1 )
+
+[sub_resource type="ShaderMaterial" id=203]
+resource_local_to_scene = true
+shader = SubResource( 1 )
+shader_param/speed = 1.0
+shader_param/minStrength = 0.05
+shader_param/maxStrength = 0.01
+shader_param/strengthScale = 200.0
+shader_param/interval = 3.5
+shader_param/detail = 1.0
+shader_param/distortion = null
+shader_param/heightOffset = null
+shader_param/offset = 0.0
+shader_param/first_stage = 0.126
+shader_param/first_smooth = 0.0
+shader_param/second_stage = 0.0
+shader_param/second_smooth = 0.0
+shader_param/rim_light = true
+shader_param/rim_thickness = 2.576
+shader_param/rim_intense = 1.0
+shader_param/rim_extra_thick = false
+shader_param/min_light = 0.0
+shader_param/mid_light = 0.0
+shader_param/max_light = 0.449
+shader_param/obj_light_add = 0.0
+shader_param/fake_light_depth = false
+shader_param/obj_height = 0.0
+shader_param/min_scale = 0.2
+shader_param/max_scale = 2.0
+shader_param/light_change_thresh = 0.0
+shader_param/light_fade = false
+shader_param/light_fade_end = 0.0
+shader_param/fake_spot_light = false
+shader_param/first_shrink_speed = 0.0
+shader_param/second_shrink_speed = 0.0
+shader_param/before_light_modulate = Color( 1, 1, 1, 1 )
+
+[sub_resource type="ShaderMaterial" id=204]
+resource_local_to_scene = true
+shader = SubResource( 1 )
+shader_param/speed = 1.0
+shader_param/minStrength = 0.05
+shader_param/maxStrength = 0.01
+shader_param/strengthScale = 200.0
+shader_param/interval = 3.5
+shader_param/detail = 1.0
+shader_param/distortion = null
+shader_param/heightOffset = null
+shader_param/offset = 0.0
+shader_param/first_stage = 0.126
+shader_param/first_smooth = 0.0
+shader_param/second_stage = 0.0
+shader_param/second_smooth = 0.0
+shader_param/rim_light = true
+shader_param/rim_thickness = 2.576
+shader_param/rim_intense = 1.0
+shader_param/rim_extra_thick = false
+shader_param/min_light = 0.0
+shader_param/mid_light = 0.0
+shader_param/max_light = 0.449
+shader_param/obj_light_add = 0.0
+shader_param/fake_light_depth = false
+shader_param/obj_height = 0.0
+shader_param/min_scale = 0.2
+shader_param/max_scale = 2.0
+shader_param/light_change_thresh = 0.0
+shader_param/light_fade = false
+shader_param/light_fade_end = 0.0
+shader_param/fake_spot_light = false
+shader_param/first_shrink_speed = 0.0
+shader_param/second_shrink_speed = 0.0
+shader_param/before_light_modulate = Color( 1, 1, 1, 1 )
+
+[sub_resource type="ShaderMaterial" id=205]
+resource_local_to_scene = true
+shader = SubResource( 1 )
+shader_param/speed = 1.0
+shader_param/minStrength = 0.05
+shader_param/maxStrength = 0.01
+shader_param/strengthScale = 200.0
+shader_param/interval = 3.5
+shader_param/detail = 1.0
+shader_param/distortion = null
+shader_param/heightOffset = null
+shader_param/offset = 0.0
+shader_param/first_stage = 0.126
+shader_param/first_smooth = 0.0
+shader_param/second_stage = 0.0
+shader_param/second_smooth = 0.0
+shader_param/rim_light = true
+shader_param/rim_thickness = 2.576
+shader_param/rim_intense = 1.0
+shader_param/rim_extra_thick = false
+shader_param/min_light = 0.0
+shader_param/mid_light = 0.0
+shader_param/max_light = 0.449
+shader_param/obj_light_add = 0.0
+shader_param/fake_light_depth = false
+shader_param/obj_height = 0.0
+shader_param/min_scale = 0.2
+shader_param/max_scale = 2.0
+shader_param/light_change_thresh = 0.0
+shader_param/light_fade = false
+shader_param/light_fade_end = 0.0
+shader_param/fake_spot_light = false
+shader_param/first_shrink_speed = 0.0
+shader_param/second_shrink_speed = 0.0
+shader_param/before_light_modulate = Color( 1, 1, 1, 1 )
+
+[sub_resource type="ShaderMaterial" id=206]
+resource_local_to_scene = true
+shader = SubResource( 1 )
+shader_param/speed = 1.0
+shader_param/minStrength = 0.05
+shader_param/maxStrength = 0.01
+shader_param/strengthScale = 200.0
+shader_param/interval = 3.5
+shader_param/detail = 1.0
+shader_param/distortion = null
+shader_param/heightOffset = null
+shader_param/offset = 0.0
+shader_param/first_stage = 0.126
+shader_param/first_smooth = 0.0
+shader_param/second_stage = 0.0
+shader_param/second_smooth = 0.0
+shader_param/rim_light = true
+shader_param/rim_thickness = 2.576
+shader_param/rim_intense = 1.0
+shader_param/rim_extra_thick = false
+shader_param/min_light = 0.0
+shader_param/mid_light = 0.0
+shader_param/max_light = 0.449
+shader_param/obj_light_add = 0.0
+shader_param/fake_light_depth = false
+shader_param/obj_height = 0.0
+shader_param/min_scale = 0.2
+shader_param/max_scale = 2.0
+shader_param/light_change_thresh = 0.0
+shader_param/light_fade = false
+shader_param/light_fade_end = 0.0
+shader_param/fake_spot_light = false
+shader_param/first_shrink_speed = 0.0
+shader_param/second_shrink_speed = 0.0
+shader_param/before_light_modulate = Color( 1, 1, 1, 1 )
+
+[sub_resource type="ShaderMaterial" id=207]
+resource_local_to_scene = true
+shader = SubResource( 1 )
+shader_param/speed = 1.0
+shader_param/minStrength = 0.05
+shader_param/maxStrength = 0.01
+shader_param/strengthScale = 200.0
+shader_param/interval = 3.5
+shader_param/detail = 1.0
+shader_param/distortion = null
+shader_param/heightOffset = null
+shader_param/offset = 0.0
+shader_param/first_stage = 0.126
+shader_param/first_smooth = 0.0
+shader_param/second_stage = 0.0
+shader_param/second_smooth = 0.0
+shader_param/rim_light = true
+shader_param/rim_thickness = 2.576
+shader_param/rim_intense = 1.0
+shader_param/rim_extra_thick = false
+shader_param/min_light = 0.0
+shader_param/mid_light = 0.0
+shader_param/max_light = 0.449
+shader_param/obj_light_add = 0.0
+shader_param/fake_light_depth = false
+shader_param/obj_height = 0.0
+shader_param/min_scale = 0.2
+shader_param/max_scale = 2.0
+shader_param/light_change_thresh = 0.0
+shader_param/light_fade = false
+shader_param/light_fade_end = 0.0
+shader_param/fake_spot_light = false
+shader_param/first_shrink_speed = 0.0
+shader_param/second_shrink_speed = 0.0
+shader_param/before_light_modulate = Color( 1, 1, 1, 1 )
 
 [sub_resource type="ConvexPolygonShape2D" id=104]
 points = PoolVector2Array( 0, 0, 320, 0, 320, 320, 0, 320 )
@@ -921,33 +1318,1693 @@ script = ExtResource( 14 )
 level_range_x = Vector2( 2637, 3855 )
 level_range_y = Vector2( -280, 3500 )
 
-[node name="UndergroundBackground" parent="." instance=ExtResource( 17 )]
-scale = Vector2( 0.1, 0.1 )
-tile_data = PoolIntArray( 1048624, 0, 0, 1114166, 0, 0, 1179683, 0, 0, 1179686, 0, 2, 1179687, 0, 5, 1179693, 0, 2, 1179694, 0, 196614, 1179695, 0, 196612, 1179696, 0, 4, 1179699, 0, 3, 1179700, 0, 5, 1179702, 0, 0, 1179703, 0, 5, 1245219, 0, 0, 1245221, 0, 3, 1245222, 0, 131073, 1245223, 0, 65538, 1245224, 0, 196613, 1245225, 0, 196613, 1245226, 0, 196613, 1245227, 0, 196612, 1245228, 0, 196612, 1245229, 0, 131072, 1245230, 0, 196608, 1245231, 0, 196610, 1245232, 0, 65537, 1245233, 0, 196614, 1245234, 0, 196611, 1245235, 0, 131072, 1245236, 0, 65537, 1245237, 0, 196614, 1245238, 0, 131073, 1245239, 0, 262147, 1310755, 0, 0, 1310756, 0, 196611, 1310757, 0, 131073, 1310758, 0, 131074, 1310759, 0, 131076, 1310760, 0, 131074, 1310761, 0, 131076, 1310762, 0, 131077, 1310763, 0, 196608, 1310764, 0, 131075, 1310765, 0, 131078, 1310766, 0, 196608, 1310767, 0, 131078, 1310768, 0, 196610, 1310769, 0, 196608, 1310770, 0, 196608, 1310771, 0, 196608, 1310772, 0, 131077, 1310773, 0, 131075, 1310774, 0, 131077, 1310775, 0, 262147, 1376291, 0, 327681, 1376292, 0, 196609, 1376293, 0, 131077, 1376294, 0, 131074, 1376295, 0, 196610, 1376296, 0, 131076, 1376297, 0, 131074, 1376298, 0, 131076, 1376299, 0, 196609, 1376300, 0, 131074, 1376301, 0, 196609, 1376302, 0, 131075, 1376303, 0, 196609, 1376304, 0, 196609, 1376305, 0, 131076, 1376306, 0, 131078, 1376307, 0, 131078, 1376308, 0, 131074, 1376309, 0, 196610, 1376310, 0, 196608, 1376311, 0, 262145, 1441827, 0, 327684, 1441828, 0, 131077, 1441829, 0, 196609, 1441830, 0, 196608, 1441831, 0, 131077, 1441832, 0, 131074, 1441833, 0, 196610, 1441834, 0, 196610, 1441835, 0, 131077, 1441836, 0, 131075, 1441837, 0, 131074, 1441838, 0, 131078, 1441839, 0, 196610, 1441840, 0, 196609, 1441841, 0, 131074, 1441842, 0, 196608, 1441843, 0, 131075, 1441844, 0, 131078, 1441845, 0, 196609, 1441846, 0, 131076, 1441847, 0, 262145, 1507363, 0, 327683, 1507364, 0, 196608, 1507365, 0, 131076, 1507366, 0, 131077, 1507367, 0, 131075, 1507368, 0, 196608, 1507369, 0, 196609, 1507370, 0, 196609, 1507371, 0, 131075, 1507372, 0, 131074, 1507373, 0, 196610, 1507374, 0, 131078, 1507375, 0, 196608, 1507376, 0, 131074, 1507377, 0, 131074, 1507378, 0, 131074, 1507379, 0, 65539, 1507380, 0, 262149, 1507381, 0, 65542, 1507382, 0, 131075, 1507383, 0, 262146, 1572899, 0, 327681, 1572900, 0, 131074, 1572901, 0, 196609, 1572902, 0, 131076, 1572903, 0, 131078, 1572904, 0, 196608, 1572905, 0, 131076, 1572906, 0, 131076, 1572907, 0, 131074, 1572908, 0, 196608, 1572909, 0, 131075, 1572910, 0, 196610, 1572911, 0, 196608, 1572912, 0, 131078, 1572913, 0, 196610, 1572914, 0, 196609, 1572915, 0, 262146, 1572917, 0, 327683, 1572918, 0, 131076, 1572919, 0, 262145, 1638435, 0, 327682, 1638436, 0, 131074, 1638437, 0, 131075, 1638438, 0, 196609, 1638439, 0, 196610, 1638440, 0, 196609, 1638441, 0, 196609, 1638442, 0, 131074, 1638443, 0, 131074, 1638444, 0, 131078, 1638445, 0, 131076, 1638446, 0, 131077, 1638447, 0, 196608, 1638448, 0, 196609, 1638449, 0, 196609, 1638450, 0, 131075, 1638451, 0, 65537, 1638452, 0, 196612, 1638453, 0, 131073, 1638454, 0, 196609, 1638455, 0, 262144, 1703971, 0, 327683, 1703972, 0, 131075, 1703973, 0, 131074, 1703974, 0, 65539, 1703975, 0, 327680, 1703976, 0, 65541, 1703977, 0, 131076, 1703978, 0, 131075, 1703979, 0, 131076, 1703980, 0, 131074, 1703981, 0, 131077, 1703982, 0, 196608, 1703983, 0, 196610, 1703984, 0, 131075, 1703985, 0, 131075, 1703986, 0, 131076, 1703987, 0, 196609, 1703988, 0, 196610, 1703989, 0, 196610, 1703990, 0, 131077, 1703991, 0, 262144, 1769507, 0, 327681, 1769508, 0, 131077, 1769509, 0, 131076, 1769510, 0, 262144, 1769512, 0, 327683, 1769513, 0, 131074, 1769514, 0, 196610, 1769515, 0, 196608, 1769516, 0, 196609, 1769517, 0, 131075, 1769518, 0, 196609, 1769519, 0, 196610, 1769520, 0, 131076, 1769521, 0, 131074, 1769522, 0, 131077, 1769523, 0, 196609, 1769524, 0, 196608, 1769525, 0, 131077, 1769526, 0, 131075, 1769527, 0, 262146, 1835043, 0, 327684, 1835044, 0, 196608, 1835045, 0, 196608, 1835046, 0, 65537, 1835047, 0, 196613, 1835048, 0, 131072, 1835049, 0, 131076, 1835050, 0, 196610, 1835051, 0, 196609, 1835052, 0, 196608, 1835053, 0, 131077, 1835054, 0, 131075, 1835055, 0, 131076, 1835056, 0, 131074, 1835057, 0, 196608, 1835058, 0, 131077, 1835059, 0, 196609, 1835060, 0, 196610, 1835061, 0, 131074, 1835062, 0, 131074, 1835063, 0, 262147, 1900579, 0, 327683, 1900580, 0, 196610, 1900581, 0, 131078, 1900582, 0, 131078, 1900583, 0, 131078, 1900584, 0, 131078, 1900585, 0, 131078, 1900586, 0, 131078, 1900587, 0, 131077, 1900588, 0, 196608, 1900589, 0, 131076, 1900590, 0, 131076, 1900591, 0, 196609, 1900592, 0, 196608, 1900593, 0, 131077, 1900594, 0, 131074, 1900595, 0, 131075, 1900596, 0, 131075, 1900597, 0, 196610, 1900598, 0, 196609, 1900599, 0, 262147, 1966115, 0, 327683, 1966116, 0, 131074, 1966117, 0, 131077, 1966118, 0, 131078, 1966119, 0, 131075, 1966120, 0, 131078, 1966121, 0, 131074, 1966122, 0, 131076, 1966123, 0, 196610, 1966124, 0, 131077, 1966125, 0, 196609, 1966126, 0, 131078, 1966127, 0, 131078, 1966128, 0, 196609, 1966129, 0, 131078, 1966130, 0, 196610, 1966131, 0, 131074, 1966132, 0, 131077, 1966133, 0, 131075, 1966134, 0, 131075, 1966135, 0, 262144, 2031651, 0, 327681, 2031652, 0, 131074, 2031653, 0, 131076, 2031654, 0, 131076, 2031655, 0, 196610, 2031656, 0, 131075, 2031657, 0, 131077, 2031658, 0, 196609, 2031659, 0, 131077, 2031660, 0, 131078, 2031661, 0, 131076, 2031662, 0, 131075, 2031663, 0, 131078, 2031664, 0, 196608, 2031665, 0, 131075, 2031666, 0, 131077, 2031667, 0, 131076, 2031668, 0, 196610, 2031669, 0, 131075, 2031670, 0, 196608, 2031671, 0, 262147, 2097187, 0, 327681, 2097188, 0, 131075, 2097189, 0, 131076, 2097190, 0, 131076, 2097191, 0, 196608, 2097192, 0, 131076, 2097193, 0, 131077, 2097194, 0, 131074, 2097195, 0, 131077, 2097196, 0, 131078, 2097197, 0, 131074, 2097198, 0, 131075, 2097199, 0, 196608, 2097200, 0, 196610, 2097201, 0, 196608, 2097202, 0, 131074, 2097203, 0, 131074, 2097204, 0, 131074, 2097205, 0, 196610, 2097206, 0, 131074, 2097207, 0, 262144, 2162723, 0, 327682, 2162724, 0, 131074, 2162725, 0, 131078, 2162726, 0, 131075, 2162727, 0, 196608, 2162728, 0, 196609, 2162729, 0, 196610, 2162730, 0, 131078, 2162731, 0, 196610, 2162732, 0, 196609, 2162733, 0, 131076, 2162734, 0, 131074, 2162735, 0, 196609, 2162736, 0, 196608, 2162737, 0, 196609, 2162738, 0, 131078, 2162739, 0, 196608, 2162740, 0, 196608, 2162741, 0, 131074, 2162742, 0, 196609, 2162743, 0, 262146, 2228259, 0, 327684, 2228260, 0, 196609, 2228261, 0, 131075, 2228262, 0, 196609, 2228263, 0, 131077, 2228264, 0, 196609, 2228265, 0, 131074, 2228266, 0, 131074, 2228267, 0, 131078, 2228268, 0, 131074, 2228269, 0, 131078, 2228270, 0, 131077, 2228271, 0, 196608, 2228272, 0, 196608, 2228273, 0, 131075, 2228274, 0, 196609, 2228275, 0, 131075, 2228276, 0, 196610, 2228277, 0, 131077, 2228278, 0, 196610, 2228279, 0, 262146, 2293795, 0, 327683, 2293796, 0, 131074, 2293797, 0, 131077, 2293798, 0, 196610, 2293799, 0, 131074, 2293800, 0, 131076, 2293801, 0, 131075, 2293802, 0, 131076, 2293803, 0, 196609, 2293804, 0, 131078, 2293805, 0, 196608, 2293806, 0, 196609, 2293807, 0, 196610, 2293808, 0, 196610, 2293809, 0, 196609, 2293810, 0, 131075, 2293811, 0, 131076, 2293812, 0, 196610, 2293813, 0, 131078, 2293814, 0, 131075, 2293815, 0, 262144, 2359331, 0, 327681, 2359332, 0, 131074, 2359333, 0, 196610, 2359334, 0, 196609, 2359335, 0, 196608, 2359336, 0, 131074, 2359337, 0, 131075, 2359338, 0, 131076, 2359339, 0, 131077, 2359340, 0, 131077, 2359341, 0, 196609, 2359342, 0, 196610, 2359343, 0, 196610, 2359344, 0, 196609, 2359345, 0, 131074, 2359346, 0, 131074, 2359347, 0, 196609, 2359348, 0, 131077, 2359349, 0, 196610, 2359350, 0, 131076, 2359351, 0, 262146, 2424867, 0, 327681, 2424868, 0, 131074, 2424869, 0, 196610, 2424870, 0, 196610, 2424871, 0, 196610, 2424872, 0, 131077, 2424873, 0, 196609, 2424874, 0, 131075, 2424875, 0, 131075, 2424876, 0, 131078, 2424877, 0, 196609, 2424878, 0, 131074, 2424879, 0, 131077, 2424880, 0, 131076, 2424881, 0, 131074, 2424882, 0, 196610, 2424883, 0, 131078, 2424884, 0, 196608, 2424885, 0, 196610, 2424886, 0, 131074, 2424887, 0, 262147, 2490403, 0, 327684, 2490404, 0, 131076, 2490405, 0, 196608, 2490406, 0, 196608, 2490407, 0, 196610, 2490408, 0, 131075, 2490409, 0, 131074, 2490410, 0, 196610, 2490411, 0, 131076, 2490412, 0, 131076, 2490413, 0, 196610, 2490414, 0, 131076, 2490415, 0, 131078, 2490416, 0, 196610, 2490417, 0, 131077, 2490418, 0, 131077, 2490419, 0, 131076, 2490420, 0, 131078, 2490421, 0, 196609, 2490422, 0, 131076, 2490423, 0, 262147, 2555939, 0, 327681, 2555940, 0, 131078, 2555941, 0, 131074, 2555942, 0, 196610, 2555943, 0, 131075, 2555944, 0, 196609, 2555945, 0, 131077, 2555946, 0, 131078, 2555947, 0, 196610, 2555948, 0, 131077, 2555949, 0, 131078, 2555950, 0, 131075, 2555951, 0, 131075, 2555952, 0, 131078, 2555953, 0, 196610, 2555954, 0, 131077, 2555955, 0, 131078, 2555956, 0, 196609, 2555957, 0, 131078, 2555958, 0, 131078, 2555959, 0, 262144, 2621475, 0, 327684, 2621476, 0, 131074, 2621477, 0, 131075, 2621478, 0, 131074, 2621479, 0, 131078, 2621480, 0, 131076, 2621481, 0, 131078, 2621482, 0, 131074, 2621483, 0, 131074, 2621484, 0, 131078, 2621485, 0, 131077, 2621486, 0, 196610, 2621487, 0, 196608, 2621488, 0, 131074, 2621489, 0, 131075, 2621490, 0, 131075, 2621491, 0, 131078, 2621492, 0, 131078, 2621493, 0, 131075, 2621494, 0, 196608, 2621495, 0, 262146, 2687011, 0, 327682, 2687012, 0, 131076, 2687013, 0, 131075, 2687014, 0, 131076, 2687015, 0, 131074, 2687016, 0, 131077, 2687017, 0, 131078, 2687018, 0, 131075, 2687019, 0, 196608, 2687020, 0, 131076, 2687021, 0, 131078, 2687022, 0, 131077, 2687023, 0, 196608, 2687024, 0, 196608, 2687025, 0, 131074, 2687026, 0, 131077, 2687027, 0, 65539, 2687028, 0, 262148, 2687029, 0, 327680, 2687030, 0, 327680, 2687031, 0, 65536, 2752547, 0, 1, 2752548, 0, 65542, 2752549, 0, 131074, 2752550, 0, 131075, 2752551, 0, 131075, 2752552, 0, 131077, 2752553, 0, 131075, 2752554, 0, 196608, 2752555, 0, 131075, 2752556, 0, 131076, 2752557, 0, 131076, 2752558, 0, 131078, 2752559, 0, 196608, 2752560, 0, 65539, 2752561, 0, 262150, 2752562, 0, 262148, 2752563, 0, 6, 2818084, 0, 1, 2818085, 0, 262150, 2818086, 0, 65541, 2818087, 0, 196609, 2818088, 0, 196608, 2818089, 0, 131078, 2818090, 0, 196608, 2818091, 0, 131074, 2818092, 0, 131078, 2818093, 0, 131074, 2818094, 0, 196609, 2818095, 0, 65539, 2818096, 0, 65536, 2883622, 0, 1, 2883623, 0, 327680, 2883624, 0, 262150, 2883625, 0, 327680, 2883626, 0, 262150, 2883627, 0, 262149, 2883628, 0, 327680, 2883629, 0, 327680, 2883630, 0, 327680, 2883631, 0, 6 )
-
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
-[node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground"]
+[node name="Background Layer" type="ParallaxLayer" parent="ParallaxBackground"]
 material = SubResource( 200 )
 use_parent_material = true
 motion_scale = Vector2( 0.1, 1 )
 
-[node name="BackgroundColor" type="Sprite" parent="ParallaxBackground/ParallaxLayer4"]
+[node name="BackgroundColor" type="Sprite" parent="ParallaxBackground/Background Layer"]
 light_mask = 0
-position = Vector2( 2506, 1392 )
+position = Vector2( 2495, 1394 )
 scale = Vector2( 1.63354, 2.27593 )
 z_index = -100
 texture = ExtResource( 8 )
+__meta__ = {
+"_edit_lock_": true
+}
 
-[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
+[node name="Down Back" type="ParallaxLayer" parent="ParallaxBackground"]
+material = SubResource( 201 )
+use_parent_material = true
+position = Vector2( -820, 2383 )
+motion_scale = Vector2( 0.1, 1 )
+
+[node name="LollipopScatter" parent="ParallaxBackground/Down Back" instance=ExtResource( 21 )]
+position = Vector2( 1574, 136.001 )
+rotation = -0.5137
+scale = Vector2( 0.111081, 0.111081 )
+frame = 3
+
+[node name="LollipopScatter2" parent="ParallaxBackground/Down Back" instance=ExtResource( 21 )]
+position = Vector2( 1305, 144 )
+rotation = -0.795229
+scale = Vector2( 0.111081, 0.111081 )
+frame = 3
+
+[node name="JelloScatter" parent="ParallaxBackground/Down Back" instance=ExtResource( 25 )]
+position = Vector2( 1614, 149 )
+rotation = -0.29147
+frame = 3
+
+[node name="ShortTrees" parent="ParallaxBackground/Down Back" instance=ExtResource( 24 )]
+material = SubResource( 202 )
+position = Vector2( -26, 5.41321 )
+tile_data = PoolIntArray( 131052, 11, 0, 131147, 536870922, 0, 196632, 536870923, 0, 196669, 11, 0 )
+
+[node name="TallTrees" parent="ParallaxBackground/Down Back" instance=ExtResource( 22 )]
+material = SubResource( 203 )
+position = Vector2( -26, 5.41321 )
+tile_data = PoolIntArray( 65526, 17, 0, 37, 16, 0, 65550, 15, 0, 327712, 0, 0 )
+
+[node name="LollipopScatter3" parent="ParallaxBackground/Down Back" instance=ExtResource( 21 )]
+position = Vector2( 896, 122 )
+rotation = -0.656709
+scale = Vector2( 0.175393, 0.175393 )
+frame = 3
+
+[node name="JelloScatter2" parent="ParallaxBackground/Down Back" instance=ExtResource( 25 )]
+position = Vector2( 964, 156 )
+rotation = 0.418716
+frame = 3
+
+[node name="Clouds" parent="ParallaxBackground/Down Back" instance=ExtResource( 20 )]
+visible = false
+scale = Vector2( 0.4, 0.4 )
+tile_data = PoolIntArray( -720892, 0, 0, -327691, 536870912, 0, -393201, 3, 0, -393180, 0, 0 )
+
+[node name="Ground Top" type="Node2D" parent="ParallaxBackground/Down Back"]
+position = Vector2( 2334, 1332 )
+scale = Vector2( 1.63421, 2.27593 )
+
+[node name="BackgroundFloors720p4" parent="ParallaxBackground/Down Back/Ground Top" instance=ExtResource( 23 )]
+position = Vector2( -1606.28, -502.47 )
+rotation = 0.0466618
+scale = Vector2( 0.389699, 0.280659 )
+offset = Vector2( -7.84314, -73.7255 )
+
+[node name="BackgroundFloors720p5" parent="ParallaxBackground/Down Back/Ground Top" instance=ExtResource( 23 )]
+position = Vector2( -1883.38, -512.275 )
+rotation = 0.013955
+scale = Vector2( 0.389699, 0.280659 )
+offset = Vector2( -7.84314, -73.7255 )
+
+[node name="BackgroundFloors720p6" parent="ParallaxBackground/Down Back/Ground Top" instance=ExtResource( 23 )]
+position = Vector2( -1344.87, -496.458 )
+scale = Vector2( 0.389699, 0.280659 )
+offset = Vector2( -7.84314, -73.7255 )
+frame = 3
+
+[node name="BackgroundFloors720p7" parent="ParallaxBackground/Down Back/Ground Top" instance=ExtResource( 23 )]
+position = Vector2( -1064.61, -496.458 )
+scale = Vector2( 0.389699, 0.280659 )
+offset = Vector2( -7.84314, -73.7255 )
+frame = 3
+
+[node name="BackgroundFloors720p8" parent="ParallaxBackground/Down Back/Ground Top" instance=ExtResource( 23 )]
+position = Vector2( -787.414, -496.458 )
+scale = Vector2( 0.389699, 0.280659 )
+offset = Vector2( -7.84314, -73.7255 )
+
+[node name="BackgroundFloors720p9" parent="ParallaxBackground/Down Back/Ground Top" instance=ExtResource( 23 )]
+position = Vector2( -508.992, -495.579 )
+scale = Vector2( 0.389699, 0.280659 )
+offset = Vector2( -7.84314, -73.7255 )
+
+[node name="Background" type="Node2D" parent="ParallaxBackground/Down Back"]
+
+[node name="Down Mid" type="ParallaxLayer" parent="ParallaxBackground"]
 light_mask = 2
-z_index = -75
+position = Vector2( -741, 2372 )
 motion_scale = Vector2( 0.25, 1 )
 
-[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+[node name="CandyCaneScatter" parent="ParallaxBackground/Down Mid" instance=ExtResource( 27 )]
+position = Vector2( 2359, 148 )
+rotation = -0.422738
+scale = Vector2( 0.123593, 0.123593 )
+frame = 2
+
+[node name="CandyCaneScatter2" parent="ParallaxBackground/Down Mid" instance=ExtResource( 27 )]
+position = Vector2( 2016, 161 )
+rotation = 0.589055
+scale = Vector2( 0.123593, 0.123593 )
+frame = 2
+
+[node name="CandyCaneScatter3" parent="ParallaxBackground/Down Mid" instance=ExtResource( 27 )]
+position = Vector2( 1306, 116 )
+rotation = 0.378664
+scale = Vector2( 0.123593, 0.123593 )
+frame = 2
+
+[node name="CandyCaneScatter4" parent="ParallaxBackground/Down Mid" instance=ExtResource( 27 )]
+position = Vector2( 2752, 160 )
+rotation = -0.240082
+scale = Vector2( 0.123593, 0.123593 )
+flip_h = true
+frame = 2
+
+[node name="MintScatter" parent="ParallaxBackground/Down Mid" instance=ExtResource( 26 )]
+position = Vector2( 2809, 178 )
+rotation = -0.422738
+frame = 2
+
+[node name="MintScatter2" parent="ParallaxBackground/Down Mid" instance=ExtResource( 26 )]
+position = Vector2( 2402, 174 )
+rotation = -0.233687
+frame = 2
+
+[node name="MintScatter3" parent="ParallaxBackground/Down Mid" instance=ExtResource( 26 )]
+position = Vector2( 1945, 169 )
+rotation = 0.148065
+frame = 2
+
+[node name="MintScatter4" parent="ParallaxBackground/Down Mid" instance=ExtResource( 26 )]
+position = Vector2( 1307, 167 )
+rotation = 0.148065
+frame = 2
+
+[node name="TallTrees" parent="ParallaxBackground/Down Mid" instance=ExtResource( 22 )]
+material = SubResource( 204 )
+position = Vector2( 226.8, 11.3162 )
+tile_data = PoolIntArray( 65527, 13, 0, 65547, 12, 0, 65574, 14, 0, 65601, 12, 0, 65621, 13, 0, 65638, 536870926, 0, 327712, 0, 0 )
+
+[node name="ShortTrees" parent="ParallaxBackground/Down Mid" instance=ExtResource( 24 )]
+material = SubResource( 205 )
+position = Vector2( 226.8, 11.3162 )
+tile_data = PoolIntArray( 196590, 9, 0, 196637, 9, 0, 196653, 8, 0, 196709, 536870920, 0 )
+
+[node name="Clouds" parent="ParallaxBackground/Down Mid" instance=ExtResource( 20 )]
+visible = false
+tile_data = PoolIntArray( -524295, 1, 0, -458722, 536870913, 0, -458702, 1, 0, -262145, 4, 0, -327638, 1, 0, -262128, 1, 0, -262085, 536870916, 0, -262069, 1, 0, -196521, 1, 0 )
+
+[node name="Ground Top" type="Node2D" parent="ParallaxBackground/Down Mid"]
+position = Vector2( 226.8, 11.3161 )
+scale = Vector2( 0.35, 0.35 )
+
+[node name="BackgroundFloors720p2" parent="ParallaxBackground/Down Mid/Ground Top" instance=ExtResource( 23 )]
+position = Vector2( 534.286, 594.286 )
+rotation = 0.0649407
+scale = Vector2( 1.82143, 1.82143 )
+offset = Vector2( -7.84314, -73.7255 )
+frame = 4
+
+[node name="BackgroundFloors720p3" parent="ParallaxBackground/Down Mid/Ground Top" instance=ExtResource( 23 )]
+position = Vector2( -768.017, 548.103 )
+rotation = 0.00361076
+scale = Vector2( 1.82141, 1.82945 )
+offset = Vector2( -7.84314, -73.7255 )
+frame = 4
+
+[node name="BackgroundFloors720p5" parent="ParallaxBackground/Down Mid/Ground Top" instance=ExtResource( 23 )]
+position = Vector2( 3086.29, 601.954 )
+rotation = 0.00361076
+scale = Vector2( 1.82141, 1.82945 )
+offset = Vector2( -7.84314, -73.7255 )
+frame = 4
+
+[node name="BackgroundFloors720p6" parent="ParallaxBackground/Down Mid/Ground Top" instance=ExtResource( 23 )]
+position = Vector2( 4380.57, 607.668 )
+scale = Vector2( 1.82141, 1.82945 )
+offset = Vector2( -7.84314, -73.7255 )
+frame = 1
+
+[node name="BackgroundFloors720p7" parent="ParallaxBackground/Down Mid/Ground Top" instance=ExtResource( 23 )]
+position = Vector2( 5692, 619.097 )
+rotation = 0.00361076
+scale = Vector2( 1.82141, 1.82945 )
+offset = Vector2( -7.84314, -73.7255 )
+frame = 1
+
+[node name="BackgroundFloors720p8" parent="ParallaxBackground/Down Mid/Ground Top" instance=ExtResource( 23 )]
+position = Vector2( 6992, 627.668 )
+scale = Vector2( 1.82141, 1.82945 )
+offset = Vector2( -7.84314, -73.7255 )
+frame = 1
+
+[node name="BackgroundFloors720p4" parent="ParallaxBackground/Down Mid/Ground Top" instance=ExtResource( 23 )]
+position = Vector2( 1786.29, 613.382 )
+rotation = -0.02993
+scale = Vector2( 1.82141, 1.82945 )
+offset = Vector2( -7.84314, -73.7255 )
+frame = 1
+
+[node name="Down Front" type="ParallaxLayer" parent="ParallaxBackground"]
 light_mask = 2
-z_index = -50
+position = Vector2( -579, 2385 )
 motion_scale = Vector2( 0.5, 1 )
+
+[node name="LollipopScatter" parent="ParallaxBackground/Down Front" instance=ExtResource( 21 )]
+position = Vector2( 2687, 139 )
+rotation = -0.522726
+scale = Vector2( 0.144846, 0.144846 )
+frame = 1
+
+[node name="LollipopScatter2" parent="ParallaxBackground/Down Front" instance=ExtResource( 21 )]
+position = Vector2( 2331, 148 )
+rotation = 0.665672
+scale = Vector2( 0.144846, 0.144846 )
+frame = 1
+
+[node name="LollipopScatter3" parent="ParallaxBackground/Down Front" instance=ExtResource( 21 )]
+position = Vector2( 1816, 143 )
+rotation = 0.665672
+scale = Vector2( 0.144846, 0.144846 )
+frame = 1
+
+[node name="LollipopScatter4" parent="ParallaxBackground/Down Front" instance=ExtResource( 21 )]
+position = Vector2( 1456, 158 )
+rotation = -0.542591
+scale = Vector2( 0.144846, 0.144846 )
+frame = 1
+
+[node name="CandyCaneScatter" parent="ParallaxBackground/Down Front" instance=ExtResource( 27 )]
+position = Vector2( 3199, 158 )
+rotation = 0.358481
+scale = Vector2( 0.108966, 0.108966 )
+flip_h = true
+frame = 1
+
+[node name="CandyCaneScatter2" parent="ParallaxBackground/Down Front" instance=ExtResource( 27 )]
+position = Vector2( 3076, 146 )
+rotation = -0.221996
+scale = Vector2( 0.108966, 0.108966 )
+flip_h = true
+frame = 1
+
+[node name="BushScatter2" parent="ParallaxBackground/Down Front" instance=ExtResource( 28 )]
+position = Vector2( 3242, 189 )
+rotation = -0.0763424
+frame = 1
+
+[node name="BushScatter3" parent="ParallaxBackground/Down Front" instance=ExtResource( 28 )]
+position = Vector2( 3071, 192 )
+rotation = 0.264091
+frame = 1
+
+[node name="BushScatter4" parent="ParallaxBackground/Down Front" instance=ExtResource( 28 )]
+position = Vector2( 2733, 179 )
+rotation = 0.0184797
+frame = 1
+
+[node name="BushScatter5" parent="ParallaxBackground/Down Front" instance=ExtResource( 28 )]
+position = Vector2( 1834, 181 )
+rotation = 0.215475
+frame = 1
+
+[node name="TallTrees" parent="ParallaxBackground/Down Front" instance=ExtResource( 22 )]
+material = SubResource( 206 )
+position = Vector2( 226.8, 11.3162 )
+tile_data = PoolIntArray( 131058, 9, 0, 65585, 536870923, 0, 65596, 9, 0, 65615, 10, 0, 131091, 11, 0, 131102, 10, 0, 131185, 536870922, 0, 327712, 0, 0 )
+
+[node name="ShortTrees" parent="ParallaxBackground/Down Front" instance=ExtResource( 24 )]
+material = SubResource( 207 )
+position = Vector2( 226.8, 11.3162 )
+tile_data = PoolIntArray( 196603, 536870919, 0, 196620, 536870918, 0, 262184, 6, 0, 262258, 6, 0, 262280, 7, 0 )
+
+[node name="Clouds" parent="ParallaxBackground/Down Front" instance=ExtResource( 20 )]
+visible = false
+position = Vector2( 8, -33 )
+scale = Vector2( 0.4, 0.4 )
+tile_data = PoolIntArray( -589744, 5, 0, -524271, 5, 0, -196609, 2, 0, -262090, 536870914, 0, -262077, 536870917, 0, -196580, 5, 0, -196519, 536870914, 0, -131035, 2, 0, -130951, 2, 0 )
+
+[node name="BushScatter" parent="ParallaxBackground/Down Front" instance=ExtResource( 28 )]
+position = Vector2( 2264, 198 )
+rotation = -0.153575
+frame = 1
+
+[node name="Ground Top" type="Node2D" parent="ParallaxBackground/Down Front"]
+position = Vector2( 429.237, 162.132 )
+scale = Vector2( 0.6375, 0.6375 )
+
+[node name="BackgroundFloors720p" parent="ParallaxBackground/Down Front/Ground Top" instance=ExtResource( 23 )]
+frame = 2
+
+[node name="BackgroundFloors720p4" parent="ParallaxBackground/Down Front/Ground Top" instance=ExtResource( 23 )]
+position = Vector2( 1395.71, 42.1456 )
+rotation = -0.0312642
+frame = 2
+
+[node name="BackgroundFloors720p2" parent="ParallaxBackground/Down Front/Ground Top" instance=ExtResource( 23 )]
+position = Vector2( -719.117, -4.41724 )
+frame = 2
+
+[node name="BackgroundFloors720p5" parent="ParallaxBackground/Down Front/Ground Top" instance=ExtResource( 23 )]
+position = Vector2( 2112.57, 34.3025 )
+frame = 2
+
+[node name="BackgroundFloors720p6" parent="ParallaxBackground/Down Front/Ground Top" instance=ExtResource( 23 )]
+position = Vector2( 2827.86, 37.4398 )
+frame = 5
+
+[node name="BackgroundFloors720p7" parent="ParallaxBackground/Down Front/Ground Top" instance=ExtResource( 23 )]
+position = Vector2( 3538.45, 37.4398 )
+frame = 5
+
+[node name="BackgroundFloors720p8" parent="ParallaxBackground/Down Front/Ground Top" instance=ExtResource( 23 )]
+position = Vector2( 4252.18, 37.4398 )
+frame = 2
+
+[node name="BackgroundFloors720p3" parent="ParallaxBackground/Down Front/Ground Top" instance=ExtResource( 23 )]
+position = Vector2( 718.432, 101.961 )
+rotation = 0.0649407
+offset = Vector2( -7.84314, -73.7255 )
+frame = 5
+
+[node name="Mid Back" type="ParallaxLayer" parent="ParallaxBackground"]
+material = SubResource( 201 )
+use_parent_material = true
+position = Vector2( -559, 1053 )
+motion_scale = Vector2( 0.1, 1 )
+
+[node name="LollipopScatter" parent="ParallaxBackground/Mid Back" instance=ExtResource( 21 )]
+position = Vector2( 1574, 136.001 )
+rotation = -0.5137
+scale = Vector2( 0.111081, 0.111081 )
+frame = 3
+
+[node name="LollipopScatter2" parent="ParallaxBackground/Mid Back" instance=ExtResource( 21 )]
+position = Vector2( 1305, 144 )
+rotation = -0.795229
+scale = Vector2( 0.111081, 0.111081 )
+frame = 3
+
+[node name="JelloScatter" parent="ParallaxBackground/Mid Back" instance=ExtResource( 25 )]
+position = Vector2( 1614, 149 )
+rotation = -0.29147
+frame = 3
+
+[node name="ShortTrees" parent="ParallaxBackground/Mid Back" instance=ExtResource( 24 )]
+material = SubResource( 202 )
+position = Vector2( -26, 5.41321 )
+tile_data = PoolIntArray( 131052, 11, 0, 131147, 536870922, 0, 196632, 536870923, 0, 196669, 11, 0 )
+
+[node name="TallTrees" parent="ParallaxBackground/Mid Back" instance=ExtResource( 22 )]
+material = SubResource( 203 )
+position = Vector2( -26, 5.41321 )
+tile_data = PoolIntArray( 65526, 17, 0, 37, 16, 0, 65550, 15, 0, 327712, 0, 0 )
+
+[node name="LollipopScatter3" parent="ParallaxBackground/Mid Back" instance=ExtResource( 21 )]
+position = Vector2( 896, 122 )
+rotation = -0.656709
+scale = Vector2( 0.175393, 0.175393 )
+frame = 3
+
+[node name="JelloScatter2" parent="ParallaxBackground/Mid Back" instance=ExtResource( 25 )]
+position = Vector2( 964, 156 )
+rotation = 0.418716
+frame = 3
+
+[node name="Clouds" parent="ParallaxBackground/Mid Back" instance=ExtResource( 20 )]
+scale = Vector2( 0.4, 0.4 )
+tile_data = PoolIntArray( -720892, 0, 0, -327691, 536870912, 0, -393201, 3, 0, -393180, 0, 0 )
+
+[node name="Ground Top" type="Node2D" parent="ParallaxBackground/Mid Back"]
+position = Vector2( 2334, 1332 )
+scale = Vector2( 1.63421, 2.27593 )
+
+[node name="BackgroundFloors720p4" parent="ParallaxBackground/Mid Back/Ground Top" instance=ExtResource( 23 )]
+position = Vector2( -1606.28, -502.47 )
+rotation = 0.0466618
+scale = Vector2( 0.389699, 0.280659 )
+offset = Vector2( -7.84314, -73.7255 )
+
+[node name="BackgroundFloors720p5" parent="ParallaxBackground/Mid Back/Ground Top" instance=ExtResource( 23 )]
+position = Vector2( -1883.38, -512.275 )
+rotation = 0.013955
+scale = Vector2( 0.389699, 0.280659 )
+offset = Vector2( -7.84314, -73.7255 )
+
+[node name="BackgroundFloors720p6" parent="ParallaxBackground/Mid Back/Ground Top" instance=ExtResource( 23 )]
+position = Vector2( -1344.87, -496.458 )
+scale = Vector2( 0.389699, 0.280659 )
+offset = Vector2( -7.84314, -73.7255 )
+frame = 3
+
+[node name="BackgroundFloors720p7" parent="ParallaxBackground/Mid Back/Ground Top" instance=ExtResource( 23 )]
+position = Vector2( -1064.61, -496.458 )
+scale = Vector2( 0.389699, 0.280659 )
+offset = Vector2( -7.84314, -73.7255 )
+frame = 3
+
+[node name="BackgroundFloors720p8" parent="ParallaxBackground/Mid Back/Ground Top" instance=ExtResource( 23 )]
+position = Vector2( -787.414, -496.458 )
+scale = Vector2( 0.389699, 0.280659 )
+offset = Vector2( -7.84314, -73.7255 )
+
+[node name="BackgroundFloors720p9" parent="ParallaxBackground/Mid Back/Ground Top" instance=ExtResource( 23 )]
+position = Vector2( -508.992, -495.579 )
+scale = Vector2( 0.389699, 0.280659 )
+offset = Vector2( -7.84314, -73.7255 )
+
+[node name="Mid Mid" type="ParallaxLayer" parent="ParallaxBackground"]
+light_mask = 2
+position = Vector2( -453, 1042 )
+motion_scale = Vector2( 0.25, 1 )
+
+[node name="CandyCaneScatter" parent="ParallaxBackground/Mid Mid" instance=ExtResource( 27 )]
+position = Vector2( 2359, 148 )
+rotation = -0.422738
+scale = Vector2( 0.123593, 0.123593 )
+frame = 2
+
+[node name="CandyCaneScatter2" parent="ParallaxBackground/Mid Mid" instance=ExtResource( 27 )]
+position = Vector2( 2016, 161 )
+rotation = 0.589055
+scale = Vector2( 0.123593, 0.123593 )
+frame = 2
+
+[node name="CandyCaneScatter3" parent="ParallaxBackground/Mid Mid" instance=ExtResource( 27 )]
+position = Vector2( 1306, 116 )
+rotation = 0.378664
+scale = Vector2( 0.123593, 0.123593 )
+frame = 2
+
+[node name="CandyCaneScatter4" parent="ParallaxBackground/Mid Mid" instance=ExtResource( 27 )]
+position = Vector2( 2752, 160 )
+rotation = -0.240082
+scale = Vector2( 0.123593, 0.123593 )
+flip_h = true
+frame = 2
+
+[node name="MintScatter" parent="ParallaxBackground/Mid Mid" instance=ExtResource( 26 )]
+position = Vector2( 2809, 178 )
+rotation = -0.422738
+frame = 2
+
+[node name="MintScatter2" parent="ParallaxBackground/Mid Mid" instance=ExtResource( 26 )]
+position = Vector2( 2402, 174 )
+rotation = -0.233687
+frame = 2
+
+[node name="MintScatter3" parent="ParallaxBackground/Mid Mid" instance=ExtResource( 26 )]
+position = Vector2( 1945, 169 )
+rotation = 0.148065
+frame = 2
+
+[node name="MintScatter4" parent="ParallaxBackground/Mid Mid" instance=ExtResource( 26 )]
+position = Vector2( 1307, 167 )
+rotation = 0.148065
+frame = 2
+
+[node name="TallTrees" parent="ParallaxBackground/Mid Mid" instance=ExtResource( 22 )]
+material = SubResource( 204 )
+position = Vector2( 226.8, 11.3162 )
+tile_data = PoolIntArray( 65527, 13, 0, 65547, 12, 0, 65574, 14, 0, 65601, 12, 0, 65621, 13, 0, 65638, 536870926, 0, 327712, 0, 0 )
+
+[node name="ShortTrees" parent="ParallaxBackground/Mid Mid" instance=ExtResource( 24 )]
+material = SubResource( 205 )
+position = Vector2( 226.8, 11.3162 )
+tile_data = PoolIntArray( 196590, 9, 0, 196637, 9, 0, 196653, 8, 0, 196709, 536870920, 0 )
+
+[node name="Clouds" parent="ParallaxBackground/Mid Mid" instance=ExtResource( 20 )]
+tile_data = PoolIntArray( -524295, 1, 0, -458722, 536870913, 0, -458702, 1, 0, -262145, 4, 0, -327638, 1, 0, -262128, 1, 0, -262085, 536870916, 0, -262069, 1, 0, -196521, 1, 0 )
+
+[node name="Ground Top" type="Node2D" parent="ParallaxBackground/Mid Mid"]
+position = Vector2( 226.8, 11.3161 )
+scale = Vector2( 0.35, 0.35 )
+
+[node name="BackgroundFloors720p2" parent="ParallaxBackground/Mid Mid/Ground Top" instance=ExtResource( 23 )]
+position = Vector2( 534.286, 594.286 )
+rotation = 0.0649407
+scale = Vector2( 1.82143, 1.82143 )
+offset = Vector2( -7.84314, -73.7255 )
+frame = 4
+
+[node name="BackgroundFloors720p3" parent="ParallaxBackground/Mid Mid/Ground Top" instance=ExtResource( 23 )]
+position = Vector2( -768.017, 548.103 )
+rotation = 0.00361076
+scale = Vector2( 1.82141, 1.82945 )
+offset = Vector2( -7.84314, -73.7255 )
+frame = 4
+
+[node name="BackgroundFloors720p5" parent="ParallaxBackground/Mid Mid/Ground Top" instance=ExtResource( 23 )]
+position = Vector2( 3086.29, 601.954 )
+rotation = 0.00361076
+scale = Vector2( 1.82141, 1.82945 )
+offset = Vector2( -7.84314, -73.7255 )
+frame = 4
+
+[node name="BackgroundFloors720p6" parent="ParallaxBackground/Mid Mid/Ground Top" instance=ExtResource( 23 )]
+position = Vector2( 4380.57, 607.668 )
+scale = Vector2( 1.82141, 1.82945 )
+offset = Vector2( -7.84314, -73.7255 )
+frame = 1
+
+[node name="BackgroundFloors720p7" parent="ParallaxBackground/Mid Mid/Ground Top" instance=ExtResource( 23 )]
+position = Vector2( 5692, 619.097 )
+rotation = 0.00361076
+scale = Vector2( 1.82141, 1.82945 )
+offset = Vector2( -7.84314, -73.7255 )
+frame = 1
+
+[node name="BackgroundFloors720p8" parent="ParallaxBackground/Mid Mid/Ground Top" instance=ExtResource( 23 )]
+position = Vector2( 6992, 627.668 )
+scale = Vector2( 1.82141, 1.82945 )
+offset = Vector2( -7.84314, -73.7255 )
+frame = 1
+
+[node name="BackgroundFloors720p4" parent="ParallaxBackground/Mid Mid/Ground Top" instance=ExtResource( 23 )]
+position = Vector2( 1786.29, 613.382 )
+rotation = -0.02993
+scale = Vector2( 1.82141, 1.82945 )
+offset = Vector2( -7.84314, -73.7255 )
+frame = 1
+
+[node name="Mid Front" type="ParallaxLayer" parent="ParallaxBackground"]
+light_mask = 2
+position = Vector2( 280, 1055 )
+motion_scale = Vector2( 0.5, 1 )
+
+[node name="LollipopScatter" parent="ParallaxBackground/Mid Front" instance=ExtResource( 21 )]
+position = Vector2( 2687, 139 )
+rotation = -0.522726
+scale = Vector2( 0.144846, 0.144846 )
+frame = 1
+
+[node name="LollipopScatter2" parent="ParallaxBackground/Mid Front" instance=ExtResource( 21 )]
+position = Vector2( 2331, 148 )
+rotation = 0.665672
+scale = Vector2( 0.144846, 0.144846 )
+frame = 1
+
+[node name="LollipopScatter3" parent="ParallaxBackground/Mid Front" instance=ExtResource( 21 )]
+position = Vector2( 1816, 143 )
+rotation = 0.665672
+scale = Vector2( 0.144846, 0.144846 )
+frame = 1
+
+[node name="LollipopScatter4" parent="ParallaxBackground/Mid Front" instance=ExtResource( 21 )]
+position = Vector2( 1456, 158 )
+rotation = -0.542591
+scale = Vector2( 0.144846, 0.144846 )
+frame = 1
+
+[node name="CandyCaneScatter" parent="ParallaxBackground/Mid Front" instance=ExtResource( 27 )]
+position = Vector2( 3199, 158 )
+rotation = 0.358481
+scale = Vector2( 0.108966, 0.108966 )
+flip_h = true
+frame = 1
+
+[node name="CandyCaneScatter2" parent="ParallaxBackground/Mid Front" instance=ExtResource( 27 )]
+position = Vector2( 3076, 146 )
+rotation = -0.221996
+scale = Vector2( 0.108966, 0.108966 )
+flip_h = true
+frame = 1
+
+[node name="BushScatter2" parent="ParallaxBackground/Mid Front" instance=ExtResource( 28 )]
+position = Vector2( 3242, 189 )
+rotation = -0.0763424
+frame = 1
+
+[node name="BushScatter3" parent="ParallaxBackground/Mid Front" instance=ExtResource( 28 )]
+position = Vector2( 3071, 192 )
+rotation = 0.264091
+frame = 1
+
+[node name="BushScatter4" parent="ParallaxBackground/Mid Front" instance=ExtResource( 28 )]
+position = Vector2( 2733, 179 )
+rotation = 0.0184797
+frame = 1
+
+[node name="BushScatter5" parent="ParallaxBackground/Mid Front" instance=ExtResource( 28 )]
+position = Vector2( 1834, 181 )
+rotation = 0.215475
+frame = 1
+
+[node name="TallTrees" parent="ParallaxBackground/Mid Front" instance=ExtResource( 22 )]
+material = SubResource( 206 )
+position = Vector2( 226.8, 11.3162 )
+tile_data = PoolIntArray( 131058, 9, 0, 65585, 536870923, 0, 65596, 9, 0, 65615, 10, 0, 131091, 11, 0, 131102, 10, 0, 131185, 536870922, 0, 327712, 0, 0 )
+
+[node name="ShortTrees" parent="ParallaxBackground/Mid Front" instance=ExtResource( 24 )]
+material = SubResource( 207 )
+position = Vector2( 226.8, 11.3162 )
+tile_data = PoolIntArray( 196603, 536870919, 0, 196620, 536870918, 0, 262184, 6, 0, 262258, 6, 0, 262280, 7, 0 )
+
+[node name="Clouds" parent="ParallaxBackground/Mid Front" instance=ExtResource( 20 )]
+position = Vector2( 8, -33 )
+scale = Vector2( 0.4, 0.4 )
+tile_data = PoolIntArray( -589744, 5, 0, -524271, 5, 0, -196609, 2, 0, -262090, 536870914, 0, -262077, 536870917, 0, -196580, 5, 0, -196519, 536870914, 0, -131035, 2, 0, -130951, 2, 0 )
+
+[node name="BushScatter" parent="ParallaxBackground/Mid Front" instance=ExtResource( 28 )]
+position = Vector2( 2264, 198 )
+rotation = -0.153575
+frame = 1
+
+[node name="Ground Top" type="Node2D" parent="ParallaxBackground/Mid Front"]
+position = Vector2( 429.237, 162.132 )
+scale = Vector2( 0.6375, 0.6375 )
+
+[node name="BackgroundFloors720p" parent="ParallaxBackground/Mid Front/Ground Top" instance=ExtResource( 23 )]
+frame = 2
+
+[node name="BackgroundFloors720p4" parent="ParallaxBackground/Mid Front/Ground Top" instance=ExtResource( 23 )]
+position = Vector2( 1395.71, 42.1456 )
+rotation = -0.0312642
+frame = 2
+
+[node name="BackgroundFloors720p2" parent="ParallaxBackground/Mid Front/Ground Top" instance=ExtResource( 23 )]
+position = Vector2( -719.117, -4.41724 )
+frame = 2
+
+[node name="BackgroundFloors720p5" parent="ParallaxBackground/Mid Front/Ground Top" instance=ExtResource( 23 )]
+position = Vector2( 2112.57, 34.3025 )
+frame = 2
+
+[node name="BackgroundFloors720p6" parent="ParallaxBackground/Mid Front/Ground Top" instance=ExtResource( 23 )]
+position = Vector2( 2827.86, 37.4398 )
+frame = 5
+
+[node name="BackgroundFloors720p7" parent="ParallaxBackground/Mid Front/Ground Top" instance=ExtResource( 23 )]
+position = Vector2( 3538.45, 37.4398 )
+frame = 5
+
+[node name="BackgroundFloors720p8" parent="ParallaxBackground/Mid Front/Ground Top" instance=ExtResource( 23 )]
+position = Vector2( 4252.18, 37.4398 )
+rotation = 0.000721523
+frame = 2
+
+[node name="BackgroundFloors720p3" parent="ParallaxBackground/Mid Front/Ground Top" instance=ExtResource( 23 )]
+position = Vector2( 718.432, 101.961 )
+rotation = 0.0649407
+offset = Vector2( -7.84314, -73.7255 )
+frame = 5
+
+[node name="GradientBackground" type="Sprite" parent="ParallaxBackground"]
+position = Vector2( 3246, 1113 )
+scale = Vector2( 0.405338, 0.0736979 )
+texture = ExtResource( 29 )
+
+[node name="Up Back" type="ParallaxLayer" parent="ParallaxBackground"]
+material = SubResource( 201 )
+use_parent_material = true
+position = Vector2( -612, -110 )
+motion_scale = Vector2( 0.1, 1 )
+
+[node name="LollipopScatter" parent="ParallaxBackground/Up Back" instance=ExtResource( 21 )]
+position = Vector2( 1574, 136.001 )
+rotation = -0.5137
+scale = Vector2( 0.111081, 0.111081 )
+frame = 3
+
+[node name="LollipopScatter2" parent="ParallaxBackground/Up Back" instance=ExtResource( 21 )]
+position = Vector2( 1305, 144 )
+rotation = -0.795229
+scale = Vector2( 0.111081, 0.111081 )
+frame = 3
+
+[node name="JelloScatter" parent="ParallaxBackground/Up Back" instance=ExtResource( 25 )]
+position = Vector2( 1614, 149 )
+rotation = -0.29147
+frame = 3
+
+[node name="ShortTrees" parent="ParallaxBackground/Up Back" instance=ExtResource( 24 )]
+material = SubResource( 202 )
+position = Vector2( -26, 5.41321 )
+tile_data = PoolIntArray( 131052, 11, 0, 131147, 536870922, 0, 196632, 536870923, 0, 196669, 11, 0 )
+
+[node name="TallTrees" parent="ParallaxBackground/Up Back" instance=ExtResource( 22 )]
+material = SubResource( 203 )
+position = Vector2( -26, 5.41321 )
+tile_data = PoolIntArray( 65526, 17, 0, 37, 16, 0, 65550, 15, 0, 327712, 0, 0 )
+
+[node name="LollipopScatter3" parent="ParallaxBackground/Up Back" instance=ExtResource( 21 )]
+position = Vector2( 896, 122 )
+rotation = -0.656709
+scale = Vector2( 0.175393, 0.175393 )
+frame = 3
+
+[node name="JelloScatter2" parent="ParallaxBackground/Up Back" instance=ExtResource( 25 )]
+position = Vector2( 964, 156 )
+rotation = 0.418716
+frame = 3
+
+[node name="Clouds" parent="ParallaxBackground/Up Back" instance=ExtResource( 20 )]
+scale = Vector2( 0.4, 0.4 )
+tile_data = PoolIntArray( -720892, 0, 0, -327691, 536870912, 0, -393201, 3, 0, -393180, 0, 0 )
+
+[node name="Ground Top" type="Node2D" parent="ParallaxBackground/Up Back"]
+position = Vector2( 2334, 1332 )
+scale = Vector2( 1.63421, 2.27593 )
+
+[node name="BackgroundFloors720p4" parent="ParallaxBackground/Up Back/Ground Top" instance=ExtResource( 23 )]
+position = Vector2( -1606.28, -502.47 )
+rotation = 0.0466618
+scale = Vector2( 0.389699, 0.280659 )
+offset = Vector2( -7.84314, -73.7255 )
+
+[node name="BackgroundFloors720p5" parent="ParallaxBackground/Up Back/Ground Top" instance=ExtResource( 23 )]
+position = Vector2( -1883.38, -512.275 )
+rotation = 0.013955
+scale = Vector2( 0.389699, 0.280659 )
+offset = Vector2( -7.84314, -73.7255 )
+
+[node name="BackgroundFloors720p6" parent="ParallaxBackground/Up Back/Ground Top" instance=ExtResource( 23 )]
+position = Vector2( -1344.87, -496.458 )
+scale = Vector2( 0.389699, 0.280659 )
+offset = Vector2( -7.84314, -73.7255 )
+frame = 3
+
+[node name="BackgroundFloors720p7" parent="ParallaxBackground/Up Back/Ground Top" instance=ExtResource( 23 )]
+position = Vector2( -1064.61, -496.458 )
+scale = Vector2( 0.389699, 0.280659 )
+offset = Vector2( -7.84314, -73.7255 )
+frame = 3
+
+[node name="BackgroundFloors720p8" parent="ParallaxBackground/Up Back/Ground Top" instance=ExtResource( 23 )]
+position = Vector2( -787.414, -496.458 )
+scale = Vector2( 0.389699, 0.280659 )
+offset = Vector2( -7.84314, -73.7255 )
+
+[node name="BackgroundFloors720p9" parent="ParallaxBackground/Up Back/Ground Top" instance=ExtResource( 23 )]
+position = Vector2( -508.992, -495.579 )
+scale = Vector2( 0.389699, 0.280659 )
+offset = Vector2( -7.84314, -73.7255 )
+
+[node name="Up Mid" type="ParallaxLayer" parent="ParallaxBackground"]
+light_mask = 2
+position = Vector2( -506, -121 )
+motion_scale = Vector2( 0.25, 1 )
+
+[node name="CandyCaneScatter" parent="ParallaxBackground/Up Mid" instance=ExtResource( 27 )]
+position = Vector2( 2359, 148 )
+rotation = -0.422738
+scale = Vector2( 0.123593, 0.123593 )
+frame = 2
+
+[node name="CandyCaneScatter2" parent="ParallaxBackground/Up Mid" instance=ExtResource( 27 )]
+position = Vector2( 2016, 161 )
+rotation = 0.589055
+scale = Vector2( 0.123593, 0.123593 )
+frame = 2
+
+[node name="CandyCaneScatter3" parent="ParallaxBackground/Up Mid" instance=ExtResource( 27 )]
+position = Vector2( 1306, 116 )
+rotation = 0.378664
+scale = Vector2( 0.123593, 0.123593 )
+frame = 2
+
+[node name="CandyCaneScatter4" parent="ParallaxBackground/Up Mid" instance=ExtResource( 27 )]
+position = Vector2( 2752, 160 )
+rotation = -0.240082
+scale = Vector2( 0.123593, 0.123593 )
+flip_h = true
+frame = 2
+
+[node name="MintScatter" parent="ParallaxBackground/Up Mid" instance=ExtResource( 26 )]
+position = Vector2( 2809, 178 )
+rotation = -0.422738
+frame = 2
+
+[node name="MintScatter2" parent="ParallaxBackground/Up Mid" instance=ExtResource( 26 )]
+position = Vector2( 2402, 174 )
+rotation = -0.233687
+frame = 2
+
+[node name="MintScatter3" parent="ParallaxBackground/Up Mid" instance=ExtResource( 26 )]
+position = Vector2( 1945, 169 )
+rotation = 0.148065
+frame = 2
+
+[node name="MintScatter4" parent="ParallaxBackground/Up Mid" instance=ExtResource( 26 )]
+position = Vector2( 1307, 167 )
+rotation = 0.148065
+frame = 2
+
+[node name="TallTrees" parent="ParallaxBackground/Up Mid" instance=ExtResource( 22 )]
+material = SubResource( 204 )
+position = Vector2( 226.8, 11.3162 )
+tile_data = PoolIntArray( 65527, 13, 0, 65547, 12, 0, 65574, 14, 0, 65601, 12, 0, 65621, 13, 0, 65638, 536870926, 0, 327712, 0, 0 )
+
+[node name="ShortTrees" parent="ParallaxBackground/Up Mid" instance=ExtResource( 24 )]
+material = SubResource( 205 )
+position = Vector2( 226.8, 11.3162 )
+tile_data = PoolIntArray( 196590, 9, 0, 196637, 9, 0, 196653, 8, 0, 196709, 536870920, 0 )
+
+[node name="Clouds" parent="ParallaxBackground/Up Mid" instance=ExtResource( 20 )]
+tile_data = PoolIntArray( -524295, 1, 0, -458722, 536870913, 0, -458702, 1, 0, -262145, 4, 0, -327638, 1, 0, -262128, 1, 0, -262085, 536870916, 0, -262069, 1, 0, -196521, 1, 0 )
+
+[node name="Ground Top" type="Node2D" parent="ParallaxBackground/Up Mid"]
+position = Vector2( 226.8, 11.3161 )
+scale = Vector2( 0.35, 0.35 )
+
+[node name="BackgroundFloors720p2" parent="ParallaxBackground/Up Mid/Ground Top" instance=ExtResource( 23 )]
+position = Vector2( 534.286, 594.286 )
+rotation = 0.0649407
+scale = Vector2( 1.82143, 1.82143 )
+offset = Vector2( -7.84314, -73.7255 )
+frame = 4
+
+[node name="BackgroundFloors720p3" parent="ParallaxBackground/Up Mid/Ground Top" instance=ExtResource( 23 )]
+position = Vector2( -768.017, 548.103 )
+rotation = 0.00361076
+scale = Vector2( 1.82141, 1.82945 )
+offset = Vector2( -7.84314, -73.7255 )
+frame = 4
+
+[node name="BackgroundFloors720p5" parent="ParallaxBackground/Up Mid/Ground Top" instance=ExtResource( 23 )]
+position = Vector2( 3086.29, 601.954 )
+rotation = 0.00361076
+scale = Vector2( 1.82141, 1.82945 )
+offset = Vector2( -7.84314, -73.7255 )
+frame = 4
+
+[node name="BackgroundFloors720p6" parent="ParallaxBackground/Up Mid/Ground Top" instance=ExtResource( 23 )]
+position = Vector2( 4380.57, 607.668 )
+scale = Vector2( 1.82141, 1.82945 )
+offset = Vector2( -7.84314, -73.7255 )
+frame = 1
+
+[node name="BackgroundFloors720p7" parent="ParallaxBackground/Up Mid/Ground Top" instance=ExtResource( 23 )]
+position = Vector2( 5692, 619.097 )
+rotation = 0.00361076
+scale = Vector2( 1.82141, 1.82945 )
+offset = Vector2( -7.84314, -73.7255 )
+frame = 1
+
+[node name="BackgroundFloors720p8" parent="ParallaxBackground/Up Mid/Ground Top" instance=ExtResource( 23 )]
+position = Vector2( 6992, 627.668 )
+scale = Vector2( 1.82141, 1.82945 )
+offset = Vector2( -7.84314, -73.7255 )
+frame = 1
+
+[node name="BackgroundFloors720p4" parent="ParallaxBackground/Up Mid/Ground Top" instance=ExtResource( 23 )]
+position = Vector2( 1786.29, 613.382 )
+rotation = -0.02993
+scale = Vector2( 1.82141, 1.82945 )
+offset = Vector2( -7.84314, -73.7255 )
+frame = 1
+
+[node name="Up Front" type="ParallaxLayer" parent="ParallaxBackground"]
+light_mask = 2
+position = Vector2( 227, -108 )
+motion_scale = Vector2( 0.5, 1 )
+
+[node name="LollipopScatter" parent="ParallaxBackground/Up Front" instance=ExtResource( 21 )]
+position = Vector2( 2687, 139 )
+rotation = -0.522726
+scale = Vector2( 0.144846, 0.144846 )
+frame = 1
+
+[node name="LollipopScatter2" parent="ParallaxBackground/Up Front" instance=ExtResource( 21 )]
+position = Vector2( 2331, 148 )
+rotation = 0.665672
+scale = Vector2( 0.144846, 0.144846 )
+frame = 1
+
+[node name="LollipopScatter3" parent="ParallaxBackground/Up Front" instance=ExtResource( 21 )]
+position = Vector2( 1816, 143 )
+rotation = 0.665672
+scale = Vector2( 0.144846, 0.144846 )
+frame = 1
+
+[node name="LollipopScatter4" parent="ParallaxBackground/Up Front" instance=ExtResource( 21 )]
+position = Vector2( 1456, 158 )
+rotation = -0.542591
+scale = Vector2( 0.144846, 0.144846 )
+frame = 1
+
+[node name="CandyCaneScatter" parent="ParallaxBackground/Up Front" instance=ExtResource( 27 )]
+position = Vector2( 3199, 158 )
+rotation = 0.358481
+scale = Vector2( 0.108966, 0.108966 )
+flip_h = true
+frame = 1
+
+[node name="CandyCaneScatter2" parent="ParallaxBackground/Up Front" instance=ExtResource( 27 )]
+position = Vector2( 3076, 146 )
+rotation = -0.221996
+scale = Vector2( 0.108966, 0.108966 )
+flip_h = true
+frame = 1
+
+[node name="BushScatter2" parent="ParallaxBackground/Up Front" instance=ExtResource( 28 )]
+position = Vector2( 3242, 189 )
+rotation = -0.0763424
+frame = 1
+
+[node name="BushScatter3" parent="ParallaxBackground/Up Front" instance=ExtResource( 28 )]
+position = Vector2( 3071, 192 )
+rotation = 0.264091
+frame = 1
+
+[node name="BushScatter4" parent="ParallaxBackground/Up Front" instance=ExtResource( 28 )]
+position = Vector2( 2733, 179 )
+rotation = 0.0184797
+frame = 1
+
+[node name="BushScatter5" parent="ParallaxBackground/Up Front" instance=ExtResource( 28 )]
+position = Vector2( 1834, 181 )
+rotation = 0.215475
+frame = 1
+
+[node name="TallTrees" parent="ParallaxBackground/Up Front" instance=ExtResource( 22 )]
+material = SubResource( 206 )
+position = Vector2( 226.8, 11.3162 )
+tile_data = PoolIntArray( 131058, 9, 0, 65585, 536870923, 0, 65596, 9, 0, 65615, 10, 0, 131091, 11, 0, 131102, 10, 0, 131185, 536870922, 0, 327712, 0, 0 )
+
+[node name="ShortTrees" parent="ParallaxBackground/Up Front" instance=ExtResource( 24 )]
+material = SubResource( 207 )
+position = Vector2( 226.8, 11.3162 )
+tile_data = PoolIntArray( 196603, 536870919, 0, 196620, 536870918, 0, 262184, 6, 0, 262258, 6, 0, 262280, 7, 0 )
+
+[node name="Clouds" parent="ParallaxBackground/Up Front" instance=ExtResource( 20 )]
+position = Vector2( 8, -33 )
+scale = Vector2( 0.4, 0.4 )
+tile_data = PoolIntArray( -589744, 5, 0, -524271, 5, 0, -196609, 2, 0, -262090, 536870914, 0, -262077, 536870917, 0, -196580, 5, 0, -196519, 536870914, 0, -131035, 2, 0, -130951, 2, 0 )
+
+[node name="BushScatter" parent="ParallaxBackground/Up Front" instance=ExtResource( 28 )]
+position = Vector2( 2264, 198 )
+rotation = -0.153575
+frame = 1
+
+[node name="Ground Top" type="Node2D" parent="ParallaxBackground/Up Front"]
+position = Vector2( 429.237, 162.132 )
+scale = Vector2( 0.6375, 0.6375 )
+
+[node name="BackgroundFloors720p" parent="ParallaxBackground/Up Front/Ground Top" instance=ExtResource( 23 )]
+frame = 2
+
+[node name="BackgroundFloors720p4" parent="ParallaxBackground/Up Front/Ground Top" instance=ExtResource( 23 )]
+position = Vector2( 1395.71, 42.1456 )
+rotation = -0.0312642
+frame = 2
+
+[node name="BackgroundFloors720p2" parent="ParallaxBackground/Up Front/Ground Top" instance=ExtResource( 23 )]
+position = Vector2( -719.117, -4.41724 )
+frame = 2
+
+[node name="BackgroundFloors720p5" parent="ParallaxBackground/Up Front/Ground Top" instance=ExtResource( 23 )]
+position = Vector2( 2112.57, 34.3025 )
+frame = 2
+
+[node name="BackgroundFloors720p6" parent="ParallaxBackground/Up Front/Ground Top" instance=ExtResource( 23 )]
+position = Vector2( 2827.86, 37.4398 )
+frame = 5
+
+[node name="BackgroundFloors720p7" parent="ParallaxBackground/Up Front/Ground Top" instance=ExtResource( 23 )]
+position = Vector2( 3538.45, 37.4398 )
+frame = 5
+
+[node name="BackgroundFloors720p8" parent="ParallaxBackground/Up Front/Ground Top" instance=ExtResource( 23 )]
+position = Vector2( 4252.18, 37.4398 )
+frame = 2
+
+[node name="BackgroundFloors720p3" parent="ParallaxBackground/Up Front/Ground Top" instance=ExtResource( 23 )]
+position = Vector2( 718.432, 101.961 )
+rotation = 0.0649407
+offset = Vector2( -7.84314, -73.7255 )
+frame = 5
+
+[node name="GradientBackground2" type="Sprite" parent="ParallaxBackground"]
+position = Vector2( 3247, 238 )
+scale = Vector2( 0.405338, 0.0736979 )
+texture = ExtResource( 29 )
+
+[node name="Underground Behind Scatter" type="Node2D" parent="ParallaxBackground"]
+
+[node name="UndergroundScatter" parent="ParallaxBackground/Underground Behind Scatter" instance=ExtResource( 32 )]
+position = Vector2( 3356, 2571 )
+scale = Vector2( 0.106945, 0.106945 )
+
+[node name="UndergroundScatter2" parent="ParallaxBackground/Underground Behind Scatter" instance=ExtResource( 32 )]
+position = Vector2( 2853, 2330 )
+rotation = 2.74618
+scale = Vector2( 0.158821, 0.158821 )
+frame = 3
+
+[node name="UndergroundScatter3" parent="ParallaxBackground/Underground Behind Scatter" instance=ExtResource( 32 )]
+position = Vector2( 2655, 2495 )
+rotation = -0.140964
+scale = Vector2( 0.120535, 0.120535 )
+frame = 4
+
+[node name="UndergroundScatter4" parent="ParallaxBackground/Underground Behind Scatter" instance=ExtResource( 32 )]
+position = Vector2( 3474, 2392 )
+rotation = 5.29395
+scale = Vector2( 0.085875, 0.085875 )
+frame = 5
+
+[node name="UndergroundScatter5" parent="ParallaxBackground/Underground Behind Scatter" instance=ExtResource( 32 )]
+position = Vector2( 3458, 2292 )
+rotation = 3.7111
+scale = Vector2( 0.131015, 0.131015 )
+frame = 3
+
+[node name="UndergroundScatter7" parent="ParallaxBackground/Underground Behind Scatter" instance=ExtResource( 32 )]
+position = Vector2( 2884, 2156 )
+rotation = -0.398967
+scale = Vector2( 0.112233, 0.112233 )
+frame = 2
+
+[node name="UndergroundScatter6" parent="ParallaxBackground/Underground Behind Scatter" instance=ExtResource( 32 )]
+position = Vector2( 2864, 2199 )
+rotation = 6.31805
+scale = Vector2( 0.0953319, 0.0953319 )
+frame = 3
+
+[node name="UndergroundScatter8" parent="ParallaxBackground/Underground Behind Scatter" instance=ExtResource( 32 )]
+position = Vector2( 2688, 2111 )
+rotation = 8.71516
+scale = Vector2( 0.0744978, 0.0744978 )
+
+[node name="UndergroundScatter9" parent="ParallaxBackground/Underground Behind Scatter" instance=ExtResource( 32 )]
+position = Vector2( 2975, 1963 )
+rotation = 12.6165
+scale = Vector2( 0.0670666, 0.0670666 )
+frame = 1
+
+[node name="UndergroundScatter10" parent="ParallaxBackground/Underground Behind Scatter" instance=ExtResource( 32 )]
+position = Vector2( 2721, 1976 )
+rotation = 12.4387
+scale = Vector2( 0.104165, 0.104165 )
+frame = 4
+
+[node name="UndergroundScatter11" parent="ParallaxBackground/Underground Behind Scatter" instance=ExtResource( 32 )]
+position = Vector2( 3383, 1961 )
+rotation = 12.5509
+scale = Vector2( 0.104165, 0.104165 )
+frame = 5
+
+[node name="UndergroundScatter12" parent="ParallaxBackground/Underground Behind Scatter" instance=ExtResource( 32 )]
+position = Vector2( 3375, 1932 )
+rotation = 12.8075
+scale = Vector2( 0.104165, 0.104165 )
+frame = 2
+
+[node name="UndergroundScatter13" parent="ParallaxBackground/Underground Behind Scatter" instance=ExtResource( 32 )]
+position = Vector2( 3840, 1905 )
+rotation = 11.2382
+scale = Vector2( 0.104165, 0.104165 )
+frame = 4
+
+[node name="UndergroundScatter53" parent="ParallaxBackground/Underground Behind Scatter" instance=ExtResource( 32 )]
+position = Vector2( 3742, 1422 )
+rotation = 8.69583
+scale = Vector2( 0.104165, 0.104165 )
+frame = 5
+
+[node name="UndergroundScatter54" parent="ParallaxBackground/Underground Behind Scatter" instance=ExtResource( 32 )]
+position = Vector2( 3848, 1527 )
+rotation = 11.0222
+scale = Vector2( 0.0692168, 0.0692168 )
+
+[node name="UndergroundScatter14" parent="ParallaxBackground/Underground Behind Scatter" instance=ExtResource( 32 )]
+position = Vector2( 3849, 1937 )
+rotation = 11.527
+scale = Vector2( 0.0788741, 0.0788741 )
+frame = 3
+
+[node name="UndergroundScatter15" parent="ParallaxBackground/Underground Behind Scatter" instance=ExtResource( 32 )]
+position = Vector2( 3550, 2035 )
+rotation = 12.5824
+scale = Vector2( 0.10135, 0.10135 )
+frame = 3
+
+[node name="UndergroundScatter16" parent="ParallaxBackground/Underground Behind Scatter" instance=ExtResource( 32 )]
+position = Vector2( 3506, 1575 )
+rotation = 13.9735
+scale = Vector2( 0.10135, 0.10135 )
+frame = 3
+
+[node name="UndergroundScatter17" parent="ParallaxBackground/Underground Behind Scatter" instance=ExtResource( 32 )]
+position = Vector2( 3154, 1817 )
+rotation = 12.4504
+scale = Vector2( 0.112192, 0.112192 )
+frame = 3
+
+[node name="UndergroundScatter18" parent="ParallaxBackground/Underground Behind Scatter" instance=ExtResource( 32 )]
+position = Vector2( 3186, 1796 )
+rotation = 12.1478
+scale = Vector2( 0.0714141, 0.0714141 )
+frame = 1
+
+[node name="UndergroundScatter19" parent="ParallaxBackground/Underground Behind Scatter" instance=ExtResource( 32 )]
+position = Vector2( 3497, 1700 )
+rotation = 9.16083
+scale = Vector2( 0.0714141, 0.0714141 )
+
+[node name="UndergroundScatter21" parent="ParallaxBackground/Underground Behind Scatter" instance=ExtResource( 32 )]
+position = Vector2( 3188, 1697 )
+rotation = 10.6996
+scale = Vector2( 0.0714141, 0.0714141 )
+
+[node name="UndergroundScatter22" parent="ParallaxBackground/Underground Behind Scatter" instance=ExtResource( 32 )]
+position = Vector2( 2652, 1661 )
+rotation = 13.9251
+scale = Vector2( 0.0714141, 0.0714141 )
+
+[node name="UndergroundScatter23" parent="ParallaxBackground/Underground Behind Scatter" instance=ExtResource( 32 )]
+position = Vector2( 2842, 1757 )
+rotation = 12.5446
+scale = Vector2( 0.10865, 0.10865 )
+frame = 4
+
+[node name="UndergroundScatter24" parent="ParallaxBackground/Underground Behind Scatter" instance=ExtResource( 32 )]
+position = Vector2( 2825, 1748 )
+rotation = 12.9272
+scale = Vector2( 0.10865, 0.10865 )
+frame = 2
+
+[node name="UndergroundScatter25" parent="ParallaxBackground/Underground Behind Scatter" instance=ExtResource( 32 )]
+position = Vector2( 2897, 1194 )
+rotation = 12.0442
+scale = Vector2( 0.106557, 0.106557 )
+flip_h = true
+frame = 2
+
+[node name="UndergroundScatter26" parent="ParallaxBackground/Underground Behind Scatter" instance=ExtResource( 32 )]
+position = Vector2( 2887, 1201 )
+rotation = 11.746
+scale = Vector2( 0.125576, 0.125576 )
+flip_h = true
+frame = 2
+
+[node name="UndergroundScatter20" parent="ParallaxBackground/Underground Behind Scatter" instance=ExtResource( 32 )]
+position = Vector2( 3466, 1776 )
+rotation = 6.49102
+scale = Vector2( 0.0538822, 0.0538822 )
+frame = 1
+
+[node name="UndergroundScatter27" parent="ParallaxBackground/Underground Behind Scatter" instance=ExtResource( 32 )]
+position = Vector2( 2896, 1261 )
+rotation = -0.697361
+scale = Vector2( 0.0743202, 0.0743202 )
+flip_h = true
+
+[node name="UndergroundScatter28" parent="ParallaxBackground/Underground Behind Scatter" instance=ExtResource( 32 )]
+position = Vector2( 2645, 1053 )
+rotation = 2.25701
+scale = Vector2( 0.0743202, 0.0743202 )
+flip_h = true
+
+[node name="UndergroundScatter29" parent="ParallaxBackground/Underground Behind Scatter" instance=ExtResource( 32 )]
+position = Vector2( 2746, 905 )
+rotation = 2.80497
+scale = Vector2( 0.0982748, 0.0982748 )
+flip_h = true
+frame = 3
+
+[node name="UndergroundScatter30" parent="ParallaxBackground/Underground Behind Scatter" instance=ExtResource( 32 )]
+position = Vector2( 3091, 1568 )
+rotation = 4.57467
+scale = Vector2( 0.0982748, 0.0982748 )
+flip_h = true
+frame = 3
+
+[node name="UndergroundScatter31" parent="ParallaxBackground/Underground Behind Scatter" instance=ExtResource( 32 )]
+position = Vector2( 3087, 1605 )
+rotation = 6.4113
+scale = Vector2( 0.0982748, 0.0982748 )
+flip_h = true
+frame = 4
+
+[node name="UndergroundScatter32" parent="ParallaxBackground/Underground Behind Scatter" instance=ExtResource( 32 )]
+position = Vector2( 2944, 1413 )
+rotation = 4.28142
+scale = Vector2( 0.104132, 0.104132 )
+flip_h = true
+frame = 5
+
+[node name="UndergroundScatter33" parent="ParallaxBackground/Underground Behind Scatter" instance=ExtResource( 32 )]
+position = Vector2( 3189, 1264 )
+rotation = 7.26631
+scale = Vector2( 0.082161, 0.082161 )
+flip_h = true
+frame = 5
+
+[node name="UndergroundScatter34" parent="ParallaxBackground/Underground Behind Scatter" instance=ExtResource( 32 )]
+position = Vector2( 3210, 1261 )
+rotation = 6.09109
+scale = Vector2( 0.0475022, 0.0475022 )
+flip_h = true
+frame = 1
+
+[node name="UndergroundScatter35" parent="ParallaxBackground/Underground Behind Scatter" instance=ExtResource( 32 )]
+position = Vector2( 3338, 1261 )
+rotation = 5.93472
+scale = Vector2( 0.0475022, 0.0475022 )
+flip_h = true
+frame = 1
+
+[node name="UndergroundScatter36" parent="ParallaxBackground/Underground Behind Scatter" instance=ExtResource( 32 )]
+position = Vector2( 3245, 1132 )
+rotation = 3.0666
+scale = Vector2( 0.0475022, 0.0475022 )
+flip_h = true
+
+[node name="UndergroundScatter37" parent="ParallaxBackground/Underground Behind Scatter" instance=ExtResource( 32 )]
+position = Vector2( 3838, 930 )
+rotation = 5.0645
+scale = Vector2( 0.101373, 0.101373 )
+flip_h = true
+
+[node name="UndergroundScatter38" parent="ParallaxBackground/Underground Behind Scatter" instance=ExtResource( 32 )]
+position = Vector2( 3582, 891 )
+rotation = 7.90099
+scale = Vector2( 0.130663, 0.130663 )
+flip_h = true
+frame = 3
+
+[node name="UndergroundScatter39" parent="ParallaxBackground/Underground Behind Scatter" instance=ExtResource( 32 )]
+position = Vector2( 3739.67, 633.168 )
+rotation = 9.35146
+scale = Vector2( 0.140187, 0.140187 )
+flip_h = true
+frame = 3
+
+[node name="UndergroundScatter40" parent="ParallaxBackground/Underground Behind Scatter" instance=ExtResource( 32 )]
+position = Vector2( 2799.48, 459.506 )
+rotation = 7.87729
+scale = Vector2( 0.151424, 0.151424 )
+flip_h = true
+frame = 3
+
+[node name="UndergroundScatter42" parent="ParallaxBackground/Underground Behind Scatter" instance=ExtResource( 32 )]
+position = Vector2( 3167, 440 )
+rotation = -2.28461
+scale = Vector2( 0.106053, 0.106053 )
+flip_h = true
+frame = 2
+
+[node name="UndergroundScatter41" parent="ParallaxBackground/Underground Behind Scatter" instance=ExtResource( 32 )]
+position = Vector2( 3149, 412 )
+rotation = 9.44163
+scale = Vector2( 0.106053, 0.106053 )
+flip_h = true
+frame = 3
+
+[node name="UndergroundScatter43" parent="ParallaxBackground/Underground Behind Scatter" instance=ExtResource( 32 )]
+position = Vector2( 3334, 571 )
+rotation = 9.55685
+scale = Vector2( 0.0593291, 0.0593291 )
+flip_h = true
+
+[node name="UndergroundScatter44" parent="ParallaxBackground/Underground Behind Scatter" instance=ExtResource( 32 )]
+position = Vector2( 3378, 649 )
+rotation = 11.997
+scale = Vector2( 0.0536653, 0.0536653 )
+flip_h = true
+frame = 1
+
+[node name="UndergroundScatter45" parent="ParallaxBackground/Underground Behind Scatter" instance=ExtResource( 32 )]
+position = Vector2( 3392, 896 )
+rotation = 12.6312
+scale = Vector2( 0.127284, 0.127284 )
+flip_h = true
+frame = 4
+
+[node name="UndergroundScatter46" parent="ParallaxBackground/Underground Behind Scatter" instance=ExtResource( 32 )]
+position = Vector2( 3401, 936 )
+rotation = 11.8547
+scale = Vector2( 0.0952833, 0.0952833 )
+flip_h = true
+frame = 3
+
+[node name="UndergroundScatter47" parent="ParallaxBackground/Underground Behind Scatter" instance=ExtResource( 32 )]
+position = Vector2( 2656, 1386 )
+rotation = 12.5291
+scale = Vector2( 0.128102, 0.128102 )
+frame = 4
+
+[node name="UndergroundScatter48" parent="ParallaxBackground/Underground Behind Scatter" instance=ExtResource( 32 )]
+position = Vector2( 2729, 152 )
+rotation = 12.5291
+scale = Vector2( 0.128102, 0.128102 )
+frame = 4
+
+[node name="UndergroundScatter49" parent="ParallaxBackground/Underground Behind Scatter" instance=ExtResource( 32 )]
+position = Vector2( 2707, 201 )
+rotation = 13.6662
+scale = Vector2( 0.0895945, 0.0895945 )
+frame = 1
+
+[node name="UndergroundScatter50" parent="ParallaxBackground/Underground Behind Scatter" instance=ExtResource( 32 )]
+position = Vector2( 3750, 262 )
+rotation = 12.0066
+scale = Vector2( 0.0895945, 0.0895945 )
+frame = 5
+
+[node name="UndergroundScatter51" parent="ParallaxBackground/Underground Behind Scatter" instance=ExtResource( 32 )]
+position = Vector2( 3751, 227 )
+rotation = 12.8385
+scale = Vector2( 0.0895945, 0.0895945 )
+frame = 2
+
+[node name="UndergroundScatter52" parent="ParallaxBackground/Underground Behind Scatter" instance=ExtResource( 32 )]
+position = Vector2( 2911, 174 )
+rotation = 12.3914
+scale = Vector2( 0.0552203, 0.0552203 )
+
+[node name="UndergroundBackground" parent="ParallaxBackground" instance=ExtResource( 17 )]
+scale = Vector2( 0.1, 0.1 )
+tile_data = PoolIntArray( 65571, -1073741824, 2, 65572, 0, 196614, 65573, 0, 4, 131107, -1073741824, 327682, 131108, 0, 131077, 131109, 0, 262147, 131111, 0, 2, 131112, 0, 196614, 131113, 0, 4, 131117, 0, 2, 131118, 0, 196614, 131119, 0, 196612, 131120, 0, 196611, 131121, 0, 196611, 131122, 0, 196613, 131123, 0, 5, 196643, -1073741824, 327683, 196644, 0, 131075, 196645, 0, 65537, 196646, 0, 196612, 196647, 0, 131073, 196648, 0, 131076, 196649, 0, 65537, 196650, 0, 196613, 196651, 0, 4, 196653, 0, 327683, 196654, 0, 196608, 196655, 0, 196609, 196656, 0, 196609, 196657, 0, 196608, 196658, 0, 131077, 196659, 0, 65538, 196660, 0, 4, 262179, 0, 327681, 262180, 0, 131078, 262181, 0, 131074, 262182, 0, 196609, 262183, 0, 65539, 262184, 0, 262149, 262185, 0, 262148, 262186, 0, 65542, 262187, 0, 65537, 262188, 0, 196613, 262189, 0, 131073, 262190, 0, 131078, 262191, 0, 131075, 262192, 0, 196608, 262193, 0, 196609, 262194, 0, 196609, 262195, 0, 196609, 262196, 0, 65538, 262197, 0, 5, 327715, 0, 327681, 327716, 0, 196610, 327717, 0, 131074, 327718, 0, 65539, 327719, 0, 65536, 327722, 0, 0, 327723, 0, 262149, 327724, 0, 65542, 327725, 0, 196608, 327726, 0, 196608, 327727, 0, 196608, 327728, 0, 131076, 327729, 0, 196609, 327730, 0, 196610, 327731, 0, 131076, 327732, 0, 196610, 327733, 0, 65537, 327734, 0, 4, 393251, 0, 327681, 393252, 0, 196610, 393253, 0, 131075, 393254, 0, 262145, 393260, 0, 1, 393261, 0, 65542, 393262, 0, 131074, 393263, 0, 196610, 393264, 0, 196608, 393265, 0, 131077, 393266, 0, 131074, 393267, 0, 196609, 393268, 0, 131074, 393269, 0, 196610, 393270, 0, 262147, 458787, 0, 327681, 458788, 0, 131078, 458789, 0, 131074, 458790, 0, 65537, 458791, 0, 5, 458797, 0, 1, 458798, 0, 65541, 458799, 0, 196608, 458800, 0, 131077, 458801, 0, 196609, 458802, 0, 131077, 458803, 0, 131076, 458804, 0, 196608, 458805, 0, 65539, 458806, 0, 65536, 524323, 0, 327681, 524324, 0, 196608, 524325, 0, 131077, 524326, 0, 131077, 524327, 0, 262144, 524334, 0, 1, 524335, 0, 65541, 524336, 0, 65540, 524337, 0, 262150, 524338, 0, 262150, 524339, 0, 262150, 524340, 0, 327680, 524341, 0, 6, 589859, 0, 327681, 589860, 0, 196609, 589861, 0, 131074, 589862, 0, 131076, 589863, 0, 262146, 589871, 0, 327682, 589872, 0, 262145, 655395, 0, 327681, 655396, 0, 131078, 655397, 0, 131077, 655398, 0, 131075, 655399, 0, 65538, 655400, 0, 5, 655406, 0, 2, 655407, 0, 131072, 655408, 0, 65538, 655409, 0, 196613, 655410, 0, 5, 720931, 0, 327683, 720932, 0, 131076, 720933, 0, 196608, 720934, 0, 65539, 720935, 0, 262149, 720936, 0, 65536, 720942, 0, 0, 720943, 0, 65542, 720944, 0, 196609, 720945, 0, 65539, 720946, 0, 65536, 786467, 0, 327683, 786468, 0, 196610, 786469, 0, 65540, 786470, 0, 6, 786479, 0, 327684, 786480, 0, 131078, 786481, 0, 262145, 786485, 0, 2, 786486, 0, 4, 852003, 0, 327681, 852004, 0, 131074, 852005, 0, 262147, 852014, 0, 2, 852015, 0, 131073, 852016, 0, 131075, 852017, 0, 65537, 852018, 0, 5, 852020, 0, 2, 852021, 0, 131073, 852022, 0, 262147, 917539, 0, 0, 917540, 0, 262150, 917541, 0, 6, 917545, 0, 3, 917546, 0, 196613, 917547, 0, 196612, 917548, 0, 196613, 917549, 0, 196613, 917550, 0, 131073, 917551, 0, 196609, 917552, 0, 131077, 917553, 0, 196609, 917554, 0, 65537, 917555, 0, 196612, 917556, 0, 131072, 917557, 0, 131078, 917558, 0, 262147, 983075, 0, 0, 983080, 0, 3, 983081, 0, 131073, 983082, 0, 131076, 983083, 0, 65540, 983084, 0, 262149, 983085, 0, 65541, 983086, 0, 196608, 983087, 0, 196610, 983088, 0, 131078, 983089, 0, 196608, 983090, 0, 131074, 983091, 0, 196609, 983092, 0, 131078, 983093, 0, 131074, 983094, 0, 262147, 1048611, 0, 0, 1048616, 0, 327683, 1048617, 0, 131078, 1048618, 0, 131076, 1048619, 0, 262145, 1048621, 0, 1, 1048622, 0, 65542, 1048623, 0, 196610, 1048624, 0, 131074, 1048625, 0, 196610, 1048626, 0, 196610, 1048627, 0, 131076, 1048628, 0, 196610, 1048629, 0, 131077, 1048630, 0, 262146, 1114152, 0, 327683, 1114153, 0, 131076, 1114154, 0, 196610, 1114155, 0, 65538, 1114156, 0, 5, 1114158, 0, 327683, 1114159, 0, 131077, 1114160, 0, 131076, 1114161, 0, 131077, 1114162, 0, 131077, 1114163, 0, 131077, 1114164, 0, 131075, 1114165, 0, 131078, 1114166, 0, 262146, 1179687, 0, 0, 1179688, 0, 0, 1179689, 0, 131075, 1179690, 0, 196608, 1179691, 0, 196610, 1179692, 0, 65538, 1179693, 0, 196614, 1179694, 0, 131072, 1179695, 0, 196609, 1179696, 0, 196609, 1179697, 0, 196608, 1179698, 0, 131077, 1179699, 0, 131074, 1179700, 0, 131075, 1179701, 0, 196608, 1179702, 0, 262146, 1245224, 0, 1, 1245225, 0, 65542, 1245226, 0, 196609, 1245227, 0, 131074, 1245228, 0, 131075, 1245229, 0, 131077, 1245230, 0, 196608, 1245231, 0, 131074, 1245232, 0, 131075, 1245233, 0, 65540, 1245234, 0, 327680, 1245235, 0, 262148, 1245236, 0, 65542, 1245237, 0, 131077, 1245238, 0, 262146, 1310761, 0, 0, 1310762, 0, 65541, 1310763, 0, 131078, 1310764, 0, 131074, 1310765, 0, 131078, 1310766, 0, 131075, 1310767, 0, 131076, 1310768, 0, 65540, 1310769, 0, 65536, 1310772, 0, 1, 1310773, 0, 65541, 1310774, 0, 262145, 1376291, 0, 0, 1376298, 0, 1, 1376299, 0, 262149, 1376300, 0, 65542, 1376301, 0, 196609, 1376302, 0, 196608, 1376303, 0, 131078, 1376304, 0, 262145, 1376309, 0, 1, 1376310, 0, 65536, 1441827, 0, 0, 1441828, 0, 4, 1441836, 0, 327682, 1441837, 0, 131075, 1441838, 0, 131074, 1441839, 0, 131078, 1441840, 0, 262147, 1507363, 0, 327681, 1507364, 0, 65538, 1507365, 0, 196611, 1507366, 0, 5, 1507372, 0, 327682, 1507373, 0, 131078, 1507374, 0, 131077, 1507375, 0, 196608, 1507376, 0, 262144, 1572899, 0, 327684, 1572900, 0, 131076, 1572901, 0, 131074, 1572902, 0, 65538, 1572903, 0, 5, 1572908, 0, 327684, 1572909, 0, 196608, 1572910, 0, 131077, 1572911, 0, 65540, 1572912, 0, 65536, 1638435, 0, 327682, 1638436, 0, 131077, 1638437, 0, 131077, 1638438, 0, 65540, 1638439, 0, 0, 1638440, 0, 0, 1638441, 0, 196613, 1638442, 0, 196614, 1638443, 0, 196612, 1638444, 0, 131072, 1638445, 0, 131074, 1638446, 0, 65539, 1638447, 0, 65536, 1703971, 0, 327684, 1703972, 0, 196610, 1703973, 0, 65539, 1703974, 0, 65536, 1703976, 0, 1, 1703977, 0, 65541, 1703978, 0, 131074, 1703979, 0, 196609, 1703980, 0, 196610, 1703981, 0, 131075, 1703982, 0, 262145, 1703989, 0, 3, 1703990, 0, 5, 1769507, 0, 327682, 1769508, 0, 131075, 1769509, 0, 262145, 1769513, 0, 327683, 1769514, 0, 131075, 1769515, 0, 196610, 1769516, 0, 196610, 1769517, 0, 131077, 1769518, 0, 65537, 1769519, 0, 196611, 1769520, 0, 4, 1769524, 0, 3, 1769525, 0, 131073, 1769526, 0, 262145, 1835043, 0, 1, 1835044, 0, 65542, 1835045, 0, 262147, 1835049, 0, 327682, 1835050, 0, 196610, 1835051, 0, 131077, 1835052, -1073741824, 131076, 1835053, -1073741824, 196610, 1835054, -1073741824, 131076, 1835055, 0, 131076, 1835056, 0, 65538, 1835057, 0, 196612, 1835058, 0, 196612, 1835059, 0, 196611, 1835060, 0, 131072, 1835061, 0, 196609, 1835062, 0, 262147, 1900580, 0, 1, 1900581, 0, 6, 1900584, 0, 3, 1900585, 0, 131073, 1900586, 0, 196609, 1900587, -1073741824, 131077, 1900588, 0, 131075, 1900589, 0, 131076, 1900590, -1073741824, 131077, 1900591, 0, 196610, 1900592, 0, 131077, 1900593, 0, 196608, 1900594, 0, 196608, 1900595, 0, 196608, 1900596, 0, 131074, 1900597, 0, 131076, 1900598, -1073741824, 262146, 1966119, 0, 3, 1966120, 0, 131072, 1966121, 0, 196608, 1966122, 0, 131074, 1966123, -1073741824, 196610, 1966124, -1073741824, 196609, 1966125, -1073741824, 131075, 1966126, -1073741824, 196609, 1966127, -1073741824, 196609, 1966128, 0, 131076, 1966129, 0, 131078, 1966130, 0, 131077, 1966131, 0, 131077, 1966132, 0, 131078, 1966133, 0, 196608, 1966134, 0, 65538, 1966135, 0, 4, 2031651, 0, 3, 2031652, 0, 196611, 2031653, 0, 196611, 2031654, 0, 196614, 2031655, 1610612736, 0, 2031656, 0, 262148, 2031657, 0, 327680, 2031658, 0, 262148, 2031659, 0, 262149, 2031660, 0, 262149, 2031661, 0, 262148, 2031662, 0, 262150, 2031663, 0, 262149, 2031664, 0, 65542, 2031665, 0, 196608, 2031666, 0, 131076, 2031667, 0, 131075, 2031668, 0, 196609, 2031669, 0, 131077, 2031670, 0, 131075, 2031671, 0, 262146, 2097187, 0, 327682, 2097188, 0, 131077, 2097189, 0, 65539, 2097190, 0, 262148, 2097191, 0, 65536, 2097200, 0, 327682, 2097201, 0, 131075, 2097202, 0, 196608, 2097203, 0, 196610, 2097204, 0, 196608, 2097205, 0, 131077, 2097206, 0, 131077, 2097207, 0, 262145, 2162723, 0, 327681, 2162724, 0, 65539, 2162725, 0, 6, 2162736, 0, 327681, 2162737, 0, 196610, 2162738, 0, 131078, 2162739, 0, 131078, 2162740, 0, 131076, 2162741, 0, 196608, 2162742, 0, 131075, 2162743, 0, 262144, 2228259, 0, 0, 2228260, 0, 6, 2228271, 0, 2, 2228272, 0, 131072, 2228273, 0, 196608, 2228274, 0, 131076, 2228275, 0, 196608, 2228276, 0, 131078, 2228277, 0, 131076, 2228278, 0, 196609, 2228279, 0, 262146, 2293806, 0, 2, 2293807, 0, 131072, 2293808, 0, 131075, 2293809, 0, 131078, 2293810, 0, 196609, 2293811, 0, 131078, 2293812, 0, 131078, 2293813, 0, 131074, 2293814, 0, 131076, 2293815, 0, 262147, 2359331, 0, 3, 2359332, 0, 196613, 2359333, 0, 196614, 2359334, 0, 196613, 2359335, 0, 196611, 2359336, 0, 196612, 2359337, 0, 196614, 2359338, 0, 5, 2359342, 0, 1, 2359343, 0, 262150, 2359344, 0, 262150, 2359345, 0, 262149, 2359346, 0, 262149, 2359347, 0, 262149, 2359348, 0, 262150, 2359349, 0, 262148, 2359350, 0, 327680, 2359351, 0, 65536, 2424867, 0, 327682, 2424868, 0, 196609, 2424869, 0, 131075, 2424870, 0, 196609, 2424871, 0, 131077, 2424872, 0, 131075, 2424873, 0, 196609, 2424874, 0, 262145, 2490403, 0, 1, 2490404, 0, 65542, 2490405, 0, 131077, 2490406, 0, 131076, 2490407, 0, 131077, 2490408, 0, 131078, 2490409, 0, 131077, 2490410, 0, 65537, 2490411, 0, 4, 2555940, 0, 0, 2555941, 0, 262148, 2555942, 0, 262148, 2555943, 0, 327680, 2555944, 0, 262150, 2555945, 0, 262150, 2555946, 0, 262148, 2555947, 0, 0, 2555948, 0, 0 )
+
+[node name="UndergroundBackground2" parent="ParallaxBackground" instance=ExtResource( 17 )]
+scale = Vector2( 0.1, 0.1 )
+tile_data = PoolIntArray( 65571, -1073741824, 2, 65572, 0, 196614, 65573, 0, 4, 131107, -1073741824, 327682, 131108, 0, 131077, 131109, 0, 262147, 131111, 0, 2, 131112, 0, 196614, 131113, 0, 4, 131117, 0, 2, 131118, 0, 196614, 131119, 0, 196612, 131120, 0, 196611, 131121, 0, 196611, 131122, 0, 196613, 131123, 0, 5, 196643, -1073741824, 327683, 196644, 0, 131075, 196645, 0, 65537, 196646, 0, 196612, 196647, 0, 131073, 196648, 0, 131076, 196649, 0, 65537, 196650, 0, 196613, 196651, 0, 4, 196653, 0, 327683, 196654, 0, 196608, 196655, 0, 196609, 196656, 0, 196609, 196657, 0, 196608, 196658, 0, 131077, 196659, 0, 65538, 196660, 0, 4, 262179, 0, 327681, 262180, 0, 131078, 262181, 0, 131074, 262182, 0, 196609, 262183, 0, 65539, 262184, 0, 262149, 262185, 0, 262148, 262186, 0, 65542, 262187, 0, 65537, 262188, 0, 196613, 262189, 0, 131073, 262190, 0, 131078, 262191, 0, 131075, 262192, 0, 196608, 262193, 0, 196609, 262194, 0, 196609, 262195, 0, 196609, 262196, 0, 65538, 262197, 0, 5, 327715, 0, 327681, 327716, 0, 196610, 327717, 0, 131074, 327718, 0, 65539, 327719, 0, 65536, 327722, 0, 0, 327723, 0, 262149, 327724, 0, 65542, 327725, 0, 196608, 327726, 0, 196608, 327727, 0, 196608, 327728, 0, 131076, 327729, 0, 196609, 327730, 0, 196610, 327731, 0, 131076, 327732, 0, 196610, 327733, 0, 65537, 327734, 0, 4, 393251, 0, 327681, 393252, 0, 196610, 393253, 0, 131075, 393254, 0, 262145, 393260, 0, 1, 393261, 0, 65542, 393262, 0, 131074, 393263, 0, 196610, 393264, 0, 196608, 393265, 0, 131077, 393266, 0, 131074, 393267, 0, 196609, 393268, 0, 131074, 393269, 0, 196610, 393270, 0, 262147, 458787, 0, 327681, 458788, 0, 131078, 458789, 0, 131074, 458790, 0, 65537, 458791, 0, 5, 458797, 0, 1, 458798, 0, 65541, 458799, 0, 196608, 458800, 0, 131077, 458801, 0, 196609, 458802, 0, 131077, 458803, 0, 131076, 458804, 0, 196608, 458805, 0, 65539, 458806, 0, 65536, 524323, 0, 327681, 524324, 0, 196608, 524325, 0, 131077, 524326, 0, 131077, 524327, 0, 262144, 524334, 0, 1, 524335, 0, 65541, 524336, 0, 65540, 524337, 0, 262150, 524338, 0, 262150, 524339, 0, 262150, 524340, 0, 327680, 524341, 0, 6, 589859, 0, 327681, 589860, 0, 196609, 589861, 0, 131074, 589862, 0, 131076, 589863, 0, 262146, 589871, 0, 327682, 589872, 0, 262145, 655395, 0, 327681, 655396, 0, 131078, 655397, 0, 131077, 655398, 0, 131075, 655399, 0, 65538, 655400, 0, 5, 655406, 0, 2, 655407, 0, 131072, 655408, 0, 65538, 655409, 0, 196613, 655410, 0, 5, 720931, 0, 327683, 720932, 0, 131076, 720933, 0, 196608, 720934, 0, 65539, 720935, 0, 262149, 720936, 0, 65536, 720942, 0, 0, 720943, 0, 65542, 720944, 0, 196609, 720945, 0, 65539, 720946, 0, 65536, 786467, 0, 327683, 786468, 0, 196610, 786469, 0, 65540, 786470, 0, 6, 786479, 0, 327684, 786480, 0, 131078, 786481, 0, 262145, 786485, 0, 2, 786486, 0, 4, 852003, 0, 327681, 852004, 0, 131074, 852005, 0, 262147, 852014, 0, 2, 852015, 0, 131073, 852016, 0, 131075, 852017, 0, 65537, 852018, 0, 5, 852020, 0, 2, 852021, 0, 131073, 852022, 0, 262147, 917539, 0, 0, 917540, 0, 262150, 917541, 0, 6, 917545, 0, 3, 917546, 0, 196613, 917547, 0, 196612, 917548, 0, 196613, 917549, 0, 196613, 917550, 0, 131073, 917551, 0, 196609, 917552, 0, 131077, 917553, 0, 196609, 917554, 0, 65537, 917555, 0, 196612, 917556, 0, 131072, 917557, 0, 131078, 917558, 0, 262147, 983075, 0, 0, 983080, 0, 3, 983081, 0, 131073, 983082, 0, 131076, 983083, 0, 65540, 983084, 0, 262149, 983085, 0, 65541, 983086, 0, 196608, 983087, 0, 196610, 983088, 0, 131078, 983089, 0, 196608, 983090, 0, 131074, 983091, 0, 196609, 983092, 0, 131078, 983093, 0, 131074, 983094, 0, 262147, 1048611, 0, 0, 1048616, 0, 327683, 1048617, 0, 131078, 1048618, 0, 131076, 1048619, 0, 262145, 1048621, 0, 1, 1048622, 0, 65542, 1048623, 0, 196610, 1048624, 0, 131074, 1048625, 0, 196610, 1048626, 0, 196610, 1048627, 0, 131076, 1048628, 0, 196610, 1048629, 0, 131077, 1048630, 0, 262146, 1114152, 0, 327683, 1114153, 0, 131076, 1114154, 0, 196610, 1114155, 0, 65538, 1114156, 0, 5, 1114158, 0, 327683, 1114159, 0, 131077, 1114160, 0, 131076, 1114161, 0, 131077, 1114162, 0, 131077, 1114163, 0, 131077, 1114164, 0, 131075, 1114165, 0, 131078, 1114166, 0, 262146, 1179687, 0, 0, 1179688, 0, 0, 1179689, 0, 131075, 1179690, 0, 196608, 1179691, 0, 196610, 1179692, 0, 65538, 1179693, 0, 196614, 1179694, 0, 131072, 1179695, 0, 196609, 1179696, 0, 196609, 1179697, 0, 196608, 1179698, 0, 131077, 1179699, 0, 131074, 1179700, 0, 131075, 1179701, 0, 196608, 1179702, 0, 262146, 1245224, 0, 1, 1245225, 0, 65542, 1245226, 0, 196609, 1245227, 0, 131074, 1245228, 0, 131075, 1245229, 0, 131077, 1245230, 0, 196608, 1245231, 0, 131074, 1245232, 0, 131075, 1245233, 0, 65540, 1245234, 0, 327680, 1245235, 0, 262148, 1245236, 0, 65542, 1245237, 0, 131077, 1245238, 0, 262146, 1310761, 0, 0, 1310762, 0, 65541, 1310763, 0, 131078, 1310764, 0, 131074, 1310765, 0, 131078, 1310766, 0, 131075, 1310767, 0, 131076, 1310768, 0, 65540, 1310769, 0, 65536, 1310772, 0, 1, 1310773, 0, 65541, 1310774, 0, 262145, 1376291, 0, 0, 1376298, 0, 1, 1376299, 0, 262149, 1376300, 0, 65542, 1376301, 0, 196609, 1376302, 0, 196608, 1376303, 0, 131078, 1376304, 0, 262145, 1376309, 0, 1, 1376310, 0, 65536, 1441827, 0, 0, 1441828, 0, 4, 1441836, 0, 327682, 1441837, 0, 131075, 1441838, 0, 131074, 1441839, 0, 131078, 1441840, 0, 262147, 1507363, 0, 327681, 1507364, 0, 65538, 1507365, 0, 196611, 1507366, 0, 5, 1507372, 0, 327682, 1507373, 0, 131078, 1507374, 0, 131077, 1507375, 0, 196608, 1507376, 0, 262144, 1572899, 0, 327684, 1572900, 0, 131076, 1572901, 0, 131074, 1572902, 0, 65538, 1572903, 0, 5, 1572908, 0, 327684, 1572909, 0, 196608, 1572910, 0, 131077, 1572911, 0, 65540, 1572912, 0, 65536, 1638435, 0, 327682, 1638436, 0, 131077, 1638437, 0, 131077, 1638438, 0, 65540, 1638439, 0, 0, 1638440, 0, 0, 1638441, 0, 196613, 1638442, 0, 196614, 1638443, 0, 196612, 1638444, 0, 131072, 1638445, 0, 131074, 1638446, 0, 65539, 1638447, 0, 65536, 1703971, 0, 327684, 1703972, 0, 196610, 1703973, 0, 65539, 1703974, 0, 65536, 1703976, 0, 1, 1703977, 0, 65541, 1703978, 0, 131074, 1703979, 0, 196609, 1703980, 0, 196610, 1703981, 0, 131075, 1703982, 0, 262145, 1703989, 0, 3, 1703990, 0, 5, 1769507, 0, 327682, 1769508, 0, 131075, 1769509, 0, 262145, 1769513, 0, 327683, 1769514, 0, 131075, 1769515, 0, 196610, 1769516, 0, 196610, 1769517, 0, 131077, 1769518, 0, 65537, 1769519, 0, 196611, 1769520, 0, 4, 1769524, 0, 3, 1769525, 0, 131073, 1769526, 0, 262145, 1835043, 0, 1, 1835044, 0, 65542, 1835045, 0, 262147, 1835049, 0, 327682, 1835050, 0, 196610, 1835051, 0, 131077, 1835052, -1073741824, 131076, 1835053, -1073741824, 196610, 1835054, -1073741824, 131076, 1835055, 0, 131076, 1835056, 0, 65538, 1835057, 0, 196612, 1835058, 0, 196612, 1835059, 0, 196611, 1835060, 0, 131072, 1835061, 0, 196609, 1835062, 0, 262147, 1900580, 0, 1, 1900581, 0, 6, 1900584, 0, 3, 1900585, 0, 131073, 1900586, 0, 196609, 1900587, -1073741824, 131077, 1900588, 0, 131075, 1900589, 0, 131076, 1900590, -1073741824, 131077, 1900591, 0, 196610, 1900592, 0, 131077, 1900593, 0, 196608, 1900594, 0, 196608, 1900595, 0, 196608, 1900596, 0, 131074, 1900597, 0, 131076, 1900598, -1073741824, 262146, 1966119, 0, 3, 1966120, 0, 131072, 1966121, 0, 196608, 1966122, 0, 131074, 1966123, -1073741824, 196610, 1966124, -1073741824, 196609, 1966125, -1073741824, 131075, 1966126, -1073741824, 196609, 1966127, -1073741824, 196609, 1966128, 0, 131076, 1966129, 0, 131078, 1966130, 0, 131077, 1966131, 0, 131077, 1966132, 0, 131078, 1966133, 0, 196608, 1966134, 0, 65538, 1966135, 0, 4, 2031651, 0, 3, 2031652, 0, 196611, 2031653, 0, 196611, 2031654, 0, 196614, 2031655, 1610612736, 0, 2031656, 0, 262148, 2031657, 0, 327680, 2031658, 0, 262148, 2031659, 0, 262149, 2031660, 0, 262149, 2031661, 0, 262148, 2031662, 0, 262150, 2031663, 0, 262149, 2031664, 0, 65542, 2031665, 0, 196608, 2031666, 0, 131076, 2031667, 0, 131075, 2031668, 0, 196609, 2031669, 0, 131077, 2031670, 0, 131075, 2031671, 0, 262146, 2097187, 0, 327682, 2097188, 0, 131077, 2097189, 0, 65539, 2097190, 0, 262148, 2097191, 0, 65536, 2097200, 0, 327682, 2097201, 0, 131075, 2097202, 0, 196608, 2097203, 0, 196610, 2097204, 0, 196608, 2097205, 0, 131077, 2097206, 0, 131077, 2097207, 0, 262145, 2162723, 0, 327681, 2162724, 0, 65539, 2162725, 0, 6, 2162736, 0, 327681, 2162737, 0, 196610, 2162738, 0, 131078, 2162739, 0, 131078, 2162740, 0, 131076, 2162741, 0, 196608, 2162742, 0, 131075, 2162743, 0, 262144, 2228259, 0, 0, 2228260, 0, 6, 2228271, 0, 2, 2228272, 0, 131072, 2228273, 0, 196608, 2228274, 0, 131076, 2228275, 0, 196608, 2228276, 0, 131078, 2228277, 0, 131076, 2228278, 0, 196609, 2228279, 0, 262146, 2293806, 0, 2, 2293807, 0, 131072, 2293808, 0, 131075, 2293809, 0, 131078, 2293810, 0, 196609, 2293811, 0, 131078, 2293812, 0, 131078, 2293813, 0, 131074, 2293814, 0, 131076, 2293815, 0, 262147, 2359331, 0, 3, 2359332, 0, 196613, 2359333, 0, 196614, 2359334, 0, 196613, 2359335, 0, 196611, 2359336, 0, 196612, 2359337, 0, 196614, 2359338, 0, 5, 2359342, 0, 1, 2359343, 0, 262150, 2359344, 0, 262150, 2359345, 0, 262149, 2359346, 0, 262149, 2359347, 0, 262149, 2359348, 0, 262150, 2359349, 0, 262148, 2359350, 0, 327680, 2359351, 0, 65536, 2424867, 0, 327682, 2424868, 0, 196609, 2424869, 0, 131075, 2424870, 0, 196609, 2424871, 0, 131077, 2424872, 0, 131075, 2424873, 0, 196609, 2424874, 0, 262145, 2490403, 0, 1, 2490404, 0, 65542, 2490405, 0, 131077, 2490406, 0, 131076, 2490407, 0, 131077, 2490408, 0, 131078, 2490409, 0, 131077, 2490410, 0, 65537, 2490411, 0, 4, 2555940, 0, 0, 2555941, 0, 262148, 2555942, 0, 262148, 2555943, 0, 327680, 2555944, 0, 262150, 2555945, 0, 262150, 2555946, 0, 262148, 2555947, 0, 0, 2555948, 0, 0 )
+
+[node name="Main Scatter" type="Node2D" parent="ParallaxBackground"]
+
+[node name="Set 1" parent="ParallaxBackground/Main Scatter" instance=ExtResource( 21 )]
+position = Vector2( 2691, 2163 )
+rotation = 0.449703
+scale = Vector2( 0.0738313, 0.0738313 )
+
+[node name="MintScatter" parent="ParallaxBackground/Main Scatter/Set 1" instance=ExtResource( 26 )]
+position = Vector2( 327.222, 369.727 )
+rotation = -0.387015
+scale = Vector2( 0.659236, 0.659236 )
+
+[node name="JelloScatter" parent="ParallaxBackground/Main Scatter/Set 1" instance=ExtResource( 25 )]
+position = Vector2( 905.659, 179.329 )
+rotation = -0.272625
+scale = Vector2( 0.498947, 0.498947 )
+
+[node name="Set 2" parent="ParallaxBackground/Main Scatter" instance=ExtResource( 27 )]
+position = Vector2( 2652, 2048 )
+rotation = 0.609242
+scale = Vector2( 0.0706246, 0.0706246 )
+
+[node name="CandyCaneScatter" parent="ParallaxBackground/Main Scatter/Set 2" instance=ExtResource( 27 )]
+position = Vector2( -157.063, -142.65 )
+rotation = -0.342282
+scale = Vector2( 1.16683, 1.16683 )
+
+[node name="BushScatter" parent="ParallaxBackground/Main Scatter/Set 2" instance=ExtResource( 28 )]
+position = Vector2( -28.4688, 174.045 )
+rotation = -0.331896
+scale = Vector2( 0.631034, 0.631034 )
+
+[node name="Set 3" parent="ParallaxBackground/Main Scatter" instance=ExtResource( 30 )]
+position = Vector2( 3853, 2101 )
+rotation = -0.134205
+scale = Vector2( 0.0929826, 0.0929814 )
+
+[node name="LollipopScatter4" parent="ParallaxBackground/Main Scatter/Set 3" instance=ExtResource( 21 )]
+position = Vector2( -275.444, -221.773 )
+rotation = -0.137317
+scale = Vector2( 0.826933, 0.826933 )
+flip_h = true
+
+[node name="CherryScatter" parent="ParallaxBackground/Main Scatter/Set 3" instance=ExtResource( 31 )]
+position = Vector2( -321.174, -0.157227 )
+rotation = -0.233208
+scale = Vector2( 0.440797, 0.440797 )
+
+[node name="Set 1 R" parent="ParallaxBackground/Main Scatter" instance=ExtResource( 21 )]
+position = Vector2( 3612, 2361 )
+rotation = -0.647314
+scale = Vector2( 0.0664943, 0.0664943 )
+flip_h = true
+
+[node name="JelloScatter3" parent="ParallaxBackground/Main Scatter/Set 1 R" instance=ExtResource( 25 )]
+position = Vector2( -734.714, 193.422 )
+rotation = 0.352062
+scale = Vector2( 0.498947, 0.498947 )
+
+[node name="MintScatter3" parent="ParallaxBackground/Main Scatter/Set 1 R" instance=ExtResource( 26 )]
+position = Vector2( -340.522, 394.148 )
+rotation = 0.360873
+scale = Vector2( 0.659236, 0.659236 )
+
+[node name="Set 2 R" parent="ParallaxBackground/Main Scatter" instance=ExtResource( 27 )]
+position = Vector2( 3703, 2303 )
+rotation = -0.304022
+scale = Vector2( 0.0852011, 0.0852011 )
+flip_h = true
+
+[node name="CandyCaneScatter8" parent="ParallaxBackground/Main Scatter/Set 2 R" instance=ExtResource( 27 )]
+position = Vector2( -88.1445, 226.984 )
+rotation = -0.539882
+scale = Vector2( 1.16683, 1.16683 )
+flip_h = true
+
+[node name="BushScatter4" parent="ParallaxBackground/Main Scatter/Set 2 R" instance=ExtResource( 28 )]
+position = Vector2( -116.785, 402.273 )
+rotation = 0.133218
+scale = Vector2( 0.631034, 0.631034 )
+flip_h = true
+
+[node name="Set 3 R" parent="ParallaxBackground/Main Scatter" instance=ExtResource( 30 )]
+position = Vector2( 3260, 1587 )
+rotation = 0.37872
+scale = Vector2( 0.0886814, 0.0886814 )
+
+[node name="LollipopScatter4" parent="ParallaxBackground/Main Scatter/Set 3 R" instance=ExtResource( 21 )]
+position = Vector2( 295.368, -266.391 )
+rotation = 0.4501
+scale = Vector2( 0.826933, 0.826933 )
+flip_h = true
+
+[node name="CherryScatter" parent="ParallaxBackground/Main Scatter/Set 3 R" instance=ExtResource( 31 )]
+position = Vector2( 210.494, -51.0527 )
+rotation = -0.242269
+scale = Vector2( 0.440797, 0.440797 )
+
+[node name="Set 1 D" parent="ParallaxBackground/Main Scatter" instance=ExtResource( 21 )]
+position = Vector2( 2644, 1739 )
+rotation = 0.449703
+scale = Vector2( 0.0738313, 0.0738313 )
+
+[node name="MintScatter" parent="ParallaxBackground/Main Scatter/Set 1 D" instance=ExtResource( 26 )]
+position = Vector2( 327.222, 369.727 )
+rotation = -0.387015
+scale = Vector2( 0.659236, 0.659236 )
+
+[node name="JelloScatter" parent="ParallaxBackground/Main Scatter/Set 1 D" instance=ExtResource( 25 )]
+position = Vector2( 905.659, 179.329 )
+rotation = -0.272625
+scale = Vector2( 0.498947, 0.498947 )
+
+[node name="Set 1 D2" parent="ParallaxBackground/Main Scatter" instance=ExtResource( 21 )]
+position = Vector2( 2642, 285 )
+rotation = 0.449703
+scale = Vector2( 0.0738313, 0.0738313 )
+
+[node name="MintScatter" parent="ParallaxBackground/Main Scatter/Set 1 D2" instance=ExtResource( 26 )]
+position = Vector2( 327.222, 369.727 )
+rotation = -0.387015
+scale = Vector2( 0.659236, 0.659236 )
+
+[node name="JelloScatter" parent="ParallaxBackground/Main Scatter/Set 1 D2" instance=ExtResource( 25 )]
+position = Vector2( 905.659, 179.329 )
+rotation = -0.272625
+scale = Vector2( 0.498947, 0.498947 )
+
+[node name="Set 1 D3" parent="ParallaxBackground/Main Scatter" instance=ExtResource( 21 )]
+position = Vector2( 2879, 760 )
+rotation = 0.449703
+scale = Vector2( 0.0738313, 0.0738313 )
+
+[node name="MintScatter" parent="ParallaxBackground/Main Scatter/Set 1 D3" instance=ExtResource( 26 )]
+position = Vector2( 327.222, 369.727 )
+rotation = -0.387015
+scale = Vector2( 0.659236, 0.659236 )
+
+[node name="JelloScatter" parent="ParallaxBackground/Main Scatter/Set 1 D3" instance=ExtResource( 25 )]
+position = Vector2( 905.659, 179.329 )
+rotation = -0.272625
+scale = Vector2( 0.498947, 0.498947 )
+
+[node name="Set 2 D" parent="ParallaxBackground/Main Scatter" instance=ExtResource( 27 )]
+position = Vector2( 3594, 1161 )
+rotation = 0.609242
+scale = Vector2( 0.0706246, 0.0706246 )
+
+[node name="CandyCaneScatter" parent="ParallaxBackground/Main Scatter/Set 2 D" instance=ExtResource( 27 )]
+position = Vector2( -157.063, -142.65 )
+rotation = -0.342282
+scale = Vector2( 1.16683, 1.16683 )
+
+[node name="BushScatter" parent="ParallaxBackground/Main Scatter/Set 2 D" instance=ExtResource( 28 )]
+position = Vector2( -28.4688, 174.045 )
+rotation = -0.331896
+scale = Vector2( 0.631034, 0.631034 )
+
+[node name="Set 2 D2" parent="ParallaxBackground/Main Scatter" instance=ExtResource( 27 )]
+visible = false
+position = Vector2( 2744, 406 )
+rotation = 0.609242
+scale = Vector2( 0.0706246, 0.0706246 )
+
+[node name="CandyCaneScatter" parent="ParallaxBackground/Main Scatter/Set 2 D2" instance=ExtResource( 27 )]
+position = Vector2( -157.063, -142.65 )
+rotation = -0.342282
+scale = Vector2( 1.16683, 1.16683 )
+
+[node name="BushScatter" parent="ParallaxBackground/Main Scatter/Set 2 D2" instance=ExtResource( 28 )]
+position = Vector2( -28.4688, 174.045 )
+rotation = -0.331896
+scale = Vector2( 0.631034, 0.631034 )
+
+[node name="Set 2 D5" parent="ParallaxBackground/Main Scatter" instance=ExtResource( 27 )]
+position = Vector2( 2667, 631 )
+rotation = 0.423812
+scale = Vector2( 0.0857629, 0.0857629 )
+
+[node name="CandyCaneScatter" parent="ParallaxBackground/Main Scatter/Set 2 D5" instance=ExtResource( 27 )]
+position = Vector2( -157.063, -142.65 )
+rotation = -0.342282
+scale = Vector2( 1.16683, 1.16683 )
+
+[node name="BushScatter" parent="ParallaxBackground/Main Scatter/Set 2 D5" instance=ExtResource( 28 )]
+position = Vector2( -27.4883, 165.901 )
+rotation = -0.331896
+scale = Vector2( 0.631034, 0.631034 )
+
+[node name="Set 2 D3" parent="ParallaxBackground/Main Scatter" instance=ExtResource( 27 )]
+position = Vector2( 3356, 83.9999 )
+rotation = 0.609242
+scale = Vector2( 0.0706246, 0.0706246 )
+
+[node name="CandyCaneScatter" parent="ParallaxBackground/Main Scatter/Set 2 D3" instance=ExtResource( 27 )]
+position = Vector2( -157.063, -142.65 )
+rotation = -0.342282
+scale = Vector2( 1.16683, 1.16683 )
+
+[node name="BushScatter" parent="ParallaxBackground/Main Scatter/Set 2 D3" instance=ExtResource( 28 )]
+position = Vector2( -28.4688, 174.045 )
+rotation = -0.331896
+scale = Vector2( 0.631034, 0.631034 )
+
+[node name="Set 2 D4" parent="ParallaxBackground/Main Scatter" instance=ExtResource( 27 )]
+position = Vector2( 3698, 1957 )
+rotation = 0.609242
+scale = Vector2( 0.0706246, 0.0706246 )
+
+[node name="CandyCaneScatter" parent="ParallaxBackground/Main Scatter/Set 2 D4" instance=ExtResource( 27 )]
+position = Vector2( -157.063, -142.65 )
+rotation = -0.342282
+scale = Vector2( 1.16683, 1.16683 )
+
+[node name="BushScatter" parent="ParallaxBackground/Main Scatter/Set 2 D4" instance=ExtResource( 28 )]
+position = Vector2( -28.4688, 174.045 )
+rotation = -0.331896
+scale = Vector2( 0.631034, 0.631034 )
+
+[node name="Set 3 D" parent="ParallaxBackground/Main Scatter" instance=ExtResource( 30 )]
+position = Vector2( 3473, 1166 )
+rotation = -0.177695
+scale = Vector2( 0.0699377, 0.0699368 )
+
+[node name="LollipopScatter4" parent="ParallaxBackground/Main Scatter/Set 3 D" instance=ExtResource( 21 )]
+position = Vector2( -275.444, -221.773 )
+rotation = -0.137317
+scale = Vector2( 0.826933, 0.826933 )
+flip_h = true
+
+[node name="CherryScatter" parent="ParallaxBackground/Main Scatter/Set 3 D" instance=ExtResource( 31 )]
+position = Vector2( -321.174, -0.157227 )
+rotation = -0.233208
+scale = Vector2( 0.440797, 0.440797 )
+
+[node name="Set 3 D2" parent="ParallaxBackground/Main Scatter" instance=ExtResource( 30 )]
+position = Vector2( 3468, 599 )
+rotation = -0.177695
+scale = Vector2( 0.0873397, 0.0873385 )
+
+[node name="LollipopScatter4" parent="ParallaxBackground/Main Scatter/Set 3 D2" instance=ExtResource( 21 )]
+position = Vector2( -275.444, -221.773 )
+rotation = -0.137317
+scale = Vector2( 0.826933, 0.826933 )
+flip_h = true
+
+[node name="CherryScatter" parent="ParallaxBackground/Main Scatter/Set 3 D2" instance=ExtResource( 31 )]
+position = Vector2( -321.174, -0.157227 )
+rotation = -0.233208
+scale = Vector2( 0.440797, 0.440797 )
+
+[node name="Set 3 D3" parent="ParallaxBackground/Main Scatter" instance=ExtResource( 30 )]
+position = Vector2( 3000, 130 )
+rotation = -0.177695
+scale = Vector2( 0.0873397, 0.0873385 )
+
+[node name="LollipopScatter4" parent="ParallaxBackground/Main Scatter/Set 3 D3" instance=ExtResource( 21 )]
+position = Vector2( -275.444, -221.773 )
+rotation = -0.137317
+scale = Vector2( 0.826933, 0.826933 )
+flip_h = true
+
+[node name="CherryScatter" parent="ParallaxBackground/Main Scatter/Set 3 D3" instance=ExtResource( 31 )]
+position = Vector2( -321.174, -0.157227 )
+rotation = -0.233208
+scale = Vector2( 0.440797, 0.440797 )
+
+[node name="Set 3 D4" parent="ParallaxBackground/Main Scatter" instance=ExtResource( 30 )]
+position = Vector2( 3000, 130 )
+rotation = -0.177695
+scale = Vector2( 0.0873397, 0.0873385 )
+
+[node name="LollipopScatter4" parent="ParallaxBackground/Main Scatter/Set 3 D4" instance=ExtResource( 21 )]
+position = Vector2( -275.444, -221.773 )
+rotation = -0.137317
+scale = Vector2( 0.826933, 0.826933 )
+flip_h = true
+
+[node name="CherryScatter" parent="ParallaxBackground/Main Scatter/Set 3 D4" instance=ExtResource( 31 )]
+position = Vector2( -321.174, -0.157227 )
+rotation = -0.233208
+scale = Vector2( 0.440797, 0.440797 )
+
+[node name="Set 1 R D" parent="ParallaxBackground/Main Scatter" instance=ExtResource( 21 )]
+position = Vector2( 3849, 192 )
+rotation = -0.647314
+scale = Vector2( 0.0664943, 0.0664943 )
+flip_h = true
+
+[node name="JelloScatter3" parent="ParallaxBackground/Main Scatter/Set 1 R D" instance=ExtResource( 25 )]
+position = Vector2( -734.714, 193.422 )
+rotation = 0.352062
+scale = Vector2( 0.498947, 0.498947 )
+
+[node name="MintScatter3" parent="ParallaxBackground/Main Scatter/Set 1 R D" instance=ExtResource( 26 )]
+position = Vector2( -340.522, 394.148 )
+rotation = 0.360873
+scale = Vector2( 0.659236, 0.659236 )
+
+[node name="Set 2 R D" parent="ParallaxBackground/Main Scatter" instance=ExtResource( 27 )]
+position = Vector2( 3334, 675 )
+rotation = -0.236641
+scale = Vector2( 0.0567932, 0.0567932 )
+flip_h = true
+
+[node name="CandyCaneScatter8" parent="ParallaxBackground/Main Scatter/Set 2 R D" instance=ExtResource( 27 )]
+position = Vector2( -88.1445, 226.984 )
+rotation = -0.539882
+scale = Vector2( 1.16683, 1.16683 )
+flip_h = true
+
+[node name="BushScatter4" parent="ParallaxBackground/Main Scatter/Set 2 R D" instance=ExtResource( 28 )]
+position = Vector2( -116.785, 402.273 )
+rotation = 0.133218
+scale = Vector2( 0.631034, 0.631034 )
+flip_h = true
+
+[node name="Set 3 R D" parent="ParallaxBackground/Main Scatter" instance=ExtResource( 30 )]
+position = Vector2( 3258, 1024 )
+rotation = 0.37872
+scale = Vector2( 0.0886814, 0.0886814 )
+
+[node name="LollipopScatter4" parent="ParallaxBackground/Main Scatter/Set 3 R D" instance=ExtResource( 21 )]
+position = Vector2( 295.368, -266.391 )
+rotation = 0.4501
+scale = Vector2( 0.826933, 0.826933 )
+flip_h = true
+
+[node name="CherryScatter" parent="ParallaxBackground/Main Scatter/Set 3 R D" instance=ExtResource( 31 )]
+position = Vector2( 210.494, -51.0527 )
+rotation = -0.242269
+scale = Vector2( 0.440797, 0.440797 )
+
+[node name="Set 3 R D2" parent="ParallaxBackground/Main Scatter" instance=ExtResource( 30 )]
+position = Vector2( 3257, -9.99997 )
+rotation = 0.37872
+scale = Vector2( 0.0886814, 0.0886814 )
+
+[node name="LollipopScatter4" parent="ParallaxBackground/Main Scatter/Set 3 R D2" instance=ExtResource( 21 )]
+position = Vector2( 295.368, -266.391 )
+rotation = 0.4501
+scale = Vector2( 0.826933, 0.826933 )
+flip_h = true
+
+[node name="CherryScatter" parent="ParallaxBackground/Main Scatter/Set 3 R D2" instance=ExtResource( 31 )]
+position = Vector2( 210.494, -51.0527 )
+rotation = -0.242269
+scale = Vector2( 0.440797, 0.440797 )
 
 [node name="ParallaxLayer" type="Node2D" parent="."]
 
@@ -957,152 +3014,194 @@ scale = Vector2( 0.14, 0.14 )
 tile_set = SubResource( 197 )
 tile_data = PoolIntArray( -327627, 3, 8, -327626, 3, 262155, -327625, 3, 10, -327624, 3, 262153, -327623, 3, 262153, -327622, 3, 262154, -327621, 3, 10, -327620, 3, 262153, -327619, 3, 262153, -327618, 3, 262154, -327617, 3, 262154, -327616, 3, 262153, -327615, 3, 10, -327614, 3, 10, -327613, 3, 10, -327612, 3, 262155, -327611, 3, 10, -327610, 3, 10, -327609, 3, 10, -327608, 3, 262154, -327607, 3, 10, -327606, 3, 262155, -327605, 3, 10, -327604, 3, 262155, -327603, 3, 262153, -327602, 3, 262154, -327601, 3, 262154, -327600, 3, 262153, -327599, 3, 262153, -327598, 3, 10, -327597, 3, 10, -327596, 3, 11, -262091, 3, 65544, -262090, 3, 131081, -262089, 3, 131081, -262088, 3, 131081, -262087, 3, 131081, -262086, 3, 131081, -262085, 3, 131081, -262084, 3, 131081, -262083, 3, 131081, -262082, 3, 131081, -262081, 3, 131081, -262080, 3, 131081, -262079, 3, 131081, -262078, 3, 131081, -262077, 3, 131081, -262076, 3, 131081, -262075, 3, 131081, -262074, 3, 131081, -262073, 3, 131081, -262072, 3, 131081, -262071, 3, 131081, -262070, 3, 131081, -262069, 3, 131081, -262068, 3, 131081, -262067, 3, 131081, -262066, 3, 131081, -262065, 3, 131081, -262064, 3, 131081, -262063, 3, 131081, -262062, 3, 131081, -262061, 3, 131081, -262060, 3, 131083, -196555, 3, 65544, -196554, 3, 131081, -196553, 3, 131078, -196552, 3, 196617, -196551, 3, 196617, -196550, 3, 196617, -196549, 3, 196617, -196548, 3, 196617, -196547, 3, 196617, -196546, 3, 196617, -196545, 3, 196617, -196544, 3, 196617, -196543, 3, 196617, -196542, 3, 196617, -196541, 3, 196617, -196540, 3, 196617, -196539, 3, 196617, -196538, 3, 196617, -196537, 3, 196617, -196536, 3, 196617, -196535, 3, 196617, -196534, 3, 196617, -196533, 3, 196617, -196532, 3, 196617, -196531, 3, 196617, -196530, 3, 196617, -196529, 3, 196617, -196528, 3, 196617, -196527, 3, 196617, -196526, 3, 131077, -196525, 3, 131081, -196524, 3, 131083, -131019, 3, 65544, -131018, 3, 131081, -131017, 3, 131083, -130990, 3, 65544, -130989, 3, 131081, -130988, 3, 131083, -65483, 3, 65544, -65482, 3, 131081, -65481, 3, 131083, -65454, 3, 65544, -65453, 3, 131081, -65452, 3, 131083, 53, 3, 65544, 54, 3, 131081, 55, 3, 131083, 82, 3, 65544, 83, 3, 131081, 84, 3, 131083, 65589, 3, 65544, 65590, 3, 131081, 65591, 3, 131083, 65618, 3, 65544, 65619, 3, 131081, 65620, 3, 131083, 131125, 3, 65544, 131126, 3, 131081, 131127, 3, 131083, 131154, 3, 65544, 131155, 3, 131081, 131156, 3, 131083, 196661, 3, 65544, 196662, 3, 131081, 196663, 3, 131083, 196674, 2, 8, 196675, 2, 10, 196676, 2, 11, 196690, 3, 65544, 196691, 3, 131081, 196692, 3, 131083, 262197, 3, 65544, 262198, 3, 131081, 262199, 3, 131083, 262210, 2, 65544, 262211, 2, 131081, 262212, 2, 65542, 262213, 2, 11, 262226, 3, 65544, 262227, 3, 131081, 262228, 3, 131083, 327733, 3, 65544, 327734, 3, 131081, 327735, 3, 131083, 327745, 2, 8, 327746, 2, 65541, 327747, 2, 131081, 327748, 2, 131081, 327749, 2, 65542, 327750, 2, 11, 327762, 3, 65544, 327763, 3, 131081, 327764, 3, 131083, 393269, 3, 65544, 393270, 3, 131081, 393271, 3, 131083, 393280, 2, 8, 393281, 2, 65541, 393282, 2, 131081, 393283, 2, 131081, 393284, 2, 131081, 393285, 2, 131081, 393286, 2, 65542, 393287, 2, 10, 393288, 2, 262153, 393289, 2, 262155, 393290, 2, 262153, 393291, 2, 262154, 393292, 2, 10, 393293, 2, 262154, 393294, 2, 11, 393298, 3, 65544, 393299, 3, 131081, 393300, 3, 131083, 458805, 3, 65544, 458806, 3, 131081, 458807, 3, 131083, 458814, 2, 8, 458815, 2, 262154, 458816, 2, 65541, 458817, 2, 131081, 458818, 2, 131081, 458819, 2, 131081, 458820, 2, 131081, 458821, 2, 131081, 458822, 2, 131078, 458823, 2, 196617, 458824, 2, 196617, 458825, 2, 196617, 458826, 2, 196617, 458827, 2, 196617, 458828, 2, 196617, 458829, 2, 196617, 458830, 2, 196619, 458834, 3, 65544, 458835, 3, 131081, 458836, 3, 131083, 524341, 3, 65544, 524342, 3, 131081, 524343, 3, 131083, 524349, 2, 8, 524350, 2, 65541, 524351, 2, 131081, 524352, 2, 131081, 524353, 2, 131081, 524354, 2, 131081, 524355, 2, 131081, 524356, 2, 131081, 524357, 2, 131081, 524358, 2, 131083, 524370, 3, 65544, 524371, 3, 131081, 524372, 3, 131083, 589877, 3, 65544, 589878, 3, 131081, 589879, 3, 131083, 589885, 2, 196616, 589886, 2, 131077, 589887, 2, 131081, 589888, 2, 131081, 589889, 2, 131081, 589890, 2, 131081, 589891, 2, 131081, 589892, 2, 131081, 589893, 2, 131081, 589894, 2, 131083, 589904, 2, 8, 589905, 2, 262155, 589906, 2, 65541, 589907, 3, 131081, 589908, 3, 131083, 655413, 3, 65544, 655414, 3, 131081, 655415, 3, 131083, 655422, 2, 196616, 655423, 2, 196617, 655424, 2, 196617, 655425, 2, 196617, 655426, 2, 196617, 655427, 2, 196617, 655428, 2, 196617, 655429, 2, 131077, 655430, 2, 131083, 655440, 2, 65544, 655441, 3, 131081, 655442, 3, 131081, 655443, 3, 131081, 655444, 3, 131083, 720949, 3, 65544, 720950, 3, 131081, 720951, 2, 65542, 720952, 2, 262155, 720953, 2, 11, 720965, 2, 65544, 720966, 2, 131083, 720969, 2, 8, 720970, 2, 262154, 720971, 2, 10, 720972, 2, 262153, 720973, 2, 10, 720974, 2, 262155, 720975, 2, 262155, 720976, 2, 65541, 720977, 3, 131081, 720978, 3, 131081, 720979, 3, 131081, 720980, 3, 131083, 786485, 2, 65544, 786486, 2, 131081, 786487, 2, 131081, 786488, 2, 131081, 786489, 2, 131083, 786501, 2, 65544, 786502, 2, 131083, 786505, 2, 196616, 786506, 2, 196617, 786507, 2, 196617, 786508, 2, 196617, 786509, 2, 196617, 786510, 2, 196617, 786511, 2, 196617, 786512, 2, 196617, 786513, 2, 196617, 786514, 2, 131077, 786515, 3, 131081, 786516, 3, 131083, 852021, 2, 65544, 852022, 2, 131081, 852023, 2, 131081, 852024, 2, 131081, 852025, 2, 65542, 852026, 2, 11, 852037, 2, 65544, 852038, 2, 131083, 852050, 3, 65544, 852051, 3, 131081, 852052, 3, 131083, 917557, 2, 65544, 917558, 2, 131081, 917559, 2, 131081, 917560, 2, 131081, 917561, 2, 131081, 917562, 2, 131083, 917573, 2, 65544, 917574, 2, 131083, 917586, 3, 65544, 917587, 3, 131081, 917588, 3, 131083, 983093, 3, 65544, 983094, 3, 131081, 983095, 2, 131078, 983096, 2, 196617, 983097, 2, 196617, 983098, 2, 196619, 983109, 2, 196616, 983110, 2, 196619, 983122, 3, 65544, 983123, 3, 131081, 983124, 3, 131083, 1048629, 3, 65544, 1048630, 3, 131081, 1048631, 3, 131083, 1048650, 2, 8, 1048651, 2, 10, 1048652, 2, 262153, 1048653, 2, 262155, 1048654, 2, 11, 1048658, 3, 65544, 1048659, 3, 131081, 1048660, 3, 131083, 1114165, 3, 65544, 1114166, 3, 131081, 1114167, 3, 131083, 1114184, 2, 8, 1114185, 2, 262154, 1114186, 2, 65541, 1114187, 2, 131081, 1114188, 2, 131081, 1114189, 2, 131081, 1114190, 2, 131083, 1114194, 3, 65544, 1114195, 3, 131081, 1114196, 3, 131083, 1179701, 3, 65544, 1179702, 3, 131081, 1179703, 2, 65542, 1179704, 2, 10, 1179705, 2, 262155, 1179706, 2, 10, 1179707, 2, 262153, 1179708, 2, 11, 1179719, 2, 8, 1179720, 2, 65541, 1179721, 2, 131081, 1179722, 2, 131081, 1179723, 2, 131081, 1179724, 2, 131081, 1179725, 2, 131081, 1179726, 2, 131083, 1179730, 3, 65544, 1179731, 3, 131081, 1179732, 3, 131083, 1245237, 3, 65544, 1245238, 3, 131081, 1245239, 2, 131081, 1245240, 2, 131081, 1245241, 2, 131081, 1245242, 2, 131081, 1245243, 2, 131081, 1245244, 2, 131083, 1245254, 2, 8, 1245255, 2, 65541, 1245256, 2, 131081, 1245257, 2, 131081, 1245258, 2, 131081, 1245259, 2, 131081, 1245260, 2, 131081, 1245261, 2, 131081, 1245262, 2, 131083, 1245266, 3, 65544, 1245267, 3, 131081, 1245268, 3, 131083, 1310773, 3, 65544, 1310774, 3, 131081, 1310775, 2, 131081, 1310776, 2, 131081, 1310777, 2, 131081, 1310778, 2, 131081, 1310779, 2, 131081, 1310780, 2, 131083, 1310790, 2, 65544, 1310791, 2, 131081, 1310792, 2, 131081, 1310793, 2, 131081, 1310794, 2, 131081, 1310795, 2, 131081, 1310796, 2, 131081, 1310797, 2, 131081, 1310798, 2, 131083, 1310802, 3, 65544, 1310803, 3, 131081, 1310804, 3, 131083, 1376309, 3, 65544, 1376310, 3, 131081, 1376311, 2, 131081, 1376312, 2, 131081, 1376313, 2, 131081, 1376314, 2, 131081, 1376315, 2, 131081, 1376316, 2, 65542, 1376317, 2, 10, 1376318, 2, 11, 1376326, 2, 196616, 1376327, 2, 196617, 1376328, 2, 196617, 1376329, 2, 196617, 1376330, 2, 196617, 1376331, 2, 196617, 1376332, 2, 196617, 1376333, 2, 196617, 1376334, 2, 196619, 1376338, 3, 65544, 1376339, 3, 131081, 1376340, 3, 131083, 1441845, 3, 65544, 1441846, 3, 131081, 1441847, 2, 131078, 1441848, 2, 196617, 1441849, 2, 196617, 1441850, 2, 196617, 1441851, 2, 196617, 1441852, 2, 196617, 1441853, 2, 196617, 1441854, 2, 196619, 1441874, 3, 65544, 1441875, 3, 131081, 1441876, 3, 131083, 1507381, 3, 65544, 1507382, 3, 131081, 1507383, 3, 131083, 1507410, 3, 65544, 1507411, 3, 131081, 1507412, 3, 131083, 1572917, 3, 65544, 1572918, 3, 131081, 1572919, 3, 131083, 1572927, 2, 8, 1572928, 2, 262153, 1572929, 2, 10, 1572930, 2, 262154, 1572931, 2, 10, 1572932, 2, 11, 1572946, 3, 65544, 1572947, 3, 131081, 1572948, 3, 131083, 1638453, 3, 65544, 1638454, 3, 131081, 1638455, 3, 131083, 1638463, 2, 65544, 1638464, 2, 131081, 1638465, 2, 131081, 1638466, 2, 131081, 1638467, 2, 131081, 1638468, 2, 131083, 1638482, 3, 65544, 1638483, 3, 131081, 1638484, 3, 131083, 1703989, 3, 65544, 1703990, 3, 131081, 1703991, 3, 131083, 1703999, 2, 65544, 1704000, 2, 131081, 1704001, 2, 131081, 1704002, 2, 131081, 1704003, 2, 131081, 1704004, 2, 65542, 1704005, 2, 11, 1704018, 3, 65544, 1704019, 3, 131081, 1704020, 3, 131083, 1769525, 3, 65544, 1769526, 3, 131081, 1769527, 3, 131083, 1769535, 2, 196616, 1769536, 2, 196617, 1769537, 2, 196617, 1769538, 2, 196617, 1769539, 2, 196617, 1769540, 2, 196617, 1769541, 2, 196619, 1769554, 3, 65544, 1769555, 3, 131081, 1769556, 3, 131083, 1835061, 3, 65544, 1835062, 3, 131081, 1835063, 3, 131083, 1835082, 2, 8, 1835083, 2, 11, 1835090, 3, 65544, 1835091, 3, 131081, 1835092, 3, 131083, 1900597, 3, 65544, 1900598, 3, 131081, 1900599, 3, 131083, 1900617, 2, 8, 1900618, 2, 65541, 1900619, 2, 65542, 1900620, 2, 11, 1900626, 3, 65544, 1900627, 3, 131081, 1900628, 3, 131083, 1966133, 3, 65544, 1966134, 3, 131081, 1966135, 3, 131083, 1966153, 2, 65544, 1966154, 2, 131081, 1966155, 2, 131081, 1966156, 2, 131083, 1966162, 3, 65544, 1966163, 3, 131081, 1966164, 3, 131083, 2031669, 3, 65544, 2031670, 3, 131081, 2031671, 3, 131083, 2031676, 3, 8, 2031677, 3, 10, 2031678, 3, 10, 2031679, 3, 262155, 2031680, 3, 262154, 2031681, 3, 262154, 2031682, 3, 262153, 2031683, 3, 262155, 2031684, 3, 10, 2031685, 3, 262155, 2031686, 3, 262153, 2031687, 3, 262155, 2031688, 3, 262154, 2031689, 3, 65541, 2031690, 3, 131081, 2031691, 3, 131081, 2031692, 3, 65542, 2031693, 3, 262154, 2031694, 3, 262154, 2031695, 3, 262155, 2031696, 3, 262154, 2031697, 3, 262155, 2031698, 3, 65541, 2031699, 3, 131081, 2031700, 3, 131083, 2097205, 3, 65544, 2097206, 3, 131081, 2097207, 3, 131083, 2097212, 3, 65544, 2097213, 3, 131081, 2097214, 3, 131081, 2097215, 3, 131081, 2097216, 3, 131081, 2097217, 3, 131081, 2097218, 3, 131081, 2097219, 3, 131081, 2097220, 3, 131081, 2097221, 3, 131081, 2097222, 3, 131081, 2097223, 3, 131081, 2097224, 3, 131081, 2097225, 3, 131081, 2097226, 3, 131081, 2097227, 3, 131081, 2097228, 3, 131081, 2097229, 3, 131081, 2097230, 3, 131081, 2097231, 3, 131081, 2097232, 3, 131081, 2097233, 3, 131081, 2097234, 3, 131081, 2097235, 3, 131081, 2097236, 3, 131083, 2162741, 3, 65544, 2162742, 3, 131081, 2162743, 3, 131083, 2162748, 3, 196616, 2162749, 3, 196617, 2162750, 3, 196617, 2162751, 3, 196617, 2162752, 3, 196617, 2162753, 3, 196617, 2162754, 3, 131077, 2162755, 3, 131081, 2162756, 3, 131078, 2162757, 3, 196617, 2162758, 3, 196617, 2162759, 3, 196617, 2162760, 3, 196617, 2162761, 3, 196617, 2162762, 3, 196617, 2162763, 3, 196617, 2162764, 3, 196617, 2162765, 3, 196617, 2162766, 3, 196617, 2162767, 3, 196617, 2162768, 3, 196617, 2162769, 3, 196617, 2162770, 3, 131077, 2162771, 3, 131081, 2162772, 3, 131083, 2228277, 3, 65544, 2228278, 3, 131081, 2228279, 3, 131083, 2228290, 3, 65544, 2228291, 3, 131081, 2228292, 3, 131083, 2228306, 3, 65544, 2228307, 3, 131081, 2228308, 3, 131083, 2293813, 3, 65544, 2293814, 3, 131081, 2293815, 3, 131083, 2293826, 3, 65544, 2293827, 3, 131081, 2293828, 3, 131083, 2293842, 3, 65544, 2293843, 3, 131081, 2293844, 3, 131083, 2359349, 3, 65544, 2359350, 3, 131081, 2359351, 3, 131083, 2359362, 3, 65544, 2359363, 3, 131081, 2359364, 3, 131083, 2359378, 3, 65544, 2359379, 3, 131081, 2359380, 3, 131083, 2424885, 3, 65544, 2424886, 3, 131081, 2424887, 3, 131083, 2424898, 3, 65544, 2424899, 3, 131081, 2424900, 3, 131083, 2424914, 3, 65544, 2424915, 3, 131081, 2424916, 3, 131083, 2490421, 3, 65544, 2490422, 3, 131081, 2490423, 3, 131083, 2490434, 3, 65544, 2490435, 3, 131081, 2490436, 3, 65542, 2490437, 3, 262153, 2490438, 3, 262153, 2490439, 3, 262154, 2490440, 3, 262154, 2490441, 3, 262155, 2490442, 3, 11, 2490450, 3, 65544, 2490451, 3, 131081, 2490452, 3, 131083, 2555957, 3, 65544, 2555958, 3, 131081, 2555959, 3, 131083, 2555970, 3, 196616, 2555971, 3, 196617, 2555972, 3, 196617, 2555973, 3, 196617, 2555974, 3, 196617, 2555975, 3, 196617, 2555976, 3, 196617, 2555977, 3, 196617, 2555978, 3, 196619, 2555986, 3, 65544, 2555987, 3, 131081, 2555988, 3, 131083, 2621493, 3, 65544, 2621494, 3, 131081, 2621495, 3, 131083, 2621522, 3, 65544, 2621523, 3, 131081, 2621524, 3, 131083, 2687029, 3, 65544, 2687030, 3, 131081, 2687031, 3, 131083, 2687058, 3, 65544, 2687059, 3, 131081, 2687060, 3, 131083, 2752565, 3, 65544, 2752566, 3, 131081, 2752567, 3, 65542, 2752568, 3, 262155, 2752569, 3, 10, 2752570, 3, 262153, 2752571, 3, 262153, 2752572, 3, 10, 2752573, 3, 262155, 2752574, 3, 262155, 2752575, 3, 262155, 2752576, 3, 262153, 2752577, 3, 11, 2752581, 3, 8, 2752582, 3, 262155, 2752583, 3, 262154, 2752584, 3, 10, 2752585, 3, 11, 2752594, 3, 65544, 2752595, 3, 131081, 2752596, 3, 131083, 2818101, 3, 65544, 2818102, 3, 131081, 2818103, 3, 131078, 2818104, 3, 196617, 2818105, 3, 196617, 2818106, 3, 196617, 2818107, 3, 196617, 2818108, 3, 196617, 2818109, 3, 196617, 2818110, 3, 196617, 2818111, 3, 196617, 2818112, 3, 196617, 2818113, 3, 196619, 2818117, 3, 196616, 2818118, 3, 196617, 2818119, 3, 196617, 2818120, 3, 196617, 2818121, 3, 196619, 2818130, 3, 65544, 2818131, 3, 131081, 2818132, 3, 131083, 2883637, 3, 65544, 2883638, 3, 131081, 2883639, 3, 131083, 2883666, 3, 65544, 2883667, 3, 131081, 2883668, 3, 131083, 2949173, 3, 65544, 2949174, 3, 131081, 2949175, 3, 131083, 2949196, 3, 8, 2949197, 3, 11, 2949202, 3, 65544, 2949203, 3, 131081, 2949204, 3, 131083, 3014709, 3, 65544, 3014710, 3, 131081, 3014711, 3, 131083, 3014718, 3, 8, 3014719, 3, 262153, 3014720, 3, 262153, 3014721, 3, 262154, 3014722, 3, 262153, 3014723, 3, 262155, 3014724, 3, 10, 3014725, 3, 262154, 3014726, 3, 262154, 3014727, 3, 262153, 3014728, 3, 262153, 3014729, 3, 11, 3014732, 3, 65544, 3014733, 3, 65542, 3014734, 3, 262155, 3014735, 3, 11, 3014738, 3, 65544, 3014739, 3, 131081, 3014740, 3, 131083, 3080245, 3, 65544, 3080246, 3, 131081, 3080247, 3, 131083, 3080254, 3, 65544, 3080255, 3, 131081, 3080256, 3, 131081, 3080257, 3, 131081, 3080258, 3, 131081, 3080259, 3, 131081, 3080260, 3, 131081, 3080261, 3, 131081, 3080262, 3, 131081, 3080263, 3, 131081, 3080264, 3, 131081, 3080265, 3, 131083, 3080268, 3, 65544, 3080269, 3, 131081, 3080270, 3, 131078, 3080271, 3, 196619, 3080274, 3, 65544, 3080275, 3, 131081, 3080276, 3, 131083, 3145781, 3, 65544, 3145782, 3, 131081, 3145783, 3, 65542, 3145784, 3, 11, 3145790, 3, 196616, 3145791, 3, 196617, 3145792, 3, 196617, 3145793, 3, 196617, 3145794, 3, 196617, 3145795, 3, 196617, 3145796, 3, 196617, 3145797, 3, 196617, 3145798, 3, 196617, 3145799, 3, 196617, 3145800, 3, 196617, 3145801, 3, 196619, 3145804, 3, 196616, 3145805, 3, 196617, 3145806, 3, 196619, 3145810, 3, 65544, 3145811, 3, 131081, 3145812, 3, 131083, 3211317, 3, 65544, 3211318, 3, 131081, 3211319, 3, 131081, 3211320, 3, 131083, 3211345, 3, 8, 3211346, 3, 65541, 3211347, 3, 131081, 3211348, 3, 131083, 3276853, 3, 65544, 3276854, 3, 131081, 3276855, 3, 131081, 3276856, 3, 131083, 3276880, 3, 8, 3276881, 3, 65541, 3276882, 3, 131081, 3276883, 3, 131081, 3276884, 3, 131083, 3342389, 3, 65544, 3342390, 3, 131081, 3342391, 3, 131081, 3342392, 3, 65542, 3342393, 3, 10, 3342394, 3, 262155, 3342395, 3, 262153, 3342396, 3, 262155, 3342397, 3, 262155, 3342398, 3, 262153, 3342399, 3, 262153, 3342400, 3, 10, 3342401, 3, 262154, 3342402, 3, 262153, 3342403, 3, 262154, 3342404, 3, 262154, 3342405, 3, 262154, 3342406, 3, 262154, 3342407, 3, 262155, 3342408, 3, 11, 3342415, 3, 8, 3342416, 3, 65545, 3342417, 3, 196617, 3342418, 3, 196617, 3342419, 3, 196617, 3342420, 3, 196619, 3407925, 3, 65544, 3407926, 3, 131081, 3407927, 3, 131078, 3407928, 3, 196617, 3407929, 3, 196617, 3407930, 3, 196617, 3407931, 3, 196617, 3407932, 3, 196617, 3407933, 3, 196617, 3407934, 3, 196617, 3407935, 3, 196617, 3407936, 3, 196617, 3407937, 3, 196617, 3407938, 3, 196617, 3407939, 3, 196617, 3407940, 3, 196617, 3407941, 3, 196617, 3407942, 3, 196617, 3407943, 3, 196617, 3407944, 3, 196619, 3407951, 3, 65544, 3407952, 3, 131083, 3473461, 3, 65544, 3473462, 3, 131081, 3473463, 3, 131083, 3473487, 3, 65544, 3473488, 3, 131083, 3538997, 3, 65544, 3538998, 3, 131081, 3538999, 3, 131083, 3539021, 3, 8, 3539022, 3, 262155, 3539023, 3, 65541, 3539024, 3, 131083, 3604533, 3, 65544, 3604534, 3, 131081, 3604535, 3, 131083, 3604553, 3, 8, 3604554, 3, 262155, 3604555, 3, 10, 3604556, 3, 262153, 3604557, 3, 65541, 3604558, 3, 131078, 3604559, 3, 196617, 3604560, 3, 196619, 3670069, 3, 65544, 3670070, 3, 131081, 3670071, 3, 131083, 3670089, 3, 196616, 3670090, 3, 196617, 3670091, 3, 196617, 3670092, 3, 196617, 3670093, 3, 196617, 3670094, 3, 196619, 3735605, 3, 65544, 3735606, 3, 131081, 3735607, 3, 131083, 3801141, 3, 65544, 3801142, 3, 131081, 3801143, 3, 131083, 3866677, 3, 65544, 3866678, 3, 131081, 3866679, 3, 131083, 3866687, 3, 8, 3866688, 3, 262153, 3866689, 3, 262155, 3866690, 3, 262154, 3866691, 3, 10, 3866692, 3, 262153, 3866693, 3, 262153, 3866694, 3, 10, 3866695, 3, 262153, 3866696, 3, 10, 3866697, 3, 10, 3866698, 3, 10, 3866699, 3, 10, 3866700, 3, 262155, 3866701, 3, 262153, 3866702, 3, 262153, 3866703, 3, 262154, 3866704, 3, 10, 3866705, 3, 10, 3866706, 3, 10, 3866707, 3, 262153, 3866708, 3, 11, 3932213, 3, 65544, 3932214, 3, 131081, 3932215, 3, 131083, 3932223, 3, 65544, 3932224, 3, 131081, 3932225, 3, 131081, 3932226, 3, 131081, 3932227, 3, 131081, 3932228, 3, 131081, 3932229, 3, 131081, 3932230, 3, 131081, 3932231, 3, 131081, 3932232, 3, 131081, 3932233, 3, 131081, 3932234, 3, 131081, 3932235, 3, 131081, 3932236, 3, 131081, 3932237, 3, 131081, 3932238, 3, 131081, 3932239, 3, 131081, 3932240, 3, 131081, 3932241, 3, 131081, 3932242, 3, 131081, 3932243, 3, 131081, 3932244, 3, 131083, 3997749, 3, 65544, 3997750, 3, 131081, 3997751, 3, 131083, 3997759, 3, 65544, 3997760, 3, 131081, 3997761, 3, 131081, 3997762, 3, 131081, 3997763, 3, 131081, 3997764, 3, 131081, 3997765, 3, 131081, 3997766, 3, 131081, 3997767, 3, 131081, 3997768, 3, 131081, 3997769, 3, 131081, 3997770, 3, 131081, 3997771, 3, 131081, 3997772, 3, 131081, 3997773, 3, 131081, 3997774, 3, 131081, 3997775, 3, 131081, 3997776, 3, 131081, 3997777, 3, 131081, 3997778, 3, 131081, 3997779, 3, 131081, 3997780, 3, 131083, 4063285, 3, 65544, 4063286, 3, 131081, 4063287, 3, 131083, 4063295, 3, 65544, 4063296, 3, 131081, 4063297, 3, 131081, 4063298, 3, 131081, 4063299, 3, 131081, 4063300, 3, 131081, 4063301, 3, 131081, 4063302, 3, 131081, 4063303, 3, 131081, 4063304, 3, 131081, 4063305, 3, 131081, 4063306, 3, 131081, 4063307, 3, 131081, 4063308, 3, 131081, 4063309, 3, 131081, 4063310, 3, 131081, 4063311, 3, 131081, 4063312, 3, 131081, 4063313, 3, 131081, 4063314, 3, 131081, 4063315, 3, 131081, 4063316, 3, 131083, 4128821, 3, 65544, 4128822, 3, 131081, 4128823, 3, 65542, 4128824, 3, 10, 4128825, 3, 262155, 4128826, 3, 262154, 4128827, 3, 262153, 4128828, 3, 262154, 4128829, 3, 262155, 4128830, 3, 262153, 4128831, 3, 65541, 4128832, 3, 131081, 4128833, 3, 131081, 4128834, 3, 131081, 4128835, 3, 131081, 4128836, 3, 131081, 4128837, 3, 131081, 4128838, 3, 131081, 4128839, 3, 131081, 4128840, 3, 131081, 4128841, 3, 131081, 4128842, 3, 131081, 4128843, 3, 131081, 4128844, 3, 131081, 4128845, 3, 131081, 4128846, 3, 131081, 4128847, 3, 131081, 4128848, 3, 131081, 4128849, 3, 131081, 4128850, 3, 131081, 4128851, 3, 131081, 4128852, 3, 131083, 4194357, 3, 65544, 4194358, 3, 131081, 4194359, 3, 131081, 4194360, 3, 131081, 4194361, 3, 131081, 4194362, 3, 131081, 4194363, 3, 131081, 4194364, 3, 131081, 4194365, 3, 131081, 4194366, 3, 131081, 4194367, 3, 131081, 4194368, 3, 131081, 4194369, 3, 131081, 4194370, 3, 131081, 4194371, 3, 131081, 4194372, 3, 131081, 4194373, 3, 131081, 4194374, 3, 131081, 4194375, 3, 131081, 4194376, 3, 131081, 4194377, 3, 131081, 4194378, 3, 131081, 4194379, 3, 131081, 4194380, 3, 131081, 4194381, 3, 131081, 4194382, 3, 131081, 4194383, 3, 131081, 4194384, 3, 131081, 4194385, 3, 131081, 4194386, 3, 131081, 4194387, 3, 131081, 4194388, 3, 131083, 4259893, 3, 196616, 4259894, 3, 196617, 4259895, 3, 196617, 4259896, 3, 196617, 4259897, 3, 196617, 4259898, 3, 196617, 4259899, 3, 196617, 4259900, 3, 196617, 4259901, 3, 196617, 4259902, 3, 196617, 4259903, 3, 196617, 4259904, 3, 196617, 4259905, 3, 196617, 4259906, 3, 196617, 4259907, 3, 196617, 4259908, 3, 196617, 4259909, 3, 196617, 4259910, 3, 196617, 4259911, 3, 196617, 4259912, 3, 196617, 4259913, 3, 196617, 4259914, 3, 196617, 4259915, 3, 196617, 4259916, 3, 196617, 4259917, 3, 196617, 4259918, 3, 196617, 4259919, 3, 196617, 4259920, 3, 196617, 4259921, 3, 196617, 4259922, 3, 196617, 4259923, 3, 196617, 4259924, 3, 196619 )
 
-[node name="DarkZone" type="Sprite" parent="."]
+[node name="Fuck me" type="Node2D" parent="."]
 position = Vector2( 2769.99, 2780.46 )
 scale = Vector2( 0.375021, 0.540169 )
+
+[node name="DarkZone" type="Sprite" parent="Fuck me"]
 z_index = 2
 texture = ExtResource( 4 )
 
-[node name="1platform" parent="." instance=ExtResource( 9 )]
-position = Vector2( 3372, 2472 )
+[node name="1platform" parent="Fuck me" instance=ExtResource( 9 )]
+position = Vector2( 1605.27, -571.043 )
+scale = Vector2( 5.33303, 3.70254 )
 
-[node name="Spikes" parent="." instance=ExtResource( 6 )]
-position = Vector2( 3223, 2203 )
+[node name="Spikes" parent="Fuck me" instance=ExtResource( 6 )]
+position = Vector2( 1207.96, -1069.04 )
+scale = Vector2( 2.66652, 1.85127 )
 
-[node name="Spikes2" parent="." instance=ExtResource( 6 )]
-position = Vector2( 3266, 2203 )
-scale = Vector2( -1, 1 )
+[node name="Spikes2" parent="Fuck me" instance=ExtResource( 6 )]
+position = Vector2( 1322.62, -1069.04 )
+rotation = 3.14159
+scale = Vector2( 2.66652, -1.85127 )
 
-[node name="Spikes3" parent="." instance=ExtResource( 6 )]
-position = Vector2( 3291, 2203 )
+[node name="Spikes3" parent="Fuck me" instance=ExtResource( 6 )]
+position = Vector2( 1389.28, -1069.04 )
+scale = Vector2( 2.66652, 1.85127 )
 
-[node name="1platform2" parent="." instance=ExtResource( 9 )]
-position = Vector2( 2901, 534 )
+[node name="1platform2" parent="Fuck me" instance=ExtResource( 9 )]
+position = Vector2( 349.34, -4158.81 )
+scale = Vector2( 5.33303, 3.70254 )
 
-[node name="1platform3" parent="." instance=ExtResource( 9 )]
-position = Vector2( 3369, 463 )
+[node name="1platform3" parent="Fuck me" instance=ExtResource( 9 )]
+position = Vector2( 1597.27, -4290.25 )
+scale = Vector2( 5.33303, 3.70254 )
 
-[node name="Birb" parent="." instance=ExtResource( 13 )]
-position = Vector2( 3529, 1115 )
-scale = Vector2( 0.1, 0.1 )
+[node name="Birb" parent="Fuck me" instance=ExtResource( 13 )]
+position = Vector2( 2023.91, -3083.22 )
+scale = Vector2( 0.266652, 0.185127 )
 
-[node name="Spikes5" parent="." instance=ExtResource( 6 )]
-position = Vector2( 3156, 2579 )
+[node name="Spikes5" parent="Fuck me" instance=ExtResource( 6 )]
+position = Vector2( 1029.3, -372.958 )
+scale = Vector2( 2.66652, 1.85127 )
 
-[node name="Spikes4" parent="." instance=ExtResource( 6 )]
-position = Vector2( 3189, 2579 )
+[node name="Spikes4" parent="Fuck me" instance=ExtResource( 6 )]
+position = Vector2( 1117.3, -372.958 )
+scale = Vector2( 2.66652, 1.85127 )
 
-[node name="Spikes6" parent="." instance=ExtResource( 6 )]
-position = Vector2( 3683, 1968 )
+[node name="Spikes6" parent="Fuck me" instance=ExtResource( 6 )]
+position = Vector2( 2434.56, -1504.08 )
+scale = Vector2( 2.66652, 1.85127 )
 
-[node name="Spikes7" parent="." instance=ExtResource( 6 )]
-position = Vector2( 3716, 1968 )
+[node name="Spikes7" parent="Fuck me" instance=ExtResource( 6 )]
+position = Vector2( 2522.55, -1504.08 )
+scale = Vector2( 2.66652, 1.85127 )
 
-[node name="Spikes8" parent="." instance=ExtResource( 6 )]
-position = Vector2( 3400, 1779 )
+[node name="Spikes8" parent="Fuck me" instance=ExtResource( 6 )]
+position = Vector2( 1679.93, -1853.98 )
+scale = Vector2( 2.66652, 1.85127 )
 
-[node name="Spikes9" parent="." instance=ExtResource( 6 )]
-position = Vector2( 3433, 1779 )
+[node name="Spikes9" parent="Fuck me" instance=ExtResource( 6 )]
+position = Vector2( 1767.93, -1853.98 )
+scale = Vector2( 2.66652, 1.85127 )
 
-[node name="Spikes31" parent="." instance=ExtResource( 6 )]
-position = Vector2( 3301, 1779 )
+[node name="Spikes31" parent="Fuck me" instance=ExtResource( 6 )]
+position = Vector2( 1415.95, -1853.98 )
+scale = Vector2( 2.66652, 1.85127 )
 
-[node name="Spikes29" parent="." instance=ExtResource( 6 )]
-position = Vector2( 3334, 1779 )
+[node name="Spikes29" parent="Fuck me" instance=ExtResource( 6 )]
+position = Vector2( 1503.94, -1853.98 )
+scale = Vector2( 2.66652, 1.85127 )
 
-[node name="Spikes30" parent="." instance=ExtResource( 6 )]
-position = Vector2( 3367, 1779 )
+[node name="Spikes30" parent="Fuck me" instance=ExtResource( 6 )]
+position = Vector2( 1591.94, -1853.98 )
+scale = Vector2( 2.66652, 1.85127 )
 
-[node name="Spikes10" parent="." instance=ExtResource( 6 )]
-position = Vector2( 2865, 1261 )
+[node name="Spikes10" parent="Fuck me" instance=ExtResource( 6 )]
+position = Vector2( 253.346, -2812.93 )
+scale = Vector2( 2.66652, 1.85127 )
 
-[node name="Spikes11" parent="." instance=ExtResource( 6 )]
-position = Vector2( 2898, 1261 )
+[node name="Spikes11" parent="Fuck me" instance=ExtResource( 6 )]
+position = Vector2( 341.341, -2812.93 )
+scale = Vector2( 2.66652, 1.85127 )
 
-[node name="Spikes12" parent="." instance=ExtResource( 6 )]
-position = Vector2( 2940, 1261 )
-scale = Vector2( -1, 1 )
+[node name="Spikes12" parent="Fuck me" instance=ExtResource( 6 )]
+position = Vector2( 453.334, -2812.93 )
+rotation = 3.14159
+scale = Vector2( 2.66652, -1.85127 )
 
-[node name="Spikes13" parent="." instance=ExtResource( 6 )]
-position = Vector2( 2973, 1261 )
-scale = Vector2( -1, 1 )
+[node name="Spikes13" parent="Fuck me" instance=ExtResource( 6 )]
+position = Vector2( 541.33, -2812.93 )
+rotation = 3.14159
+scale = Vector2( 2.66652, -1.85127 )
 
-[node name="Spikes14" parent="." instance=ExtResource( 6 )]
-position = Vector2( 3540, 557 )
+[node name="Spikes14" parent="Fuck me" instance=ExtResource( 6 )]
+position = Vector2( 2053.24, -4116.23 )
+scale = Vector2( 2.66652, 1.85127 )
 
-[node name="Spikes36" parent="." instance=ExtResource( 6 )]
-position = Vector2( 2740, 653 )
+[node name="Spikes36" parent="Fuck me" instance=ExtResource( 6 )]
+position = Vector2( -79.9688, -3938.51 )
+scale = Vector2( 2.66652, 1.85127 )
 
-[node name="Spikes15" parent="." instance=ExtResource( 6 )]
-position = Vector2( 3573, 557 )
+[node name="Spikes15" parent="Fuck me" instance=ExtResource( 6 )]
+position = Vector2( 2141.24, -4116.23 )
+scale = Vector2( 2.66652, 1.85127 )
 
-[node name="Spikes16" parent="." instance=ExtResource( 6 )]
-position = Vector2( 3615, 557 )
-scale = Vector2( -1, 1 )
+[node name="Spikes16" parent="Fuck me" instance=ExtResource( 6 )]
+position = Vector2( 2253.23, -4116.23 )
+rotation = 3.14159
+scale = Vector2( 2.66652, -1.85127 )
 
-[node name="Spikes17" parent="." instance=ExtResource( 6 )]
-position = Vector2( 3648, 557 )
-scale = Vector2( -1, 1 )
+[node name="Spikes17" parent="Fuck me" instance=ExtResource( 6 )]
+position = Vector2( 2341.23, -4116.23 )
+rotation = 3.14159
+scale = Vector2( 2.66652, -1.85127 )
 
-[node name="Spikes32" parent="." instance=ExtResource( 6 )]
-position = Vector2( 3546, 322 )
+[node name="Spikes32" parent="Fuck me" instance=ExtResource( 6 )]
+position = Vector2( 2069.24, -4551.28 )
+scale = Vector2( 2.66652, 1.85127 )
 
-[node name="Spikes33" parent="." instance=ExtResource( 6 )]
-position = Vector2( 3579, 322 )
+[node name="Spikes33" parent="Fuck me" instance=ExtResource( 6 )]
+position = Vector2( 2157.24, -4551.28 )
+scale = Vector2( 2.66652, 1.85127 )
 
-[node name="Spikes34" parent="." instance=ExtResource( 6 )]
-position = Vector2( 3621, 322 )
-scale = Vector2( -1, 1 )
+[node name="Spikes34" parent="Fuck me" instance=ExtResource( 6 )]
+position = Vector2( 2269.23, -4551.28 )
+rotation = 3.14159
+scale = Vector2( 2.66652, -1.85127 )
 
-[node name="Spikes35" parent="." instance=ExtResource( 6 )]
-position = Vector2( 3654, 322 )
-scale = Vector2( -1, 1 )
+[node name="Spikes35" parent="Fuck me" instance=ExtResource( 6 )]
+position = Vector2( 2357.23, -4551.28 )
+rotation = 3.14159
+scale = Vector2( 2.66652, -1.85127 )
 
-[node name="Spikes18" parent="." instance=ExtResource( 6 )]
-position = Vector2( 3314, 1263 )
+[node name="Spikes18" parent="Fuck me" instance=ExtResource( 6 )]
+position = Vector2( 1450.61, -2809.23 )
+scale = Vector2( 2.66652, 1.85127 )
 
-[node name="Spikes19" parent="." instance=ExtResource( 6 )]
-position = Vector2( 3347, 1263 )
+[node name="Spikes19" parent="Fuck me" instance=ExtResource( 6 )]
+position = Vector2( 1538.61, -2809.23 )
+scale = Vector2( 2.66652, 1.85127 )
 
-[node name="Spikes20" parent="." instance=ExtResource( 6 )]
-position = Vector2( 3389, 1263 )
-scale = Vector2( -1, 1 )
+[node name="Spikes20" parent="Fuck me" instance=ExtResource( 6 )]
+position = Vector2( 1650.6, -2809.23 )
+rotation = 3.14159
+scale = Vector2( 2.66652, -1.85127 )
 
-[node name="Spikes21" parent="." instance=ExtResource( 6 )]
-position = Vector2( 3422, 1263 )
-scale = Vector2( -1, 1 )
+[node name="Spikes21" parent="Fuck me" instance=ExtResource( 6 )]
+position = Vector2( 1738.6, -2809.23 )
+rotation = 3.14159
+scale = Vector2( 2.66652, -1.85127 )
 
-[node name="Spikes22" parent="." instance=ExtResource( 6 )]
-position = Vector2( 3636, 1262 )
+[node name="Spikes22" parent="Fuck me" instance=ExtResource( 6 )]
+position = Vector2( 2309.23, -2811.08 )
+scale = Vector2( 2.66652, 1.85127 )
 
-[node name="Spikes23" parent="." instance=ExtResource( 6 )]
-position = Vector2( 3669, 1262 )
+[node name="Spikes23" parent="Fuck me" instance=ExtResource( 6 )]
+position = Vector2( 2397.23, -2811.08 )
+scale = Vector2( 2.66652, 1.85127 )
 
-[node name="Spikes24" parent="." instance=ExtResource( 6 )]
-position = Vector2( 3711, 1262 )
-scale = Vector2( -1, 1 )
+[node name="Spikes24" parent="Fuck me" instance=ExtResource( 6 )]
+position = Vector2( 2509.22, -2811.08 )
+rotation = 3.14159
+scale = Vector2( 2.66652, -1.85127 )
 
-[node name="Spikes25" parent="." instance=ExtResource( 6 )]
-position = Vector2( 3744, 1262 )
-scale = Vector2( -1, 1 )
+[node name="Spikes25" parent="Fuck me" instance=ExtResource( 6 )]
+position = Vector2( 2597.21, -2811.08 )
+rotation = 3.14159
+scale = Vector2( 2.66652, -1.85127 )
 
-[node name="Spikes26" parent="." instance=ExtResource( 6 )]
-position = Vector2( 3769, 1262 )
+[node name="Spikes26" parent="Fuck me" instance=ExtResource( 6 )]
+position = Vector2( 2663.88, -2811.08 )
+scale = Vector2( 2.66652, 1.85127 )
 
-[node name="Spikes27" parent="." instance=ExtResource( 6 )]
-position = Vector2( 3811, 1262 )
-scale = Vector2( -1, 1 )
+[node name="Spikes27" parent="Fuck me" instance=ExtResource( 6 )]
+position = Vector2( 2775.87, -2811.08 )
+rotation = 3.14159
+scale = Vector2( 2.66652, -1.85127 )
 
-[node name="Spikes28" parent="." instance=ExtResource( 6 )]
-position = Vector2( 3844, 1262 )
-scale = Vector2( -1, 1 )
+[node name="Spikes28" parent="Fuck me" instance=ExtResource( 6 )]
+position = Vector2( 2863.87, -2811.08 )
+rotation = 3.14159
+scale = Vector2( 2.66652, -1.85127 )
 
-[node name="BreakablePlatformMedium" parent="." instance=ExtResource( 2 )]
-position = Vector2( 3808, 1864 )
-scale = Vector2( 0.268059, 0.335481 )
+[node name="BreakablePlatformMedium" parent="Fuck me" instance=ExtResource( 2 )]
+position = Vector2( 2767.87, -1696.62 )
+scale = Vector2( 0.714784, 0.621067 )
 
-[node name="Pickup2" parent="." instance=ExtResource( 15 )]
-position = Vector2( 3282, 1583 )
+[node name="Pickup2" parent="Fuck me" instance=ExtResource( 15 )]
+position = Vector2( 1365.28, -2216.82 )
+scale = Vector2( 2.66652, 1.85127 )
 description = {
 "Currency": null,
 "Description": "Artifacts",
@@ -1112,8 +3211,9 @@ description = {
 "Value": 2
 }
 
-[node name="Pickup3" parent="." instance=ExtResource( 15 )]
-position = Vector2( 3308, 1584 )
+[node name="Pickup3" parent="Fuck me" instance=ExtResource( 15 )]
+position = Vector2( 1434.61, -2214.97 )
+scale = Vector2( 2.66652, 1.85127 )
 description = {
 "Currency": null,
 "Description": "Artifacts",
@@ -1123,8 +3223,9 @@ description = {
 "Value": 2
 }
 
-[node name="Pickup4" parent="." instance=ExtResource( 15 )]
-position = Vector2( 3340, 1585 )
+[node name="Pickup4" parent="Fuck me" instance=ExtResource( 15 )]
+position = Vector2( 1519.94, -2213.12 )
+scale = Vector2( 2.66652, 1.85127 )
 description = {
 "Currency": null,
 "Description": "Artifacts",
@@ -1134,8 +3235,9 @@ description = {
 "Value": 2
 }
 
-[node name="Pickup5" parent="." instance=ExtResource( 15 )]
-position = Vector2( 2658, 643 )
+[node name="Pickup5" parent="Fuck me" instance=ExtResource( 15 )]
+position = Vector2( -298.623, -3957.02 )
+scale = Vector2( 2.66652, 1.85127 )
 description = {
 "Currency": null,
 "Description": "Artifacts",
@@ -1145,8 +3247,9 @@ description = {
 "Value": 2
 }
 
-[node name="Pickup6" parent="." instance=ExtResource( 15 )]
-position = Vector2( 2689, 643 )
+[node name="Pickup6" parent="Fuck me" instance=ExtResource( 15 )]
+position = Vector2( -215.961, -3957.02 )
+scale = Vector2( 2.66652, 1.85127 )
 description = {
 "Currency": null,
 "Description": "Artifacts",
@@ -1156,8 +3259,9 @@ description = {
 "Value": 2
 }
 
-[node name="Pickup7" parent="." instance=ExtResource( 15 )]
-position = Vector2( 3492, 313 )
+[node name="Pickup7" parent="Fuck me" instance=ExtResource( 15 )]
+position = Vector2( 1925.25, -4567.94 )
+scale = Vector2( 2.66652, 1.85127 )
 description = {
 "Currency": null,
 "Description": "Artifacts",
@@ -1167,47 +3271,48 @@ description = {
 "Value": 2
 }
 
-[node name="BreakablePlatformMedium2" parent="." instance=ExtResource( 2 )]
-position = Vector2( 3626, 1761 )
-scale = Vector2( 0.268059, 0.335481 )
+[node name="BreakablePlatformMedium2" parent="Fuck me" instance=ExtResource( 2 )]
+position = Vector2( 2282.57, -1887.3 )
+scale = Vector2( 0.714784, 0.621067 )
 
-[node name="BreakablePlatformMedium4" parent="." instance=ExtResource( 2 )]
-position = Vector2( 3619, 1620 )
-scale = Vector2( 0.268059, 0.335481 )
+[node name="BreakablePlatformMedium4" parent="Fuck me" instance=ExtResource( 2 )]
+position = Vector2( 2263.9, -2148.33 )
+scale = Vector2( 0.714784, 0.621067 )
 
-[node name="BreakablePlatformMedium9" parent="." instance=ExtResource( 2 )]
-position = Vector2( 2773, 1354 )
-scale = Vector2( 0.268059, 0.335481 )
+[node name="BreakablePlatformMedium9" parent="Fuck me" instance=ExtResource( 2 )]
+position = Vector2( 8.02637, -2640.77 )
+scale = Vector2( 0.714784, 0.621067 )
 
-[node name="BreakablePlatformMedium8" parent="." instance=ExtResource( 2 )]
-position = Vector2( 2696, 1483 )
-scale = Vector2( 0.268059, 0.335481 )
+[node name="BreakablePlatformMedium8" parent="Fuck me" instance=ExtResource( 2 )]
+position = Vector2( -197.295, -2401.95 )
+scale = Vector2( 0.714784, 0.621067 )
 
-[node name="BreakablePlatformMedium7" parent="." instance=ExtResource( 2 )]
-position = Vector2( 2829, 1575 )
-scale = Vector2( 0.268059, 0.335481 )
+[node name="BreakablePlatformMedium7" parent="Fuck me" instance=ExtResource( 2 )]
+position = Vector2( 157.351, -2231.64 )
+scale = Vector2( 0.714784, 0.621067 )
 
-[node name="BreakablePlatformMedium6" parent="." instance=ExtResource( 2 )]
-position = Vector2( 3058, 1575 )
-scale = Vector2( 0.268059, 0.335481 )
+[node name="BreakablePlatformMedium6" parent="Fuck me" instance=ExtResource( 2 )]
+position = Vector2( 767.984, -2231.64 )
+scale = Vector2( 0.714784, 0.621067 )
 
-[node name="BreakablePlatformMedium5" parent="." instance=ExtResource( 2 )]
-position = Vector2( 3057, 1668 )
-scale = Vector2( 0.268059, 0.335481 )
+[node name="BreakablePlatformMedium5" parent="Fuck me" instance=ExtResource( 2 )]
+position = Vector2( 765.317, -2059.47 )
+scale = Vector2( 0.714784, 0.621067 )
 
-[node name="BreakablePlatformMedium3" parent="." instance=ExtResource( 2 )]
-position = Vector2( 3808, 1687 )
-scale = Vector2( 0.268059, 0.335481 )
+[node name="BreakablePlatformMedium3" parent="Fuck me" instance=ExtResource( 2 )]
+position = Vector2( 2767.87, -2024.29 )
+scale = Vector2( 0.714784, 0.621067 )
 
-[node name="BreakablePlatformLong" parent="." instance=ExtResource( 11 )]
-position = Vector2( 2800, 2592 )
-scale = Vector2( 0.268059, 0.335481 )
+[node name="BreakablePlatformLong" parent="Fuck me" instance=ExtResource( 11 )]
+position = Vector2( 80.0225, -348.891 )
+scale = Vector2( 0.714784, 0.621067 )
 collision_layer = 15
 collision_mask = 15
 weight_sensitive = false
 
-[node name="Pickup" parent="." instance=ExtResource( 15 )]
-position = Vector2( 3191, -76 )
+[node name="Pickup" parent="Fuck me" instance=ExtResource( 15 )]
+position = Vector2( 1122.63, -5288.09 )
+scale = Vector2( 2.66652, 1.85127 )
 description = {
 "Ammo": null,
 "Description": "Jawbreaker",
@@ -1216,37 +3321,43 @@ description = {
 "Unit": "artifacts"
 }
 
-[node name="Portal" parent="." instance=ExtResource( 19 )]
-position = Vector2( 3933, 2584 )
-scale = Vector2( -1.93628, 1.57085 )
+[node name="Portal" parent="Fuck me" instance=ExtResource( 19 )]
+position = Vector2( 3101.19, -363.701 )
+rotation = 3.14159
+scale = Vector2( 5.16312, -2.90807 )
 target_scene = "res://Levels/SecondLevel.tscn"
 
-[node name="Portal2" parent="." instance=ExtResource( 19 )]
-position = Vector2( 2976, 2697 )
-rotation = 4.71239
-scale = Vector2( 2.51201, 1.605 )
+[node name="Portal2" parent="Fuck me" instance=ExtResource( 19 )]
+position = Vector2( 549.329, -154.507 )
+rotation = -1.57079
+scale = Vector2( 4.65041, 4.27976 )
 target_scene = "res://Levels/Jawbreaker Boss Room/JawbreakerRoom.tscn"
 
-[node name="Checkpoint" parent="." instance=ExtResource( 10 )]
-position = Vector2( 2754, 2213 )
+[node name="Checkpoint" parent="Fuck me" instance=ExtResource( 10 )]
+position = Vector2( -42.6377, -1050.52 )
+scale = Vector2( 2.66652, 1.85127 )
 
-[node name="CandyCornSpawner" parent="." instance=ExtResource( 7 )]
-position = Vector2( 3212, 1977 )
+[node name="CandyCornSpawner" parent="Fuck me" instance=ExtResource( 7 )]
+position = Vector2( 1178.63, -1487.42 )
+scale = Vector2( 2.66652, 1.85127 )
 
-[node name="JelloEnemy" parent="." instance=ExtResource( 16 )]
-position = Vector2( 2680, 1775 )
+[node name="JelloEnemy" parent="Fuck me" instance=ExtResource( 16 )]
+position = Vector2( -239.96, -1861.38 )
+scale = Vector2( 2.66652, 1.85127 )
 
-[node name="JelloEnemy2" parent="." instance=ExtResource( 16 )]
-position = Vector2( 2814, 1779 )
+[node name="JelloEnemy2" parent="Fuck me" instance=ExtResource( 16 )]
+position = Vector2( 117.354, -1853.98 )
+scale = Vector2( 2.66652, 1.85127 )
 
-[node name="DarkZone2" parent="." instance=ExtResource( 12 )]
-position = Vector2( 3347, 1474 )
-scale = Vector2( 0.28892, 0.48481 )
+[node name="DarkZone2" parent="Fuck me" instance=ExtResource( 12 )]
+position = Vector2( 1538.61, -2418.61 )
+scale = Vector2( 0.77041, 0.897515 )
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="DarkZone2"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Fuck me/DarkZone2"]
 visible = false
 scale = Vector2( 69.8414, 36.4828 )
 polygon = PoolVector2Array( 7.18584, -5.42766, 7.18584, 8.93298, -9.56458, 9.38528, -10.1097, -7.12379, 7.03716, -7.06726 )
 
-[node name="2platform" parent="." instance=ExtResource( 18 )]
-position = Vector2( 3243, 801 )
+[node name="2platform" parent="Fuck me" instance=ExtResource( 18 )]
+position = Vector2( 1261.29, -3664.52 )
+scale = Vector2( 5.33303, 3.70254 )
