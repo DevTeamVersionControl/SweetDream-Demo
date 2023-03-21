@@ -86,7 +86,7 @@ tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0, 0.12 ),
+"times": PoolRealArray( 0.0833333, 0.12 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ false, true ]
@@ -492,7 +492,7 @@ max_distance = 5000.0
 
 [node name="ExplosionCollision" type="Area2D" parent="."]
 collision_layer = 3
-collision_mask = 3
+collision_mask = 19
 monitoring = false
 monitorable = false
 

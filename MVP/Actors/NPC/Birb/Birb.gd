@@ -10,7 +10,7 @@ func _ready():
 	animation_player.play("Idle")
 	get_tree().current_scene.gui.dialog.connect("talk", self, "on_talk")
 	get_tree().current_scene.gui.dialog.connect("shop", self, "on_shop")
-	get_tree().current_scene.gui.dialog.connect("first_interation", self, "first_interaction")
+	get_tree().current_scene.gui.dialog.connect("first_interaction", self, "first_interaction")
 
 func _unhandled_key_input(_event):
 	if Input.is_action_pressed("interact") && player_is_in_zone && !get_tree().current_scene.gui.dialog.visible && !get_tree().current_scene.gui.shop.visible:

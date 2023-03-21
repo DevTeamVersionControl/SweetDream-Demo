@@ -40,9 +40,6 @@ func _on_impact(normal):
 	animation_player.seek(3.0 * 1.0/24.0, true)
 
 func _on_Area2D_body_entered(body):
-	if body.is_in_group("destructable"):
-		body.disappear()
-		_on_Timer_timeout()
 	if body.is_in_group("enemy"):
 		body.take_damage(GlobalVars.get_ammo("Jello").damage, Vector2.ZERO)
 		_on_Timer_timeout()

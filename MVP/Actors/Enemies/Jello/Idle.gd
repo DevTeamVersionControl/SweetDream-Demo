@@ -20,6 +20,7 @@ extends JelloEnemyState
 func enter(_msg := {}) -> void:
 	jello.animation_player.play("Idle")
 	if jello.target != null:
+		jello.motion.x = 0
 		yield(get_tree().create_timer(rand_range(0.0,0.2)), "timeout")
 		activate()
 
@@ -38,9 +39,8 @@ func turn_around() -> void:
 		jello.facing_right = false if jello.target.global_position.x - jello.global_position.x < 0 else true
 		jello.sprite.flip_h = !jello.facing_right
 		activate()
-		
 
-func physics_process(_delta):
+func physics_update(_delta):
 	jello.motion.y += jello.GRAVITY
 	jello.motion.x = lerp(jello.motion.x, 0, 0.2)
 	jello.motion = jello.move_and_slide(jello.motion)

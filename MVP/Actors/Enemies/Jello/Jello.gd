@@ -39,6 +39,7 @@ onready var sprite = $Sprite
 
 func _ready():
 	grow(initial_volume)
+	health *= volume
 
 func take_damage(damage, knockback):
 	health -= damage

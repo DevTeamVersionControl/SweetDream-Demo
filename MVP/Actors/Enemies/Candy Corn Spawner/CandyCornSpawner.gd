@@ -13,7 +13,6 @@ onready var candy_corn_spawn := $CandyCornSpawn
 
 func take_damage(damage:float, knockback:Vector2) -> void:
 	health -= damage
-	motion += knockback
 	if health <= 0:
 		state_machine.transition_to("Death")
 	else:

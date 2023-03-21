@@ -252,7 +252,7 @@ tracks/4/keys = {
 } ]
 }
 
-[node name="CandyCornSpawner" type="KinematicBody2D"]
+[node name="CandyCornSpawner" type="KinematicBody2D" groups=["enemy"]]
 collision_layer = 2
 collision_mask = 16
 script = ExtResource( 2 )
@@ -266,7 +266,7 @@ shape = SubResource( 6 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 scale = Vector2( 0.5, 0.5 )
-polygon = PoolVector2Array( -50, -1, -31, -58, 0, -105, 28, -60, 48, -6, 42, 3, 0, 11 )
+polygon = PoolVector2Array( -50, -1, -31, -58, 0, -105, 28, -60, 48, -6, 44, 0, 2, 0 )
 
 [node name="Sprite" type="Sprite" parent="."]
 material = ExtResource( 9 )
@@ -280,7 +280,7 @@ hframes = 2
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="BodyHitZone"]
 position = Vector2( 0, 1 )
 scale = Vector2( 0.5, 0.5 )
-polygon = PoolVector2Array( -50, -1, -31, -58, 0, -105, 28, -60, 48, -6, 42, 3, 0, 11 )
+polygon = PoolVector2Array( -50, -2, -31, -58, 0, -110, 28, -60, 48, -6, 46, -2, 0, -2 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Death = SubResource( 2 )

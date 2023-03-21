@@ -65,10 +65,11 @@ func physics_update(delta: float) -> void:
 		input_direction_x = 0
 	
 	#Horizontal movement
-	if is_equal_approx(input_direction_x, 0.0):
-		player.velocity.x = lerp(player.velocity.x, 0, player.DECELERATION)
-	else:
-		player.velocity.x += player.ACCELERATION * input_direction_x
+	if !player.is_on_wall():
+		if is_equal_approx(input_direction_x, 0.0):
+			player.velocity.x = lerp(player.velocity.x, 0, player.DECELERATION)
+		else:
+			player.velocity.x += player.ACCELERATION * input_direction_x
 	player.velocity.x = clamp(player.velocity.x, -player.SPEED, player.SPEED)
 
 	# Vertical movement.

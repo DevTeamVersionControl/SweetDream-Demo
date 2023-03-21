@@ -26,21 +26,25 @@
     "Signal":"talk", "Portrait":"res://UserInterface/Dialog/Portraits/MrGerald.png"},
 
     {"Name":"Dr.Gamal", 
-        "Text":"Could you go get it and bring it back to me? It would mean the world. It's right before that blasted jello, just go out the door and you should see it right away!", 
+        "Text":"Could you go get it and bring it back to me? I can give you something to survive in that harsh world if you bring it back. It's right before that blasted jello, just go out the door and you should see it right away!", 
     "Signal":"talk", "Portrait":"res://UserInterface/Dialog/Portraits/MrGerald.png"},
     
     ],
     
     [{"Name":"Cadus III",
-        "Text":"I found what you were looking for",
+        "Text":"I found what you were looking for.",
     "Portrait":"res://UserInterface/Dialog/Portraits/Player.png"},
     
     {"Name":"Dr.Gamal",
-        "Text":"Wonderful! Let me take a look at that",
+        "Text":"Wonderful! Let me take a look at that.",
     "Portrait":"res://UserInterface/Dialog/Portraits/MrGerald.png"},
 
     {"Name":"Dr.Gamal",
-        "Text":"Well, it looks like this would fit into that gun of yours. Let me put that in for you",
+        "Text":"Well, it looks like this would fit into that gun of yours. Let me put that in for you.",
+    "Portrait":"res://UserInterface/Dialog/Portraits/MrGerald.png"},
+
+    {"Name":"Dr.Gamal",
+        "Text":"And here's my lifesaver. It should help you in a pinch to patch you up. Be careful though because there are limited charges and it needs a waypoint to charge up again. I left the instructions on how to use it right outside  the ruins",
     "Portrait":"res://UserInterface/Dialog/Portraits/MrGerald.png"},
 
     {"Name":"Cadus III",

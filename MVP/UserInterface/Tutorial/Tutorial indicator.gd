@@ -3,6 +3,7 @@ extends Area2D
 onready var sprite := get_node_or_null("Sprite")
 
 var save_path = GameSaver.save_path
+var tween : SceneTreeTween
 
 export var temporary = true
 
@@ -11,13 +12,14 @@ func _ready():
 
 func _on_Tutorial_indicator_body_entered(body):
 	sprite.visible = true
-	var tween = get_tree().create_tween()
+	tween = get_tree().create_tween()
 	tween.tween_property(sprite, "position", Vector2(0,3), 0.6)
 	tween.tween_property(sprite, "position", Vector2(0,-3), 0.6)
 	tween.set_loops()
 
 func _on_Tutorial_indicator_body_exited(body):
 	sprite.visible = false
+	tween.stop()
 
 func save(game_data):
 	game_data[get_tree().current_scene.current_level.filename + name] = temporary

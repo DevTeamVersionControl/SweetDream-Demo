@@ -30,7 +30,7 @@ var ammo_array := [GlobalTypes.Ammo.new("Candy Corn", GlobalTypes.AMMO_TYPE.once
 	GlobalTypes.Ammo.new("Jello", GlobalTypes.AMMO_TYPE.once, 1, 5, 2, jello)]
 var max_health := BASE_MAX_HEALTH
 var health := max_health
-var max_health_packs := 3
+var max_health_packs := 0
 var health_packs := max_health_packs
 var max_sugar := BASE_MAX_SUGAR
 var sugar := max_sugar
@@ -45,7 +45,7 @@ func initialize():
 	ammo_equipped_array = []
 	equiped_ammo_index = 0
 	max_health = BASE_MAX_HEALTH
-	max_health_packs = 3
+	max_health_packs = 0
 	health_packs = max_health_packs
 	max_sugar = BASE_MAX_SUGAR
 	sugar = max_sugar
@@ -64,6 +64,7 @@ func save(game_data):
 			ammo_equipped_names.append(ammo_equipped_array[i].name)
 		else:
 			ammo_equipped_names.append(null)
+	game_data["max_health_packs"] = max_health_packs
 	game_data["ammo_equipped_names"] = ammo_equipped_names
 	game_data["equipped_ammo_index"] = equiped_ammo_index
 	game_data["double_jump_lock"] = double_jump_lock
@@ -78,6 +79,7 @@ func load(game_data):
 			ammo_equipped_array.append(get_ammo(game_data["ammo_equipped_names"][i]))
 		else:
 			ammo_equipped_array.append(null)
+	max_health_packs = game_data["max_health_packs"]
 	equiped_ammo_index = int(game_data["equipped_ammo_index"])
 	double_jump_lock = game_data["double_jump_lock"]
 	dash_lock = game_data["dash_lock"]

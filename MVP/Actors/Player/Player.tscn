@@ -1,4 +1,4 @@
-[gd_scene load_steps=136 format=2]
+[gd_scene load_steps=135 format=2]
 
 [ext_resource path="res://Abstract/StateMachine.gd" type="Script" id=1]
 [ext_resource path="res://Actors/Player/Idle/Idle.gd" type="Script" id=2]
@@ -14,7 +14,6 @@
 [ext_resource path="res://Actors/Player/Dash/Dashing.gd" type="Script" id=12]
 [ext_resource path="res://Actors/Player/KnockedOut.gd" type="Script" id=13]
 [ext_resource path="res://Actors/Player/shot.mp3" type="AudioStream" id=14]
-[ext_resource path="res://Environment/Light/light.png" type="Texture" id=15]
 [ext_resource path="res://Actors/Player/Dash/Dash.mp3" type="AudioStream" id=16]
 [ext_resource path="res://Actors/Player/Idle/Idle720p.png" type="Texture" id=17]
 [ext_resource path="res://Actors/Player/Running/Running720p_n.png" type="Texture" id=18]
@@ -4158,7 +4157,7 @@ script = ExtResource( 5 )
 wait_time = 0.1
 
 [node name="CoyoteTimeTimer" type="Timer" parent="StateMachine/Air"]
-wait_time = 0.15
+wait_time = 0.2
 
 [node name="Jump" type="AudioStreamPlayer" parent="StateMachine/Air"]
 stream = ExtResource( 6 )
@@ -4235,14 +4234,6 @@ visible = false
 position = Vector2( 1, -56 )
 scale = Vector2( 1e-05, 0.01 )
 texture = ExtResource( 9 )
-
-[node name="Light2D2" type="Light2D" parent="."]
-visible = false
-light_mask = 17
-position = Vector2( -7, -54 )
-texture = ExtResource( 15 )
-color = Color( 0.113725, 0.290196, 0.592157, 1 )
-energy = 0.7
 
 [connection signal="timeout" from="StateMachine/Air/JumpBufferTimer" to="StateMachine/Air" method="_on_JumpBufferTimer_timeout"]
 [connection signal="timeout" from="StateMachine/Air/CoyoteTimeTimer" to="StateMachine/Air" method="_on_CoyoteTimeTimer_timeout"]
