@@ -59,5 +59,13 @@
     {"Name":"Dr.Gamal",
         "Text":" ",
     "Portrait":"res://UserInterface/Dialog/Portraits/MrGerald.png","Signal":"shop"}
-    ]
+    ],
+    [
+    {"Name":"Dr.Gamal",
+        "Text":"So, what wonderful things do you have for me?",
+    "Portrait":"res://UserInterface/Dialog/Portraits/MrGerald.png","Signal":"talk"},
+    {"Name":"Dr.Gamal",
+        "Text":" ",
+    "Portrait":"res://UserInterface/Dialog/Portraits/MrGerald.png","Signal":"shop"}
+]
 ]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=148 format=2]
+[gd_scene load_steps=147 format=2]
 
 [ext_resource path="res://Environment/Blocks/Forest/TileSets/Tile Pack/Dirt Tile Pack/Dirt_Tile_Pack_333p.png" type="Texture" id=1]
 [ext_resource path="res://Abstract/GenericDoor/GenericDoor.tscn" type="PackedScene" id=2]
@@ -804,9 +804,6 @@ points = PoolVector2Array( 0, 0, 336, 0, 336, 336, 0, 336 )
 [sub_resource type="ConvexPolygonShape2D" id=150]
 points = PoolVector2Array( 0, 0, 336, 0, 336, 336, 0, 336 )
 
-[sub_resource type="ConvexPolygonShape2D" id=211]
-points = PoolVector2Array( 0, 0, 336, 0, 336, 336, 0, 336 )
-
 [sub_resource type="ConvexPolygonShape2D" id=151]
 points = PoolVector2Array( 0, 0, 336, 0, 336, 336, 0, 336 )
 
@@ -1244,12 +1241,6 @@ resource_local_to_scene = true
 "one_way": false,
 "one_way_margin": 1.0,
 "shape": SubResource( 150 ),
-"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
-}, {
-"autotile_coord": Vector2( 8, 4 ),
-"one_way": false,
-"one_way_margin": 1.0,
-"shape": SubResource( 211 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 2/z_index = 0
@@ -3569,10 +3560,10 @@ position = Vector2( 1867, 3149 )
 position = Vector2( 1469, 3033 )
 
 [node name="3platform18" parent="ParallaxLayer/Platform" instance=ExtResource( 7 )]
-position = Vector2( 369, 3039 )
+position = Vector2( 370, 3020 )
 
 [node name="3platform20" parent="ParallaxLayer/Platform" instance=ExtResource( 7 )]
-position = Vector2( 379, 2754 )
+position = Vector2( 379, 2736 )
 
 [node name="3platform5" parent="ParallaxLayer/Platform" instance=ExtResource( 7 )]
 position = Vector2( 1802, 1531 )
@@ -4409,7 +4400,7 @@ visible = false
 position = Vector2( -136.524, 584.285 )
 rotation = 3.14159
 scale = Vector2( 59.6454, -40.3809 )
-polygon = PoolVector2Array( 13.133, 0.0785522, 13.3774, -24.23, -14.2422, -26.4862, -12.8687, 20.6004, 9.46086, 21.238, 22.5331, 20.8456 )
+polygon = PoolVector2Array( 17.8536, -11.3303, 13.3774, -24.23, -14.2422, -26.4862, -12.8687, 20.6004, 26.0429, 21.6793, 28.0774, -4.02213 )
 
 [node name="DarkZone2" parent="Get Gud" instance=ExtResource( 12 )]
 position = Vector2( 388.545, 321.437 )
@@ -4489,7 +4480,8 @@ description = {
 "Description": "Basic but reliable ammo",
 "Icon": "res://Pickups/Candy Corn 720p.png",
 "Name": "Candy Corn",
-"StoryPoint": [ "Gimald", 1 ]
+"StoryPoint": [ "Gimald", 1 ],
+"Temporary": null
 }
 
 [node name="Pickup2" parent="Get Gud" instance=ExtResource( 15 )]
@@ -4710,5 +4702,8 @@ visible = false
 position = Vector2( 1.16016, 0 )
 scale = Vector2( 0.0959118, 0.0457482 )
 texture = ExtResource( 39 )
+
+[node name="1platform" parent="." instance=ExtResource( 9 )]
+position = Vector2( 527, 3114 )
 
 [connection signal="on" from="Get Gud/Button" to="." method="_on_Button_on"]

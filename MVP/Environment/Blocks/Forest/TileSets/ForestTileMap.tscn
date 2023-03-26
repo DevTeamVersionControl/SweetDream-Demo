@@ -1,4 +1,4 @@
-[gd_scene load_steps=96 format=2]
+[gd_scene load_steps=98 format=2]
 
 [ext_resource path="res://Environment/Blocks/Forest/TileSets/Tile Pack/Grass Tile Pack/Grass Tile Pack 333p.png" type="Texture" id=2]
 [ext_resource path="res://Environment/Blocks/Forest/TileSets/Tile Pack/Dirt Tile Pack/Dirt_Tile_Pack_333p.png" type="Texture" id=3]
@@ -139,6 +139,12 @@ points = PoolVector2Array( 0, 0, 336, 0, 336, 336, 0, 336 )
 points = PoolVector2Array( 0, 0, 336, 0, 336, 336, 0, 336 )
 
 [sub_resource type="ConvexPolygonShape2D" id=150]
+points = PoolVector2Array( 0, 0, 336, 0, 336, 336, 0, 336 )
+
+[sub_resource type="ConvexPolygonShape2D" id=197]
+points = PoolVector2Array( 0, 0, 336, 0, 336, 336, 0, 336 )
+
+[sub_resource type="ConvexPolygonShape2D" id=208]
 points = PoolVector2Array( 0, 0, 336, 0, 336, 336, 0, 336 )
 
 [sub_resource type="ConvexPolygonShape2D" id=151]
@@ -578,6 +584,18 @@ resource_local_to_scene = true
 "one_way": false,
 "one_way_margin": 1.0,
 "shape": SubResource( 150 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 7, 4 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 197 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 8, 4 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 208 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 2/z_index = 0
