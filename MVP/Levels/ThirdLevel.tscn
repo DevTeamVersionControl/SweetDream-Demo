@@ -3544,7 +3544,7 @@ scale = Vector2( 10, 1 )
 shape = SubResource( 210 )
 
 [node name="CollisionShape2D7" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2( 3004, 1797 )
+position = Vector2( 3005, 1797 )
 scale = Vector2( 10, 1 )
 shape = SubResource( 210 )
 
@@ -3930,14 +3930,6 @@ target_scene = "res://Levels/Jawbreaker Boss Room/JawbreakerRoom.tscn"
 position = Vector2( -42.6377, -1050.52 )
 scale = Vector2( 2.66652, 1.85127 )
 
-[node name="JelloEnemy" parent="Fuck me" instance=ExtResource( 16 )]
-position = Vector2( -239.96, -1861.38 )
-scale = Vector2( 2.66652, 1.85127 )
-
-[node name="JelloEnemy2" parent="Fuck me" instance=ExtResource( 16 )]
-position = Vector2( 117.354, -1853.98 )
-scale = Vector2( 2.66652, 1.85127 )
-
 [node name="DarkZone2" parent="Fuck me" instance=ExtResource( 12 )]
 position = Vector2( 1538.61, -2418.61 )
 scale = Vector2( 0.77041, 0.897515 )
@@ -3987,3 +3979,9 @@ stream = ExtResource( 34 )
 autoplay = true
 max_distance = 1500.0
 attenuation = 0.517632
+
+[node name="JelloEnemy2" parent="." instance=ExtResource( 16 )]
+position = Vector2( 2770, 1770 )
+
+[node name="JelloEnemy" parent="." instance=ExtResource( 16 )]
+position = Vector2( 2969, 1770 )

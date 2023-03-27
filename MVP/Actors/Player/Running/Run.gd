@@ -75,7 +75,7 @@ func physics_update(delta: float) -> void:
 
 func check_floor():
 	yield(get_tree().create_timer(0.1), "timeout")
-	if not player.is_on_floor():
+	if is_instance_valid(player) and not player.is_on_floor():
 		state_machine.transition_to("Air", {coyote_time = true})
 
 func play_footstep():

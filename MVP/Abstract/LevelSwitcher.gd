@@ -18,7 +18,6 @@ extends Node2D
 signal level_loaded
 
 const PLAYER = preload("res://Actors/Player/Player.tscn")
-const LIFESAVER = preload("res://Actors/Player/LifeSaver.tscn")
 
 onready var gui = $GUI
 onready var level_transition = gui.color_rect
@@ -69,10 +68,6 @@ func load_level(level:PackedScene, location:String):
 	player.level_limit_max = Vector2(current_level.level_range_x.y, current_level.level_range_y.y)
 	current_level.add_child(player)
 	hud.connect_player()
-	var lifesaver = LIFESAVER.instance()
-	current_level.add_child(lifesaver)
-	lifesaver.player = player
-	player.lifesaver = lifesaver
 	if location != "":
 		var door_node = current_level.find_node(location)
 		if door_node:

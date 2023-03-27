@@ -22,6 +22,7 @@ const pop_rocks  = preload("res://Ammo/Pop Rocks/PopRocks.tscn")
 const jelly_bean = preload("res://Ammo/Jelly Bean/JellyBean.tscn")
 const BASE_MAX_HEALTH = 40.0
 const BASE_MAX_SUGAR = 15.0
+const LIFESAVER = preload("res://Actors/Player/LifeSaver.tscn")
 
 var ammo_array := [GlobalTypes.Ammo.new("Candy Corn", GlobalTypes.AMMO_TYPE.once, 0.15, 1, 1, candy_corn), 
 	GlobalTypes.Ammo.new("Jelly Bean", GlobalTypes.AMMO_TYPE.once, 0.7, 3, 3, jelly_bean), 
@@ -120,6 +121,13 @@ func add_max_sugar(num:int)->void:
 func add_currency(item:Dictionary):
 	if item["Unit"] == "artifact":
 		artifacts += item["Value"]
+
+func lifesaver(_placeholder)->void:
+	if !is_instance_valid(get_tree().current_scene.player.lifesaver):
+		var lifesaver = LIFESAVER.instance()
+		get_tree().current_scene.current_level.add_child(lifesaver)
+		lifesaver.player = get_tree().current_scene.player
+		get_tree().current_scene.player.lifesaver = lifesaver
 
 func unlock_dash(_placeholder)->void:
 	dash_lock = false

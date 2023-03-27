@@ -16,11 +16,12 @@
 extends Sprite
 
 var player : Player
+var rads := 0.0
 
 onready var animation_player := $AnimationPlayer
 
 func _ready():
-	yield(get_tree().current_scene, "level_loaded")
+	yield(get_tree().create_timer(0.2), "timeout")
 	get_material().set("shader_param/flashState", 0.0)
 	animation_player.play("Spawn")
 	global_position.x = player.global_position.x
@@ -29,4 +30,7 @@ func _ready():
 func _physics_process(delta):
 	if is_instance_valid(player):
 		global_position.x = lerp(global_position.x, player.global_position.x + (-15 if player.facing_right else 15), 0.1)
+		global_position.y -= 3 * sin(rads)
 		global_position.y = lerp(global_position.y, player.global_position.y - 65, 0.05)
+		global_position.y += 3 * sin(rads)
+		rads += delta * 4.5

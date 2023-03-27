@@ -4,6 +4,7 @@ export var description = {"Name":"Quest Item", "Icon":"Item 3.png", "Price":"30"
 
 var delete := false 
 var save_path = GameSaver.save_path
+var rads := 0.0
 
 func _ready():
 	$Sprite.texture = ResourceLoader.load(description.get("Icon"))
@@ -27,3 +28,8 @@ func disappear():
 	GameSaver.save()
 	GameSaver.partial_save(self)
 	queue_free()
+
+func _physics_process(delta):
+	$Sprite.global_position.y -= 3 * sin(rads)
+	rads += delta * 4.5
+	$Sprite.global_position.y += 3 * sin(rads)

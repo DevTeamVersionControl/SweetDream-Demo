@@ -36,10 +36,11 @@ func on_shop():
 	yield(get_tree().current_scene.gui.shop, "dialog_end")
 	in_dialog = false
 	
-# Used once to equip candy corn ammo to player at the beginning of the game
+# Used once to equip candy corn ammo to player at the beginning of the game and give them the lifesaver
 func equip_candy_corn():
 	GlobalVars.ammo_equipped_array.append(GlobalVars.get_ammo("Candy Corn"))
 	GlobalVars.add_to_inventory({"Name":"Gimald shop","StoryPoint":["Gimald", 2]})
+	GlobalVars.add_to_inventory({"Name":"Lifesaver","Effect":["lifesaver", "placeholder"]})
 	GlobalVars.max_health_packs = 3
 	GlobalVars.health_packs = 3
 	get_tree().current_scene.player.update_display()
