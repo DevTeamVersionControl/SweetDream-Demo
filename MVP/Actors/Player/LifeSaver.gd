@@ -13,16 +13,20 @@
 #
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
-extends PlayerState
+extends Sprite
 
-onready var audio := $AudioStreamPlayer
+var player : Player
 
-func enter(_msg := {}) -> void:
-	player.lifesaver.animation_player.play("Die")
-	player.velocity = Vector2.ZERO
-	player.animation_mode.travel("Death")
+onready var animation_player := $AnimationPlayer
 
-func die():
-	audio.play()
-	yield(audio,"finished")
-	get_tree().current_scene.die()
+func _ready():
+	yield(get_tree().current_scene, "level_loaded")
+	get_material().set("shader_param/flashState", 0.0)
+	animation_player.play("Spawn")
+	global_position.x = player.global_position.x
+	global_position.y = player.global_position.y - 80
+
+func _physics_process(delta):
+	if is_instance_valid(player):
+		global_position.x = lerp(global_position.x, player.global_position.x + (-15 if player.facing_right else 15), 0.1)
+		global_position.y = lerp(global_position.y, player.global_position.y - 65, 0.05)

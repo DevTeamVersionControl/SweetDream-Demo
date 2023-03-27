@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Environment/Blocks/Forest/Platforms/Breaking Platform/Normal/Normal 720p.png" type="Texture" id=1]
 [ext_resource path="res://Environment/Blocks/Forest/Platforms/Breaking Platform/BreakablePlatform.gd" type="Script" id=2]
@@ -94,10 +94,28 @@ tracks/2/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
+[sub_resource type="Animation" id=5]
+resource_name = "Shake"
+length = 0.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ Vector2( 0, 2 ), Vector2( 0, -2 ) ]
+}
+
 [node name="BreakablePlatformLong" type="StaticBody2D" groups=["destructable"]]
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 0, 2 )
 texture = ExtResource( 1 )
 normal_map = ExtResource( 6 )
 vframes = 3
@@ -120,7 +138,9 @@ shape = SubResource( 2 )
 anims/RESET = SubResource( 3 )
 anims/break = SubResource( 4 )
 
+[node name="Shaker" type="AnimationPlayer" parent="."]
+anims/Shake = SubResource( 5 )
+
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]
-

@@ -80,6 +80,7 @@ func load(game_data):
 		else:
 			ammo_equipped_array.append(null)
 	max_health_packs = game_data["max_health_packs"]
+	health_packs = max_health_packs
 	equiped_ammo_index = int(game_data["equipped_ammo_index"])
 	double_jump_lock = game_data["double_jump_lock"]
 	dash_lock = game_data["dash_lock"]

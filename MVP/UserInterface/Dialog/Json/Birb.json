@@ -42,5 +42,16 @@
         "Text":"",
     "Signal":"shop", "Portrait":"res://UserInterface/Dialog/Portraits/Birb.png"}
     
+    ],
+    [
+    {"Name":"Birb",
+        "Text":"Hey that jawbreaker thing in that gun of yours looks kinda dangerous. Maybe you can finally break that damn crystal wall and get rid of the jawbreaker infestation around here.",
+    "Portrait":"res://UserInterface/Dialog/Portraits/Birb.png"},
+    {"Name":"Birb",
+        "Text":"They'll never get me though, I've been planting spikes around here ta defend my place. No one gets through! Ha ha ha",
+    "Signal":"talk", "Portrait":"res://UserInterface/Dialog/Portraits/Birb.png"},
+    {"Name":"Birb",
+        "Text":" ",
+    "Signal":"shop", "Portrait":"res://UserInterface/Dialog/Portraits/Birb.png"}
     ]
 ]

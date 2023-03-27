@@ -61,6 +61,7 @@ func physics_update(delta: float) -> void:
 		player.animation_tree.set('parameters/Idle/blend_position', 1 if player.facing_right else -1)
 		player.camera_arm.position.x = 127 if player.facing_right else -127
 	
+	# Move
 	if is_equal_approx(input_direction_x, 0.0):
 		player.velocity.x = lerp(player.velocity.x, 0, player.DECELERATION)
 	else:

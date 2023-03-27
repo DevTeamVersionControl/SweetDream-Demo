@@ -35,6 +35,7 @@ var level_limit_max
 var facing_right := true
 var can_shoot := true
 var invulnerable := false
+var lifesaver
 
 # References to nodes in case they are changed
 onready var cooldown_timer := $CooldownTimer
@@ -43,13 +44,13 @@ onready var animation_tree := $AnimationTree
 onready var animation_mode = animation_tree.get("parameters/playback")
 onready var bullet_center := $BulletCenter
 onready var state_machine := $StateMachine
-onready var camera_arm = $"Camera arm"
-onready var camera = $"Camera arm/Camera2D"
-onready var animation_player = $AnimationPlayer
-onready var shoot_bar = $ShootBar
-onready var cooldown_bar = $CooldownBar
-onready var invulnerability_timer = $InvulnerabilityTimer
-onready var sugar_timer = $SugarTimer
+onready var camera_arm := $"Camera arm"
+onready var camera := $"Camera arm/Camera2D"
+onready var animation_player := $AnimationPlayer
+onready var shoot_bar := $ShootBar
+onready var cooldown_bar := $CooldownBar
+onready var invulnerability_timer := $InvulnerabilityTimer
+onready var sugar_timer := $SugarTimer
 
 func _ready():
 	set_later(camera, "smoothing_enabled", true)
@@ -69,6 +70,7 @@ func _physics_process(_delta):
 		if GlobalVars.health_packs > 0:
 			set_health_packs(GlobalVars.health_packs - 1)
 			heal(HEAL_FROM_CANDY)
+			lifesaver.animation_player.play("Heal")
 	if !can_shoot:
 		cooldown_bar.scale.x = cooldown_timer.time_left/cooldown_timer.wait_time/100
 
@@ -77,7 +79,7 @@ func knockback(knockback_vector: Vector2):
 	state_machine.transition_to("Knockback", {0:Vector2(knockback_vector.x, -0.2 * knockback_vector.y)})
 
 func calculate_bullet_direction() -> Vector2:
-	var raw_bullet_direction = Vector2(Input.get_action_strength("aim_right") - Input.get_action_strength("aim_left"), Input.get_action_strength("aim_down") - Input.get_action_strength("aim_up"))
+	var raw_bullet_direction = Vector2(1 if facing_right else -1, Input.get_action_strength("aim_down") - Input.get_action_strength("aim_up"))
 	if raw_bullet_direction.y > 0 && raw_bullet_direction.x != 0:
 		raw_bullet_direction.x = 0
 	if raw_bullet_direction.length() == 0:

@@ -40,10 +40,12 @@ func enter(msg := {}) -> void:
 	if msg.has("crouched"):
 		player.animation_tree.set('parameters/AimCrouched/blend_position', 1 if player.facing_right else -1)
 		player.animation_tree.set('parameters/ShootCrouched/blend_position', 1 if player.facing_right else -1)
-		player.animation_mode.travel("AimCrouched")
+		player.animation_mode.travel("Crouched")
+		#player.animation_mode.travel("AimCrouched")
 		crouched = true
 	else:
-		player.animation_mode.travel("Aim")
+		player.animation_mode.travel("Idle")
+		#player.animation_mode.travel("Aim")
 		player.animation_tree.set('parameters/Aim/blend_position', bullet_direction + Vector2(0.1 if player.facing_right else -0.1, 0))
 		crouched = false
 	player.animation_tree.set('parameters/Shoot/blend_position', bullet_direction + Vector2(0.1 if player.facing_right else -0.1, 0))
@@ -70,6 +72,18 @@ func physics_update(delta: float) -> void:
 		else:
 			player.shoot_bar.visible = false
 			state_machine.transition_to("Idle" if !crouched else "Crouched")
+			
+	var input_direction_x: float = (
+		Input.get_action_strength("move_right")
+		- Input.get_action_strength("move_left")
+	)
+	# Check to see if the player needs to turn around
+	if player.facing_right != (input_direction_x > 0) && input_direction_x != 0:
+		player.facing_right = input_direction_x > 0
+		player.sprite.flip_h = !player.facing_right
+		player.animation_tree.set('parameters/Run/blend_position', 1 if player.facing_right else -1)
+		player.animation_tree.set('parameters/Idle/blend_position', 1 if player.facing_right else -1)
+		player.camera_arm.position.x = 127 if player.facing_right else -127
 
 func shoot_animation():
 	player.animation_mode.travel("Shoot" if !crouched else "ShootCrouched")
@@ -110,8 +124,6 @@ func shoot(position:NodePath) -> void:
 	else:
 		audio_stream_player.pitch_scale = 2 - GlobalVars.ammo_equipped_array[GlobalVars.equiped_ammo_index].sugar/3
 		audio_stream_player.play()
-
-
 
 func _on_CooldownTimer_timeout() -> void:
 	player.can_shoot = true

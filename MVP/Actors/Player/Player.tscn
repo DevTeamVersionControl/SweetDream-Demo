@@ -3995,9 +3995,9 @@ states/Crouched/position = Vector2( 3.151, 177 )
 states/Dash/node = SubResource( 174 )
 states/Dash/position = Vector2( 691, 321 )
 states/Death/node = SubResource( 208 )
-states/Death/position = Vector2( -159.415, 325.572 )
+states/Death/position = Vector2( 3.151, 251.589 )
 states/GetUp/node = SubResource( 118 )
-states/GetUp/position = Vector2( 130.151, 242.589 )
+states/GetUp/position = Vector2( 130.151, 251.589 )
 states/Idle/node = SubResource( 38 )
 states/Idle/position = Vector2( 245, 177 )
 states/Jump/node = SubResource( 165 )
@@ -4182,7 +4182,7 @@ volume_db = -3.0
 script = ExtResource( 12 )
 
 [node name="DashResetTimer" type="Timer" parent="StateMachine/Dashing"]
-wait_time = 3.0
+wait_time = 2.5
 one_shot = true
 
 [node name="DashLengthTimer" type="Timer" parent="StateMachine/Dashing"]

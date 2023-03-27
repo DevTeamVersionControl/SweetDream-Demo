@@ -43,11 +43,13 @@ func first_interaction():
 
 # Returns the point at the conversation the dialog should be
 func get_dialog_num() -> int:
+	GlobalVars.inventory.invert()
+	var story_point := 0
 	for item in GlobalVars.inventory:
-		if item.has("StoryPoint") && item.get("StoryPoint")[0] == "Birb":
-			var story_point = int(item.get("StoryPoint")[1])
+		if story_point != 0 and item.has("StoryPoint") and item.get("StoryPoint")[0] == "Birb":
+			story_point = int(item.get("StoryPoint")[1])
 			if item.has("Temporary"):
 				item.erase("StoryPoint")
 				item.erase("Temporary")
-			return story_point
-	return 0
+	GlobalVars.inventory.invert()
+	return story_point

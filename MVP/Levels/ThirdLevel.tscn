@@ -3623,7 +3623,7 @@ position = Vector2( 1597.27, -4290.25 )
 scale = Vector2( 5.33303, 3.70254 )
 
 [node name="Birb" parent="Fuck me" instance=ExtResource( 13 )]
-position = Vector2( 2023.91, -3083.22 )
+position = Vector2( 2023.91, -3085.07 )
 scale = Vector2( 0.266652, 0.185127 )
 
 [node name="Spikes5" parent="Fuck me" instance=ExtResource( 6 )]
@@ -3890,9 +3890,11 @@ position = Vector2( 1122.63, -5288.09 )
 scale = Vector2( 2.66652, 1.85127 )
 description = {
 "Ammo": null,
-"Description": "Jawbreaker",
+"Description": "An extremely hard candy that can shatter enemies and brittle objects alike",
 "Icon": "res://Pickups/Jaw Breaker 720p.png",
 "Name": "Jawbreaker",
+"StoryPoint": [ "Birb", 2 ],
+"Temporary": null,
 "Unit": "artifacts"
 }
 
