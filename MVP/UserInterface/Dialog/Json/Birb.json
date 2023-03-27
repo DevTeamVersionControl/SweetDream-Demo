@@ -27,7 +27,7 @@
 
     {"Name":"Birb", 
         "Text":"Here check out his stuff, what do ya want?", 
-    "Signal":"first_interation", "Portrait":"res://UserInterface/Dialog/Portraits/Birb.png"},
+    "Signal":"first_interaction", "Portrait":"res://UserInterface/Dialog/Portraits/Birb.png"},
 
     {"Name":"Birb",
         "Text":"",

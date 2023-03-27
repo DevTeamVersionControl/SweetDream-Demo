@@ -47,7 +47,7 @@ func physics_update(delta: float) -> void:
 
 func on_impact(normal):
 	player.velocity = player.velocity.bounce(normal)
-	player.velocity *= 0.8
+	player.velocity *= 0.4
 
 func on_can_dash():
 	player.lifesaver.get_material().set("shader_param/flashState", 0.0)

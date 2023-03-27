@@ -46,7 +46,7 @@ func get_dialog_num() -> int:
 	GlobalVars.inventory.invert()
 	var story_point := 0
 	for item in GlobalVars.inventory:
-		if story_point != 0 and item.has("StoryPoint") and item.get("StoryPoint")[0] == "Birb":
+		if story_point == 0 and item.has("StoryPoint") and item.get("StoryPoint")[0] == "Birb":
 			story_point = int(item.get("StoryPoint")[1])
 			if item.has("Temporary"):
 				item.erase("StoryPoint")
