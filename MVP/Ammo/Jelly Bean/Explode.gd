@@ -36,6 +36,6 @@ func calculate_explosion_knockback(body_pos:Vector2) -> Vector2:
 	return explosion_knockback * explosion_strength
 
 func play_sound():
-	$AudioStreamPlayer2D.play()
-	yield($AudioStreamPlayer2D, "finished")
+	get_parent().get_parent().get_node("AudioStreamPlayer2D").play()
+	yield(get_parent().get_parent().get_node("AudioStreamPlayer2D"), "finished")
 	jelly_bean.queue_free()

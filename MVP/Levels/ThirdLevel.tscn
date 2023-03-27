@@ -3888,7 +3888,10 @@ scale = Vector2( 0.714784, 0.621067 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Fuck me/StaticBody2D"]
 position = Vector2( -664.033, 38.751 )
-scale = Vector2( 1, 1 )
+shape = SubResource( 211 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Fuck me/StaticBody2D"]
+position = Vector2( 701.338, 38.751 )
 shape = SubResource( 211 )
 
 [node name="BreakablePlatformLong" parent="Fuck me" instance=ExtResource( 11 )]
