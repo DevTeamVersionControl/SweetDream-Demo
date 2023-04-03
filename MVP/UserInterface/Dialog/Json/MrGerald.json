@@ -6,7 +6,7 @@
     "Signal":"talk", "Portrait":"res://UserInterface/Dialog/Portraits/MrGerald.png"},
     
     {"Name":"Unknown",
-        "Text":"...", 
+        "Text":"...                                                ", 
     "Portrait":"res://UserInterface/Dialog/Portraits/Player.png"},
 
     {"Name":"Unknown", 

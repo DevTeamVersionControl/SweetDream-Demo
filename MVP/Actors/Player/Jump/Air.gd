@@ -27,7 +27,6 @@ onready var jump_audio := $Jump
 
 # If we get a message asking us to jump, we jump.
 func enter(msg := {}) -> void:
-	print("Transitioned to air")
 	if msg.has("do_jump"):
 		player.velocity.y = -player.JUMP_IMPULSE
 		player.animation_mode.travel("Air")
@@ -50,9 +49,9 @@ func physics_update(delta: float) -> void:
 	)
 	
 	# Check for transition animation
-	if cache.y < 0 and player.velocity.y > 0:
-		player.animation_mode.travel("Transition")
-	cache = player.velocity
+#	if cache.y < 0 and player.velocity.y > 0:
+#		player.animation_mode.travel("Transition")
+#	cache = player.velocity
 	
 	# Animation going up or down
 	player.animation_tree.set('parameters/Air/blend_position', 1 if player.velocity.normalized().y > 0 else -1)

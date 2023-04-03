@@ -20,4 +20,8 @@ export var level_range_y : Vector2
 
 func _ready():
 	yield(get_tree().current_scene, "level_loaded")
-	#$Camera2D.current = true
+	$JawbreakerBoss.connect("died", self, "on_died")
+
+func on_died():
+	var tween = get_tree().create_tween()
+	tween.tween_property($AudioStreamPlayer, "volume_db", -80, 2)

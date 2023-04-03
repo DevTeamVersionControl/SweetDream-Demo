@@ -3784,7 +3784,6 @@ scale = Vector2( 2.66652, 1.85127 )
 description = {
 "Currency": null,
 "Description": "Artifacts",
-"Icon": "res://Pickups/Artifacts.png",
 "Name": "Artifact",
 "Unit": "artifact",
 "Value": 2
@@ -3796,7 +3795,6 @@ scale = Vector2( 2.66652, 1.85127 )
 description = {
 "Currency": null,
 "Description": "Artifacts",
-"Icon": "res://Pickups/Artifacts.png",
 "Name": "Artifact",
 "Unit": "artifact",
 "Value": 2
@@ -3808,7 +3806,6 @@ scale = Vector2( 2.66652, 1.85127 )
 description = {
 "Currency": null,
 "Description": "Artifacts",
-"Icon": "res://Pickups/Artifacts.png",
 "Name": "Artifact",
 "Unit": "artifact",
 "Value": 2
@@ -3820,7 +3817,6 @@ scale = Vector2( 2.66652, 1.85127 )
 description = {
 "Currency": null,
 "Description": "Artifacts",
-"Icon": "res://Pickups/Artifacts.png",
 "Name": "Artifact",
 "Unit": "artifact",
 "Value": 2
@@ -3832,7 +3828,6 @@ scale = Vector2( 2.66652, 1.85127 )
 description = {
 "Currency": null,
 "Description": "Artifacts",
-"Icon": "res://Pickups/Artifacts.png",
 "Name": "Artifact",
 "Unit": "artifact",
 "Value": 2
@@ -3844,7 +3839,6 @@ scale = Vector2( 2.66652, 1.85127 )
 description = {
 "Currency": null,
 "Description": "Artifacts",
-"Icon": "res://Pickups/Artifacts.png",
 "Name": "Artifact",
 "Unit": "artifact",
 "Value": 2
@@ -3903,7 +3897,7 @@ weight_sensitive = false
 
 [node name="Pickup" parent="Fuck me" instance=ExtResource( 15 )]
 position = Vector2( 1122.63, -5288.09 )
-scale = Vector2( 2.66652, 1.85127 )
+scale = Vector2( 0.25, 0.2 )
 description = {
 "Ammo": null,
 "Description": "An extremely hard candy that can shatter enemies and brittle objects alike",

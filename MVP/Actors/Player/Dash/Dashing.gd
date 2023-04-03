@@ -27,8 +27,9 @@ onready var dash_audio := $Dash
 
 func enter(_msg := {}) -> void:
 	if can_dash && !GlobalVars.dash_lock:
-		player.lifesaver.get_material().set("shader_param/flashState", 1.0)
-		player.lifesaver.animation_player.play("DashRecovery")
+		if player.lifesaver != null:
+			player.lifesaver.get_material().set("shader_param/flashState", 1.0)
+			player.lifesaver.animation_player.play("DashRecovery")
 		player.velocity.y = 0
 		can_dash = false
 		player.animation_tree.set('parameters/Dash/blend_position', 1 if player.facing_right else -1)
@@ -50,7 +51,8 @@ func on_impact(normal):
 	player.velocity *= 0.4
 
 func on_can_dash():
-	player.lifesaver.get_material().set("shader_param/flashState", 0.0)
+	if player.lifesaver != null:
+		player.lifesaver.get_material().set("shader_param/flashState", 0.0)
 	can_dash = true
 
 func on_dash_end():

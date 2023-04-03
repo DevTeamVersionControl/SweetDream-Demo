@@ -1,9 +1,9 @@
 [
-    {"Name":"Health upgrade", "Icon":"Item 1.png", "Price":"5", "Unit":"artifacts", "Description":"Buying this will give you 10 more max health", "Effect":["add_max_health", 10]},
-    {"Name":"Health upgrade", "Icon":"Item 1.png", "Price":"7", "Unit":"artifacts", "Description":"Buying this will give you 10 more max health", "Effect":["add_max_health", 10]},
-    {"Name":"Health upgrade", "Icon":"Item 1.png", "Price":"10", "Unit":"artifacts", "Description":"Buying this will give you 10 more max health", "Effect":["add_max_health", 10]},
-    {"Name":"Sugar upgrade", "Icon":"Item 2.png", "Price":"5","Unit":"artifacts", "Description":"You can now store more sugar in your gun, so you don't have to switch as often",  "Effect":["add_max_sugar", 10]},
-    {"Name":"Sugar upgrade", "Icon":"Item 2.png", "Price":"7","Unit":"artifacts", "Description":"You can now store more sugar in your gun, so you don't have to switch as often",  "Effect":["add_max_sugar", 10]},
-    {"Name":"Sugar upgrade", "Icon":"Item 2.png", "Price":"10","Unit":"artifacts", "Description":"You can now store more sugar in your gun, so you don't have to switch as often",  "Effect":["add_max_sugar", 10]}
+    {"Name":"Health upgrade", "Icon":"Health.png", "Price":"5", "Unit":"artifacts", "Description":"Buying this will give you 10 more max health", "Effect":["add_max_health", 10]},
+    {"Name":"Health upgrade", "Icon":"Health.png", "Price":"7", "Unit":"artifacts", "Description":"Buying this will give you 10 more max health", "Effect":["add_max_health", 10]},
+    {"Name":"Health upgrade", "Icon":"Health.png", "Price":"10", "Unit":"artifacts", "Description":"Buying this will give you 10 more max health", "Effect":["add_max_health", 10]},
+    {"Name":"Sugar upgrade", "Icon":"Sugar.png", "Price":"5","Unit":"artifacts", "Description":"You can now store more sugar in your gun, so you don't have to switch as often",  "Effect":["add_max_sugar", 10]},
+    {"Name":"Sugar upgrade", "Icon":"Sugar.png", "Price":"7","Unit":"artifacts", "Description":"You can now store more sugar in your gun, so you don't have to switch as often",  "Effect":["add_max_sugar", 10]},
+    {"Name":"Sugar upgrade", "Icon":"Sugar.png", "Price":"10","Unit":"artifacts", "Description":"You can now store more sugar in your gun, so you don't have to switch as often",  "Effect":["add_max_sugar", 10]}
 
 ]

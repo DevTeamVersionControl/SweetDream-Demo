@@ -17,25 +17,11 @@ extends Area2D
 
 export(String, FILE, "*tscn,*scn") var target_scene
 
-var loaded_scene
-
-onready var thread := Thread.new()
 onready var spawn_position = $Position
-
-func _ready():
-	thread.start(self, "load_level", target_scene)
 
 func _on_Portal_body_entered(body):
 	if body is Player:
-		if thread.is_alive():
-			thread.wait_to_finish()
-		get_tree().current_scene.change_level(loaded_scene, name)
+		get_tree().current_scene.change_level(target_scene, name)
 
 func get_spawn_position() -> Vector2:
 	return spawn_position.global_position
-
-func load_level(m_target_scene:String):
-	loaded_scene = load(m_target_scene)
-
-func _exit_tree():
-	thread.wait_to_finish()

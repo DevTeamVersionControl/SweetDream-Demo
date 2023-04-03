@@ -16,6 +16,8 @@
 class_name JawbreakerBoss
 extends KinematicBody2D
 
+signal died
+
 enum PHASE {FIRST, SECOND, THIRD}
 
 const CHARGE_DAMAGE = 30

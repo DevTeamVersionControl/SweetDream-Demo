@@ -23,7 +23,7 @@ signal changed_health_pack()
 
 const SPEED = 120
 const GRAVITY = 1200
-const JUMP_IMPULSE = 350
+const JUMP_IMPULSE = 370
 const JUMP_ACCEL = 620
 const DECELERATION = 0.5
 const ACCELERATION = 50
@@ -70,7 +70,8 @@ func _physics_process(_delta):
 		if GlobalVars.health_packs > 0:
 			set_health_packs(GlobalVars.health_packs - 1)
 			heal(HEAL_FROM_CANDY)
-			lifesaver.animation_player.play("Heal")
+			if lifesaver != null:
+				lifesaver.animation_player.play("Heal")
 	if !can_shoot:
 		cooldown_bar.scale.x = cooldown_timer.time_left/cooldown_timer.wait_time/100
 

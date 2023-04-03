@@ -18,7 +18,8 @@ extends PlayerState
 onready var audio := $AudioStreamPlayer
 
 func enter(_msg := {}) -> void:
-	player.lifesaver.animation_player.play("Die")
+	if player.lifesaver != null:
+		player.lifesaver.animation_player.play("Die")
 	player.velocity = Vector2.ZERO
 	player.animation_mode.travel("Death")
 

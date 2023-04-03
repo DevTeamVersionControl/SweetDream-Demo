@@ -43,16 +43,16 @@ func save(game_data):
 func load(game_data):
 	checkpoint = GlobalTypes.Checkpoint.new(game_data["checkpoint_name"], load(game_data["checkpoint_level"]))
 
-func change_level(new_level:PackedScene, portal_name:String):
+func change_level(new_level:String, portal_name:String):
 	var tween = get_tree().create_tween()
 	tween.set_pause_mode(SceneTreeTween.TWEEN_PAUSE_PROCESS)
 	tween.tween_property(level_transition, "self_modulate", Color(0, 0, 0, 1), 1)
-	tween.tween_callback(self, "_on_animation_finished")
+	tween.tween_callback(self, "_on_animation_finished", [new_level])
 	gui.request_pause()
-	next_level = new_level
 	door_location = portal_name
 
-func _on_animation_finished():
+func _on_animation_finished(new_level:String):
+	next_level = load(new_level)
 	if next_level != null:
 		load_level(next_level, door_location)
 		gui.request_unpause()
