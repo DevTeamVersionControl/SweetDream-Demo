@@ -1,23 +1,27 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://UserInterface/theme.tres" type="Theme" id=1]
 [ext_resource path="res://UserInterface/PauseMenu/Pause menu.gd" type="Script" id=2]
-[ext_resource path="res://UserInterface/Fonts/MangabeyRegular-rgqVO.otf" type="DynamicFontData" id=4]
-
-[sub_resource type="StyleBoxFlat" id=12]
-bg_color = Color( 0.160784, 0.0901961, 0.239216, 1 )
-
-[sub_resource type="StyleBoxFlat" id=13]
-bg_color = Color( 0.160784, 0.0901961, 0.239216, 1 )
+[ext_resource path="res://UserInterface/Fonts/Maler.ttf" type="DynamicFontData" id=3]
 
 [sub_resource type="DynamicFont" id=14]
-size = 100
-font_data = ExtResource( 4 )
+size = 80
+font_data = ExtResource( 3 )
+
+[sub_resource type="StyleBoxEmpty" id=16]
+
+[sub_resource type="StyleBoxEmpty" id=17]
+
+[sub_resource type="StyleBoxFlat" id=15]
+bg_color = Color( 0.980392, 0.631373, 0.968627, 0.47451 )
 
 [sub_resource type="Theme" id=11]
 default_font = SubResource( 14 )
-ItemList/styles/bg = SubResource( 12 )
-ItemList/styles/bg_focus = SubResource( 13 )
+ItemList/colors/font_color = Color( 0.894118, 0.839216, 0.886275, 1 )
+ItemList/fonts/font = SubResource( 14 )
+ItemList/styles/bg = SubResource( 16 )
+ItemList/styles/bg_focus = SubResource( 17 )
+ItemList/styles/selected = SubResource( 15 )
 
 [node name="PauseMenu" type="Control"]
 pause_mode = 2
@@ -27,22 +31,30 @@ mouse_filter = 1
 script = ExtResource( 2 )
 
 [node name="Background colour" type="ColorRect" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-color = Color( 0.160784, 0.0901961, 0.239216, 1 )
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -1017.5
+margin_right = 1017.5
+margin_bottom = 1151.0
+rect_scale = Vector2( 0.973019, 0.995359 )
+input_pass_on_modal_close_click = false
+color = Color( 0.345098, 0.266667, 0.470588, 1 )
 
 [node name="Label" type="Label" parent="."]
-margin_left = 745.0
-margin_top = 56.0
-margin_right = 1217.0
-margin_bottom = 164.0
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -450.0
+margin_top = 129.0
+margin_right = 450.0
+margin_bottom = 273.0
 theme = ExtResource( 1 )
 text = "Sweet Dream"
 
 [node name="ItemList" type="ItemList" parent="."]
-margin_left = 836.0
-margin_top = 366.0
-margin_right = 1213.0
-margin_bottom = 1076.0
+anchor_bottom = 0.838
+margin_left = 743.0
+margin_top = 272.0
+margin_right = 1300.0
+margin_bottom = 79.96
 theme = SubResource( 11 )
 items = [ "Settings", null, false, "Main menu", null, false, "Close game", null, false, "Resume", null, false ]
