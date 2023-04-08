@@ -1,0 +1,106 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://UserInterface/HUD/HUD.gd" type="Script" id=2]
+[ext_resource path="res://UserInterface/HUD/MainUIOutline.png" type="Texture" id=3]
+[ext_resource path="res://UserInterface/HUD/MainUI.png" type="Texture" id=4]
+[ext_resource path="res://UserInterface/HUD/Candies.png" type="Texture" id=5]
+[ext_resource path="res://UserInterface/HUD/AmmoSelector.png" type="Texture" id=6]
+[ext_resource path="res://UserInterface/HUD/HealthBar.png" type="Texture" id=7]
+[ext_resource path="res://UserInterface/HUD/AmmoSelectorCover.png" type="Texture" id=8]
+[ext_resource path="res://UserInterface/HUD/CandiesEmpty.png" type="Texture" id=9]
+[ext_resource path="res://UserInterface/HUD/SugarBar.png" type="Texture" id=10]
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource( 2 )
+
+[node name="Resizer" type="Node2D" parent="."]
+position = Vector2( 0, -100 )
+scale = Vector2( 0.7, 0.7 )
+
+[node name="TextureProgress" type="TextureProgress" parent="Resizer"]
+margin_right = 720.0
+margin_bottom = 720.0
+value = 98.0
+texture_under = ExtResource( 4 )
+texture_progress = ExtResource( 7 )
+
+[node name="TextureProgress2" type="TextureProgress" parent="Resizer"]
+margin_right = 773.0
+margin_bottom = 720.0
+value = 78.0
+texture_over = ExtResource( 3 )
+texture_progress = ExtResource( 10 )
+
+[node name="TextureProgress3" type="TextureProgress" parent="Resizer"]
+margin_right = 773.0
+margin_bottom = 720.0
+value = 44.0
+texture_under = ExtResource( 9 )
+texture_progress = ExtResource( 5 )
+fill_mode = 3
+
+[node name="AmmoDisplay" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_top = -100.0
+margin_right = -1280.0
+margin_bottom = -651.0
+texture = ExtResource( 6 )
+expand = true
+stretch_mode = 5
+
+[node name="NextAmmo" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 132.0
+margin_top = 163.0
+margin_right = -1741.0
+margin_bottom = -870.0
+rect_scale = Vector2( 1.45018, 1.39187 )
+expand = true
+stretch_mode = 5
+
+[node name="AmmoDisplayCover" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_top = -100.0
+margin_right = -1219.0
+margin_bottom = -651.0
+texture = ExtResource( 8 )
+expand = true
+stretch_mode = 5
+
+[node name="CandiesEmpty" type="TextureRect" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -100.0
+margin_right = -1220.0
+margin_bottom = -651.0
+texture = ExtResource( 9 )
+expand = true
+stretch_mode = 5
+
+[node name="CandiesFull" type="TextureRect" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -100.0
+margin_right = -1200.0
+margin_bottom = -651.0
+texture = ExtResource( 5 )
+expand = true
+stretch_mode = 5
+
+[node name="CurrentAmmo" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 210.0
+margin_top = 161.0
+margin_right = -1654.0
+margin_bottom = -863.0
+rect_scale = Vector2( 1.36274, 1.31389 )
+expand = true
+stretch_mode = 5
