@@ -23,7 +23,7 @@ func enter(_msg := {}) -> void:
 		activate()
 
 func on_something_detected(something):
-	if something is Player:
+	if something is Player && candy_corn.target == null:
 		candy_corn.interest_timer.stop()
 		candy_corn.target = something
 		activate()

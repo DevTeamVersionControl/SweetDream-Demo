@@ -19,4 +19,10 @@ func enter(_msg := {}) -> void:
 	spawner.animation_player.play("Idle")
 
 func activate():
+	var is_in_range := false
+	for body in spawner.player_detector.get_overlapping_bodies():
+		if body is Player:
+			is_in_range = true
+	if not is_in_range:
+		get_parent().get_parent()._on_something_leave(get_tree().current_scene.player)
 	state_machine.transition_to("Spawning")

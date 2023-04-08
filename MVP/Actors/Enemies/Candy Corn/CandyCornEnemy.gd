@@ -34,13 +34,14 @@ onready var interest_timer := $InterestTimer
 func take_damage(damage:float, knockback:Vector2):
 	health -= damage
 	motion += knockback
+	if state_machine.state.name == "Idle":
+		$StateMachine/Idle.on_something_detected(get_tree().current_scene.player)
 	if health <= 0:
 		state_machine.transition_to("Death")
 	else:
 		$Sprite.get_material().set("shader_param/flashState", 1.0)
 		yield(get_tree().create_timer(0.1), "timeout")
 		$Sprite.get_material().set("shader_param/flashState", 0.0)
-
 
 func on_hit_something(something):
 	if something is Player:

@@ -35,7 +35,6 @@ func attack():
 			heart.scale.x *= -1
 		state_machine.transition_to("Attacking")
 
-
 func _on_ShieldZone_body_exited(body):
 	if body == heart.target && heart.health > 0:
 		if state_machine.state != self:

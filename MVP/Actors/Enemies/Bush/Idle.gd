@@ -15,11 +15,19 @@
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 extends BushState
 
+onready var timer := $Timer
+
 func enter(_msg := {}) -> void:
+	var is_in_range := false
 	if (bush.facing_left):
 		bush.animation_player.play("IdleLeft")
 	else:
 		bush.animation_player.play("IdleRight")
+	for body in bush.detection_zone.get_overlapping_bodies():
+		if body is Player:
+			is_in_range = true
+	if not is_in_range:
+		timer.start()
 
 func attack():
 	if bush.target != null:
@@ -27,3 +35,15 @@ func attack():
 		state_machine.transition_to("Attacking")
 	else:
 		state_machine.transition_to("Asleep", {0:"From attack"})
+
+func on_thing_exited(thing):
+	if thing is Player:
+		bush.target = null
+
+func aggro_done():
+	var is_in_range := false
+	for body in bush.detection_zone.get_overlapping_bodies():
+		if body is Player:
+			is_in_range = true
+	if not is_in_range:
+		on_thing_exited(get_tree().current_scene.player)

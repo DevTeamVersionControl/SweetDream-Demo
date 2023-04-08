@@ -26,5 +26,7 @@ func spawn() -> void:
 	var candy_corn = CANDY_CORN.instance()
 	candy_corn.facing_right = true
 	get_tree().current_scene.current_level.add_child(candy_corn)
-	candy_corn.global_position = spawner.candy_corn_spawn.global_position
-	spawn_timer.start()
+	candy_corn.global_position = spawner.candy_corn_spawn.global_position + Vector2.UP * 5
+	candy_corn.get_node("StateMachine/Idle").on_something_detected(get_tree().current_scene.player)
+	if spawner.target != null:
+		spawn_timer.start()

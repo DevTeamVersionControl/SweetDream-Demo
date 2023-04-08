@@ -44,6 +44,8 @@ func _ready():
 func take_damage(damage, knockback):
 	health -= damage
 	motion += knockback
+	if state_machine.state.name == "Idle":
+		$StateMachine/Idle.on_something_detected(get_tree().current_scene.player)
 	if health <= 0 && animation_player.current_animation != "Death":
 		state_machine.transition_to("Death")
 	else:

@@ -10,9 +10,12 @@ var target : Player
 onready var state_machine := $StateMachine
 onready var animation_player := $AnimationPlayer
 onready var candy_corn_spawn := $CandyCornSpawn
+onready var player_detector := $PlayerDetector
 
 func take_damage(damage:float, knockback:Vector2) -> void:
 	health -= damage
+	if state_machine.state.name == "Idle":
+		on_something_detected(get_tree().current_scene.player)
 	if health <= 0:
 		state_machine.transition_to("Death")
 	else:
@@ -34,7 +37,6 @@ func _physics_process(_delta)->void:
 		motion.y += 10
 		motion.x = lerp(motion.x, 0, 0.1)
 		motion = move_and_slide(motion)
-
 
 func _on_something_leave(something):
 	if something is Player && health > 0:

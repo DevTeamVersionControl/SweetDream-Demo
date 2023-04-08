@@ -30,6 +30,7 @@ onready var animation_player := $AnimationPlayer
 onready var state_machine := $StateMachine
 onready var grab_position := $GrabPosition
 onready var body_hit_collision := $BodyHitZone/CollisionShape2D
+onready var detection_zone := $PlayerDetector
 
 # It's a bush it won't move
 func knockback(_vector:Vector2):
@@ -37,6 +38,8 @@ func knockback(_vector:Vector2):
 
 func take_damage(damage:int, _vector:Vector2):
 	health -= damage
+	if state_machine.state == $StateMachine/Asleep:
+		$StateMachine/Asleep.on_thing_seen(get_tree().current_scene.player)
 	if health <= 0:
 		state_machine.transition_to("Death")
 	else:

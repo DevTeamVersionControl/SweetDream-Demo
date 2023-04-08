@@ -16,7 +16,6 @@
 extends PlayerState
 
 func enter(_msg := {}) -> void:
-	print("Transitioned to crouch")
 	player.velocity.x = 0
 	player.animation_tree.set('parameters/Crouched/blend_position', 1 if player.facing_right else -1)
 	player.animation_tree.set('parameters/Crouch/blend_position', 1 if player.facing_right else -1)

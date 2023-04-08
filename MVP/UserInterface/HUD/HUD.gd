@@ -49,4 +49,4 @@ func _on_changed_sugar():
 func _on_changed_health_pack():
 	# Scaling it in code instead of messing with the textures themselves
 	if GlobalVars.max_health_packs != 0:
-		health_pack_display.value = 22*GlobalVars.health_packs/GlobalVars.max_health_packs + 22
+		health_pack_display.value = 23*GlobalVars.health_packs/GlobalVars.max_health_packs + 22

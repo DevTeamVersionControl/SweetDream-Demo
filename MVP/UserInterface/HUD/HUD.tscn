@@ -34,7 +34,7 @@ texture_progress = ExtResource( 10 )
 [node name="TextureProgress3" type="TextureProgress" parent="Resizer"]
 margin_right = 773.0
 margin_bottom = 720.0
-value = 44.0
+value = 21.0
 texture_under = ExtResource( 9 )
 texture_progress = ExtResource( 5 )
 fill_mode = 3
@@ -53,8 +53,8 @@ stretch_mode = 5
 [node name="NextAmmo" type="TextureRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 132.0
-margin_top = 163.0
+margin_left = 139.0
+margin_top = 170.0
 margin_right = -1741.0
 margin_bottom = -870.0
 rect_scale = Vector2( 1.45018, 1.39187 )
@@ -69,28 +69,6 @@ margin_top = -100.0
 margin_right = -1219.0
 margin_bottom = -651.0
 texture = ExtResource( 8 )
-expand = true
-stretch_mode = 5
-
-[node name="CandiesEmpty" type="TextureRect" parent="."]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = -100.0
-margin_right = -1220.0
-margin_bottom = -651.0
-texture = ExtResource( 9 )
-expand = true
-stretch_mode = 5
-
-[node name="CandiesFull" type="TextureRect" parent="."]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = -100.0
-margin_right = -1200.0
-margin_bottom = -651.0
-texture = ExtResource( 5 )
 expand = true
 stretch_mode = 5
 

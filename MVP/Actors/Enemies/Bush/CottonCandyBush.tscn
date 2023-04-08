@@ -947,6 +947,10 @@ script = ExtResource( 4 )
 [node name="Idle" type="Node" parent="StateMachine"]
 script = ExtResource( 5 )
 
+[node name="Timer" type="Timer" parent="StateMachine/Idle"]
+wait_time = 8.0
+one_shot = true
+
 [node name="Attacking" type="Node" parent="StateMachine"]
 script = ExtResource( 6 )
 
@@ -976,7 +980,8 @@ shape = SubResource( 34 )
 disabled = true
 
 [connection signal="body_entered" from="PlayerDetector" to="StateMachine/Asleep" method="on_thing_seen"]
-[connection signal="body_exited" from="PlayerDetector" to="StateMachine/Asleep" method="on_thing_exited"]
+[connection signal="body_exited" from="PlayerDetector" to="StateMachine/Idle" method="on_thing_exited"]
 [connection signal="body_entered" from="CaneHitZone" to="StateMachine/Attacking" method="grabbed_something"]
+[connection signal="timeout" from="StateMachine/Idle/Timer" to="StateMachine/Idle" method="aggro_done"]
 [connection signal="body_entered" from="WaveHitZone" to="StateMachine/Attacking" method="hit_something"]
 [connection signal="body_entered" from="BodyHitZone" to="." method="on_ran_into_something"]
