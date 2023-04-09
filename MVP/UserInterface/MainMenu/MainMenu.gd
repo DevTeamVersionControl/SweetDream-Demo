@@ -3,6 +3,7 @@ extends Control
 onready var item_list = $ItemList
 onready var input_menu = $InputMenu
 onready var level_transition = $LevelTransition
+onready var sound_menu := $SoundMenu
 
 var index := 0
 
@@ -16,6 +17,8 @@ func _ready():
 func _unhandled_input(event):
 	if input_menu.visible:
 		input_menu.input(event)
+	elif sound_menu.visible:
+		sound_menu.input(event)
 	else:
 		if Input.is_action_pressed("ui_accept"):
 			select_option()
@@ -34,11 +37,19 @@ func select_option():
 	if item_list.get_item_text(0) == "Play":
 		match item_list.get_item_text(item_list.get_selected_items()[0]):
 			"Settings":
-				input_menu.visible = true
+				load_settings()
 			"Play":
 				load_saves()
 			"Exit":
 				get_tree().notification(MainLoop.NOTIFICATION_WM_QUIT_REQUEST)
+	elif item_list.get_item_text(0) == "Sound":
+		match item_list.get_item_text(item_list.get_selected_items()[0]):
+			"Sound":
+				sound_menu.show()
+			"Controls":
+				input_menu.show()
+			"Back":
+				load_menu()
 	else:
 		var tween = get_tree().create_tween()
 		GameSaver.save_path = "user://Save%s.json"%(item_list.get_selected_items()[0]+1)
@@ -53,6 +64,14 @@ func load_saves():
 			item_list.add_item("Save" + String(i+1))
 		else:
 			item_list.add_item("New Game")
+	index = 0
+	item_list.select(index)
+
+func load_settings():
+	item_list.clear()
+	item_list.add_item("Sound")
+	item_list.add_item("Controls")
+	item_list.add_item("Back")
 	index = 0
 	item_list.select(index)
 

@@ -1744,3 +1744,4 @@ texture = ExtResource( 22 )
 pause_mode = 2
 stream = ExtResource( 23 )
 autoplay = true
+bus = "Music"

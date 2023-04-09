@@ -48,7 +48,7 @@ size = 33
 font_data = ExtResource( 9 )
 
 [sub_resource type="DynamicFont" id=6]
-size = 39
+size = 90
 extra_spacing_top = 5
 extra_spacing_bottom = 2
 font_data = ExtResource( 9 )
@@ -161,19 +161,19 @@ uppercase = true
 [node name="ScrollContainer" type="ScrollContainer" parent="Column"]
 margin_top = 215.0
 margin_right = 1820.0
-margin_bottom = 912.0
+margin_bottom = 867.0
 size_flags_vertical = 3
 
 [node name="ActionList" type="VBoxContainer" parent="Column/ScrollContainer"]
 margin_right = 1820.0
-margin_bottom = 697.0
+margin_bottom = 652.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 15
 script = ExtResource( 5 )
 
 [node name="Button" type="Button" parent="Column"]
-margin_top = 937.0
+margin_top = 892.0
 margin_right = 1820.0
 margin_bottom = 980.0
 theme = SubResource( 5 )

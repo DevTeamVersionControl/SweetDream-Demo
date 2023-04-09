@@ -1,0 +1,214 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://UserInterface/Fonts/MangabeyRegular-rgqVO.otf" type="DynamicFontData" id=1]
+[ext_resource path="res://UserInterface/SoundMenu/SoundMenu.gd" type="Script" id=2]
+
+[sub_resource type="DynamicFont" id=1]
+size = 100
+font_data = ExtResource( 1 )
+
+[sub_resource type="Theme" id=11]
+default_font = SubResource( 1 )
+
+[sub_resource type="StyleBoxFlat" id=12]
+
+[sub_resource type="StyleBoxFlat" id=13]
+
+[sub_resource type="Theme" id=15]
+HSlider/styles/grabber_area = SubResource( 12 )
+HSlider/styles/grabber_area_highlight = SubResource( 13 )
+HSlider/styles/slider = null
+
+[sub_resource type="Theme" id=17]
+HSlider/styles/grabber_area = SubResource( 12 )
+HSlider/styles/grabber_area_highlight = SubResource( 13 )
+HSlider/styles/slider = null
+
+[sub_resource type="Theme" id=18]
+HSlider/styles/grabber_area = SubResource( 12 )
+HSlider/styles/grabber_area_highlight = SubResource( 13 )
+HSlider/styles/slider = null
+
+[sub_resource type="DynamicFont" id=6]
+size = 90
+extra_spacing_top = 5
+extra_spacing_bottom = 2
+font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxFlat" id=7]
+bg_color = Color( 0.380392, 0.286275, 0.486275, 1 )
+
+[sub_resource type="StyleBoxFlat" id=8]
+bg_color = Color( 0.55906, 0.418854, 0.714844, 1 )
+
+[sub_resource type="StyleBoxFlat" id=9]
+bg_color = Color( 0.498039, 0.372549, 0.635294, 1 )
+
+[sub_resource type="StyleBoxFlat" id=10]
+bg_color = Color( 0.101917, 0.0565338, 0.152344, 1 )
+
+[sub_resource type="Theme" id=16]
+Button/fonts/font = SubResource( 6 )
+Button/styles/focus = SubResource( 7 )
+Button/styles/hover = SubResource( 8 )
+Button/styles/normal = SubResource( 9 )
+Button/styles/pressed = SubResource( 10 )
+
+[node name="SoundMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.160784, 0.0901961, 0.239216, 1 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+alignment = 1
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="HBoxContainer"]
+margin_left = 358.0
+margin_right = 1562.0
+margin_bottom = 1080.0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/VBoxContainer3"]
+margin_right = 1204.0
+margin_bottom = 276.0
+alignment = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/VBoxContainer3/HBoxContainer2"]
+margin_left = 496.0
+margin_right = 708.0
+margin_bottom = 276.0
+
+[node name="Label2" type="Label" parent="HBoxContainer/VBoxContainer3/HBoxContainer2/HBoxContainer2"]
+margin_right = 212.0
+margin_bottom = 276.0
+grow_horizontal = 2
+rect_min_size = Vector2( 64, 64 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = SubResource( 11 )
+text = "
+Volume
+"
+align = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer3"]
+margin_top = 280.0
+margin_right = 1204.0
+margin_bottom = 558.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer3/HBoxContainer"]
+margin_right = 600.0
+margin_bottom = 278.0
+rect_min_size = Vector2( 600, 0 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer3/HBoxContainer/VBoxContainer"]
+margin_right = 600.0
+margin_bottom = 90.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer3/HBoxContainer/VBoxContainer/HBoxContainer"]
+margin_right = 420.0
+margin_bottom = 90.0
+rect_min_size = Vector2( 64, 64 )
+size_flags_vertical = 3
+theme = SubResource( 11 )
+text = "Master         "
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="HBoxContainer/VBoxContainer3/HBoxContainer/VBoxContainer"]
+margin_top = 94.0
+margin_right = 600.0
+margin_bottom = 184.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer3/HBoxContainer/VBoxContainer/HBoxContainer3"]
+margin_right = 411.0
+margin_bottom = 90.0
+rect_min_size = Vector2( 64, 64 )
+size_flags_vertical = 3
+theme = SubResource( 11 )
+text = "Music          "
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="HBoxContainer/VBoxContainer3/HBoxContainer/VBoxContainer"]
+margin_top = 188.0
+margin_right = 600.0
+margin_bottom = 278.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer3/HBoxContainer/VBoxContainer/HBoxContainer4"]
+margin_right = 415.0
+margin_bottom = 90.0
+rect_min_size = Vector2( 64, 64 )
+size_flags_vertical = 3
+theme = SubResource( 11 )
+text = "Sound Effects"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer/VBoxContainer3/HBoxContainer"]
+margin_left = 604.0
+margin_right = 1204.0
+margin_bottom = 278.0
+rect_min_size = Vector2( 600, 0 )
+custom_constants/separation = 27
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer3/HBoxContainer/VBoxContainer2"]
+margin_top = 16.0
+margin_right = 600.0
+margin_bottom = 80.0
+size_flags_horizontal = 3
+
+[node name="HSlider" type="HSlider" parent="HBoxContainer/VBoxContainer3/HBoxContainer/VBoxContainer2/HBoxContainer"]
+margin_right = 450.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 450, 64 )
+theme = SubResource( 15 )
+value = 50.0
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="HBoxContainer/VBoxContainer3/HBoxContainer/VBoxContainer2"]
+margin_top = 107.0
+margin_right = 600.0
+margin_bottom = 171.0
+size_flags_horizontal = 3
+
+[node name="HSlider" type="HSlider" parent="HBoxContainer/VBoxContainer3/HBoxContainer/VBoxContainer2/HBoxContainer3"]
+margin_right = 450.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 450, 64 )
+theme = SubResource( 17 )
+value = 50.0
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="HBoxContainer/VBoxContainer3/HBoxContainer/VBoxContainer2"]
+margin_top = 198.0
+margin_right = 600.0
+margin_bottom = 262.0
+size_flags_horizontal = 3
+
+[node name="HSlider" type="HSlider" parent="HBoxContainer/VBoxContainer3/HBoxContainer/VBoxContainer2/HBoxContainer4"]
+margin_right = 450.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 450, 64 )
+theme = SubResource( 18 )
+value = 50.0
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="HBoxContainer/VBoxContainer3"]
+margin_top = 562.0
+margin_right = 1204.0
+margin_bottom = 650.0
+alignment = 1
+
+[node name="Button" type="Button" parent="HBoxContainer/VBoxContainer3/HBoxContainer3"]
+margin_left = 539.0
+margin_right = 665.0
+margin_bottom = 88.0
+theme = SubResource( 16 )
+text = "Back"
+
+[connection signal="drag_ended" from="HBoxContainer/VBoxContainer3/HBoxContainer/VBoxContainer2/HBoxContainer/HSlider" to="." method="set_volume"]
+[connection signal="drag_ended" from="HBoxContainer/VBoxContainer3/HBoxContainer/VBoxContainer2/HBoxContainer3/HSlider" to="." method="set_volume"]
+[connection signal="drag_ended" from="HBoxContainer/VBoxContainer3/HBoxContainer/VBoxContainer2/HBoxContainer4/HSlider" to="." method="set_volume"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer3/HBoxContainer3/Button" to="." method="back"]

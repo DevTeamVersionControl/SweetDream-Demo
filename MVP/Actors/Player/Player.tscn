@@ -4122,6 +4122,7 @@ script = ExtResource( 34 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="StateMachine/Death"]
 stream = ExtResource( 35 )
+bus = "Sound Effects"
 
 [node name="Crouched" type="Node" parent="StateMachine"]
 script = ExtResource( 11 )
@@ -4134,9 +4135,11 @@ script = ExtResource( 3 )
 
 [node name="Footstep1" type="AudioStreamPlayer" parent="StateMachine/Run"]
 volume_db = -8.47
+bus = "Sound Effects"
 
 [node name="Footstep2" type="AudioStreamPlayer" parent="StateMachine/Run"]
 volume_db = -7.462
+bus = "Sound Effects"
 
 [node name="Air" type="Node" parent="StateMachine"]
 script = ExtResource( 5 )
@@ -4150,6 +4153,7 @@ wait_time = 0.2
 [node name="Jump" type="AudioStreamPlayer" parent="StateMachine/Air"]
 stream = ExtResource( 6 )
 volume_db = -7.537
+bus = "Sound Effects"
 
 [node name="Aim" type="Node" parent="StateMachine"]
 script = ExtResource( 8 )
@@ -4157,6 +4161,7 @@ script = ExtResource( 8 )
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="StateMachine/Aim"]
 stream = ExtResource( 14 )
 volume_db = -3.0
+bus = "Sound Effects"
 
 [node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="StateMachine/Aim"]
 stream = ExtResource( 14 )
@@ -4178,6 +4183,7 @@ one_shot = true
 
 [node name="Dash" type="AudioStreamPlayer" parent="StateMachine/Dashing"]
 stream = ExtResource( 16 )
+bus = "Sound Effects"
 
 [node name="KnockedOut" type="Node" parent="StateMachine"]
 script = ExtResource( 13 )

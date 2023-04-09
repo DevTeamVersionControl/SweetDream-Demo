@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://UserInterface/Fonts/MangabeyRegular-rgqVO.otf" type="DynamicFontData" id=1]
 [ext_resource path="res://UserInterface/MainMenu/MainMenu.gd" type="Script" id=2]
 [ext_resource path="res://UserInterface/PauseMenu/input_menu/InputMenu.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Levels/FirstLevel/Dream Culture.mp3" type="AudioStream" id=4]
+[ext_resource path="res://UserInterface/SoundMenu/SoundMenu.tscn" type="PackedScene" id=5]
 
 [sub_resource type="DynamicFont" id=1]
 size = 200
@@ -67,6 +68,10 @@ color = Color( 0, 0, 0, 0 )
 [node name="InputMenu" parent="." instance=ExtResource( 3 )]
 visible = false
 
+[node name="SoundMenu" parent="." instance=ExtResource( 5 )]
+visible = false
+
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
 autoplay = true
+bus = "Music"

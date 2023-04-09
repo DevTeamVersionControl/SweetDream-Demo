@@ -480,6 +480,7 @@ scale = Vector2( 10, 10 )
 stream = ExtResource( 8 )
 volume_db = 4.0
 max_distance = 400.0
+bus = "Sound Effects"
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource( 2 )

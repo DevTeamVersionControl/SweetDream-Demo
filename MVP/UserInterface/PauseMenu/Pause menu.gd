@@ -16,6 +16,7 @@
 extends Control
 
 onready var item_list := $ItemList
+onready var sound_menu := $SoundMenu
 
 var index := 0
 
@@ -34,19 +35,22 @@ func input():
 			get_parent().request_pause()
 			visible = true
 			item_list.select(0)
-	if Input.is_action_just_pressed("ui_accept") && visible:
-		select_option()
-	if Input.is_action_pressed("ui_up"):
-		index = int(clamp(index - 1, 0, item_list.get_item_count()-1))
-		item_list.select(index)
-	if Input.is_action_pressed("ui_down"):
-		index = int(clamp(index + 1, 0, item_list.get_item_count()-1))
-		item_list.select(index)
+	if sound_menu.visible:
+		sound_menu.input(null)
+	else:
+		if Input.is_action_just_pressed("ui_accept") && visible:
+			select_option()
+		if Input.is_action_pressed("ui_up"):
+			index = int(clamp(index - 1, 0, item_list.get_item_count()-1))
+			item_list.select(index)
+		if Input.is_action_pressed("ui_down"):
+			index = int(clamp(index + 1, 0, item_list.get_item_count()-1))
+			item_list.select(index)
 
 func select_option():
 	match item_list.get_item_text(item_list.get_selected_items()[0]):
 		"Settings":
-			get_parent().input_menu.visible = true
+			load_settings()
 		"Main menu":
 			GameSaver.save()
 			get_tree().paused = false
@@ -56,9 +60,32 @@ func select_option():
 			get_tree().notification(MainLoop.NOTIFICATION_WM_QUIT_REQUEST)
 		"Resume":
 			resume()
+		"Sound":
+			sound_menu.show()
+		"Controls":
+			get_parent().input_menu.show()
+		"Back":
+			load_menu()
 	
 func resume():
 	if visible:
 		mouse_filter = Control.MOUSE_FILTER_PASS
 		get_parent().request_unpause()
 		visible = false
+
+func load_settings():
+	item_list.clear()
+	item_list.add_item("Sound")
+	item_list.add_item("Controls")
+	item_list.add_item("Back")
+	index = 0
+	item_list.select(index)
+
+func load_menu():
+	item_list.clear()
+	item_list.add_item("Settings")
+	item_list.add_item("Main menu")
+	item_list.add_item("Close game")	
+	item_list.add_item("Resume")
+	index = 0
+	item_list.select(index)
