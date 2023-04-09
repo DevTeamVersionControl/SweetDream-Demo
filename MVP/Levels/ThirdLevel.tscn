@@ -3549,6 +3549,7 @@ scale = Vector2( 10, 1 )
 shape = SubResource( 210 )
 
 [node name="CollisionShape2D10" type="CollisionShape2D" parent="StaticBody2D"]
+visible = false
 position = Vector2( 3129, 1279 )
 scale = Vector2( 20, 1 )
 shape = SubResource( 210 )

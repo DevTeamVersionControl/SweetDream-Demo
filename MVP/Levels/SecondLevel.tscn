@@ -4378,7 +4378,6 @@ scale = Vector2( 42.2457, -19.9767 )
 polygon = PoolVector2Array( 13.133, 0.0785522, 13.3483, -14.0602, -14.1019, -13.9032, -13.2407, 15.3956, 9.79593, 14.7672, 13.7425, 13.7079 )
 
 [node name="DarkZone4" parent="Get Gud" instance=ExtResource( 12 )]
-visible = false
 position = Vector2( 4218.66, 1147.41 )
 scale = Vector2( 0.674602, 0.466965 )
 z_index = 5
@@ -4496,23 +4495,23 @@ position = Vector2( 1860.31, 33.5678 )
 scale = Vector2( 1.17741, 1.01721 )
 
 [node name="Pickup3" parent="Get Gud" instance=ExtResource( 15 )]
-position = Vector2( 3938.44, 1223.7 )
-scale = Vector2( -0.75, 0.7 )
+position = Vector2( 3933.73, 1232.85 )
+scale = Vector2( -1, 1 )
 description = {
 "Description": "A spoonful of sugar helps the Cadus III not go down ",
 "Effect": [ "unlock_dash", "placeholder" ],
-"Icon": "res://Pickups/Spoonful of sugar.png",
 "Name": "Spoonful of sugar"
 }
+sprite_num = 2
 
 [node name="Pickup4" parent="Get Gud" instance=ExtResource( 15 )]
-position = Vector2( 3861.9, 2605.06 )
-scale = Vector2( 1.17741, 1.01721 )
+position = Vector2( 3861.9, 2616.25 )
 description = {
 "Description": "Unlocks double jump",
 "Effect": [ "unlock_double_jump", "placeholder" ],
 "Name": "Original name"
 }
+sprite_num = 2
 
 [node name="CandyCornEnemy" parent="Get Gud" instance=ExtResource( 18 )]
 position = Vector2( 3778.31, 483.173 )

@@ -38,7 +38,7 @@ func on_shop():
 	
 # Used once to equip candy corn ammo to player at the beginning of the game and give them the lifesaver
 func equip_candy_corn():
-	GlobalVars.ammo_equipped_array.append(GlobalVars.get_ammo("Candy Corn"))
+	GlobalVars.ammo_equipped_array = [GlobalVars.get_ammo("Candy Corn"), null]
 	GlobalVars.add_to_inventory({"Name":"Gimald shop","StoryPoint":["Gimald", 2]})
 	GlobalVars.add_to_inventory({"Name":"Lifesaver","Effect":["lifesaver", "placeholder"]})
 	GlobalVars.max_health_packs = 3

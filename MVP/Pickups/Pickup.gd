@@ -5,9 +5,10 @@ export var description = {"Name":"Quest Item", "Icon":"Item 3.png", "Price":"30"
 export var sprite_num = 0 setget change_animation
 
 var delete := false 
-onready var save_path = GameSaver.save_path
-onready var sprite := $Sprite
+var save_path
 var rads := 0.0
+
+onready var sprite := $Sprite
 
 func _ready():
 	sprite.frame = sprite_num
@@ -20,6 +21,8 @@ func _ready():
 		sprite.frame = 0
 		sprite.texture = load(description.get("Icon"))
 		sprite.update()
+	if not Engine.is_editor_hint():
+		save_path = GameSaver.save_path
 
 func _on_Artifact_body_entered(body):
 	if body is Player and not Engine.is_editor_hint():
@@ -50,6 +53,5 @@ func _physics_process(delta):
 		sprite.global_position.y += 3 * sin(rads)
 
 func change_animation(new_animation):
-	if is_instance_valid(sprite):
-		sprite.frame = new_animation
-		sprite_num = new_animation
+	sprite_num = new_animation
+	$Sprite.frame = sprite_num
