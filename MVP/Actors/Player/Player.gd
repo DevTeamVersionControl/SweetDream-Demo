@@ -36,6 +36,7 @@ var facing_right := true
 var can_shoot := true
 var invulnerable := false
 var lifesaver
+var sugar_recovery := false
 
 # References to nodes in case they are changed
 onready var cooldown_timer := $CooldownTimer
@@ -62,10 +63,18 @@ func _ready():
 	camera.limit_bottom = level_limit_max.y
 	set_canvas_item_light_mask_value($Sprite, 5, true)
 
-func _physics_process(_delta):
+func _physics_process(delta):
+	if sugar_recovery:
+		if GlobalVars.sugar < GlobalVars.max_sugar:
+			GlobalVars.sugar += delta
+			if GlobalVars.sugar > GlobalVars.max_sugar:
+				GlobalVars.sugar = GlobalVars.max_sugar
+			update_display()
 	if Input.is_action_just_pressed("ammo_next") && state_machine.state != $StateMachine/Aim && GlobalVars.ammo_equipped_array.size() != 0:
 		GlobalVars.equiped_ammo_index = (GlobalVars.equiped_ammo_index + 1) % GlobalVars.ammo_equipped_array.size()
-		on_sugar_timer_timeout()
+		update_display()
+		if GlobalVars.sugar < GlobalVars.max_sugar:
+			GlobalVars.sugar = GlobalVars.max_sugar/2
 	if Input.is_action_just_pressed("consume_health_pack"):
 		if GlobalVars.health_packs > 0:
 			set_health_packs(GlobalVars.health_packs - 1)
@@ -130,7 +139,7 @@ func on_invulnerability_off():
 	invulnerable = false
 
 func on_sugar_timer_timeout():
-	GlobalVars.sugar = GlobalVars.max_sugar
+	sugar_recovery = true
 	update_display()
 
 func update_display():

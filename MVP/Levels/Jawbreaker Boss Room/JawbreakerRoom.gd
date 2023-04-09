@@ -24,4 +24,8 @@ func _ready():
 
 func on_died():
 	var tween = get_tree().create_tween()
-	tween.tween_property($AudioStreamPlayer, "volume_db", -80, 2)
+	tween.tween_property($AudioStreamPlayer, "volume_db", -80.0, 5.0)
+	tween.tween_callback(self, "end")
+
+func end():
+	get_tree().current_scene.start_dialog("res://Levels/FirstLevel/Railroad.json", 1)

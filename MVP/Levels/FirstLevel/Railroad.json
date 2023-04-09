@@ -3,5 +3,10 @@
     {"Name":"Cadus III",
         "Text":"Got it, that must be the artifact I should bring back to him", 
     "Portrait":"res://UserInterface/Dialog/Portraits/Player.png"}
+    ],
+[
+    {"Name":"Devs",
+        "Text":"This is the end of the demo! Thanks for playing through", 
+    "Portrait":"res://UserInterface/Dialog/Portraits/Player.png"}
     ]
 ]

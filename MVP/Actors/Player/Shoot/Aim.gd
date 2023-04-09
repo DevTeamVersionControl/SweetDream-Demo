@@ -96,6 +96,7 @@ func shoot_animation():
 func shoot(position:NodePath) -> void:
 	if !player.can_shoot:
 		return
+	player.sugar_recovery = false
 	player.can_shoot = false
 	var bullet = GlobalVars.ammo_equipped_array[GlobalVars.equiped_ammo_index].scene.instance()
 	get_tree().current_scene.add_child(bullet)
