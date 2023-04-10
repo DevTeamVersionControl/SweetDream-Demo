@@ -30,8 +30,9 @@ var is_on_floor:bool
 var volume := 0.5
 #var stuck := false
 
-export var health = 10
+export var health = 3
 export(float, 0.5, 2.5) var initial_volume = 2.1
+export var inverse_drop_chance = 1
 
 onready var animation_player = $AnimationPlayer
 onready var state_machine = $StateMachine

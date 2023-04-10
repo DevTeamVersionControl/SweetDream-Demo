@@ -15,6 +15,8 @@
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 extends JelloEnemyState
 
+const PICKUP = preload("res://Pickups/Pickup.tscn")
+
 func enter(_msg := {}) -> void:
 	jello.get_node("CollisionShape2D2").set_deferred("disabled", true)
 	jello.animation_player.play("Death")
@@ -27,3 +29,17 @@ func enter(_msg := {}) -> void:
 			new_baby.global_position = jello.global_position + Vector2(-5 + n*5,0)
 			new_baby.target = jello.target
 	jello.queue_free()
+	
+	# Keeping this just in case I want to make it random again
+	if randi()%jello.inverse_drop_chance == 0:
+		var pickup := PICKUP.instance()
+		pickup.disappear = true
+		get_tree().current_scene.add_child(pickup)
+		pickup.global_position = jello.global_position
+		pickup.scale = Vector2(0.6,0.6)
+		if randi()%4 != 0:
+			pickup.description = {"Drop":"Sugar"}
+			pickup.call_deferred("change_animation", 3)
+		else:
+			pickup.description = {"Drop":"Health"}
+			pickup.call_deferred("change_animation", 1) 

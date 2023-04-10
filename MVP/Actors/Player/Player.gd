@@ -36,7 +36,7 @@ var facing_right := true
 var can_shoot := true
 var invulnerable := false
 var lifesaver
-var sugar_recovery := false
+var sugar_recovery := true
 
 # References to nodes in case they are changed
 onready var cooldown_timer := $CooldownTimer
@@ -72,9 +72,9 @@ func _physics_process(delta):
 			update_display()
 	if Input.is_action_just_pressed("ammo_next") && state_machine.state != $StateMachine/Aim && GlobalVars.ammo_equipped_array.size() != 0:
 		GlobalVars.equiped_ammo_index = (GlobalVars.equiped_ammo_index + 1) % GlobalVars.ammo_equipped_array.size()
-		update_display()
 		if GlobalVars.sugar < GlobalVars.max_sugar:
 			GlobalVars.sugar = GlobalVars.max_sugar/2
+		update_display()
 	if Input.is_action_just_pressed("consume_health_pack"):
 		if GlobalVars.health_packs > 0:
 			set_health_packs(GlobalVars.health_packs - 1)

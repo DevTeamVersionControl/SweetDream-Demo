@@ -97,6 +97,7 @@ func get_from_inventory(name:String):
 	for item in inventory:
 		if item.get("Name") and item["Name"] == name:
 			return item
+	return null
 	
 func remove_from_inventory(item_name:String):
 	for i in inventory.size():
@@ -116,6 +117,13 @@ func add_max_sugar(num:int)->void:
 func add_currency(item:Dictionary):
 	if item["Unit"] == "artifact":
 		artifacts += item["Value"]
+
+func apply_drop(item:Dictionary):
+	if item["Drop"] == "Sugar":
+		sugar += 10
+	elif item["Drop"] == "Health":
+		health += 5
+	get_tree().current_scene.player.update_display()
 
 func lifesaver(_placeholder)->void:
 	if !is_instance_valid(get_tree().current_scene.player.lifesaver):
@@ -138,4 +146,7 @@ func apply_items():
 			call_deferred(item["Effect"][0], item["Effect"][1])
 		if item.has("Currency"):
 			add_currency(item)
+			inventory.erase(item)
+		if item.has("Drop"):
+			apply_drop(item)
 			inventory.erase(item)

@@ -7,8 +7,10 @@ export var sprite_num = 0 setget change_animation
 var delete := false 
 var save_path
 var rads := 0.0
+var disappear := false
 
 onready var sprite := $Sprite
+onready var timer := $Timer
 
 func _ready():
 	sprite.frame = sprite_num
@@ -23,6 +25,8 @@ func _ready():
 		sprite.update()
 	if not Engine.is_editor_hint():
 		save_path = GameSaver.save_path
+		if disappear:
+			timer.start()
 
 func _on_Artifact_body_entered(body):
 	if body is Player and not Engine.is_editor_hint():
@@ -44,6 +48,9 @@ func disappear():
 	delete = true
 	GameSaver.save()
 	GameSaver.partial_save(self)
+	queue_free()
+
+func delete():
 	queue_free()
 
 func _physics_process(delta):

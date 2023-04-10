@@ -15,9 +15,26 @@
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 extends BushState
 
+const PICKUP = preload("res://Pickups/Pickup.tscn")
+
 func enter(_msg := {}) -> void:
+	
 	bush.get_node("PhysicsBox").set_deferred("disabled", true)
 	if bush.facing_left:
 		bush.animation_player.play("DeathLeft")
 	else:
 		bush.animation_player.play("DeathRight")
+	
+	# Keeping this just in case I want to make it random again
+	if randi()%1 == 0:
+		var pickup := PICKUP.instance()
+		pickup.disappear = true
+		get_tree().current_scene.add_child(pickup)
+		pickup.global_position = bush.global_position
+		pickup.scale = Vector2(0.6,0.6)
+		if randi()%4 != 0:
+			pickup.description = {"Drop":"Sugar"}
+			pickup.call_deferred("change_animation", 3)
+		else:
+			pickup.description = {"Drop":"Health"}
+			pickup.call_deferred("change_animation", 1) 

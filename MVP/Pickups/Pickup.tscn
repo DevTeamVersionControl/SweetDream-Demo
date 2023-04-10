@@ -26,4 +26,9 @@ normal_map = ExtResource( 3 )
 hframes = 3
 vframes = 2
 
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
 [connection signal="body_entered" from="." to="." method="_on_Artifact_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="delete"]

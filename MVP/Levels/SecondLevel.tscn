@@ -1,4 +1,4 @@
-[gd_scene load_steps=147 format=2]
+[gd_scene load_steps=151 format=2]
 
 [ext_resource path="res://Environment/Blocks/Forest/TileSets/Tile Pack/Dirt Tile Pack/Dirt_Tile_Pack_333p.png" type="Texture" id=1]
 [ext_resource path="res://Abstract/GenericDoor/GenericDoor.tscn" type="PackedScene" id=2]
@@ -39,8 +39,12 @@
 [ext_resource path="res://UserInterface/Tutorial/Dash.png" type="Texture" id=37]
 [ext_resource path="res://UserInterface/Tutorial/DoubleJump.png" type="Texture" id=38]
 [ext_resource path="res://UserInterface/Tutorial/UpArrow.png" type="Texture" id=39]
-[ext_resource path="res://UserInterface/Tutorial/Jump.png" type="Texture" id=40]
+[ext_resource path="res://UserInterface/Tutorial/SpecialTutorial.gd" type="Script" id=40]
 [ext_resource path="res://Levels/FirstLevel/Pickup.gd" type="Script" id=41]
+[ext_resource path="res://Levels/FirstLevel/Dream Culture.mp3" type="AudioStream" id=42]
+[ext_resource path="res://Environment/Backgrounds/Forest Backgrounds/Environment Extra/1 Post/Post.tscn" type="PackedScene" id=43]
+[ext_resource path="res://UserInterface/Tutorial/SignPost.png" type="Texture" id=44]
+[ext_resource path="res://Environment/Backgrounds/Forest Backgrounds/Environment Extra/2 Post/Post2.tscn" type="PackedScene" id=45]
 
 [sub_resource type="CanvasItemMaterial" id=198]
 light_mode = 2
@@ -4665,15 +4669,6 @@ visible = false
 scale = Vector2( 0.1, 0.02 )
 texture = ExtResource( 38 )
 
-[node name="Tutorial indicator4" parent="." instance=ExtResource( 36 )]
-position = Vector2( 466, 62 )
-scale = Vector2( 1.66333, 3.23051 )
-
-[node name="Sprite" type="Sprite" parent="Tutorial indicator4"]
-visible = false
-scale = Vector2( 0.0623189, 0.0334934 )
-texture = ExtResource( 40 )
-
 [node name="Tutorial indicator6" parent="." instance=ExtResource( 36 )]
 position = Vector2( 1637, 1079 )
 scale = Vector2( 0.689487, 1.54936 )
@@ -4693,11 +4688,59 @@ position = Vector2( 891, -77 )
 scale = Vector2( 0.1, 0.1 )
 script = ExtResource( 41 )
 description = {
-"Description": "It's that quest item another npc asked for to progress the main story",
-"Icon": "Item 3.png",
-"Name": "Quest Item",
-"Price": "30",
-"Unit": "artifacts"
+"Ammo": null,
+"Description": "Basic but reliable ammo",
+"Icon": "res://Pickups/Candy Corn 720p.png",
+"Name": "Candy Corn",
+"StoryPoint": [ "Gimald", 1 ],
+"Temporary": null
 }
+
+[node name="AudioStreamPlayer2D5" type="AudioStreamPlayer2D" parent="."]
+pause_mode = 2
+position = Vector2( 48, 159 )
+stream = ExtResource( 42 )
+autoplay = true
+max_distance = 1500.0
+attenuation = 1.7411
+bus = "Music"
+
+[node name="2Post720p" parent="." instance=ExtResource( 45 )]
+position = Vector2( 232, 160 )
+frame = 2
+
+[node name="Tutorial indicator5" parent="." instance=ExtResource( 36 )]
+position = Vector2( 232, 113 )
+script = ExtResource( 40 )
+temporary = false
+
+[node name="Sprite" type="Sprite" parent="Tutorial indicator5"]
+visible = false
+position = Vector2( 2, -12 )
+scale = Vector2( 0.1, 0.1 )
+texture = ExtResource( 44 )
+
+[node name="2Post720p2" parent="." instance=ExtResource( 45 )]
+position = Vector2( 3064, 488 )
+frame = 1
+
+[node name="1Post720p" parent="." instance=ExtResource( 43 )]
+position = Vector2( 2136, 503 )
+scale = Vector2( -0.1, 0.1 )
+frame = 2
+
+[node name="1Post720p2" parent="." instance=ExtResource( 43 )]
+position = Vector2( 2015, 1491 )
+frame = 1
+
+[node name="1Post720p3" parent="." instance=ExtResource( 43 )]
+position = Vector2( 1985, 2008 )
+scale = Vector2( -0.1, 0.1 )
+frame = 2
+
+[node name="1Post720p4" parent="." instance=ExtResource( 43 )]
+position = Vector2( 1290, 2901 )
+scale = Vector2( -0.1, 0.1 )
+frame = 2
 
 [connection signal="on" from="Get Gud/Button" to="." method="_on_Button_on"]

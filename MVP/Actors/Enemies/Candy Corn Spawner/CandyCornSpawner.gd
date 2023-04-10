@@ -26,7 +26,8 @@ func take_damage(damage:float, knockback:Vector2) -> void:
 func on_something_detected(something)->void:
 	if something is Player && target == null:
 		target = something
-		state_machine.state.activate()
+		if state_machine.state.name == "Idle":
+			state_machine.state.activate()
 
 func on_hit_something(something)->void:
 	if something is Player:

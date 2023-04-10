@@ -17,8 +17,24 @@ extends JawbreakerState
 
 #Handles death
 
+const PICKUP = preload("res://Pickups/Pickup.tscn")
+
 func enter(_msg := {}) -> void:
 	jawbreaker.get_node("CollisionShape2D").set_deferred("disabled", true)
 	jawbreaker.animation_player.play("Die")
 	yield(jawbreaker.animation_player, "animation_finished")
 	jawbreaker.queue_free()
+	
+	if randi()%1 == 0:
+		var pickup := PICKUP.instance()
+		pickup.disappear = true
+		get_tree().current_scene.add_child(pickup)
+		pickup.global_position = jawbreaker.global_position
+		pickup.scale = Vector2(0.6,0.6)
+		if randi()%4 != 0:
+			pickup.description = {"Drop":"Sugar"}
+			pickup.call_deferred("change_animation", 3)
+		else:
+			pickup.description = {"Drop":"Health"}
+			pickup.call_deferred("change_animation", 1) 
+		

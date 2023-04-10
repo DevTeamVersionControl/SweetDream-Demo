@@ -824,7 +824,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ Vector2( 29, -10 ) ]
+"values": [ Vector2( 29, -12 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("BulletSpawnLeft:position")
@@ -836,7 +836,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ Vector2( -27, -10 ) ]
+"values": [ Vector2( -27, -12 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("Hurtbox:scale")
@@ -896,7 +896,7 @@ tracks/6/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ Vector2( 1, -10 ) ]
+"values": [ Vector2( 1, -12 ) ]
 }
 tracks/7/type = "value"
 tracks/7/path = NodePath("CooldownBar:position")
@@ -1009,7 +1009,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ Vector2( 29, -10 ) ]
+"values": [ Vector2( 29, -12 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("BulletSpawnLeft:position")
@@ -1021,7 +1021,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ Vector2( -27, -10 ) ]
+"values": [ Vector2( -27, -12 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("Hurtbox:scale")
@@ -1081,7 +1081,7 @@ tracks/6/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ Vector2( 1, -10 ) ]
+"values": [ Vector2( 1, -12 ) ]
 }
 tracks/7/type = "value"
 tracks/7/path = NodePath("CooldownBar:position")
@@ -2796,7 +2796,7 @@ tracks/6/loop_wrap = true
 tracks/6/imported = false
 tracks/6/enabled = true
 tracks/6/keys = {
-"times": PoolRealArray( 0.0833333 ),
+"times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [ NodePath("BulletSpawnLeft") ],
@@ -2887,7 +2887,7 @@ tracks/6/loop_wrap = true
 tracks/6/imported = false
 tracks/6/enabled = true
 tracks/6/keys = {
-"times": PoolRealArray( 0.0833333 ),
+"times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [ NodePath("BulletSpawnRight") ],
@@ -2990,7 +2990,7 @@ tracks/7/loop_wrap = true
 tracks/7/imported = false
 tracks/7/enabled = true
 tracks/7/keys = {
-"times": PoolRealArray( 0.0833333 ),
+"times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [ NodePath("BulletSpawnDown") ],
@@ -3033,7 +3033,7 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0.0833333 ),
+"times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [ NodePath("BulletSpawnDown") ],
@@ -3136,7 +3136,7 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0.0833333 ),
+"times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [ NodePath("BulletSpawnLeft") ],
@@ -3299,7 +3299,7 @@ tracks/7/loop_wrap = true
 tracks/7/imported = false
 tracks/7/enabled = true
 tracks/7/keys = {
-"times": PoolRealArray( 0.0833333 ),
+"times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [ NodePath("BulletSpawnRight") ],
@@ -3402,7 +3402,7 @@ tracks/7/loop_wrap = true
 tracks/7/imported = false
 tracks/7/enabled = true
 tracks/7/keys = {
-"times": PoolRealArray( 0.0833333 ),
+"times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [ NodePath("BulletSpawnUp") ],
@@ -4209,7 +4209,7 @@ position = Vector2( 12, -47 )
 position = Vector2( -11, -47 )
 
 [node name="BulletSpawnDown" type="Position2D" parent="."]
-position = Vector2( 1, -21 )
+position = Vector2( 0, -23 )
 
 [node name="BulletSpawnLeft" type="Position2D" parent="."]
 position = Vector2( -17, -36 )

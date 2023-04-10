@@ -37,6 +37,10 @@ func _on_changed_ammo():
 				next_ammo_display.texture = null
 		else:
 			ammo_display.texture = null
+			if GlobalVars.ammo_equipped_array[(GlobalVars.equiped_ammo_index + 1) % GlobalVars.ammo_equipped_array.size()] != null:
+				next_ammo_display.texture = GlobalVars.ammo_equipped_array[(GlobalVars.equiped_ammo_index + 1) % GlobalVars.ammo_equipped_array.size()].texture
+			else:
+				next_ammo_display.texture = null
 
 func _on_changed_health():
 	# Scaling it in code instead of messing with the textures themselves

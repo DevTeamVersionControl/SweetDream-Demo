@@ -94,7 +94,7 @@ func shoot_animation():
 
 # Shoots individual bullets
 func shoot(position:NodePath) -> void:
-	if !player.can_shoot:
+	if !player.can_shoot or GlobalVars.ammo_equipped_array[GlobalVars.equiped_ammo_index] == null:
 		return
 	player.sugar_recovery = false
 	player.can_shoot = false

@@ -1,7 +1,14 @@
 tool
 extends Area2D
 
-export var description = {"Name":"Quest Item", "Icon":"Item 3.png", "Price":"30","Unit":"artifacts", "Description":"It's that quest item another npc asked for to progress the main story"} 
+export var description = {
+"Ammo": null,
+"Description": "Basic but reliable ammo",
+"Icon": "res://Pickups/Candy Corn 720p.png",
+"Name": "Candy Corn",
+"StoryPoint": [ "Gimald", 1 ],
+"Temporary": null
+}
 export var sprite_num = 0 setget change_animation
 
 var delete := false 

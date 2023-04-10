@@ -31,3 +31,18 @@ func _on_Button_on():
 	$TileMap.update_bitmask_area(Vector2(5,9))
 	if get_node_or_null("DarkZone2"):
 		$DarkZone2.disappear()
+
+func on_jawbreaker_pickup(body):
+	if body is Player:
+		var tween = get_tree().create_tween()
+		tween.tween_property($AudioStreamPlayer2D4, "volume_db", -80.0, 10.0)
+		tween.tween_callback(self, "end")
+		tween = get_tree().create_tween()
+		tween.tween_property($AudioStreamPlayer2D3, "volume_db", -80.0, 10.0)
+		tween.tween_callback(self, "end")
+		tween = get_tree().create_tween()
+		tween.tween_property($AudioStreamPlayer2D2, "volume_db", -80.0, 10.0)
+		tween.tween_callback(self, "end")
+		tween = get_tree().create_tween()
+		tween.tween_property($AudioStreamPlayer2D5, "volume_db", -80.0, 10.0)
+		tween.tween_callback(self, "end")
