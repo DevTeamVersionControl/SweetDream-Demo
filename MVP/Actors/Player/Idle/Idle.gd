@@ -30,16 +30,16 @@ func physics_update(delta: float) -> void:
 	player.velocity.x = 0
 	player.velocity = player.move_and_slide(player.velocity, Vector2.UP)
 	
-	if Input.is_action_pressed("crouch"):
-		state_machine.transition_to("Crouched")
-		return
-	
-	if Input.is_action_just_pressed("move_up"):
-		state_machine.transition_to("Air", {do_jump = true})
-	elif Input.is_action_pressed("move_left") or Input.is_action_pressed("move_right"):
-		state_machine.transition_to("Run")
-	elif Input.is_action_pressed("shoot") && player.can_shoot:
-		if GlobalVars.ammo_equipped_array.size() != 0 && GlobalVars.ammo_equipped_array[GlobalVars.equiped_ammo_index] != null && GlobalVars.sugar >= GlobalVars.ammo_equipped_array[GlobalVars.equiped_ammo_index].sugar:
-			state_machine.transition_to("Aim")
-	elif Input.is_action_pressed("dash"):
-		state_machine.transition_to("Dashing")
+	if !get_tree().paused:
+		if Input.is_action_pressed("crouch"):
+			state_machine.transition_to("Crouched")
+			return
+		if Input.is_action_just_pressed("move_up"):
+			state_machine.transition_to("Air", {do_jump = true})
+		elif Input.is_action_pressed("move_left") or Input.is_action_pressed("move_right"):
+			state_machine.transition_to("Run")
+		elif Input.is_action_pressed("shoot") && player.can_shoot:
+			if GlobalVars.ammo_equipped_array.size() != 0 && GlobalVars.ammo_equipped_array[GlobalVars.equiped_ammo_index] != null && GlobalVars.sugar >= GlobalVars.ammo_equipped_array[GlobalVars.equiped_ammo_index].sugar:
+				state_machine.transition_to("Aim")
+		elif Input.is_action_pressed("dash"):
+			state_machine.transition_to("Dashing")

@@ -63,13 +63,14 @@ func physics_update(delta: float) -> void:
 	if input_locked:
 		input_direction_x = 0
 	
-	#Horizontal movement
-	if !player.is_on_wall():
-		if is_equal_approx(input_direction_x, 0.0):
-			player.velocity.x = lerp(player.velocity.x, 0, player.DECELERATION)
-		else:
-			player.velocity.x += player.ACCELERATION * input_direction_x
-	player.velocity.x = clamp(player.velocity.x, -player.SPEED, player.SPEED)
+	if !get_tree().paused:
+		#Horizontal movement
+		if !player.is_on_wall():
+			if is_equal_approx(input_direction_x, 0.0):
+				player.velocity.x = lerp(player.velocity.x, 0, player.DECELERATION)
+			else:
+				player.velocity.x += player.ACCELERATION * input_direction_x
+		player.velocity.x = clamp(player.velocity.x, -player.SPEED, player.SPEED)
 
 	# Vertical movement.
 	player.velocity.y += player.GRAVITY * delta
@@ -81,44 +82,48 @@ func physics_update(delta: float) -> void:
 		if jump_buffer:
 			state_machine.transition_to("Air", {do_jump = true})
 		else:
-			if is_equal_approx(player.velocity.x, 0.0):
+			if get_tree().paused:
 				state_machine.transition_to("Idle")
 			else:
-				state_machine.transition_to("Run")
+				if is_equal_approx(player.velocity.x, 0.0):
+					state_machine.transition_to("Idle")
+				else:
+					state_machine.transition_to("Run")
 	
-	# Double jump
-	if Input.is_action_just_pressed("move_up") && !GlobalVars.double_jump_lock:
-		if !double_jump:
-			double_jump = true
-			state_machine.transition_to("Air", {do_jump = true})
-	
-	# Dash
-	if Input.is_action_pressed("dash"):
-		state_machine.transition_to("Dashing")
-	
-	# Higher jump
-	if Input.is_action_pressed("move_up") && player.velocity.y < 0:
-		player.velocity.y -= player.JUMP_ACCEL * delta
-	
-	# Hollow knight jump
-	if Input.is_action_just_released("move_up") && player.velocity.y < 0:
-		player.velocity.y = 0
+	if !get_tree().paused:
+		# Double jump
+		if Input.is_action_just_pressed("move_up") && !GlobalVars.double_jump_lock:
+			if !double_jump:
+				double_jump = true
+				state_machine.transition_to("Air", {do_jump = true})
 		
-	#Coyote time
-	if Input.is_action_just_pressed("move_up") && coyote_time:
-		state_machine.transition_to("Air", {do_jump = true})
-	
-	#Jump buffering
-	if Input.is_action_just_pressed("move_up") && !jump_buffer:
-		jump_buffer = true
-		jump_buffer_timer.start()
-	
-	# Player dies if out of bounds
-#	if player.global_position.y > player.level_limit_max.y:
-#		get_tree().current_scene.die()
-	
-	if Input.is_action_pressed("shoot") && player.can_shoot && GlobalVars.ammo_equipped_array.size() != 0 && GlobalVars.ammo_equipped_array[GlobalVars.equiped_ammo_index] != null && GlobalVars.sugar >= GlobalVars.ammo_equipped_array[GlobalVars.equiped_ammo_index].sugar:
-		state_machine.transition_to("Aim")
+		# Dash
+		if Input.is_action_pressed("dash"):
+			state_machine.transition_to("Dashing")
+		
+		# Higher jump
+		if Input.is_action_pressed("move_up") && player.velocity.y < 0:
+			player.velocity.y -= player.JUMP_ACCEL * delta
+		
+		# Hollow knight jump
+		if Input.is_action_just_released("move_up") && player.velocity.y < 0:
+			player.velocity.y = 0
+			
+		#Coyote time
+		if Input.is_action_just_pressed("move_up") && coyote_time:
+			state_machine.transition_to("Air", {do_jump = true})
+		
+		#Jump buffering
+		if Input.is_action_just_pressed("move_up") && !jump_buffer:
+			jump_buffer = true
+			jump_buffer_timer.start()
+		
+		# Player dies if out of bounds
+	#	if player.global_position.y > player.level_limit_max.y:
+	#		get_tree().current_scene.die()
+		
+		if Input.is_action_pressed("shoot") && player.can_shoot && GlobalVars.ammo_equipped_array.size() != 0 && GlobalVars.ammo_equipped_array[GlobalVars.equiped_ammo_index] != null && GlobalVars.sugar >= GlobalVars.ammo_equipped_array[GlobalVars.equiped_ammo_index].sugar:
+			state_machine.transition_to("Aim")
 
 func _on_JumpBufferTimer_timeout():
 	jump_buffer = false

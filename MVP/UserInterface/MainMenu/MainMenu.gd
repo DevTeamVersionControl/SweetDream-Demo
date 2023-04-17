@@ -39,6 +39,7 @@ func select_option():
 			"Settings":
 				load_settings()
 			"Play":
+				index = 0
 				load_saves()
 			"Exit":
 				get_tree().notification(MainLoop.NOTIFICATION_WM_QUIT_REQUEST)
@@ -64,7 +65,6 @@ func load_saves():
 			item_list.add_item("Save" + String(i+1))
 		else:
 			item_list.add_item("New Game")
-	index = 0
 	item_list.select(index)
 
 func load_settings():

@@ -31,10 +31,8 @@ func _on_GenericDoor_body_exited(body):
 
 func _unhandled_key_input(_event):
 	if player_is_in_zone && Input.is_action_pressed("interact"):
-		if ResourceLoader.exists("res://Saves/".plus_file(target_scene.get_file())):
-			get_tree().current_scene.change_level(load("res://Saves/".plus_file(target_scene.get_file())), name)
-		else:
-			get_tree().current_scene.change_level(target_scene, name)
+		get_tree().current_scene.player.state_machine.transition_to("Idle")
+		get_tree().current_scene.change_level(target_scene, name)
 
 func get_spawn_position() -> Vector2:
 	return spawn_position.global_position

@@ -1,5 +1,5 @@
 # Sweet Dream, a sweet metroidvannia
-#    Copyright (C) 2story_point22 Kamran Charles Nayebi and William Duplain
+#    Copyright (C) 2022 Kamran Charles Nayebi and William Duplain
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -41,6 +41,7 @@ func show():
 	visible = true
 
 func start(path_to_dialog:String, m_story_point:int):
+	get_tree().current_scene.player.state_machine.transition_to("Idle")
 	show()
 	phrase_num = 0
 	story_point = m_story_point

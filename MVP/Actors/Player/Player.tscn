@@ -4069,6 +4069,7 @@ anims/TurnLeft = SubResource( 98 )
 anims/TurnRight = SubResource( 99 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
+pause_mode = 2
 tree_root = SubResource( 34 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
@@ -4111,13 +4112,16 @@ editor_draw_limits = true
 editor_draw_drag_margin = true
 
 [node name="StateMachine" type="Node" parent="."]
+pause_mode = 2
 script = ExtResource( 1 )
 initial_state = NodePath("Idle")
 
 [node name="Idle" type="Node" parent="StateMachine"]
+pause_mode = 2
 script = ExtResource( 2 )
 
 [node name="Death" type="Node" parent="StateMachine"]
+pause_mode = 1
 script = ExtResource( 34 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="StateMachine/Death"]
@@ -4125,12 +4129,15 @@ stream = ExtResource( 35 )
 bus = "Sound Effects"
 
 [node name="Crouched" type="Node" parent="StateMachine"]
+pause_mode = 1
 script = ExtResource( 11 )
 
 [node name="Knockback" type="Node" parent="StateMachine"]
+pause_mode = 1
 script = ExtResource( 7 )
 
 [node name="Run" type="Node" parent="StateMachine"]
+pause_mode = 1
 script = ExtResource( 3 )
 
 [node name="Footstep1" type="AudioStreamPlayer" parent="StateMachine/Run"]
@@ -4142,6 +4149,7 @@ volume_db = -7.462
 bus = "Sound Effects"
 
 [node name="Air" type="Node" parent="StateMachine"]
+pause_mode = 1
 script = ExtResource( 5 )
 
 [node name="JumpBufferTimer" type="Timer" parent="StateMachine/Air"]
@@ -4156,6 +4164,7 @@ volume_db = -7.537
 bus = "Sound Effects"
 
 [node name="Aim" type="Node" parent="StateMachine"]
+pause_mode = 1
 script = ExtResource( 8 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="StateMachine/Aim"]
@@ -4172,6 +4181,7 @@ stream = ExtResource( 14 )
 volume_db = -3.0
 
 [node name="Dashing" type="Node" parent="StateMachine"]
+pause_mode = 1
 script = ExtResource( 12 )
 
 [node name="DashResetTimer" type="Timer" parent="StateMachine/Dashing"]
@@ -4186,6 +4196,7 @@ stream = ExtResource( 16 )
 bus = "Sound Effects"
 
 [node name="KnockedOut" type="Node" parent="StateMachine"]
+pause_mode = 1
 script = ExtResource( 13 )
 
 [node name="CooldownTimer" type="Timer" parent="."]
