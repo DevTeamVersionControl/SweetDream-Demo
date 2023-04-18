@@ -3911,7 +3911,7 @@ script = ExtResource( 38 )
 position = Vector2( 3101.19, -363.701 )
 rotation = 3.14159
 scale = Vector2( 5.16312, -2.90807 )
-target_scene = "res://Levels/SecondLevel.tscn"
+target_scene = "res://Levels/SecondLevelPartB.tscn"
 
 [node name="Portal2" parent="Fuck me" instance=ExtResource( 19 )]
 position = Vector2( 549.329, -154.507 )

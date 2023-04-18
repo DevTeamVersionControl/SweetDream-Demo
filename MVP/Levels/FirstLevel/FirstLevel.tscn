@@ -1680,7 +1680,7 @@ position = Vector2( 504, 245 )
 
 [node name="GenericDoor" parent="." instance=ExtResource( 16 )]
 position = Vector2( 597, 209 )
-target_scene = "res://Levels/SecondLevel.tscn"
+target_scene = "res://Levels/SecondLevelPartA.tscn"
 
 [node name="CherryScatter" parent="." instance=ExtResource( 3 )]
 position = Vector2( 23, 252 )

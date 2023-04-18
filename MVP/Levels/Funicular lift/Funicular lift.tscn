@@ -946,7 +946,7 @@ tile_data = PoolIntArray( 65534, 2, 8, 65535, 2, 262153, 0, 2, 262155, 1, 2, 262
 [node name="Portal2" parent="." instance=ExtResource( 3 )]
 position = Vector2( -24, 1019 )
 scale = Vector2( 1, 1.36238 )
-target_scene = "res://Levels/SecondLevel.tscn"
+target_scene = "res://Levels/SecondLevelPartB.tscn"
 
 [node name="Apple720p" type="Sprite" parent="."]
 position = Vector2( 289, 958 )
