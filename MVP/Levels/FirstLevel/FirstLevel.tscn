@@ -1,4 +1,4 @@
-[gd_scene load_steps=131 format=2]
+[gd_scene load_steps=130 format=2]
 
 [ext_resource path="res://Environment/Backgrounds/Forest Backgrounds/Main Background/Scatter Terrain/Bush.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Environment/Backgrounds/Forest Backgrounds/Main Background/Scatter Terrain/CandyCane.tscn" type="PackedScene" id=2]
@@ -19,10 +19,9 @@
 [ext_resource path="res://UserInterface/Tutorial/Tutorial indicator.tscn" type="PackedScene" id=17]
 [ext_resource path="res://Environment/Backgrounds/Forest Backgrounds/Main Background/Scatter Terrain/Lollipop.tscn" type="PackedScene" id=18]
 [ext_resource path="res://Environment/Backgrounds/Forest Backgrounds/Main Background/Scatter Terrain/MintScatter.tscn" type="PackedScene" id=19]
-[ext_resource path="res://UserInterface/Tutorial/LeftRightArrow.png" type="Texture" id=20]
 [ext_resource path="res://Environment/Backgrounds/Forest Backgrounds/Main Background/Scatter Terrain/JelloScatter.tscn" type="PackedScene" id=21]
-[ext_resource path="res://UserInterface/Tutorial/UpArrow.png" type="Texture" id=22]
 [ext_resource path="res://Levels/FirstLevel/Dream Culture.mp3" type="AudioStream" id=23]
+[ext_resource path="res://UserInterface/Tutorial/Keyboard Letters and Symbols.png" type="Texture" id=24]
 
 [sub_resource type="CanvasItemMaterial" id=158]
 light_mode = 2
@@ -1715,30 +1714,48 @@ z_index = 1
 [node name="Tutorial indicator" parent="." instance=ExtResource( 17 )]
 position = Vector2( 318, 231 )
 
-[node name="Sprite" type="Sprite" parent="Tutorial indicator"]
+[node name="Sprite" type="Node2D" parent="Tutorial indicator"]
 visible = false
-scale = Vector2( 0.08, 0.08 )
-texture = ExtResource( 20 )
+
+[node name="Sprite2" type="Sprite" parent="Tutorial indicator/Sprite"]
+position = Vector2( -40, 0 )
+scale = Vector2( 0.985907, 1.23586 )
+texture = ExtResource( 24 )
+hframes = 8
+vframes = 16
+frame = 2
+
+[node name="Sprite3" type="Sprite" parent="Tutorial indicator/Sprite"]
+position = Vector2( 40, 0 )
+scale = Vector2( 0.985907, 1.23586 )
+texture = ExtResource( 24 )
+hframes = 8
+vframes = 16
+frame = 3
 
 [node name="Tutorial indicator2" parent="." instance=ExtResource( 17 )]
 position = Vector2( 503, 198 )
 scale = Vector2( 0.689487, 1.54936 )
+temporary = false
 
 [node name="Sprite" type="Sprite" parent="Tutorial indicator2"]
 visible = false
-position = Vector2( 1.16016, 0 )
-scale = Vector2( 0.0959118, 0.0457482 )
-texture = ExtResource( 22 )
+scale = Vector2( 1.42991, 0.797659 )
+texture = ExtResource( 24 )
+hframes = 8
+vframes = 16
 
 [node name="Tutorial indicator3" parent="." instance=ExtResource( 17 )]
 position = Vector2( 612, 195 )
 scale = Vector2( 0.689487, 1.54936 )
+temporary = false
 
 [node name="Sprite" type="Sprite" parent="Tutorial indicator3"]
 visible = false
-position = Vector2( 1.16016, 0 )
-scale = Vector2( 0.0959118, 0.0457482 )
-texture = ExtResource( 22 )
+scale = Vector2( 1.42991, 0.797659 )
+texture = ExtResource( 24 )
+hframes = 8
+vframes = 16
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 pause_mode = 2
