@@ -23,6 +23,8 @@ onready var effects_volume := $HBoxContainer/VBoxContainer3/HBoxContainer/VBoxCo
 
 func _ready():
 	GameSaver.partial_load(self)
+	GameSaver.partial_save(self)
+	GameSaver.partial_load(self)
 
 func input(event):
 	if visible:

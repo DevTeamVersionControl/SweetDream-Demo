@@ -72,7 +72,7 @@ func _physics_process(delta):
 			update_display()
 	if Input.is_action_just_pressed("ammo_next") && state_machine.state != $StateMachine/Aim && GlobalVars.ammo_equipped_array.size() != 0:
 		GlobalVars.equiped_ammo_index = (GlobalVars.equiped_ammo_index + 1) % GlobalVars.ammo_equipped_array.size()
-		if GlobalVars.sugar < GlobalVars.max_sugar:
+		if GlobalVars.sugar < GlobalVars.max_sugar/2:
 			GlobalVars.sugar = GlobalVars.max_sugar/2
 		update_display()
 	if Input.is_action_just_pressed("consume_health_pack"):

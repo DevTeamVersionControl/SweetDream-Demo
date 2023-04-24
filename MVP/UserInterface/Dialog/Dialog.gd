@@ -34,8 +34,9 @@ var story_point := 0
 func input(event):
 	if finished:
 		next_phrase()
-	elif event.pressed:
-		text.visible_characters = len(text.text)
+	elif event.is_pressed() and not event.is_echo():
+		if text.visible_characters > 2:
+			text.visible_characters = len(text.text)
 
 func show():
 	visible = true

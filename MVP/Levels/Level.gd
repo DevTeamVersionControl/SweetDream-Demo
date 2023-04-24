@@ -20,6 +20,8 @@ export var level_range_y : Vector2
 
 func _ready():
 	GameSaver.load()
+	if get_node_or_null("AudioStreamPlayer") != null:
+		var tween = get_tree().create_tween().tween_property($AudioStreamPlayer, "volume_db", 0.0, 20.0)
 
 func _on_Button_on():
 	$TileMap.set_cell(5,8,-1)

@@ -22,6 +22,7 @@ onready var spawn_position = $Position
 func _on_Portal_body_entered(body):
 	if body is Player:
 		get_tree().current_scene.change_level(target_scene, name)
+		body.visible = false
 
 func get_spawn_position() -> Vector2:
 	return spawn_position.global_position
