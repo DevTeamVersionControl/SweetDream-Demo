@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://UserInterface/PauseMenu/PauseMenu.tscn" type="PackedScene" id=1]
 [ext_resource path="res://UserInterface/PauseMenu/input_menu/InputMenu.tscn" type="PackedScene" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://UserInterface/Dialog/Portraits/Player.png" type="Texture" id=6]
 [ext_resource path="res://UserInterface/Shops/Shop.tscn" type="PackedScene" id=7]
 [ext_resource path="res://UserInterface/RestMenu/RestMenu.tscn" type="PackedScene" id=8]
+[ext_resource path="res://UserInterface/Map/Map.tscn" type="PackedScene" id=9]
 
 [sub_resource type="DynamicFont" id=1]
 size = 37
@@ -106,3 +107,6 @@ margin_left = -723.0
 margin_top = -401.0
 margin_right = 1197.0
 margin_bottom = 679.0
+
+[node name="Map" parent="." instance=ExtResource( 9 )]
+visible = false

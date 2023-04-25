@@ -34,6 +34,7 @@ var equiped_ammo_index = 0
 var ammo_equipped_array := []
 var double_jump_lock := false
 var dash_lock := false
+var map_lock := false
 var inventory := []
 var artifacts := 0
 
@@ -48,6 +49,7 @@ func initialize():
 	equiped_ammo_index = 0
 	double_jump_lock = true
 	dash_lock = true
+	map_lock = true
 	inventory = []
 	artifacts = 0
 	GameSaver.load()
@@ -65,6 +67,7 @@ func save(game_data):
 	game_data["equipped_ammo_index"] = equiped_ammo_index
 	game_data["double_jump_lock"] = double_jump_lock
 	game_data["dash_lock"] = dash_lock
+	game_data["map_lock"] = map_lock
 	game_data["inventory"] = inventory
 	game_data["artifacts"] = artifacts
 	
@@ -80,6 +83,7 @@ func load(game_data):
 	equiped_ammo_index = int(game_data["equipped_ammo_index"])
 	double_jump_lock = game_data["double_jump_lock"]
 	dash_lock = game_data["dash_lock"]
+	map_lock = game_data["map_lock"]
 	inventory = game_data["inventory"]
 	artifacts = game_data["artifacts"]
 
@@ -131,6 +135,9 @@ func lifesaver(_placeholder)->void:
 		get_tree().current_scene.current_level.add_child(lifesaver)
 		lifesaver.player = get_tree().current_scene.player
 		get_tree().current_scene.player.lifesaver = lifesaver
+
+func unlock_map(_placeholder)->void:
+	map_lock = false
 
 func unlock_dash(_placeholder)->void:
 	dash_lock = false

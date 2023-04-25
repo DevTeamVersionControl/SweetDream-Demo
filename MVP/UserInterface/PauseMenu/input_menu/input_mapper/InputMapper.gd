@@ -41,7 +41,8 @@ var normal = {
 	'ui_accept' : KEY_ENTER,
 	'ui_cancel' : KEY_ESCAPE,
 	'ui_back' : KEY_X,
-	'delete' : KEY_DELETE
+	'delete' : KEY_DELETE,
+	'show_map' : KEY_TAB
 }
 var custom = normal
 
