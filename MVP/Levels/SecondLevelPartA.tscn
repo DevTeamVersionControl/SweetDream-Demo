@@ -3461,7 +3461,7 @@ attenuation = 1.7411
 bus = "Music"
 
 [node name="2Post720p" parent="." instance=ExtResource( 45 )]
-position = Vector2( 232, 160 )
+position = Vector2( 232, 159 )
 frame = 2
 
 [node name="Tutorial indicator5" parent="." instance=ExtResource( 36 )]
@@ -3498,20 +3498,20 @@ vframes = 14
 frame = 18
 
 [node name="2Post720p2" parent="." instance=ExtResource( 45 )]
-position = Vector2( 3064, 488 )
+position = Vector2( 3033, 488 )
 frame = 1
 
 [node name="1Post720p" parent="." instance=ExtResource( 43 )]
-position = Vector2( 2136, 503 )
+position = Vector2( 2156, 500 )
 scale = Vector2( -0.1, 0.1 )
 frame = 2
 
 [node name="1Post720p2" parent="." instance=ExtResource( 43 )]
-position = Vector2( 2015, 1491 )
+position = Vector2( 1964, 1488 )
 frame = 1
 
 [node name="1Post720p3" parent="." instance=ExtResource( 43 )]
-position = Vector2( 1985, 2008 )
+position = Vector2( 2061, 2006 )
 scale = Vector2( -0.1, 0.1 )
 frame = 2
 

@@ -3514,6 +3514,12 @@ position = Vector2( 210.494, -51.0527 )
 rotation = -0.242269
 scale = Vector2( 0.440797, 0.440797 )
 
+[node name="2Post720p" parent="." instance=ExtResource( 37 )]
+position = Vector2( 2653, 2559 )
+rotation = -2.93688
+scale = Vector2( 0.105637, -0.105637 )
+flip_h = true
+
 [node name="TileMap" parent="." instance=ExtResource( 3 )]
 position = Vector2( 1, -189 )
 scale = Vector2( 0.14, 0.14 )
@@ -3993,29 +3999,26 @@ position = Vector2( 2770, 1770 )
 position = Vector2( 2969, 1770 )
 
 [node name="1Post720p4" parent="." instance=ExtResource( 36 )]
-position = Vector2( 2863, 2899 )
+position = Vector2( 2870, 2849 )
 rotation = 3.14159
-scale = Vector2( 0.1, -0.1 )
+scale = Vector2( 0.0838961, -0.0838961 )
 frame = 3
 
-[node name="2Post720p" parent="." instance=ExtResource( 37 )]
-position = Vector2( 2963, 2558 )
-scale = Vector2( -0.1, 0.1 )
-
 [node name="1Post720p" parent="." instance=ExtResource( 36 )]
-position = Vector2( 3138, 2901 )
+position = Vector2( 3096, 2795 )
+scale = Vector2( 0.0664352, 0.0664352 )
 
 [node name="1Post720p5" parent="." instance=ExtResource( 36 )]
-position = Vector2( 3490, 2664 )
+position = Vector2( 3514, 2665 )
 scale = Vector2( -0.1, 0.1 )
 frame = 4
 
 [node name="1Post720p2" parent="." instance=ExtResource( 36 )]
-position = Vector2( 3426, 1347 )
+position = Vector2( 3346, 1253 )
 frame = 4
 
 [node name="1Post720p3" parent="." instance=ExtResource( 36 )]
-position = Vector2( 2903, 736 )
+position = Vector2( 2882, 735 )
 frame = 4
 
 [node name="Area2D" type="Area2D" parent="."]
