@@ -1,11 +1,15 @@
 extends Control
 
+const PLACEHOLDER = preload("res://UserInterface/Map/placeholder.png")
+
 onready var sprite := $TextureRect/ColorRect/Sprite
 onready var texture_rect := $TextureRect
 onready var color_rect := $TextureRect/ColorRect
 
-var maps : Array = [Map.new("res://Levels/SecondLevelPartA.tscn", Vector2(17,31), Vector2(1272,742), Vector2(0,88))]
-var current_map_index := 0 
+var maps : Array = [Map.new("res://Levels/SecondLevelPartA.tscn", Vector2(17,31), Vector2(1272,742), Vector2(0,88)), 
+Map.new("res://Levels/SecondLevelPartB.tscn", Vector2(2,-3), Vector2(1487,782), Vector2(0,-1300)), 
+Map.new("res://Levels/ThirdLevel.tscn", Vector2(475,21), Vector2(367,854), Vector2(-18,-19))]
+var current_map_index := -1 
 
 #func _ready():
 #	color_rect.hide()
@@ -20,9 +24,15 @@ func set_level(path:String):
 	for i in maps.size():
 		if maps[i].path == path:
 			current_map_index = i
-	color_rect.position = maps[current_map_index].color_rect_position
-	color_rect.rect_size = maps[current_map_index].color_rect_size
-	sprite.position = maps[current_map_index].origin
+	if current_map_index != -1 and File.new().file_exists("res://UserInterface/Map/"+path.get_file().trim_suffix('.tscn')+".png"):
+		sprite.show()
+		texture_rect.texture = load("res://UserInterface/Map/"+path.get_file().trim_suffix('.tscn')+".png")
+		color_rect.rect_position = maps[current_map_index].color_rect_position
+		color_rect.rect_size = maps[current_map_index].color_rect_size
+		sprite.position = maps[current_map_index].origin
+	else:
+		sprite.hide()
+		texture_rect.texture = PLACEHOLDER
 
 func show_map():
 	var real_level = get_tree().current_scene.current_level

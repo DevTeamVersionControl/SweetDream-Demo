@@ -61,6 +61,7 @@ func load_level(level:PackedScene, location:String):
 	GameSaver.save()
 	if current_level != null:
 		current_level.queue_free()
+		remove_child(current_level)
 	current_level = level.instance()
 	add_child(current_level)
 	player = PLAYER.instance()
@@ -80,6 +81,8 @@ func load_level(level:PackedScene, location:String):
 	var tween = get_tree().create_tween()
 	tween.tween_property(level_transition, "self_modulate", Color(0, 0, 0, 0), 1)
 	next_level = null
+	gui.map.set_level(current_level.filename)
+	print(filename)
 	GlobalVars.apply_items()
 	GameSaver.load()
 	emit_signal("level_loaded")

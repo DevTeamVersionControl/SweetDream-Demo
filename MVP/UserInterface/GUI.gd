@@ -21,6 +21,7 @@ onready var shop = $Shop
 onready var rest_menu = $RestMenu
 onready var pause_menu = $PauseMenu
 onready var input_menu := $InputMenu
+onready var map := $Map
 
 var pause_requests := 0
 
