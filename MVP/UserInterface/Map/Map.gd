@@ -7,8 +7,8 @@ onready var texture_rect := $TextureRect
 onready var color_rect := $TextureRect/ColorRect
 
 var maps : Array = [Map.new("res://Levels/SecondLevelPartA.tscn", Vector2(17,31), Vector2(1272,742), Vector2(0,88)), 
-Map.new("res://Levels/SecondLevelPartB.tscn", Vector2(2,-3), Vector2(1487,782), Vector2(0,-1300)), 
-Map.new("res://Levels/ThirdLevel.tscn", Vector2(475,21), Vector2(367,854), Vector2(-18,-19))]
+Map.new("res://Levels/SecondLevelPartB.tscn", Vector2(-1,235), Vector2(1487,479), Vector2(0,-870)), 
+Map.new("res://Levels/ThirdLevel.tscn", Vector2(476,20), Vector2(365,858), Vector2(0,0))]
 var current_map_index := -1 
 
 #func _ready():

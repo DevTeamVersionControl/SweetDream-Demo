@@ -15,18 +15,19 @@ anchor_bottom = 1.0
 margin_left = 300.0
 margin_top = 150.0
 margin_right = -300.0
-margin_bottom = 20.0
+margin_bottom = -150.0
 texture = ExtResource( 1 )
+expand = true
 stretch_mode = 6
 
 [node name="ColorRect" type="ColorRect" parent="TextureRect"]
-margin_left = 475.0
-margin_top = 21.0
-margin_right = 842.0
-margin_bottom = 875.0
+margin_left = 476.0
+margin_top = 20.0
+margin_right = 841.0
+margin_bottom = 878.0
 color = Color( 1, 1, 1, 0 )
 
 [node name="Sprite" type="Sprite" parent="TextureRect/ColorRect"]
-position = Vector2( -18, -19 )
+position = Vector2( 0, -2 )
 scale = Vector2( 0.1, 0.1 )
 texture = ExtResource( 3 )
