@@ -1,6 +1,9 @@
 tool
 extends Area2D
 
+const SMALL = preload("res://Pickups/Pick Up Small.wav")
+const BIG = preload("res://Pickups/Pickup Big.wav")
+
 export var description = {"Name":"Quest Item", "Icon":"Item 3.png", "Price":"30","Unit":"artifacts", "Description":"It's that quest item another npc asked for to progress the main story"} 
 export var sprite_num = 0 setget change_animation
 
@@ -45,6 +48,8 @@ func load(game_data):
 				queue_free()
 
 func disappear():
+	$AudioStreamPlayer.stream = BIG if description.has("BigSound") else SMALL
+	$AudioStreamPlayer.play()
 	delete = true
 	GameSaver.save()
 	GameSaver.partial_save(self)

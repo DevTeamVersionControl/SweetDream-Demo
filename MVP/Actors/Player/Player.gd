@@ -28,6 +28,7 @@ const JUMP_ACCEL = 620
 const DECELERATION = 0.5
 const ACCELERATION = 50
 const HEAL_FROM_CANDY = 20
+const HIT = preload("res://Actors/Player/Player Hit.wav")
 
 var velocity = Vector2.ZERO
 var level_limit_min
@@ -52,6 +53,7 @@ onready var shoot_bar := $ShootBar
 onready var cooldown_bar := $CooldownBar
 onready var invulnerability_timer := $InvulnerabilityTimer
 onready var sugar_timer := $SugarTimer
+onready var audio_stream_player := $AudioStreamPlayer
 
 func _ready():
 	set_later(camera, "smoothing_enabled", true)
@@ -113,6 +115,8 @@ func take_damage(damage:float, knockback:Vector2) -> void:
 			$Sprite.get_material().set("shader_param/flashState", 1.0)
 			yield(get_tree().create_timer(0.25), "timeout")
 			$Sprite.get_material().set("shader_param/flashState", 0.0)
+			audio_stream_player.stream = HIT
+			audio_stream_player.play()
 		update_display()
 
 func heal(damage_healed:float):

@@ -19,11 +19,11 @@ const BASE_MAX_HEALTH = 40.0
 const BASE_MAX_SUGAR = 15.0
 const LIFESAVER = preload("res://Actors/Player/LifeSaver.tscn")
 
-var ammo_array := [GlobalTypes.Ammo.new("Candy Corn", GlobalTypes.AMMO_TYPE.once, 0.15, 1, 1, preload("res://Ammo/Candy Corn/CandyCorn.tscn"), preload("res://Pickups/Candy Corn 720p.png")), 
-	GlobalTypes.Ammo.new("Jelly Bean", GlobalTypes.AMMO_TYPE.once, 0.7, 3, 3, preload("res://Ammo/Jelly Bean/JellyBean.tscn"), preload("res://Pickups/Jelly Bean 720p.png")), 
-	GlobalTypes.Ammo.new("Jawbreaker", GlobalTypes.AMMO_TYPE.charge, 0, 3, 5, preload("res://Ammo/Jawbreaker/Jawbreaker.tscn"), preload("res://Pickups/Jaw Breaker 720p.png")), 
-	GlobalTypes.Ammo.new("Pop Rocks", GlobalTypes.AMMO_TYPE.constant, 0, 0.1, 0.1, preload("res://Ammo/Pop Rocks/PopRocks.tscn"), preload("res://Pickups/Jaw Breaker 720p.png")), 
-	GlobalTypes.Ammo.new("Jello", GlobalTypes.AMMO_TYPE.once, 1, 5, 2, preload("res://Ammo/Jello/Jello.tscn"), preload("res://Pickups/Jello 720p.png"))]
+var ammo_array := [GlobalTypes.Ammo.new("Candy Corn", GlobalTypes.AMMO_TYPE.once, 0.15, 2, 1, preload("res://Ammo/Candy Corn/CandyCorn.tscn"), preload("res://Pickups/Candy Corn 720p.png")), 
+	GlobalTypes.Ammo.new("Jelly Bean", GlobalTypes.AMMO_TYPE.once, 0.7, 6, 3, preload("res://Ammo/Jelly Bean/JellyBean.tscn"), preload("res://Pickups/Jelly Bean 720p.png")), 
+	GlobalTypes.Ammo.new("Jawbreaker", GlobalTypes.AMMO_TYPE.charge, 0, 6, 5, preload("res://Ammo/Jawbreaker/Jawbreaker.tscn"), preload("res://Pickups/Jaw Breaker 720p.png")), 
+	GlobalTypes.Ammo.new("Pop Rocks", GlobalTypes.AMMO_TYPE.constant, 0, 0.2, 0.1, preload("res://Ammo/Pop Rocks/PopRocks.tscn"), preload("res://Pickups/Jaw Breaker 720p.png")), 
+	GlobalTypes.Ammo.new("Jello", GlobalTypes.AMMO_TYPE.once, 1, 10, 2, preload("res://Ammo/Jello/Jello.tscn"), preload("res://Pickups/Jello 720p.png"))]
 var max_health := BASE_MAX_HEALTH
 var health := max_health
 var max_health_packs := 0

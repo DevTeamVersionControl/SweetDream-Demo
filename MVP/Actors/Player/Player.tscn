@@ -4240,6 +4240,9 @@ position = Vector2( 1, -56 )
 scale = Vector2( 1e-05, 0.01 )
 texture = ExtResource( 9 )
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+bus = "Sound Effects"
+
 [connection signal="timeout" from="StateMachine/Air/JumpBufferTimer" to="StateMachine/Air" method="_on_JumpBufferTimer_timeout"]
 [connection signal="timeout" from="StateMachine/Air/CoyoteTimeTimer" to="StateMachine/Air" method="_on_CoyoteTimeTimer_timeout"]
 [connection signal="timeout" from="StateMachine/Dashing/DashResetTimer" to="StateMachine/Dashing" method="on_can_dash"]
