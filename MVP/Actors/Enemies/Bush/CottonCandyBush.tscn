@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://Actors/Enemies/Bush/CottonCandyBush.gd" type="Script" id=1]
 [ext_resource path="res://Actors/Enemies/Bush/Bush720p.png" type="Texture" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://Actors/Enemies/Bush/Death.gd" type="Script" id=7]
 [ext_resource path="res://Actors/Enemies/Bush/Bush Wave/Bush Wave720p.png" type="Texture" id=8]
 [ext_resource path="res://Actors/flash.tres" type="Material" id=9]
+[ext_resource path="res://Actors/Enemies/Enemy Hit.wav" type="AudioStream" id=10]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 30.4, 10.7 )
@@ -207,6 +208,20 @@ tracks/14/keys = {
 "update": 1,
 "values": [ Vector2( -3, -63 ), Vector2( -2, -63 ), Vector2( 5, -61 ), Vector2( 4, -63 ), Vector2( -5, -61 ), Vector2( -34, -44 ), Vector2( -50, -7 ), Vector2( -54, 0 ), Vector2( -49, 0 ), Vector2( -32, 0 ) ]
 }
+tracks/15/type = "method"
+tracks/15/path = NodePath("StateMachine/Attacking")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/keys = {
+"times": PoolRealArray( 1.68 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "play_sound"
+} ]
+}
 
 [sub_resource type="Animation" id=33]
 resource_name = "AttackRight"
@@ -395,6 +410,20 @@ tracks/14/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ Vector2( -3, -63 ), Vector2( -2, -63 ), Vector2( 5, -61 ), Vector2( 4, -63 ), Vector2( -5, -61 ), Vector2( -34, -44 ), Vector2( -50, -7 ), Vector2( -54, 0 ), Vector2( -49, 0 ), Vector2( -32, 0 ) ]
+}
+tracks/15/type = "method"
+tracks/15/path = NodePath("StateMachine/Attacking")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/keys = {
+"times": PoolRealArray( 1.68 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "play_sound"
+} ]
 }
 
 [sub_resource type="Animation" id=6]
@@ -978,6 +1007,15 @@ disabled = true
 position = Vector2( -1, -17 )
 shape = SubResource( 34 )
 disabled = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer2D" parent="."]
+max_distance = 500.0
+bus = "Sound Effects"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 10 )
+max_distance = 500.0
+bus = "Sound Effects"
 
 [connection signal="body_entered" from="PlayerDetector" to="StateMachine/Asleep" method="on_thing_seen"]
 [connection signal="body_exited" from="PlayerDetector" to="StateMachine/Idle" method="on_thing_exited"]

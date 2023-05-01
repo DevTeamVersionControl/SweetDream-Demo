@@ -16,6 +16,7 @@
 extends SpawnerState
 
 const CANDY_CORN = preload("res://Actors/Enemies/Candy Corn/CandyCornEnemy.tscn")
+const SPAWN_SOUND = preload("res://Actors/Enemies/Candy Corn Spawner/Candy Corn Spawner Spawn.wav")
 
 onready var spawn_timer := $SpawnTimer
 
@@ -30,3 +31,7 @@ func spawn() -> void:
 	candy_corn.get_node("StateMachine/Idle").on_something_detected(get_tree().current_scene.player)
 	if spawner.target != null:
 		spawn_timer.start()
+
+func play_sound():
+	spawner.audio_stream_player.stream = SPAWN_SOUND
+	spawner.audio_stream_player.play()

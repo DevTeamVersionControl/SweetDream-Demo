@@ -23,6 +23,9 @@ var stunned := false
 func enter(_msg := {}) -> void:
 	if jawbreaker.health > 0:
 		jawbreaker.animation_player.play("WindUp" if jawbreaker.facing_right else "WindUpLeft")
+#	jawbreaker.audio_stream_player.stream = jawbreaker.WIND_UP
+#	jawbreaker.audio_stream_player.volume_db = -4
+#	jawbreaker.audio_stream_player.play()
 	yield(jawbreaker.animation_player, "animation_finished")
 	if state_machine.state.name == "WindUp" && !stunned:
 		state_machine.transition_to("Charge")

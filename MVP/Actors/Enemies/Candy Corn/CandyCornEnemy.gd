@@ -31,6 +31,13 @@ onready var sprite := $Sprite
 onready var state_machine := $StateMachine
 onready var interest_timer := $InterestTimer
 
+# Sound effects
+onready var audio_stream_player := $AudioStreamPlayer
+const HIT = preload("res://Actors/Enemies/Enemy Hit.wav")
+const DEATH = preload("res://Actors/Enemies/Enemy Death.wav")
+const WALK = preload("res://Actors/Enemies/Candy Corn/Candy Corn Walk.wav")
+const ATTACK = preload("res://Actors/Enemies/Candy Corn/Candy Corn Attack.wav")
+
 func take_damage(damage:float, knockback:Vector2):
 	health -= damage
 	motion += knockback
@@ -38,10 +45,12 @@ func take_damage(damage:float, knockback:Vector2):
 		$StateMachine/Idle.on_something_detected(get_tree().current_scene.player)
 	if health <= 0:
 		state_machine.transition_to("Death")
+		GlobalVars.play_sound(DEATH)
 	else:
 		$Sprite.get_material().set("shader_param/flashState", 1.0)
 		yield(get_tree().create_timer(0.1), "timeout")
 		$Sprite.get_material().set("shader_param/flashState", 0.0)
+		$AudioStreamPlayer2D.play()
 
 func on_hit_something(something):
 	if something is Player:

@@ -14,8 +14,6 @@ func enter(msg := {}) -> void:
 	else:
 		bush.animation_player.seek(0, true)
 	
-	
-	
 func physics_update(delta: float) -> void:
 	if bush.target != null:
 		bush.animation_player.advance(delta)
@@ -32,3 +30,5 @@ func wake_up() -> void:
 func on_thing_seen(thing):
 	if thing is Player:
 		bush.target = thing
+		bush.audio_stream_player.stream = bush.AWAKENING
+		bush.audio_stream_player.play()

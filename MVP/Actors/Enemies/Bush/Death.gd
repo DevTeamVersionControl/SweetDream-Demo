@@ -26,7 +26,7 @@ func enter(_msg := {}) -> void:
 		bush.animation_player.play("DeathRight")
 	
 	# Keeping this just in case I want to make it random again
-	if randi()%1 == 0:
+	if randi() % 1 == 0:
 		var pickup := PICKUP.instance()
 		pickup.disappear = true
 		get_tree().current_scene.add_child(pickup)

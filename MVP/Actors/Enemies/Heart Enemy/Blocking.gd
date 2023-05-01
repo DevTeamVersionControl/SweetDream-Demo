@@ -17,11 +17,15 @@ extends HeartState
 
 func enter(_msg := {}) -> void:
 	heart.animation_player.play("Block")
+	heart.audio_stream_player.stream = heart.SHIELD_UP
+	heart.audio_stream_player.play()
 	yield(heart.animation_player, "animation_finished")
 	heart.animation_player.play("IdleBlock")
 
 func _on_ShieldZone_body_entered(body):
 	if body == heart.target && state_machine.state == self && heart.health > 0:
 		heart.animation_player.play("BlockPop")
+		heart.audio_stream_player.stream = heart.SHIELD_DOWN
+		heart.audio_stream_player.play()
 		yield(heart.animation_player, "animation_finished")
 		state_machine.transition_to("Idle")

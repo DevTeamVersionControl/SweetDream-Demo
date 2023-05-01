@@ -31,5 +31,9 @@ func physics_update(_delta):
 		candy_corn.motion = candy_corn.move_and_slide(candy_corn.motion)
 		if candy_corn.facing_right == (candy_corn.target.global_position.x - candy_corn.global_position.x < 0):
 			state_machine.transition_to("TurnAround", {from_walk = true})
-		elif (candy_corn.global_position.x - candy_corn.target.global_position.x) < 25 && (candy_corn.global_position.x - candy_corn.target.global_position.x) > -25:
+		elif (candy_corn.global_position.x - candy_corn.target.global_position.x) < 20 && (candy_corn.global_position.x - candy_corn.target.global_position.x) > -20:
 			state_machine.transition_to("Attack")
+
+func play_walk():
+	candy_corn.audio_stream_player.stream = candy_corn.WALK
+	candy_corn.audio_stream_player.play()

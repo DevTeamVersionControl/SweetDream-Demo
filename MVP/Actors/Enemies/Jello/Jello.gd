@@ -38,6 +38,12 @@ onready var animation_player = $AnimationPlayer
 onready var state_machine = $StateMachine
 onready var sprite = $Sprite
 
+# Sound effects
+onready var audio_stream_player := $AudioStreamPlayer
+const HIT = preload("res://Actors/Enemies/Enemy Hit.wav")
+const JELLO_DEATH = preload("res://Actors/Enemies/Jello/Jello Death.wav")
+const JELLO_JUMP = preload("res://Actors/Enemies/Jello/Jello Jump.wav")
+
 func _ready():
 	grow(initial_volume)
 	health *= volume
@@ -49,10 +55,13 @@ func take_damage(damage, knockback):
 		$StateMachine/Idle.on_something_detected(get_tree().current_scene.player)
 	if health <= 0 && animation_player.current_animation != "Death":
 		state_machine.transition_to("Death")
+		audio_stream_player.stream = JELLO_DEATH
 	else:
 		$Sprite.get_material().set("shader_param/flashState", 1.0)
 		yield(get_tree().create_timer(0.1), "timeout")
 		$Sprite.get_material().set("shader_param/flashState", 0.0)
+		audio_stream_player.stream = HIT
+	audio_stream_player.play()
 
 func on_hit_something(something):
 	if something is Player && health > 0:

@@ -183,5 +183,8 @@ anims/Jump = SubResource( 6 )
 anims/Land = SubResource( 7 )
 anims/RESET = SubResource( 8 )
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer2D" parent="."]
+max_distance = 500.0
+
 [connection signal="body_entered" from="PlayerDetector" to="StateMachine/Idle" method="on_something_detected"]
 [connection signal="body_entered" from="BodyHitZone" to="." method="on_hit_something"]

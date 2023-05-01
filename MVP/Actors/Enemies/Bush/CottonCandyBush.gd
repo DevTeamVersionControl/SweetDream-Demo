@@ -32,6 +32,12 @@ onready var grab_position := $GrabPosition
 onready var body_hit_collision := $BodyHitZone/CollisionShape2D
 onready var detection_zone := $PlayerDetector
 
+# Sound effects
+onready var audio_stream_player := $AudioStreamPlayer
+const DEATH = preload("res://Actors/Enemies/Enemy Death.wav")
+const ATTACK = preload("res://Actors/Enemies/Bush/Bush Attack.wav")
+const AWAKENING = preload("res://Actors/Enemies/Bush/Bush Awakening.wav")
+
 # It's a bush it won't move
 func knockback(_vector:Vector2):
 	pass
@@ -42,11 +48,12 @@ func take_damage(damage:int, _vector:Vector2):
 		$StateMachine/Asleep.on_thing_seen(get_tree().current_scene.player)
 	if health <= 0:
 		state_machine.transition_to("Death")
+		GlobalVars.play_sound(DEATH)
 	else:
 		$Sprite.get_material().set("shader_param/flashState", 1.0)
 		yield(get_tree().create_timer(0.1), "timeout")
 		$Sprite.get_material().set("shader_param/flashState", 0.0)
-
+		$AudioStreamPlayer2D.play()
 
 func on_ran_into_something(something):
 	if something is Player:

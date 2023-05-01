@@ -31,6 +31,15 @@ onready var state_machine := $StateMachine
 onready var body_hit_collision := $Body/CollisionShape2D
 onready var shield_zone := $ShieldZone
 
+# Sound effects
+onready var audio_stream_player := $AudioStreamPlayer
+const DEATH = preload("res://Actors/Enemies/Enemy Death.wav")
+const HIT = preload("res://Actors/Enemies/Enemy Hit.wav")
+const HIT_SHIELD = preload("res://Actors/Enemies/Heart Enemy/Hit With Shield.wav")
+const ATTACK = preload("res://Actors/Enemies/Heart Enemy/Heart Attack.wav")
+const SHIELD_UP = preload("res://Actors/Enemies/Heart Enemy/Heart Shield Up.wav")
+const SHIELD_DOWN = preload("res://Actors/Enemies/Heart Enemy/Heart Shield Down.wav")
+
 func knockback(vector:Vector2):
 	motion += vector
 
@@ -42,10 +51,16 @@ func take_damage(damage:int, _vector:Vector2):
 	health -= damage
 	if health <= 0:
 		state_machine.transition_to("Death")
+		GlobalVars.play_sound(DEATH)
 	else:
 		$Sprite.get_material().set("shader_param/flashState", 1.0)
 		yield(get_tree().create_timer(0.1), "timeout")
 		$Sprite.get_material().set("shader_param/flashState", 0.0)
+		if state_machine.state.name == "Blocking":
+			$AudioStreamPlayer2D.stream = HIT_SHIELD
+		else:
+			$AudioStreamPlayer2D.stream = HIT
+		$AudioStreamPlayer2D.play()
 
 func _physics_process(_delta):
 	if health > 0:

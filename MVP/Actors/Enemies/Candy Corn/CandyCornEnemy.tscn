@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://Abstract/StateMachine.gd" type="Script" id=1]
 [ext_resource path="res://Actors/Enemies/Candy Corn/Candy Corn Attack/Candy Corn Attack720p.png" type="Texture" id=2]
@@ -14,6 +14,7 @@
 [ext_resource path="res://Actors/Enemies/Candy Corn/Walk.gd" type="Script" id=12]
 [ext_resource path="res://Actors/Enemies/Candy Corn/Death.gd" type="Script" id=13]
 [ext_resource path="res://Actors/Enemies/Candy Corn/Candy Corn Walk/Candy Corn Walk720p.png" type="Texture" id=14]
+[ext_resource path="res://Actors/Enemies/Enemy Hit.wav" type="AudioStream" id=15]
 
 [sub_resource type="CircleShape2D" id=10]
 radius = 254.049
@@ -109,6 +110,20 @@ tracks/6/keys = {
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
 "values": [ Vector2( 1, 0.2 ), Vector2( 1, 1 ), Vector2( 1, 0.6 ) ]
+}
+tracks/7/type = "method"
+tracks/7/path = NodePath("StateMachine/Attack")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 1.29167 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "play_attack"
+} ]
 }
 
 [sub_resource type="Animation" id=3]
@@ -648,6 +663,23 @@ tracks/4/keys = {
 "update": 0,
 "values": [ Vector2( 4, -8 ) ]
 }
+tracks/5/type = "method"
+tracks/5/path = NodePath("StateMachine/Walk")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0.208333, 0.625001 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "play_walk"
+}, {
+"args": [  ],
+"method": "play_walk"
+} ]
+}
 
 [sub_resource type="RectangleShape2D" id=11]
 extents = Vector2( 4.5, 10 )
@@ -725,6 +757,14 @@ shape = SubResource( 1 )
 [node name="InterestTimer" type="Timer" parent="."]
 wait_time = 0.5
 one_shot = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer2D" parent="."]
+max_distance = 500.0
+bus = "Sound Effects"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 15 )
+max_distance = 500.0
 
 [connection signal="body_entered" from="PlayerDetector" to="StateMachine/Idle" method="on_something_detected"]
 [connection signal="body_entered" from="AttackHitZone" to="StateMachine/Attack" method="on_hit_something"]

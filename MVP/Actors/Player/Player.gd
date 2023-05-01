@@ -29,6 +29,8 @@ const DECELERATION = 0.5
 const ACCELERATION = 50
 const HEAL_FROM_CANDY = 20
 const HIT = preload("res://Actors/Player/Player Hit.wav")
+const HEALING = preload("res://Actors/Player/Healing.wav")
+const AMMO_SWITCH = preload("res://Actors/Player/Ammo Switch.wav")
 
 var velocity = Vector2.ZERO
 var level_limit_min
@@ -74,6 +76,8 @@ func _physics_process(delta):
 			update_display()
 	if Input.is_action_just_pressed("ammo_next") && state_machine.state != $StateMachine/Aim && GlobalVars.ammo_equipped_array.size() != 0:
 		GlobalVars.equiped_ammo_index = (GlobalVars.equiped_ammo_index + 1) % GlobalVars.ammo_equipped_array.size()
+		audio_stream_player.stream = AMMO_SWITCH
+		audio_stream_player.play()
 		if GlobalVars.sugar < GlobalVars.max_sugar/2:
 			GlobalVars.sugar = GlobalVars.max_sugar/2
 		update_display()
@@ -81,6 +85,8 @@ func _physics_process(delta):
 		if GlobalVars.health_packs > 0:
 			set_health_packs(GlobalVars.health_packs - 1)
 			heal(HEAL_FROM_CANDY)
+			audio_stream_player.stream = HEALING
+			audio_stream_player.play()
 			if lifesaver != null:
 				lifesaver.animation_player.play("Heal")
 	if !can_shoot:

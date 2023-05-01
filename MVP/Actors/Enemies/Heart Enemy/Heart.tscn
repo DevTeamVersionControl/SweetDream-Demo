@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://Actors/Enemies/Heart Enemy/Heart.gd" type="Script" id=1]
 [ext_resource path="res://Abstract/StateMachine.gd" type="Script" id=2]
@@ -17,6 +17,7 @@
 [ext_resource path="res://Actors/Enemies/Heart Enemy/Asleep.gd" type="Script" id=15]
 [ext_resource path="res://Actors/Enemies/Heart Enemy/Attacking.gd" type="Script" id=16]
 [ext_resource path="res://Actors/Enemies/Heart Enemy/Blocking.gd" type="Script" id=17]
+[ext_resource path="res://Actors/Enemies/Enemy Hit.wav" type="AudioStream" id=18]
 
 [sub_resource type="Animation" id=2]
 resource_name = "Asleep"
@@ -913,6 +914,17 @@ shape = SubResource( 14 )
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 10 )
 shape = SubResource( 15 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer2D" parent="."]
+scale = Vector2( 1, 1 )
+stream = ExtResource( 18 )
+max_distance = 500.0
+bus = "Sound Effects"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 18 )
+max_distance = 500.0
+bus = "Sound Effects"
 
 [connection signal="timeout" from="StateMachine/Idle/Timer" to="StateMachine/Idle" method="attack"]
 [connection signal="body_entered" from="Wave" to="StateMachine/Attacking" method="_on_Wave_body_entered"]

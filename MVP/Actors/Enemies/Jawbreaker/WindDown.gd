@@ -22,6 +22,9 @@ func enter(_msg := {}) -> void:
 		jawbreaker.animation_player.play("WindDown")
 		var tween = get_tree().create_tween()
 		tween.tween_property(jawbreaker, "motion", Vector2(0,0), 1)
+	jawbreaker.audio_stream_player.volume_db = 0
+	jawbreaker.audio_stream_player.stream = jawbreaker.WIND_DOWN
+	jawbreaker.audio_stream_player.play()
 	yield(jawbreaker.animation_player, "animation_finished")
 	if state_machine.state.name == "WindDown":
 		state_machine.transition_to("Idle")

@@ -157,3 +157,15 @@ func apply_items():
 		if item.has("Drop"):
 			apply_drop(item)
 			inventory.erase(item)
+
+func play_sound(sound)->void:
+	if $AudioStreamPlayer3.playing:
+		if $AudioStreamPlayer2.playing:
+			$AudioStreamPlayer.stream = sound
+			$AudioStreamPlayer.play()
+		else:
+			$AudioStreamPlayer2.stream = sound
+			$AudioStreamPlayer2.play()
+	else:
+		$AudioStreamPlayer3.stream = sound
+		$AudioStreamPlayer3.play()

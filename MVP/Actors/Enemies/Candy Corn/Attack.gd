@@ -15,6 +15,8 @@
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 extends CandyCornState
 
+const ATTACK = preload("res://Actors/Enemies/Candy Corn/Candy Corn Attack.wav")
+
 func enter(_msg := {}) -> void:
 	if candy_corn.health > 0:
 		candy_corn.animation_player.play("StopWalk")
@@ -28,3 +30,7 @@ func enter(_msg := {}) -> void:
 func on_hit_something(something):
 	if something is Player:
 		something.take_damage(candy_corn.ATTACK_DAMAGE, Vector2(candy_corn.KNOCKBACK if candy_corn.facing_right else -candy_corn.KNOCKBACK, 0))
+
+func play_attack():
+	candy_corn.audio_stream_player.stream = ATTACK
+	candy_corn.audio_stream_player.play()

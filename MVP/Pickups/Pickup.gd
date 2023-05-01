@@ -48,8 +48,7 @@ func load(game_data):
 				queue_free()
 
 func disappear():
-	$AudioStreamPlayer.stream = BIG if description.has("BigSound") else SMALL
-	$AudioStreamPlayer.play()
+	GlobalVars.play_sound(BIG if description.has("BigSound") else SMALL)
 	delete = true
 	GameSaver.save()
 	GameSaver.partial_save(self)

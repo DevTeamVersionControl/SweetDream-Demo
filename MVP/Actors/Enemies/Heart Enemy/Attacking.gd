@@ -17,6 +17,8 @@ extends HeartState
 
 func enter(_msg := {}) -> void:
 	heart.animation_player.play("Attack")
+	heart.audio_stream_player.stream = heart.ATTACK
+	heart.audio_stream_player.play()
 	yield(heart.animation_player, "animation_finished")
 	if heart.health > 0:
 		state_machine.transition_to("Idle")

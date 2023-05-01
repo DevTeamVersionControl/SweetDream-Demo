@@ -38,3 +38,7 @@ func hit_something(something):
 func physics_update(_delta: float) -> void:
 	if grabbed:
 		bush.target.global_position = bush.grab_position.global_position
+
+func play_sound():
+	bush.audio_stream_player.stream = bush.ATTACK
+	bush.audio_stream_player.play()

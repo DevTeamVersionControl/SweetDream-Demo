@@ -6,9 +6,9 @@ onready var sprite := $TextureRect/ColorRect/Sprite
 onready var texture_rect := $TextureRect
 onready var color_rect := $TextureRect/ColorRect
 
-var maps : Array = [Map.new("res://Levels/SecondLevelPartA.tscn", Vector2(17,31), Vector2(1272,742), Vector2(0,88)), 
-Map.new("res://Levels/SecondLevelPartB.tscn", Vector2(-1,235), Vector2(1487,479), Vector2(0,-870)), 
-Map.new("res://Levels/ThirdLevel.tscn", Vector2(476,20), Vector2(365,858), Vector2(0,0))]
+var maps : Array = [Map.new("res://Levels/SecondLevelPartA.tscn", Vector2(277,175), Vector2(751,484), Vector2(0,20)), 
+Map.new("res://Levels/SecondLevelPartB.tscn", Vector2(277,30), Vector2(765,260), Vector2(0,-200)), 
+Map.new("res://Levels/ThirdLevel.tscn", Vector2(509,23), Vector2(299,932), Vector2(-40,-50))]
 var current_map_index := -1 
 
 #func _ready():

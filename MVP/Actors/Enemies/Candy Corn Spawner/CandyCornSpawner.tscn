@@ -244,9 +244,12 @@ tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 1.83333 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0.252, 1.83333 ),
+"transitions": PoolRealArray( 1, 1 ),
 "values": [ {
+"args": [  ],
+"method": "play_sound"
+}, {
 "args": [  ],
 "method": "spawn"
 } ]
@@ -306,6 +309,10 @@ one_shot = true
 
 [node name="Death" type="Node" parent="StateMachine"]
 script = ExtResource( 5 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer2D" parent="."]
+max_distance = 500.0
+bus = "Sound Effects"
 
 [connection signal="body_entered" from="PlayerDetector" to="." method="on_something_detected"]
 [connection signal="body_exited" from="PlayerDetector" to="." method="_on_something_leave"]

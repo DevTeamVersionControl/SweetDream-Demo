@@ -34,6 +34,13 @@ onready var state_machine := $StateMachine
 onready var player_detector_collision := $PlayerDetector/CollisionShape2D
 onready var sprite := $Sprite
 
+# Sound effects
+onready var audio_stream_player := $AudioStreamPlayer
+const DEATH = preload("res://Actors/Enemies/Enemy Death.wav")
+const HIT = preload("res://Actors/Enemies/Enemy Hit.wav")
+const WIND_UP = preload("res://Actors/Enemies/Jawbreaker/Jawbreaker Wind Up.wav")
+const WIND_DOWN = preload("res://Actors/Enemies/Jawbreaker/Jawbreaker Wind Down.wav")
+
 func _ready():
 	# If the jawbreaker has an initial target, attack it immediately
 	if initial_target_player:
@@ -48,10 +55,13 @@ func take_damage(damage, knockback):
 	if health <= 0:
 		emit_signal("died")
 		state_machine.transition_to("Death")
+		GlobalVars.play_sound(DEATH)
 	else:
 		$Sprite.get_material().set("shader_param/flashState", 1.0)
 		yield(get_tree().create_timer(0.1), "timeout")
 		$Sprite.get_material().set("shader_param/flashState", 0.0)
+		$AudioStreamPlayer2D.stream = HIT
+		$AudioStreamPlayer2D.play()
 
 func _on_PlayerDetector_body_entered(body):
 	if body.is_in_group("player") && state_machine.state.name == "Idle":

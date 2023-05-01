@@ -3629,6 +3629,8 @@ position = Vector2( 2769.99, 2780.46 )
 scale = Vector2( 0.375021, 0.540169 )
 
 [node name="DarkZone" type="Sprite" parent="Fuck me"]
+position = Vector2( 77.3557, -132.292 )
+scale = Vector2( 0.851755, 0.48484 )
 z_index = 2
 texture = ExtResource( 4 )
 
@@ -3919,15 +3921,8 @@ shape = SubResource( 211 )
 position = Vector2( 701.338, 38.751 )
 shape = SubResource( 211 )
 
-[node name="BreakablePlatformLong" parent="Fuck me" instance=ExtResource( 11 )]
-position = Vector2( 80.0225, -348.891 )
-scale = Vector2( 0.714784, 0.621067 )
-collision_layer = 15
-collision_mask = 15
-weight_sensitive = false
-
 [node name="Pickup" parent="Fuck me" instance=ExtResource( 15 )]
-position = Vector2( 1095.96, -5299.2 )
+position = Vector2( 1095.96, -5286.23 )
 scale = Vector2( 0.2, 0.14 )
 script = ExtResource( 38 )
 
@@ -3948,8 +3943,8 @@ position = Vector2( -42.6377, -1050.52 )
 scale = Vector2( 2.66652, 1.85127 )
 
 [node name="DarkZone2" parent="Fuck me" instance=ExtResource( 12 )]
-position = Vector2( 1538.61, -2418.61 )
-scale = Vector2( 0.77041, 0.897515 )
+position = Vector2( 1370.62, -2444.53 )
+scale = Vector2( 0.734881, 0.911957 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Fuck me/DarkZone2"]
 visible = false
@@ -4047,8 +4042,15 @@ position = Vector2( -18, -15 )
 shape = SubResource( 212 )
 
 [node name="Podium720p" type="Sprite" parent="."]
-position = Vector2( 3199, -60 )
-scale = Vector2( 0.05, 0.05 )
+position = Vector2( 3181, -56 )
+scale = Vector2( 0.0241397, 0.0377628 )
 texture = ExtResource( 35 )
+hframes = 2
+
+[node name="BreakablePlatformLong" parent="." instance=ExtResource( 11 )]
+position = Vector2( 2799, 2616 )
+scale = Vector2( 0.271, 0.557 )
+z_index = 2
+weight_sensitive = false
 
 [connection signal="body_entered" from="Area2D" to="." method="on_jawbreaker_pickup"]

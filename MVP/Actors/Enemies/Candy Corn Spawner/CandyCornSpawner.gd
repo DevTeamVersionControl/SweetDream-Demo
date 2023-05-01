@@ -12,16 +12,24 @@ onready var animation_player := $AnimationPlayer
 onready var candy_corn_spawn := $CandyCornSpawn
 onready var player_detector := $PlayerDetector
 
+# Sound effects
+onready var audio_stream_player := $AudioStreamPlayer
+const HIT = preload("res://Actors/Enemies/Enemy Hit.wav")
+const DEATH = preload("res://Actors/Enemies/Enemy Death.wav")
+
 func take_damage(damage:float, knockback:Vector2) -> void:
 	health -= damage
 	if state_machine.state.name == "Idle":
 		on_something_detected(get_tree().current_scene.player)
 	if health <= 0:
 		state_machine.transition_to("Death")
+		GlobalVars.play_sound(DEATH)
 	else:
 		$Sprite.get_material().set("shader_param/flashState", 1.0)
 		yield(get_tree().create_timer(0.1), "timeout")
 		$Sprite.get_material().set("shader_param/flashState", 0.0)
+		audio_stream_player.stream = HIT
+		audio_stream_player.play()
 
 func on_something_detected(something)->void:
 	if something is Player && target == null:

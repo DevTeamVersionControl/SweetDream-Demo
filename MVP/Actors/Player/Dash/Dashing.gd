@@ -18,6 +18,8 @@ extends PlayerState
 #Handles dashing
 const DASH_SPEED = 1600
 const DASH_TIME = 0.1
+const COMEBACK = preload("res://Actors/Player/Dash/Dash Comeback.wav")
+const DASH = preload("res://Actors/Player/Dash/Dash.mp3")
 
 var can_dash := true
 
@@ -37,6 +39,7 @@ func enter(_msg := {}) -> void:
 		player.velocity.x = DASH_SPEED if player.facing_right else -DASH_SPEED
 		dash_reset_timer.start()
 		dash_length_timer.start(DASH_TIME)
+		dash_audio.stream = DASH
 		dash_audio.play()
 	else:
 		state_machine.transition_to("Air")
@@ -54,6 +57,8 @@ func on_can_dash():
 	if player.lifesaver != null:
 		player.lifesaver.get_material().set("shader_param/flashState", 0.0)
 	can_dash = true
+	dash_audio.stream = COMEBACK
+	dash_audio.play()
 
 func on_dash_end():
 	state_machine.transition_to("Air")

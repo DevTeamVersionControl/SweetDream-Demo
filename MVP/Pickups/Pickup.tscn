@@ -30,8 +30,5 @@ vframes = 2
 wait_time = 5.0
 one_shot = true
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-bus = "Sound Effects"
-
 [connection signal="body_entered" from="." to="." method="_on_Artifact_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="delete"]

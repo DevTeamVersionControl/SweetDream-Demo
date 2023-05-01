@@ -901,6 +901,8 @@ resource_local_to_scene = true
 
 [node name="Funicular lift" type="Node2D"]
 script = ExtResource( 4 )
+level_range_x = Vector2( 0, 1 )
+level_range_y = Vector2( 0, 1 )
 
 [node name="FunicularBackground1080p" type="Sprite" parent="."]
 position = Vector2( 244.222, 898.125 )
