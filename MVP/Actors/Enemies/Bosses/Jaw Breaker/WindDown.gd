@@ -22,6 +22,8 @@ func enter(_msg := {}) -> void:
 	var tween = get_tree().create_tween()
 	tween.tween_property(jawbreaker_boss, "motion", Vector2(0,0), 0.5)
 	yield(jawbreaker_boss.animation_player, "animation_finished")
+	jawbreaker_boss.audio_stream_player.stream = jawbreaker_boss.WALL_SLAM
+	jawbreaker_boss.audio_stream_player.play()
 	state_machine.transition_to("Idle")
 
 func physics_update(_delta: float) -> void:

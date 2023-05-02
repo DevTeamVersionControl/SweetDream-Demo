@@ -37,6 +37,15 @@ onready var wall_sensor := $BodyCollisionZone
 onready var collision := $CollisionShape2D
 onready var body_hitbox := $BodyCollisionZone/Hitbox
 
+# Sound effects
+onready var audio_stream_player := $AudioStreamPlayer
+const DEATH = preload("res://Actors/Enemies/Bosses/Jaw Breaker/Jawbreaker Boss Death.wav")
+const DASH = preload("res://Actors/Enemies/Bosses/Jaw Breaker/Jawbreaker Boss Dash.wav")
+const SHOOT = preload("res://Actors/Enemies/Bosses/Jaw Breaker/Jawbreaker Boss Shoot.wav")
+const GROUND_SLAM = preload("res://Actors/Enemies/Bosses/Jaw Breaker/Jawbreaker Boss Slam.wav")
+const WALL_SLAM = preload("res://Actors/Enemies/Bosses/Jaw Breaker/Jawbreaker Boss Wall Slam.wav")
+const WIND_UP = preload("res://Actors/Enemies/Bosses/Jaw Breaker/Jawbreaker Boss Wind Up.wav")
+
 func take_damage(damage, knockback):
 	if phase == PHASE.SECOND:
 		health -= damage
@@ -48,6 +57,7 @@ func take_damage(damage, knockback):
 			sprite.get_material().set("shader_param/flashState", 1.0)
 			yield(get_tree().create_timer(0.1), "timeout")
 		sprite.get_material().set("shader_param/flashState", 0.0)
+		$AudioStreamPlayer2D.play()
 
 func on_hit_something(something):
 	if something is Player && health > 0:
@@ -67,3 +77,7 @@ func _on_EnemyCounter_on():
 		state_machine.transition_to("Idle", {initial_charge = true})
 	elif phase == PHASE.THIRD:
 		state_machine.state.activate()
+
+func play_ground_slam():
+	audio_stream_player.stream = GROUND_SLAM
+	audio_stream_player.play()
