@@ -43,7 +43,6 @@ const DEATH = preload("res://Actors/Enemies/Bosses/Jaw Breaker/Jawbreaker Boss D
 const DASH = preload("res://Actors/Enemies/Bosses/Jaw Breaker/Jawbreaker Boss Dash.wav")
 const SHOOT = preload("res://Actors/Enemies/Bosses/Jaw Breaker/Jawbreaker Boss Shoot.wav")
 const GROUND_SLAM = preload("res://Actors/Enemies/Bosses/Jaw Breaker/Jawbreaker Boss Slam.wav")
-const WALL_SLAM = preload("res://Actors/Enemies/Bosses/Jaw Breaker/Jawbreaker Boss Wall Slam.wav")
 const WIND_UP = preload("res://Actors/Enemies/Bosses/Jaw Breaker/Jawbreaker Boss Wind Up.wav")
 
 func take_damage(damage, knockback):

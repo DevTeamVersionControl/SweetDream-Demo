@@ -3936,7 +3936,7 @@ target_scene = "res://Levels/SecondLevelPartB.tscn"
 position = Vector2( 549.329, -154.507 )
 rotation = -1.57079
 scale = Vector2( 4.65041, 4.27976 )
-target_scene = "res://Levels/Jawbreaker Boss Room/JawbreakerTestRoom.tscn"
+target_scene = "res://Levels/Jawbreaker Boss Room/JawbreakerRoom.tscn"
 
 [node name="Checkpoint" parent="Fuck me" instance=ExtResource( 10 )]
 position = Vector2( -42.6377, -1050.52 )

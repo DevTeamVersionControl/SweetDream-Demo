@@ -29,3 +29,9 @@ func on_died():
 
 func end():
 	get_tree().current_scene.start_dialog("res://Levels/FirstLevel/Railroad.json", 1)
+
+
+func _on_Wall_area_entered(area):
+	if area.is_in_group("smash"):
+		$AudioStreamPlayer2.play()
+		get_tree().current_scene.shaker.start(1, 10, 2)

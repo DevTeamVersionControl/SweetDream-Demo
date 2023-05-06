@@ -1041,10 +1041,10 @@ script = ExtResource( 23 )
 position = Vector2( 343, 179 )
 shape = SubResource( 1 )
 
-[node name="WallSensor" type="Area2D" parent="."]
+[node name="WallSensor" type="Area2D" parent="." groups=["smash"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WallSensor"]
-position = Vector2( 398.706, 273.177 )
+position = Vector2( 398, 324 )
 shape = SubResource( 12 )
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="WallSensor"]

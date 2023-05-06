@@ -125,7 +125,7 @@ func apply_drop(item:Dictionary):
 	if item["Drop"] == "Sugar":
 		sugar += 10
 	elif item["Drop"] == "Health":
-		health += 5
+		health += 7
 	get_tree().current_scene.player.update_display()
 
 func lifesaver(_placeholder)->void:

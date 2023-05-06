@@ -23,8 +23,6 @@ onready var charge_length_timer := $ChargeLengthTimer
 func enter(_msg := {}) -> void:
 	jawbreaker_boss.animation_player.play("Charge")
 	charge_length_timer.start(DASH_TIME)
-	jawbreaker_boss.audio_stream_player.stream = jawbreaker_boss.DASH
-	jawbreaker_boss.audio_stream_player.play()
 
 func physics_update(_delta: float) -> void:
 	for body in jawbreaker_boss.wall_sensor.get_overlapping_areas():
