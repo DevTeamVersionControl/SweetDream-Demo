@@ -26,8 +26,6 @@ func enter(_msg := {}) -> void:
 			state_machine.transition_to("Phase3")
 			return
 		shoot()
-		jawbreaker_boss.audio_stream_player.stream = jawbreaker_boss.SHOOT
-		jawbreaker_boss.audio_stream_player.play()
 		yield(get_tree().create_timer(0.6), "timeout")
 	yield(get_tree().create_timer(1), "timeout")
 	if jawbreaker_boss.should_transition == true:
@@ -41,6 +39,8 @@ func physics_update(_delta: float) -> void:
 	jawbreaker_boss.motion = jawbreaker_boss.move_and_slide(jawbreaker_boss.motion)
 
 func shoot():
+	jawbreaker_boss.audio_stream_player.stream = jawbreaker_boss.SHOOT
+	jawbreaker_boss.audio_stream_player.play()
 	var projectile = PROJECTILE.instance()
 	projectile.motion = Vector2.RIGHT if jawbreaker_boss.facing_right else Vector2.LEFT
 	projectile.motion *= SPEED

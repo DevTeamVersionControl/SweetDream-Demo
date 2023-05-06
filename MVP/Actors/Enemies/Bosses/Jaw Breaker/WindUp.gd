@@ -20,8 +20,8 @@ const DASH_SPEED = 300
 
 func enter(_msg := {}) -> void:
 	jawbreaker_boss.animation_player.play("ChargeStart")
-	jawbreaker_boss.audio_stream_player.stream = jawbreaker_boss.WIND_UP
-	jawbreaker_boss.audio_stream_player.play()
+#	jawbreaker_boss.audio_stream_player.stream = jawbreaker_boss.WIND_UP
+#	jawbreaker_boss.audio_stream_player.play()
 	yield(jawbreaker_boss.animation_player, "animation_finished")
 	state_machine.transition_to("Charge")
 

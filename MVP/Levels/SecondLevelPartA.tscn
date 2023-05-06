@@ -1567,8 +1567,8 @@ motion_scale = Vector2( 0.1, 1 )
 
 [node name="BackgroundColor" type="Sprite" parent="Slice 1/ParallaxLayer4"]
 light_mask = 0
-position = Vector2( 1767.2, 929.097 )
-scale = Vector2( 1.09132, 1.27553 )
+position = Vector2( 1609.2, 1097.1 )
+scale = Vector2( 1.09728, 1.318 )
 z_index = -100
 texture = ExtResource( 8 )
 
@@ -3420,9 +3420,11 @@ scale = Vector2( 1.17741, 1.01721 )
 
 [node name="Pickup10" parent="GetGud" instance=ExtResource( 15 )]
 position = Vector2( 1783.78, 1043.65 )
+scale = Vector2( 0.441923, 0.388708 )
 description = {
 "Description": "Old and imprecise, but still useful",
 "Effect": [ "unlock_map", "placeholder" ],
+"Icon": "res://UserInterface/Map/Map 720p.png",
 "Name": "Old map"
 }
 

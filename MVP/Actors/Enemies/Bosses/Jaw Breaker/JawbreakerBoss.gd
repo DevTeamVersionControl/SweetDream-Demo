@@ -79,5 +79,7 @@ func _on_EnemyCounter_on():
 		state_machine.state.activate()
 
 func play_ground_slam():
+	audio_stream_player.volume_db = 10
 	audio_stream_player.stream = GROUND_SLAM
 	audio_stream_player.play()
+	yield(audio_stream_player,"finished")
