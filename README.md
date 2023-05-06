@@ -1,6 +1,6 @@
 # Sweet Dream
-A sweet video game in the style of a metroidvania where you explore a candy world
 ![](game_screenshot.png)
+Sweet Dream is a 2D hand drawn Metroid Vania where you find yourself stuck in a candy world.
 ## Development
 This game is still in development, if you want to help with playtesting, programming, art, music or sound effects, you can join our [discord](https://discord.gg/Z7xxwh9mGB).
 ## Demo
