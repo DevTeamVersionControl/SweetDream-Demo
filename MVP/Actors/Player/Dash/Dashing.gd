@@ -57,8 +57,8 @@ func on_can_dash():
 	if player.lifesaver != null:
 		player.lifesaver.get_material().set("shader_param/flashState", 0.0)
 	can_dash = true
-	dash_audio.stream = COMEBACK
-	dash_audio.play()
+#	dash_audio.stream = COMEBACK
+#	dash_audio.play()
 
 func on_dash_end():
 	state_machine.transition_to("Air")
