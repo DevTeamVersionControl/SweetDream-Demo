@@ -24,7 +24,7 @@ func set_level(path:String):
 	for i in maps.size():
 		if maps[i].path == path:
 			current_map_index = i
-	if current_map_index != -1 and File.new().file_exists("res://UserInterface/Map/"+path.get_file().trim_suffix('.tscn')+".png"):
+	if current_map_index != -1 and File.new().file_exists("res://UserInterface/Map/"+path.get_file().trim_suffix('.tscn')+".png.import"):
 		sprite.show()
 		texture_rect.texture = load("res://UserInterface/Map/"+path.get_file().trim_suffix('.tscn')+".png")
 		color_rect.rect_position = maps[current_map_index].color_rect_position
