@@ -3552,4 +3552,16 @@ texture = ExtResource( 37 )
 hframes = 8
 vframes = 16
 
+[node name="Tutorial indicator2" parent="." instance=ExtResource( 36 )]
+position = Vector2( 465, 134 )
+
+[node name="Sprite" type="Node2D" parent="Tutorial indicator2"]
+
+[node name="Sprite" type="Sprite" parent="Tutorial indicator2/Sprite"]
+scale = Vector2( 1.3, 1.5 )
+texture = ExtResource( 37 )
+hframes = 8
+vframes = 14
+frame = 41
+
 [connection signal="on" from="GetGud/Button" to="." method="_on_Button_on"]
