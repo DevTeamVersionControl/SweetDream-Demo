@@ -19,6 +19,7 @@ onready var sprite := get_node_or_null("Sprite")
 
 var save_path = GameSaver.save_path
 var tween : SceneTreeTween
+var seen := false
 
 export var temporary = true
 
@@ -32,6 +33,7 @@ func _on_Tutorial_indicator_body_entered(body):
 		tween.tween_property(sprite, "position", Vector2(0,3), 0.6)
 		tween.tween_property(sprite, "position", Vector2(0,-3), 0.6)
 		tween.set_loops()
+		seen = true
 
 func _on_Tutorial_indicator_body_exited(body):
 	if body is Player:
@@ -39,7 +41,7 @@ func _on_Tutorial_indicator_body_exited(body):
 		tween.stop()
 
 func save(game_data):
-	game_data[get_tree().current_scene.current_level.filename + name] = temporary
+	game_data[get_tree().current_scene.current_level.filename + name] = seen if temporary else false
 
 func load(game_data):
 	if game_data.has(get_tree().current_scene.current_level.filename + name):

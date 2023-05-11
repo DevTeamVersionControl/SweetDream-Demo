@@ -34,6 +34,9 @@ var checkpoint = GlobalTypes.Checkpoint.new("Checkpoint",first_level)
 
 func _ready():
 	GlobalVars.initialize()
+	if GameSaver.get_save("user://MoreSettings.json").has("Timer"):
+		if GameSaver.get_save("user://MoreSettings.json").get("Timer"):
+			hud.activate_timer()
 	load_level(checkpoint.level, checkpoint.name)
 
 func save(game_data):

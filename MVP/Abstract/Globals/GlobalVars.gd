@@ -43,6 +43,7 @@ func initialize():
 	equiped_ammo_index = 0
 	max_health = BASE_MAX_HEALTH
 	max_health_packs = 0
+	health = max_health
 	health_packs = max_health_packs
 	max_sugar = BASE_MAX_SUGAR
 	sugar = max_sugar
@@ -124,8 +125,12 @@ func add_currency(item:Dictionary):
 func apply_drop(item:Dictionary):
 	if item["Drop"] == "Sugar":
 		sugar += 10
+		if sugar > max_sugar:
+			sugar = max_sugar
 	elif item["Drop"] == "Health":
-		health += 7
+		health += 15
+		if health > max_health:
+			health = max_health
 	get_tree().current_scene.player.update_display()
 
 func lifesaver(_placeholder)->void:

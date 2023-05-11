@@ -22,11 +22,15 @@ func enter(_msg := {}) -> void:
 	player.animation_mode.travel("Crouched")
 	player.camera_arm.position.x = 127 if player.facing_right else -127
 
-func physics_update(_delta: float) -> void:
+func physics_update(delta: float) -> void:
 	if not player.is_on_floor():
 		state_machine.transition_to("Air")
 		return
-
+	
+	player.velocity.y += player.GRAVITY * delta
+	player.velocity.x = 0
+	player.velocity = player.move_and_slide(player.velocity, Vector2.UP)
+	
 	if Input.is_action_just_pressed("move_up"):
 		state_machine.transition_to("Air", {do_jump = true})
 	elif Input.is_action_pressed("shoot") && GlobalVars.ammo_equipped_array.size() != 0 && player.can_shoot && GlobalVars.ammo_equipped_array[GlobalVars.equiped_ammo_index] != null && GlobalVars.sugar >= GlobalVars.ammo_equipped_array[GlobalVars.equiped_ammo_index].sugar:

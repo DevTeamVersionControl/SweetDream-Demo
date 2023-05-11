@@ -2765,7 +2765,6 @@ target_scene = "res://Levels/SecondLevelPartA.tscn"
 [node name="Tutorial indicator2" parent="." instance=ExtResource( 36 )]
 position = Vector2( 3317, 2639 )
 scale = Vector2( 1, 3 )
-temporary = false
 
 [node name="Sprite" type="Node2D" parent="Tutorial indicator2"]
 visible = false

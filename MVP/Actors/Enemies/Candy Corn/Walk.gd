@@ -27,7 +27,7 @@ func enter(msg := {}) -> void:
 func physics_update(_delta):
 	if candy_corn.health > 0:
 		candy_corn.motion.x = candy_corn.SPEED if candy_corn.facing_right else -candy_corn.SPEED
-		candy_corn.motion.y += 10
+		candy_corn.motion.y += 8
 		candy_corn.motion = candy_corn.move_and_slide(candy_corn.motion)
 		if candy_corn.facing_right == (candy_corn.target.global_position.x - candy_corn.global_position.x < 0):
 			state_machine.transition_to("TurnAround", {from_walk = true})

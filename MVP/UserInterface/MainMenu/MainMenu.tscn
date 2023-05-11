@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://UserInterface/SoundMenu/SoundMenu.tscn" type="PackedScene" id=1]
 [ext_resource path="res://UserInterface/MainMenu/MainMenu.gd" type="Script" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Levels/Funicular lift/Funicular Backgrond/Funicular Background.png" type="Texture" id=4]
 [ext_resource path="res://UserInterface/Fonts/Maler.ttf" type="DynamicFontData" id=5]
 [ext_resource path="res://Levels/FirstLevel/Dream Culture.mp3" type="AudioStream" id=6]
+[ext_resource path="res://UserInterface/MoreMenu/MoreMenu.tscn" type="PackedScene" id=7]
 
 [sub_resource type="DynamicFont" id=1]
 size = 175
@@ -95,3 +96,6 @@ visible = false
 stream = ExtResource( 6 )
 autoplay = true
 bus = "Music"
+
+[node name="MoreMenu" parent="." instance=ExtResource( 7 )]
+visible = false

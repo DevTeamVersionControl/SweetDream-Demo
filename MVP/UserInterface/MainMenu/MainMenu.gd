@@ -4,6 +4,7 @@ onready var item_list = $ItemList
 onready var input_menu = $InputMenu
 onready var level_transition = $LevelTransition
 onready var sound_menu := $SoundMenu
+onready var more_menu := $MoreMenu
 
 var index := 0
 
@@ -49,6 +50,8 @@ func select_option():
 				sound_menu.show()
 			"Controls":
 				input_menu.show()
+			"More":
+				more_menu.show()
 			"Back":
 				load_menu()
 	else:
@@ -71,6 +74,7 @@ func load_settings():
 	item_list.clear()
 	item_list.add_item("Sound")
 	item_list.add_item("Controls")
+	item_list.add_item("More")
 	item_list.add_item("Back")
 	index = 0
 	item_list.select(index)

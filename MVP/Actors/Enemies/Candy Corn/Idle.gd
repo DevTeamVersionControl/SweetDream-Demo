@@ -40,3 +40,8 @@ func _on_InterestTimer_timeout():
 	if candy_corn.health > 0:
 		candy_corn.target = null
 		state_machine.transition_to("Idle")
+
+func _physics_process(delta):
+	candy_corn.motion.x = 0
+	candy_corn.motion.y += 8
+	candy_corn.motion = candy_corn.move_and_slide(candy_corn.motion)
