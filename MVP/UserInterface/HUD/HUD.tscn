@@ -92,26 +92,24 @@ rect_scale = Vector2( 1.36274, 1.31389 )
 expand = true
 stretch_mode = 5
 
-[node name="SpeedrunTimer" type="Control" parent="."]
-visible = false
-margin_right = 40.0
-margin_bottom = 40.0
+[node name="SpeedrunTimer" type="CanvasLayer" parent="."]
+layer = 128
 
 [node name="ColorRect" type="ColorRect" parent="SpeedrunTimer"]
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = 1535.0
+margin_left = -385.0
 margin_top = 30.0
-margin_right = 1830.0
+margin_right = -90.0
 margin_bottom = 117.0
 color = Color( 0.0745098, 0.0235294, 0.0235294, 1 )
 
 [node name="Label" type="Label" parent="SpeedrunTimer"]
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = 1538.0
+margin_left = -382.0
 margin_top = 20.0
-margin_right = 1828.0
+margin_right = -92.0
 margin_bottom = 122.0
 theme = SubResource( 2 )
 text = "00:00:00.00"
