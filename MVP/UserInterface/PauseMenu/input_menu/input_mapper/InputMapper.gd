@@ -80,5 +80,6 @@ func save(save_data):
 	save_data["custom"] = custom
 
 func load(save_data):
-	custom = save_data["custom"]
+	if save_data.has("custom"):
+		custom = save_data["custom"]
 	change_profile(int(save_data["current_profile"]))

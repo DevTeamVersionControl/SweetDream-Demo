@@ -26,7 +26,7 @@ var target
 export var initial_target_player : bool
 export var facing_right := true
 export var motion = Vector2()
-export var health = 70
+export var health = 50
 export var gravity = 100
 
 onready var animation_player := $AnimationPlayer

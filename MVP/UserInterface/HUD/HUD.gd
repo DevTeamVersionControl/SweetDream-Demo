@@ -22,9 +22,6 @@ onready var sugar_bar = $Resizer/TextureProgress2
 onready var health_pack_display = $Resizer/TextureProgress3
 var game_time := StopWatch.new()
 
-func _ready():
-	set_physics_process_internal(false)
-
 func connect_player():
 	get_tree().current_scene.player.connect("changed_ammo", self, "_on_changed_ammo")
 	get_tree().current_scene.player.connect("changed_health", self, "_on_changed_health")

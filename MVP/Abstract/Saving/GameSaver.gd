@@ -40,7 +40,10 @@ func load():
 		node.load(save_data)
 
 func partial_load(node:Node):
-	node.load(get_save(node.save_path))
+	var save_data : Dictionary = get_save(node.save_path)
+	if save_data.size() == 0:
+		return
+	node.load(save_data)
 	
 func partial_save(node:Node):
 	var file = File.new()

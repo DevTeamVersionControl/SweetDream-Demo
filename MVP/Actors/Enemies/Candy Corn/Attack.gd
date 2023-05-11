@@ -35,7 +35,7 @@ func play_attack():
 	candy_corn.audio_stream_player.stream = ATTACK
 	candy_corn.audio_stream_player.play()
 
-func _physics_process(delta):
+func physics_update(delta):
 	candy_corn.motion.x = 0
 	candy_corn.motion.y += 8
 	candy_corn.motion = candy_corn.move_and_slide(candy_corn.motion)

@@ -94,6 +94,7 @@ stretch_mode = 5
 
 [node name="SpeedrunTimer" type="CanvasLayer" parent="."]
 layer = 128
+visible = false
 
 [node name="ColorRect" type="ColorRect" parent="SpeedrunTimer"]
 anchor_left = 1.0

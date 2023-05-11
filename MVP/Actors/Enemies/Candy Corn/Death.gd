@@ -20,6 +20,7 @@ extends CandyCornState
 const PICKUP = preload("res://Pickups/Pickup.tscn")
 
 func enter(_msg := {}) -> void:
+	candy_corn.motion = Vector2.ZERO
 	candy_corn.get_node("CollisionShape2D").set_deferred("disabled", true)
 	candy_corn.animation_player.play("Death")
 	yield(candy_corn.animation_player, "animation_finished")

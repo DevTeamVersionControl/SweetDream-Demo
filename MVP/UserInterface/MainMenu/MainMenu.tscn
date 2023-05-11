@@ -82,9 +82,6 @@ auto_height = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0, 0, 0, 0 )
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="InputMenu" parent="." instance=ExtResource( 3 )]
 visible = false

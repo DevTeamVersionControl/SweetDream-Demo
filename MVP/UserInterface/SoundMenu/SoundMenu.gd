@@ -20,7 +20,7 @@ var save_path = "user://MoreSettings.json"
 onready var timer := $HBoxContainer/VBoxContainer3/HBoxContainer/VBoxContainer/HBoxContainer/CheckBox
 
 func _ready():
-	GameSaver.partial_load(self)
+	yield(get_tree().create_timer(0.1), "timeout")
 	GameSaver.partial_save(self)
 	GameSaver.partial_load(self)
 
