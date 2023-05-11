@@ -84,4 +84,4 @@ class StopWatch:
 					hours += int(float(minutes)/60)
 					minutes -= int(float(minutes)/60)*60
 	func get_time()->String:
-		return str(0 if hours < 10 else "",hours,":",0 if minutes < 10 else "",minutes,":",0 if seconds < 10 else "",seconds, ".", int(time*100))
+		return str(0 if hours < 10 else "",hours,":",0 if minutes < 10 else "",minutes,":",0 if seconds < 10 else "",seconds, ".", 0 if int(time*100) < 10 else "", int(time*100))
