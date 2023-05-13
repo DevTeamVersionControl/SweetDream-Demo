@@ -22,9 +22,9 @@ onready var music_volume := $HBoxContainer/VBoxContainer3/HBoxContainer/VBoxCont
 onready var effects_volume := $HBoxContainer/VBoxContainer3/HBoxContainer/VBoxContainer2/HBoxContainer4/HSlider
 
 func _ready():
+	yield(get_tree().create_timer(0.1), "timeout")
 	GameSaver.partial_load(self)
 	GameSaver.partial_save(self)
-	GameSaver.partial_load(self)
 
 func input(event):
 	if visible:
