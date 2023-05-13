@@ -17,16 +17,20 @@ extends PlayerState
 
 var jump_buffer := false
 var coyote_time := false
+var jump_cut_off := false
 var input_locked := false
 var double_jump := false
 var cache := Vector2.ZERO
 
 onready var jump_buffer_timer := $JumpBufferTimer
 onready var coyote_time_timer := $CoyoteTimeTimer
+onready var jump_cut_off_timer := $JumpCutOffTimer
 onready var jump_audio := $Jump
 
 # If we get a message asking us to jump, we jump.
 func enter(msg := {}) -> void:
+	jump_buffer = false
+	coyote_time = false
 	if msg.has("do_jump"):
 		player.velocity.y = -player.JUMP_IMPULSE
 		player.animation_mode.travel("Air")
@@ -39,6 +43,8 @@ func enter(msg := {}) -> void:
 		coyote_time_timer.start()
 	player.animation_tree.set('parameters/Air/blend_position', 1 if player.velocity.normalized().y > 0 else -1)
 	cache = player.velocity
+	jump_cut_off = false
+	jump_cut_off_timer.start()
 	
 
 func physics_update(delta: float) -> void:
@@ -96,6 +102,7 @@ func physics_update(delta: float) -> void:
 			if !double_jump:
 				double_jump = true
 				state_machine.transition_to("Air", {do_jump = true})
+
 		
 		# Dash
 		if Input.is_action_pressed("dash"):
@@ -106,7 +113,7 @@ func physics_update(delta: float) -> void:
 			player.velocity.y -= player.JUMP_ACCEL * delta
 		
 		# Hollow knight jump
-		if Input.is_action_just_released("move_up") && player.velocity.y < 0:
+		if Input.is_action_just_released("move_up") && player.velocity.y < 0 && jump_cut_off:
 			player.velocity.y = 0
 			
 		#Coyote time
@@ -135,3 +142,6 @@ func lock_input(direction : bool):
 	player.facing_right = direction
 	player.sprite.flip_h = !player.facing_right
 	player.camera_arm.position.x = 127 if player.facing_right else -127
+
+func _on_JumpCutOffTimer_timeout():
+	jump_cut_off = true

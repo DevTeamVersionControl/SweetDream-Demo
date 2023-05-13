@@ -4152,6 +4152,9 @@ bus = "Sound Effects"
 pause_mode = 1
 script = ExtResource( 5 )
 
+[node name="JumpCutOffTimer" type="Timer" parent="StateMachine/Air"]
+one_shot = true
+
 [node name="JumpBufferTimer" type="Timer" parent="StateMachine/Air"]
 wait_time = 0.1
 
@@ -4243,6 +4246,7 @@ texture = ExtResource( 9 )
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 bus = "Sound Effects"
 
+[connection signal="timeout" from="StateMachine/Air/JumpCutOffTimer" to="StateMachine/Air" method="_on_JumpCutOffTimer_timeout"]
 [connection signal="timeout" from="StateMachine/Air/JumpBufferTimer" to="StateMachine/Air" method="_on_JumpBufferTimer_timeout"]
 [connection signal="timeout" from="StateMachine/Air/CoyoteTimeTimer" to="StateMachine/Air" method="_on_CoyoteTimeTimer_timeout"]
 [connection signal="timeout" from="StateMachine/Dashing/DashResetTimer" to="StateMachine/Dashing" method="on_can_dash"]
