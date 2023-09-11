@@ -1,3 +1,7 @@
+# Warning!
+
+​This game has been copied several times by other pages to distribute malware. Our official Itch page is https://devflipstudios.itch.io/sweet-dream​ but just to be safe I would recommend downloading the game from our github page : https://github.com/DevTeamVersionControl/SweetDream​. The file size should be 258 MB for Windows and 259 MB for Linux and we never use dropbox or mediafire or any third party downloading tools, just Itch and Github. Stay safe!
+
 # Sweet Dream
 ![](game_screenshot.png)
 Sweet Dream is a 2D hand drawn Metroid Vania where you find yourself stuck in a candy world.
@@ -22,3 +26,5 @@ This program is free software: you can redistribute it and/or modify it under th
 This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License along with this program. If not, see https://www.gnu.org/licenses/.
+
+This game is not really educational, but apparently some scam copying scripts skip pages with that word in them so let's try it.
