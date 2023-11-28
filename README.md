@@ -1,6 +1,6 @@
 # Warning!
 
-​This game has been copied several times by other pages to distribute malware. Our official Itch page is https://devflipstudios.itch.io/sweet-dream​ but just to be safe I would recommend downloading the game from our github page : https://github.com/DevTeamVersionControl/SweetDream​. The file size should be 258 MB for Windows and 259 MB for Linux and we never use dropbox or mediafire or any third party downloading tools, just Itch and Github. Stay safe!
+​This game has been copied several times by other pages to distribute malware. Our official Itch page is [https://devflipstudios.itch.io/sweet-dream](https://devflipstudios.itch.io/sweet-dream)​ but just to be safe I would recommend downloading the game from our github page : [https://github.com/DevTeamVersionControl/SweetDream-Demo](https://github.com/DevTeamVersionControl/SweetDream-Demo)​. The file size should be 258 MB for Windows and 259 MB for Linux and we never use dropbox or mediafire or any third party downloading tools, just Itch and Github. Stay safe!
 
 # Sweet Dream
 ![](game_screenshot.png)
