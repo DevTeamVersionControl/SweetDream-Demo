@@ -6,7 +6,7 @@
 ![](game_screenshot.png)
 Sweet Dream is a 2D hand drawn Metroid Vania where you find yourself stuck in a candy world.
 ## Development
-This game is still in development, if you want to help with playtesting, programming, art, music or sound effects, you can join our [discord](https://discord.gg/Z7xxwh9mGB).
+This game is still in development, if you want to help with playtesting, programming, art, music or sound effects, you can join our [discord](https://discord.gg/yMRTBPkwm4).
 ## Demo
 Our first demo is out! You can try download in in our releases or on our [itch page](https://devflipstudios.itch.io/sweet-dream)
 ## Open source
