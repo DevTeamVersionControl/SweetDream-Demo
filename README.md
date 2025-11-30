@@ -19,7 +19,7 @@ This game was made (mostly) using open source software and is also open source. 
 - [Adobe photoshop](https://www.adobe.com/creativecloud/plans.html?plan=individual&filter=all&promoid=PYPVPZQK&mv=other)
 - [Adobe animate](https://www.adobe.com/creativecloud/plans.html?plan=individual&filter=all&promoid=PYPVPZQK&mv=other)
 ## License
-Copyright (C) 2022-2023 Kamran Charles Nayebi and William Duplain
+Copyright (C) 2022-2023 Sophie Nayebi and William Duplain
 
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 
